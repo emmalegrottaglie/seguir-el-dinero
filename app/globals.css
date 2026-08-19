@@ -1,0 +1,193 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ *
+   SEGUIR EL DINERO — investigative "dossier" design system
+ * ------------------------------------------------------------------ */
+
+:root {
+  --ink: #100e0a;
+  --ink-2: #17140e;
+  --ink-3: #1f1b13;
+  --paper: #ece2cd;
+  --paper-dim: #a99e86;
+  --paper-faint: #6f6857;
+  --gold: #d3a24c;
+  --gold-bright: #f2c56a;
+  --red: #cc5a45;
+  --line: rgba(236, 226, 205, 0.12);
+  --line-strong: rgba(236, 226, 205, 0.22);
+
+  --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
+  --font-body: var(--font-archivo), system-ui, sans-serif;
+  --font-mono: var(--font-mono-plex), "SFMono-Regular", ui-monospace, monospace;
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-paper: var(--paper);
+  --color-gold: var(--gold);
+  --font-sans: var(--font-body);
+  --font-mono: var(--font-mono);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-body);
+  font-feature-settings: "ss01", "cv01";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Atmosphere: a soft gold aura at the top and a persistent film-grain overlay. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(120% 60% at 50% -10%, rgba(211, 162, 76, 0.14), transparent 60%),
+    radial-gradient(90% 50% at 85% 0%, rgba(204, 90, 69, 0.06), transparent 55%);
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+main,
+header,
+footer {
+  position: relative;
+  z-index: 2;
+}
+
+/* Typographic primitives ------------------------------------------------ */
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  font-size: 0.68rem;
+  color: var(--gold);
+}
+
+.label-mono {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.7rem;
+  color: var(--paper-dim);
+}
+
+.hairline {
+  height: 1px;
+  background: var(--line);
+  border: none;
+}
+
+.panel {
+  background: linear-gradient(180deg, var(--ink-2), var(--ink));
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+
+.rule-top {
+  border-top: 1px solid var(--line-strong);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background: var(--gold);
+  color: var(--ink);
+}
+
+/* A ticking underline used under section headers. */
+.section-tick {
+  position: relative;
+}
+.section-tick::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.5rem;
+  width: 2.5rem;
+  height: 2px;
+  background: var(--gold);
+}
+
+/* Methodology prose ---------------------------------------------------- */
+.prose-dossier strong {
+  color: var(--paper);
+  font-weight: 600;
+}
+.prose-dossier em {
+  color: var(--gold);
+  font-style: italic;
+}
+.prose-dossier ul {
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.prose-dossier li {
+  position: relative;
+  padding-left: 1.4rem;
+}
+.prose-dossier li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+}
+.src {
+  color: var(--gold);
+  text-decoration: underline;
+  text-decoration-color: rgba(211, 162, 76, 0.4);
+  text-underline-offset: 3px;
+}
+.src:hover {
+  color: var(--gold-bright);
+}
+
+/* Reduce motion for users who ask for it. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
