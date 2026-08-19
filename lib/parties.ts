@@ -55,11 +55,3 @@ export function partyMeta(nif: string, rawName: string): PartyMeta {
     bloc: "otro",
   };
 }
-
-export const BLOC_LABELS: Record<Bloc, string> = {
-  derecha: "Derecha",
-  izquierda: "Izquierda",
-  nacionalista: "Nacionalista",
-  regionalista: "Regionalista",
-  otro: "Otro",
-};

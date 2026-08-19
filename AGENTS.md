@@ -66,6 +66,14 @@ Two concrete examples from the build:
 | `app/party/[nif]/page.tsx` | Party detail: public + private money, faces, ledger, news |
 | `app/politician/[slug]/page.tsx` + `app/caras` | Individual politician pages + index |
 | `app/metodologia/page.tsx` | Methodology + legal caveats |
+| `lib/i18n.ts` | Dictionaries (es/en/ca) + `getDict(locale)`/`relativeTime`; client-safe |
+| `middleware.ts` | Redirects non-prefixed paths to `/{locale}/…` (cookie → Accept-Language → default) |
+| `app/[locale]/…` | All pages live under the locale segment; layout sets `<html lang>` + localized `generateMetadata`, statically generated per locale |
+| `components/LocaleToggle.tsx` | Header ES/EN/CA switch (navigates to the swapped-locale URL) |
+
+Locale comes from the URL (`/es`, `/en`, `/ca`), so pages stay statically generated (ISR)
+rather than being forced dynamic. Number/date formatting is localized via the locale's BCP-47
+tag threaded through `lib/format.ts`.
 
 ## Run / verify
 

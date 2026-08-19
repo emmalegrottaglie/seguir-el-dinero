@@ -3,18 +3,11 @@
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import type { BlueskyPost } from "@/lib/bluesky";
+import { DICTS, relativeTime, type Locale } from "@/lib/i18n";
 
-function relative(iso: string): string {
-  if (!iso) return "";
-  const diff = Date.now() - new Date(iso).getTime();
-  const h = Math.round(diff / 3.6e6);
-  if (h < 1) return "hace un momento";
-  if (h < 24) return `hace ${h} h`;
-  return `hace ${Math.round(h / 24)} d`;
-}
-
-export default function BlueskyFeed({ actor }: { actor: string }) {
+export default function BlueskyFeed({ actor, locale }: { actor: string; locale: Locale }) {
   const [posts, setPosts] = useState<BlueskyPost[] | null>(null);
+  const f = DICTS[locale].feed;
 
   useEffect(() => {
     let alive = true;
@@ -38,9 +31,7 @@ export default function BlueskyFeed({ actor }: { actor: string }) {
         ))}
 
       {posts?.length === 0 && (
-        <p className="label-mono py-4 text-[var(--paper-faint)]">
-          No se pudieron cargar publicaciones ahora mismo.
-        </p>
+        <p className="label-mono py-4 text-[var(--paper-faint)]">{f.cannotLoad}</p>
       )}
 
       {posts?.map((p, i) => (
@@ -54,10 +45,10 @@ export default function BlueskyFeed({ actor }: { actor: string }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: Math.min(i * 0.06, 0.4) }}
         >
-          {p.isRepost && <p className="label-mono mb-1 text-[var(--paper-faint)]">↻ Republicado</p>}
+          {p.isRepost && <p className="label-mono mb-1 text-[var(--paper-faint)]">{f.reposted}</p>}
           <p className="whitespace-pre-wrap text-[var(--paper)]">{p.text}</p>
           <p className="label-mono mt-3 flex gap-4 text-[var(--paper-faint)]">
-            <span className="text-[var(--gold)]">{relative(p.createdAt)}</span>
+            <span className="text-[var(--gold)]">{relativeTime(p.createdAt, locale)}</span>
             <span>♡ {p.likes.toLocaleString("es-ES")}</span>
             <span>↻ {p.reposts.toLocaleString("es-ES")}</span>
           </p>

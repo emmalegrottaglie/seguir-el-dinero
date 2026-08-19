@@ -4,21 +4,33 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { motion } from "motion/react";
 import type { Aggregation, SubsidyKind } from "@/lib/types";
+import { BCP47, type Dict, type Locale } from "@/lib/i18n";
 import { filterAggregation } from "@/lib/normalize";
 import { euroCompact, integer, percent, formatDate } from "@/lib/format";
 import CountUp from "./CountUp";
 
 type KindFilter = SubsidyKind | "all";
 
-const KIND_TABS: { key: KindFilter; label: string }[] = [
-  { key: "all", label: "Todas" },
-  { key: "ordinaria", label: "Financiación ordinaria" },
-  { key: "seguridad", label: "Gastos de seguridad" },
-];
-
-export default function Dashboard({ base }: { base: Aggregation }) {
+export default function Dashboard({
+  base,
+  home,
+  kinds,
+  locale,
+}: {
+  base: Aggregation;
+  home: Dict["home"];
+  kinds: Dict["kinds"];
+  locale: Locale;
+}) {
+  const bcp47 = BCP47[locale];
   const [kind, setKind] = useState<KindFilter>("all");
   const [years, setYears] = useState<number[]>([]); // empty = all years
+
+  const kindTabs: { key: KindFilter; label: string }[] = [
+    { key: "all", label: kinds.all },
+    { key: "ordinaria", label: kinds.ordinaria },
+    { key: "seguridad", label: kinds.seguridad },
+  ];
 
   const agg = useMemo(
     () => filterAggregation(base, { kind, years }),
@@ -27,7 +39,7 @@ export default function Dashboard({ base }: { base: Aggregation }) {
 
   const maxTotal = agg.parties[0]?.total ?? 1;
   const totalGrants = agg.parties.reduce((s, p) => s + p.grants.length, 0);
-  const updated = formatDate(base.generatedAt.slice(0, 10));
+  const updated = formatDate(base.generatedAt.slice(0, 10), bcp47);
 
   const toggleYear = (y: number) =>
     setYears((prev) => (prev.includes(y) ? prev.filter((v) => v !== y) : [...prev, y]));
@@ -42,7 +54,7 @@ export default function Dashboard({ base }: { base: Aggregation }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          Subvenciones estatales · {base.years[0]}–{base.years.at(-1)}
+          {home.eyebrow} · {base.years[0]}–{base.years.at(-1)}
         </motion.p>
 
         <motion.h1
@@ -51,8 +63,9 @@ export default function Dashboard({ base }: { base: Aggregation }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.05 }}
         >
-          ¿Quién financia a<br />
-          los <span className="italic text-[var(--gold)]">partidos</span>?
+          {home.titlePre}
+          <span className="italic text-[var(--gold)]">{home.titleEmph}</span>
+          {home.titlePost}
         </motion.h1>
 
         <motion.p
@@ -61,9 +74,7 @@ export default function Dashboard({ base }: { base: Aggregation }) {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          El dinero público que el Estado entrega a cada partido, tomado en directo
-          de la Base de Datos Nacional de Subvenciones. Filtra por año y por tipo de
-          ayuda para ver el reparto.
+          {home.intro}
         </motion.p>
 
         {/* Grand total */}
@@ -74,17 +85,18 @@ export default function Dashboard({ base }: { base: Aggregation }) {
           transition={{ duration: 0.7, delay: 0.3 }}
         >
           <div>
-            <p className="label-mono mb-2">Total concedido (selección)</p>
+            <p className="label-mono mb-2">{home.totalLabel}</p>
             <CountUp
               value={agg.grandTotal}
               as="euro"
+              bcp47={bcp47}
               className="mono block text-4xl text-[var(--gold-bright)] sm:text-6xl"
             />
           </div>
           <dl className="flex gap-8">
-            <Stat label="Partidos" value={integer(agg.parties.length)} />
-            <Stat label="Concesiones" value={integer(totalGrants)} />
-            <Stat label="Actualizado" value={updated} />
+            <Stat label={home.parties} value={integer(agg.parties.length, bcp47)} />
+            <Stat label={home.concessions} value={integer(totalGrants, bcp47)} />
+            <Stat label={home.updated} value={updated} />
           </dl>
         </motion.div>
       </section>
@@ -93,22 +105,22 @@ export default function Dashboard({ base }: { base: Aggregation }) {
       <section className="mx-auto max-w-6xl px-5">
         <div className="panel flex flex-col gap-5 p-5 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex flex-wrap gap-2">
-            {KIND_TABS.map((t) => (
+            {kindTabs.map((tab) => (
               <button
-                key={t.key}
-                onClick={() => setKind(t.key)}
+                key={tab.key}
+                onClick={() => setKind(tab.key)}
                 className={`label-mono rounded-full border px-4 py-2 transition-all ${
-                  kind === t.key
+                  kind === tab.key
                     ? "border-[var(--gold)] bg-[var(--gold)] text-[var(--ink)]"
                     : "border-[var(--line-strong)] text-[var(--paper-dim)] hover:border-[var(--gold)] hover:text-[var(--paper)]"
                 }`}
               >
-                {t.label}
+                {tab.label}
               </button>
             ))}
           </div>
           <div className="flex flex-wrap items-center gap-2">
-            <span className="label-mono mr-1 text-[var(--paper-faint)]">Ejercicio</span>
+            <span className="label-mono mr-1 text-[var(--paper-faint)]">{home.year}</span>
             {base.years.map((y) => {
               const active = years.length === 0 || years.includes(y);
               return (
@@ -132,7 +144,7 @@ export default function Dashboard({ base }: { base: Aggregation }) {
                 onClick={() => setYears([])}
                 className="label-mono ml-1 text-[var(--red)] hover:underline"
               >
-                Reset
+                {home.reset}
               </button>
             )}
           </div>
@@ -142,10 +154,10 @@ export default function Dashboard({ base }: { base: Aggregation }) {
       {/* ---------- Ranked bars ---------- */}
       <section className="mx-auto max-w-6xl px-5 pt-14">
         <div className="mb-8 flex items-end justify-between">
-          <h2 className="display section-tick text-2xl">Reparto por partido</h2>
+          <h2 className="display section-tick text-2xl">{home.distribution}</h2>
           <div className="label-mono hidden items-center gap-4 sm:flex">
-            <Legend color="var(--gold)" label="Ordinaria" />
-            <Legend color="var(--red)" label="Seguridad" />
+            <Legend color="var(--gold)" label={kinds.ordinaria} />
+            <Legend color="var(--red)" label={kinds.seguridad} />
           </div>
         </div>
 
@@ -163,7 +175,7 @@ export default function Dashboard({ base }: { base: Aggregation }) {
                 transition={{ duration: 0.5, delay: Math.min(i * 0.035, 0.5) }}
               >
                 <Link
-                  href={`/party/${p.nif}`}
+                  href={`/${locale}/party/${p.nif}`}
                   className="group grid grid-cols-[2rem_1fr] items-center gap-x-4 gap-y-2 rounded-md px-2 py-4 transition-colors hover:bg-[var(--ink-2)] sm:grid-cols-[2rem_11rem_1fr_9rem]"
                 >
                   <span className="mono text-sm text-[var(--paper-faint)]">
@@ -188,8 +200,8 @@ export default function Dashboard({ base }: { base: Aggregation }) {
                   </span>
 
                   <span className="col-start-2 flex items-baseline justify-between gap-3 sm:col-start-4 sm:justify-end">
-                    <span className="mono text-sm text-[var(--paper)]">{euroCompact(p.total)}</span>
-                    <span className="mono text-xs text-[var(--paper-faint)]">{percent(p.share)}</span>
+                    <span className="mono text-sm text-[var(--paper)]">{euroCompact(p.total, bcp47)}</span>
+                    <span className="mono text-xs text-[var(--paper-faint)]">{percent(p.share, bcp47)}</span>
                   </span>
                 </Link>
                 <hr className="hairline" />
@@ -199,7 +211,7 @@ export default function Dashboard({ base }: { base: Aggregation }) {
         </ol>
         {agg.parties.length === 0 && (
           <p className="label-mono py-10 text-center text-[var(--paper-faint)]">
-            No hay concesiones para esta selección.
+            {home.noResults}
           </p>
         )}
       </section>

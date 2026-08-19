@@ -1,13 +1,18 @@
 import Link from "next/link";
 import { POLITICIANS } from "@/lib/politicians";
 import { getAggregation } from "@/lib/data";
+import { getDict } from "@/lib/i18n";
 
 export const revalidate = 3600;
 
-export const metadata = { title: "Caras · Seguir el Dinero" };
-
-export default async function CarasPage() {
+export default async function CarasPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
   const agg = await getAggregation();
+  const { t } = getDict(locale);
   const colorOf = (nif: string) =>
     agg.parties.find((p) => p.nif === nif)?.color ?? "var(--paper-faint)";
   const partyOf = (nif: string) =>
@@ -15,17 +20,14 @@ export default async function CarasPage() {
 
   return (
     <main className="mx-auto max-w-4xl px-5 pb-8">
-      <h1 className="display mt-6 text-4xl sm:text-5xl">Caras</h1>
-      <p className="mt-5 max-w-xl text-[var(--paper-dim)]">
-        Políticos individuales: su partido y financiación pública, su actividad en Bluesky y
-        los titulares en los que aparecen. Los perfiles de Bluesky están verificados uno a uno.
-      </p>
+      <h1 className="display mt-6 text-4xl sm:text-5xl">{t.caras.title}</h1>
+      <p className="mt-5 max-w-xl text-[var(--paper-dim)]">{t.caras.intro}</p>
 
       <div className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2">
         {POLITICIANS.map((p) => (
           <Link
             key={p.slug}
-            href={`/politician/${p.slug}`}
+            href={`/${locale}/politician/${p.slug}`}
             className="panel group flex items-center gap-4 p-5 transition-colors hover:border-[var(--line-strong)]"
           >
             <span
@@ -42,10 +44,7 @@ export default async function CarasPage() {
         ))}
       </div>
 
-      <p className="label-mono mt-10 text-[var(--paper-faint)]">
-        La lista es una muestra curada. Bluesky tiene, a día de hoy, mayor presencia de la
-        izquierda; líderes de PP y Vox no tienen cuenta verificable allí.
-      </p>
+      <p className="label-mono mt-10 text-[var(--paper-faint)]">{t.caras.note}</p>
     </main>
   );
 }
