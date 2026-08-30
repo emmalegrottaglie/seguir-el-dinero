@@ -50,6 +50,13 @@ Pull fresh data from BDNS into the local snapshot:
 curl http://localhost:3000/api/refresh
 ```
 
+If you have set `CRON_SECRET` locally (in `.env.local`), the endpoint is protected and the
+call above returns 401. Pass the secret instead:
+
+```bash
+curl -H "Authorization: Bearer $CRON_SECRET" http://localhost:3000/api/refresh
+```
+
 ## Data flow
 
 ```
