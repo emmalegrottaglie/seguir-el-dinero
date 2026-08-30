@@ -14,7 +14,28 @@ const es = {
     description:
       "Rastreo de las subvenciones públicas estatales que reciben los partidos políticos españoles, con datos de la Base de Datos Nacional de Subvenciones (BDNS).",
   },
-  nav: { panel: "Panel", faces: "Caras", salaries: "Sueldos", methodology: "Metodología" },
+  nav: { panel: "Panel", faces: "Caras", salaries: "Sueldos", votes: "Votaciones", methodology: "Metodología" },
+  votes: {
+    title: "Votaciones clave",
+    intro:
+      "Posiciones registradas en votaciones nominales del Congreso sobre leyes concretas. Cada posición es un voto emitido y verificable, no una opinión atribuida.",
+    caveat:
+      "Solo se muestran las votaciones finales de cada ley, con el resultado contrastado con el oficial. Un diputado aparece solo si consta su voto; no se deduce postura de nadie a partir de su partido.",
+    searchLabel: "Buscar diputado",
+    searchPlaceholder: "Apellido o nombre…",
+    inFavour: "A favor",
+    against: "En contra",
+    abstention: "Abstención",
+    noVote: "No vota",
+    present: "Presentes",
+    byGroup: "Por grupo parlamentario",
+    group: "Grupo",
+    officialRecord: "Acta oficial ↗",
+    lawText: "Texto de la ley ↗",
+    session: "Sesión",
+    noMatch: "Sin votos registrados para esa búsqueda.",
+    results: "diputados",
+  },
   salaries: {
     title: "Sueldos públicos",
     intro:
@@ -160,7 +181,28 @@ const en: Dict = {
     description:
       "Tracking the public state subsidies that Spanish political parties receive, with data from the National Subsidies Database (BDNS).",
   },
-  nav: { panel: "Dashboard", faces: "Faces", salaries: "Salaries", methodology: "Methodology" },
+  nav: { panel: "Dashboard", faces: "Faces", salaries: "Salaries", votes: "Votes", methodology: "Methodology" },
+  votes: {
+    title: "Key votes",
+    intro:
+      "Positions recorded in roll-call votes of the Congress on specific laws. Each position is a ballot actually cast and verifiable, not an opinion attributed to anyone.",
+    caveat:
+      "Only each law's final vote is shown, with the tally checked against the official result. A deputy appears only if their vote is on record; nobody's stance is inferred from their party.",
+    searchLabel: "Search deputy",
+    searchPlaceholder: "Surname or name…",
+    inFavour: "In favour",
+    against: "Against",
+    abstention: "Abstention",
+    noVote: "Did not vote",
+    present: "Present",
+    byGroup: "By parliamentary group",
+    group: "Group",
+    officialRecord: "Official record ↗",
+    lawText: "Text of the law ↗",
+    session: "Session",
+    noMatch: "No recorded votes for that search.",
+    results: "deputies",
+  },
   salaries: {
     title: "Public salaries",
     intro:
@@ -304,7 +346,28 @@ const ca: Dict = {
     description:
       "Seguiment de les subvencions públiques estatals que reben els partits polítics espanyols, amb dades de la Base de Dades Nacional de Subvencions (BDNS).",
   },
-  nav: { panel: "Tauler", faces: "Cares", salaries: "Sous", methodology: "Metodologia" },
+  nav: { panel: "Tauler", faces: "Cares", salaries: "Sous", votes: "Votacions", methodology: "Metodologia" },
+  votes: {
+    title: "Votacions clau",
+    intro:
+      "Posicions registrades en votacions nominals del Congrés sobre lleis concretes. Cada posició és un vot emès i verificable, no una opinió atribuïda.",
+    caveat:
+      "Només es mostren les votacions finals de cada llei, amb el resultat contrastat amb l'oficial. Un diputat apareix només si consta el seu vot; no es dedueix la postura de ningú a partir del seu partit.",
+    searchLabel: "Cerca diputat",
+    searchPlaceholder: "Cognom o nom…",
+    inFavour: "A favor",
+    against: "En contra",
+    abstention: "Abstenció",
+    noVote: "No vota",
+    present: "Presents",
+    byGroup: "Per grup parlamentari",
+    group: "Grup",
+    officialRecord: "Acta oficial ↗",
+    lawText: "Text de la llei ↗",
+    session: "Sessió",
+    noMatch: "Sense vots registrats per a aquesta cerca.",
+    results: "diputats",
+  },
   salaries: {
     title: "Sous públics",
     intro:
