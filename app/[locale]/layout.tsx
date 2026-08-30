@@ -73,6 +73,9 @@ export default async function RootLayout({
               <Link className="transition-colors hover:text-[var(--gold)]" href={`/${locale}/caras`}>
                 {t.nav.faces}
               </Link>
+              <Link className="transition-colors hover:text-[var(--gold)]" href={`/${locale}/sueldos`}>
+                {t.nav.salaries}
+              </Link>
               <Link
                 className="transition-colors hover:text-[var(--gold)]"
                 href={`/${locale}/metodologia`}
