@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "refresh": "node --experimental-strip-types scripts/refresh.ts"
+    "start": "next start"
   },
   "dependencies": {
     "motion": "^12.23.12",
