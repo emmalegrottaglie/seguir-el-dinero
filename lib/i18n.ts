@@ -136,8 +136,19 @@ const es = {
       "A los partidos les está prohibido recibir donaciones de personas jurídicas desde 2015. Estas fundaciones tampoco pueden aceptar donaciones de organismos, entidades o empresas públicas, y las donaciones de personas jurídicas privadas están sujetas a los mismos límites que las de los partidos. La diferencia está en una excepción: las entregas de dinero o bienes destinadas a financiar una actividad o un proyecto concreto de la fundación no se consideran donaciones, cuando responden a un interés común o al objeto estatutario de ambas entidades. Están obligadas a informar cada año al Ministerio de Hacienda.",
     gapTitle: "Lo que no muestra",
     gapBody:
-      "Estas son las cifras agregadas que publicó el Tribunal de Cuentas. El desglose por fundación está en el informe completo, que aún no se ha incorporado, así que aquí no se nombra ninguna fundación ni se atribuye ninguna cantidad a un partido concreto.",
+      "El informe cubre los ejercicios 2021 y 2022. No hay datos posteriores publicados, y cuatro entidades aparecen sin partido porque el informe no indica su vínculo: no se les atribuye ninguno.",
     lawLink: "Ley Orgánica 8/2007, disposición adicional séptima ↗",
+    tableTitle: "Por fundación",
+    tableNote:
+      "Donaciones y aportaciones recibidas, y subvenciones públicas, según los anexos III y IV del informe. El partido indicado es el que consta en el propio informe; cuando no lo indica, se deja en blanco.",
+    entity: "Entidad",
+    party: "Partido",
+    donations: "Donaciones",
+    subsidies: "Subvenciones",
+    noPartyStated: "sin partido indicado",
+    concentration: "concentración",
+    concentrationNote:
+      "de todas las donaciones a fundaciones vinculadas en 2021 y 2022 fue a una sola entidad.",
   },
   portal: {
     eyebrow: "Portal de transparencia política",
@@ -388,8 +399,19 @@ const en: Dict = {
       "Parties have been barred from accepting donations from legal entities since 2015. These foundations likewise cannot accept donations from public bodies, entities or companies, and donations from private legal entities are subject to the same limits that apply to parties. The difference lies in one exception: money or assets given to finance a specific activity or project of the foundation are not treated as donations, where they answer to a common interest or to the statutory purpose of both entities. They must report annually to the Ministry of Finance.",
     gapTitle: "What this does not show",
     gapBody:
-      "These are the aggregate figures the Court of Auditors published. The per-foundation breakdown is in the full report, which has not been ingested, so no individual foundation is named here and no amount is attributed to a particular party.",
+      "The report covers the 2021 and 2022 financial years. No later data is published, and four entities appear with no party because the report does not state their link: none is attributed to them.",
     lawLink: "Organic Law 8/2007, seventh additional provision ↗",
+    tableTitle: "By foundation",
+    tableNote:
+      "Donations and contributions received, and public subsidies, from annexes III and IV of the report. The party shown is the one the report itself states; where it does not, the field is left blank.",
+    entity: "Entity",
+    party: "Party",
+    donations: "Donations",
+    subsidies: "Subsidies",
+    noPartyStated: "no party stated",
+    concentration: "concentration",
+    concentrationNote:
+      "of all donations to party-linked foundations in 2021 and 2022 went to a single entity.",
   },
   portal: {
     eyebrow: "Political transparency portal",
@@ -638,8 +660,19 @@ const ca: Dict = {
       "Als partits els està prohibit rebre donacions de persones jurídiques des del 2015. Aquestes fundacions tampoc no poden acceptar donacions d'organismes, entitats o empreses públiques, i les donacions de persones jurídiques privades estan subjectes als mateixos límits que les dels partits. La diferència és una excepció: les entregues de diners o béns destinades a finançar una activitat o un projecte concret de la fundació no es consideren donacions, quan responen a un interès comú o a l'objecte estatutari de les dues entitats. Estan obligades a informar cada any al Ministeri d'Hisenda.",
     gapTitle: "Què no mostra",
     gapBody:
-      "Aquestes són les xifres agregades que va publicar el Tribunal de Comptes. El desglossament per fundació és a l'informe complet, que encara no s'ha incorporat, així que aquí no es nomena cap fundació ni s'atribueix cap quantitat a un partit concret.",
+      "L'informe cobreix els exercicis 2021 i 2022. No hi ha dades posteriors publicades, i quatre entitats apareixen sense partit perquè l'informe no indica el seu vincle: no se'ls atribueix cap.",
     lawLink: "Llei Orgànica 8/2007, disposició addicional setena ↗",
+    tableTitle: "Per fundació",
+    tableNote:
+      "Donacions i aportacions rebudes, i subvencions públiques, segons els annexos III i IV de l'informe. El partit indicat és el que consta al propi informe; quan no l'indica, es deixa en blanc.",
+    entity: "Entitat",
+    party: "Partit",
+    donations: "Donacions",
+    subsidies: "Subvencions",
+    noPartyStated: "sense partit indicat",
+    concentration: "concentració",
+    concentrationNote:
+      "de totes les donacions a fundacions vinculades el 2021 i el 2022 va anar a una sola entitat.",
   },
   portal: {
     eyebrow: "Portal de transparència política",
