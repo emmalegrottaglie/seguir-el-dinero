@@ -5,6 +5,49 @@ figures name their source; corrections and gaps are recorded alongside the work,
 
 ---
 
+## 2026-08-31 — Per-foundation detail from Tribunal de Cuentas report 1.642
+
+`/financiacion` now names every audited party-linked foundation instead of showing only
+aggregates. 38 entities, with donations and public subsidies per year and the party each is
+linked to.
+
+**Source.** Report nº 1.642, "Informe de fiscalización de las aportaciones percibidas por las
+fundaciones y demás entidades vinculadas o dependientes de los partidos políticos y de los gastos
+de programas y actividades de estas financiados con cargo a subvenciones públicas, ejercicios 2021
+y 2022", approved 25 September 2025. Annexes III (2021) and IV (2022) carry the consolidated
+tables. Extracted by the new `scripts/extract-foundations.py` into `data/foundations.json`.
+
+**How it was located**, after the previous attempt gave up: the `/es/partidos-politicos/Informes/`
+index lists only 20 reports and does not include this one, and the press release's own "Informe"
+and "Resumen" links are flagged `data-oc-broken-link="true"` by the Tribunal's CMS — the publisher
+links to its own report are broken. The route that worked was the site-wide search POSTed to
+`/es/buscador/`. That is now recorded in `AGENTS.md` and `NEXT-STEPS.md` so the dead ends are not
+retried.
+
+**Verification.** The extractor sums its own parsed rows and compares them to each annex's
+TOTALES row, aborting on a mismatch. That guard earned its place immediately: the first run
+reported `2021 donations: extracted 3735060.25 but the report totals 3813743.67`, a €78,683.42
+shortfall. Cause: the row pattern excluded digits from entity names, so "Fundación 14 de Abril",
+"Fundación Instituto 25 de Mayo para la Democracia" and "Asociación Movimiento Ciudadano Madrid
+2019" were silently skipped. Anchoring the amounts by their decimal comma instead fixed it, and
+both years now reconcile exactly: €3,813,743.67 / €2,394,338.06 for 2021 and €4,122,985.46 /
+€2,539,219.75 for 2022.
+
+**Party attribution comes from the report, not from us.** Links are read from its own sentence
+"La <entity>, vinculada a la formación política <party>", which covers 34 of the 38 entities. The
+other four are shown as "sin partido indicado" rather than matched by name, and the report-stated
+party name is joined to the NIF registry only when exactly one registry entry matches.
+
+**What this surfaces.** Fundación Disenso, linked to Vox, received €5,091,920 across the two
+years — **64.2%** of all donations to party-linked foundations. The page now leads with that
+concentration figure. Next are Fundación Iratzar (Sortu, €1,007,500), Fundación Pablo Iglesias
+(PSOE, €559,459) and Fundación Sabino Arana (PNV, €544,002).
+
+**Still not covered:** the report covers 2021 and 2022 only, nothing later is published, and four
+entities carry no party because the report does not state one. Both facts are stated on the page.
+
+---
+
 ## 2026-08-31 — Docs: architecture refresh, next steps, this changelog
 
 - Rewrote `AGENTS.md`. It had gone stale: it still documented `/sueldos`, `/caras` and

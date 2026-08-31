@@ -13,7 +13,7 @@ Catalan, deployed on Vercel.
 |-------|--------|-----------|
 | State subsidies to parties | BDNS / SNPSAP REST API | Live, daily cron |
 | Private donations to parties | Tribunal de Cuentas report 1573 (2020) | Fixed, transcribed |
-| Party-linked foundations | Tribunal de Cuentas release, Sept 2025 (2021–22) | Fixed, aggregates only |
+| Party-linked foundations | Tribunal de Cuentas report 1.642 (2021–22) | Fixed, per-entity |
 | Public salaries of officeholders | Registro de Altos Cargos CSV export | Rebuilt from script |
 | Key roll-call votes | Congreso de los Diputados open data | Rebuilt from script |
 | Portraits | Wikipedia / Wikimedia Commons | Rebuilt from script |
@@ -84,7 +84,7 @@ Caras sections were merged into `politicos`.
 | `lib/normalize.ts` | Parse `beneficiario` into NIF, classify subsidy kind, aggregate, filter |
 | `lib/parties.ts` | Canonical NIF → party (name, colour, bloc) |
 | `lib/donations.ts` | Private donations 2020, transcribed from the TdC report |
-| `lib/foundations.ts` | Party-linked foundations 2021–22, aggregates + the legal mechanism |
+| `lib/foundations.ts` | Party-linked foundations 2021–22, per-entity + the legal mechanism |
 | `lib/salaries.ts` | Officeholder pay: load, accent-folded search, paging, party facets |
 | `lib/votes.ts` | Roll-call votes: load, `positionsFor`, `tallyByGroup` |
 | `lib/photos.ts` | Portrait lookup, `portraitKeys` for bulk tests |
@@ -119,6 +119,7 @@ npm run build:salaries -- "path/to/sueldos-cargos-publicos-espana.csv"
 npm run build:votes            # fetches the votes pinned in KEY_VOTES
 npm run discover:votes -- XV   # shortlists candidate votes for review; publishes nothing
 npm run build:photos           # Wikimedia portraits; re-run to top up after throttling
+npm run build:foundations -- path/to/I1642.pdf   # needs pypdf: pip install pypdf
 curl http://localhost:3000/api/refresh   # subsidies (add the CRON_SECRET header if set)
 ```
 
@@ -131,6 +132,11 @@ Endpoint notes that cost real time to work out:
   embeds `diasVotaciones`, listing every plenary day, so sessions are enumerable. Day pages carry
   vote titles and tallies in the HTML, so discovery reads day pages rather than thousands of
   per-vote JSONs. Per-vote filenames contain an opaque timestamp and cannot be constructed.
+- **TdC reports** are addressable as
+  `https://www.tcu.es/export/sites/portal/repositorio2/INFORME/<year>/I<number>.pdf`, but the
+  `/es/partidos-politicos/Informes/` index lists only 20 reports and does not include 1.642. The
+  site-wide POST search at `/es/buscador/` does find it, and it is the only route that worked —
+  the press release's own "Informe" and "Resumen" links carry `data-oc-broken-link="true"`.
 - **Wikipedia and Commons** throttle anonymous clients hard (429). The photo script backs off
   exponentially and caches both passes. Commons returns file titles with spaces while
   `pageimage` gives underscores — keys must be normalised or the licence lookup silently misses.
@@ -172,8 +178,8 @@ downgrade — see PR #1.
 
 ## Known gaps
 
-- **Foundations detail.** Only the aggregates the Tribunal published are loaded. No foundation is
-  named and no amount is attributed to a party. See `NEXT-STEPS.md`.
+- **Foundations years.** Report 1.642 covers 2021 and 2022 only; nothing later is published.
+  Four of the 38 audited entities carry no party because the report does not state their link.
 - **Vote coverage.** 268 of the register's rows have a roll-call record; the rest show nothing by
   design. 9 votes are tracked across two legislatures.
 - **Social coverage.** 6 verified Bluesky handles. Bluesky skews left in Spain, so PP and Vox

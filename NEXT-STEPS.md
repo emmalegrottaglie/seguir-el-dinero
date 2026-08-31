@@ -9,55 +9,20 @@ The ordering below is by expected value, not by difficulty.
 
 ---
 
-## 1. Per-foundation detail (in progress)
+## 1. Per-foundation detail — DONE (2026-08-31)
 
-**Goal.** Attribute foundation money to named foundations and, where the report states it, to the
-party each is linked to — replacing the aggregate-only view in `lib/foundations.ts`.
+Report **nº 1.642** ("aportaciones percibidas por las fundaciones y demás entidades vinculadas o
+dependientes de los partidos políticos … ejercicios 2021 y 2022", approved 25/09/2025) is now
+extracted by `scripts/extract-foundations.py` into `data/foundations.json`: 38 entities, per-year
+donations and public subsidies, with the linked party taken from the report's own wording.
 
-**What is known.** The Tribunal de Cuentas press release of 26 September 2025 gives the
-aggregates now on the site: 2021 — €3.8M private donations, €2.4M public subsidies, 36 entities;
-2022 — €4.1M and €2.5M, 34 entities. The per-foundation breakdown is in the underlying report,
-which the release does not link.
+How it was found, since the earlier attempts all failed: the `/es/partidos-politicos/Informes/`
+index lists only 20 reports and does not include 1.642, and the press release's "Informe" and
+"Resumen" links are flagged `data-oc-broken-link="true"` by the Tribunal's own CMS. The route that
+worked was the site-wide search, POSTed to `/es/buscador/` from the page context. Use that first
+next time.
 
-**What was already tried, so it is not repeated.**
-
-- `https://www.tcu.es/es/partidos-politicos/Informes/` lists reports, but its visible entries stop
-  short of this one. The foundations-inclusive title pattern is
-  *"Informe de Fiscalización de los estados contables de los partidos políticos y de las
-  aportaciones percibidas por las fundaciones y demás entidades vinculadas"* — matching that
-  phrase is the reliable way to recognise the right report.
-- Report numbers are addressable as
-  `https://www.tcu.es/export/sites/portal/repositorio2/INFORME/<year>/I<number>.pdf`.
-  A `HEAD` probe of I1614–I1636 in the 2025 folder returns 200 for most numbers with
-  `size_download: 0`, so a HEAD is **not** sufficient to identify a report.
-- I1612 was fetched and is the 2023 local-elections audit (851 pages, 54 MB) — the wrong one.
-  I1611 is a subcontracting audit. Blind full downloads are expensive; do not brute-force.
-- `https://www.tcu.es/searcher/document/DocumentSearch.action` responds 302 to an unauthenticated
-  GET; it needs a session, so it cannot be queried directly with curl.
-
-**Procedure.**
-
-1. Prefer identification over download. Drive the TdC site in the browser (the preview browser
-   works; `curl` is blocked without a browser User-Agent) and use its own search UI to find the
-   report covering ejercicios 2021 and 2022, then read the report number off the result.
-2. Only then fetch that one PDF.
-3. Extract with `pypdf`, the same way `data/donations.ts` was produced: locate the consolidated
-   annex table — for donations it was *"Gráfico N. Donaciones del ejercicio N por tramos"*, so
-   search page text for a comparable *"aportaciones"* / *"fundaciones"* table — and transcribe it
-   verbatim into a typed module rather than parsing at runtime.
-4. Cross-check the transcribed rows against the release's aggregates. If the per-foundation rows
-   do not sum to €3.8M / €4.1M, that discrepancy must be understood before publishing, not
-   smoothed over.
-5. Extend `lib/foundations.ts` with the named rows, keeping the existing aggregate figures and
-   the legal-mechanism text. Add the per-foundation table to `/financiacion`, and link each
-   foundation to its party's page only where the report itself states the link.
-
-**Stop conditions.** If the report cannot be identified, keep the aggregates and leave the
-"lo que no muestra" block in place. If the report names foundations but not their party links, do
-**not** infer the link from the foundation's name — publish the foundations without party
-attribution and say so.
-
----
+Remaining in this area is item 4 below (donation years for the parties themselves).
 
 ## 2. EU political-advertising repository
 
