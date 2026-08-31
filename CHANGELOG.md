@@ -5,6 +5,43 @@ figures name their source; corrections and gaps are recorded alongside the work,
 
 ---
 
+## 2026-08-31 — EU political-ad repository: probed, not usable yet (no code shipped)
+
+Investigated the European repository for online political advertisements as a live source for who
+paid for political advertising, how much, and who was targeted. **It is not publicly accessible,
+so nothing was built.** Recording the result so the probe is not repeated.
+
+What the law provides. Regulation (EU) 2024/900 has applied in full since 10 October 2025 and
+requires political ads to carry the sponsor, the amounts paid and the targeting criteria.
+Commission Implementing Regulation (EU) 2026/818 of 9 April 2026 defines the repository's common
+data structure, standardised metadata, authentication and common API, and its provisions apply
+from 10 April 2026 — nearly five months before this check.
+
+What actually exists. The Commission's site for the Regulation is
+<https://political-advertising.ec.europa.eu>. It hosts exactly two portals: the Article 26 portal
+for Member States to file election and referendum dates, and the Article 21 portal linking
+national registers of legal representatives for non-EU providers. There is no repository of
+advertisements and no public API. Searching the site's own text for "repositor" returns a single
+hit: the *title* of the implementing regulation, listed among documents. No launch date is
+announced, although the implementing regulation says the date "should be announced on the public
+portal of the repository sufficiently in advance".
+
+Two further blockers even once it exists. The implementing regulation specifies authentication via
+**EU Login** with JSON Web Tokens, so the API is credentialed rather than open; and the regulation
+defines standards for the architecture, not an operational endpoint — the portal address is to be
+announced separately and has not been.
+
+Deliberately not substituted: per-platform ad libraries (Meta, Google) do exist and would produce
+*something*. They were not used, because presenting a platform-by-platform scrape as the EU
+repository would misrepresent both provenance and completeness — the EU repository is meant to be
+comprehensive across providers, an ad library is one company's view of its own inventory. That
+remains available as a clearly-labelled separate layer if wanted, but it is not this.
+
+Re-check trigger: a launch announcement on the portal above, or a Commission statement that the
+first version of the repository is functional.
+
+---
+
 ## 2026-08-31 — Per-foundation detail from Tribunal de Cuentas report 1.642
 
 `/financiacion` now names every audited party-linked foundation instead of showing only
