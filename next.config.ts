@@ -1,7 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // BDNS data is fetched server-side on a schedule, so no remote image config needed.
+  images: {
+    // Portraits come from Wikimedia Commons (see scripts/fetch-photos.mjs).
+    remotePatterns: [
+      { protocol: "https", hostname: "upload.wikimedia.org" },
+      { protocol: "https", hostname: "thumb.wikimedia.org" },
+    ],
+  },
 };
 
 export default nextConfig;

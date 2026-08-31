@@ -5,7 +5,11 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "build:salaries": "node scripts/build-salaries.mjs",
+    "build:votes": "node scripts/fetch-votes.mjs",
+    "build:photos": "node scripts/fetch-photos.mjs",
+    "discover:votes": "node scripts/discover-votes.mjs"
   },
   "engines": {
     "node": "22.x"
