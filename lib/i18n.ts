@@ -14,7 +14,41 @@ const es = {
     description:
       "Rastreo de las subvenciones públicas estatales que reciben los partidos políticos españoles, con datos de la Base de Datos Nacional de Subvenciones (BDNS).",
   },
-  nav: { panel: "Panel", faces: "Caras", salaries: "Sueldos", votes: "Votaciones", methodology: "Metodología" },
+  nav: {
+    panel: "Panel",
+    faces: "Caras",
+    salaries: "Sueldos",
+    people: "Políticos",
+    votes: "Votaciones",
+    methodology: "Metodología",
+    sectionData: "Datos",
+    sectionAbout: "Sobre",
+    menu: "Menú",
+  },
+  people: {
+    title: "Políticos",
+    intro:
+      "Cada cargo público en activo: lo que cobra, la financiación de su partido, su voto registrado en leyes de derechos y, cuando existe, sus redes y los titulares en los que aparece.",
+    featured: "Con voto registrado",
+    featuredNote:
+      "Perfiles con votación nominal documentada. El resto del registro aparece en el buscador.",
+    directory: "Registro completo",
+    hasRecord: "voto registrado",
+    hasSocial: "redes",
+    noRecord: "Sin voto registrado",
+    noRecordExplain:
+      "No consta ninguna votación nominal de esta persona en los asuntos que seguimos. No se deduce su postura a partir de su partido.",
+    pay: "Retribución",
+    partyFunding: "Financiación del partido",
+    rightsRecord: "Voto en leyes de derechos",
+    juxtaposition:
+      "Voto registrado y financiación del partido se muestran juntos como asociación, no como causa: el dinero público no explica un voto concreto.",
+    profile: "Ver perfil →",
+    backToPeople: "← Políticos",
+    affects: "Asuntos que afectan a minorías",
+    affectsNote:
+      "Leyes y mociones sobre derechos trans y LGTBI, salud sexual y reproductiva, y vivienda. Cada posición enlaza al acta oficial.",
+  },
   votes: {
     title: "Votaciones clave",
     intro:
@@ -189,7 +223,41 @@ const en: Dict = {
     description:
       "Tracking the public state subsidies that Spanish political parties receive, with data from the National Subsidies Database (BDNS).",
   },
-  nav: { panel: "Dashboard", faces: "Faces", salaries: "Salaries", votes: "Votes", methodology: "Methodology" },
+  nav: {
+    panel: "Dashboard",
+    faces: "Faces",
+    salaries: "Salaries",
+    people: "Politicians",
+    votes: "Votes",
+    methodology: "Methodology",
+    sectionData: "Data",
+    sectionAbout: "About",
+    menu: "Menu",
+  },
+  people: {
+    title: "Politicians",
+    intro:
+      "Every serving officeholder: what they are paid, how their party is funded, their recorded vote on rights legislation and, where it exists, their social presence and the headlines they appear in.",
+    featured: "With a voting record",
+    featuredNote:
+      "Profiles with a documented roll-call vote. The rest of the register is in the search below.",
+    directory: "Full register",
+    hasRecord: "voting record",
+    hasSocial: "social",
+    noRecord: "No recorded vote",
+    noRecordExplain:
+      "This person has no roll-call vote on record for the items we track. Their position is not inferred from their party.",
+    pay: "Pay",
+    partyFunding: "Party funding",
+    rightsRecord: "Vote on rights legislation",
+    juxtaposition:
+      "Recorded votes and party funding are shown side by side as association, not cause: public money does not explain any particular vote.",
+    profile: "View profile →",
+    backToPeople: "← Politicians",
+    affects: "Issues affecting minorities",
+    affectsNote:
+      "Laws and motions on trans and LGBTI rights, sexual and reproductive health, and housing. Every position links to the official record.",
+  },
   votes: {
     title: "Key votes",
     intro:
@@ -362,7 +430,41 @@ const ca: Dict = {
     description:
       "Seguiment de les subvencions públiques estatals que reben els partits polítics espanyols, amb dades de la Base de Dades Nacional de Subvencions (BDNS).",
   },
-  nav: { panel: "Tauler", faces: "Cares", salaries: "Sous", votes: "Votacions", methodology: "Metodologia" },
+  nav: {
+    panel: "Tauler",
+    faces: "Cares",
+    salaries: "Sous",
+    people: "Polítics",
+    votes: "Votacions",
+    methodology: "Metodologia",
+    sectionData: "Dades",
+    sectionAbout: "Sobre",
+    menu: "Menú",
+  },
+  people: {
+    title: "Polítics",
+    intro:
+      "Cada càrrec públic en actiu: què cobra, el finançament del seu partit, el seu vot registrat en lleis de drets i, quan existeix, les seves xarxes i els titulars on apareix.",
+    featured: "Amb vot registrat",
+    featuredNote:
+      "Perfils amb votació nominal documentada. La resta del registre és al cercador.",
+    directory: "Registre complet",
+    hasRecord: "vot registrat",
+    hasSocial: "xarxes",
+    noRecord: "Sense vot registrat",
+    noRecordExplain:
+      "No consta cap votació nominal d'aquesta persona en els assumptes que seguim. No es dedueix la seva postura a partir del seu partit.",
+    pay: "Retribució",
+    partyFunding: "Finançament del partit",
+    rightsRecord: "Vot en lleis de drets",
+    juxtaposition:
+      "Vot registrat i finançament del partit es mostren junts com a associació, no com a causa: els diners públics no expliquen un vot concret.",
+    profile: "Veure perfil →",
+    backToPeople: "← Polítics",
+    affects: "Assumptes que afecten minories",
+    affectsNote:
+      "Lleis i mocions sobre drets trans i LGBTI, salut sexual i reproductiva, i habitatge. Cada posició enllaça a l'acta oficial.",
+  },
   votes: {
     title: "Votacions clau",
     intro:

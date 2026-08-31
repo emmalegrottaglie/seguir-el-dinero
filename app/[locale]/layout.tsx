@@ -3,7 +3,7 @@ import { Fraunces, Archivo, IBM_Plex_Mono } from "next/font/google";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getDict, LOCALES, isLocale } from "@/lib/i18n";
-import LocaleToggle from "@/components/LocaleToggle";
+import Sidebar from "@/components/Sidebar";
 import "../globals.css";
 
 const fraunces = Fraunces({
@@ -58,45 +58,19 @@ export default async function RootLayout({
     // attributes onto <html> before React hydrates; that mismatch is benign.
     <html lang={locale} suppressHydrationWarning>
       <body className={`${fraunces.variable} ${archivo.variable} ${plexMono.variable}`}>
-        <header className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-5">
-          <Link href={`/${locale}`} className="group flex items-baseline gap-3">
-            <span className="display text-lg tracking-tight text-[var(--paper)]">
-              Seguir&nbsp;el&nbsp;Dinero
-            </span>
-            <span className="eyebrow hidden sm:inline">Dossier · 001</span>
-          </Link>
-          <div className="flex items-center gap-5 sm:gap-6">
-            <nav className="label-mono flex gap-4 sm:gap-6">
-              <Link className="transition-colors hover:text-[var(--gold)]" href={`/${locale}`}>
-                {t.nav.panel}
-              </Link>
-              <Link className="transition-colors hover:text-[var(--gold)]" href={`/${locale}/caras`}>
-                {t.nav.faces}
-              </Link>
-              <Link className="transition-colors hover:text-[var(--gold)]" href={`/${locale}/sueldos`}>
-                {t.nav.salaries}
-              </Link>
-              <Link className="transition-colors hover:text-[var(--gold)]" href={`/${locale}/votaciones`}>
-                {t.nav.votes}
-              </Link>
-              <Link
-                className="transition-colors hover:text-[var(--gold)]"
-                href={`/${locale}/metodologia`}
-              >
-                {t.nav.methodology}
-              </Link>
-            </nav>
-            <LocaleToggle current={locale} />
+        <div className="lg:flex">
+          <Sidebar locale={locale} nav={t.nav} />
+          <div className="min-w-0 flex-1">
+            {children}
+            <footer className="mx-auto max-w-6xl px-5 py-12">
+              <hr className="hairline mb-6" />
+              <div className="label-mono flex flex-col gap-2 sm:flex-row sm:justify-between">
+                <span>{t.footer.source}</span>
+                <span className="text-[var(--paper-faint)]">{t.footer.caveat}</span>
+              </div>
+            </footer>
           </div>
-        </header>
-        {children}
-        <footer className="mx-auto max-w-6xl px-5 py-12">
-          <hr className="hairline mb-6" />
-          <div className="label-mono flex flex-col gap-2 sm:flex-row sm:justify-between">
-            <span>{t.footer.source}</span>
-            <span className="text-[var(--paper-faint)]">{t.footer.caveat}</span>
-          </div>
-        </footer>
+        </div>
       </body>
     </html>
   );
