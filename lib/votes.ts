@@ -1,5 +1,6 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
+import { nameKey } from "./name-key.mjs";
 
 export type Ballot = "Sí" | "No" | "Abstención" | "No vota" | string;
 
@@ -56,18 +57,8 @@ export async function getVotes(): Promise<VotesData> {
 }
 
 // Names appear as "Apellidos, Nombre" in the roll call and "Nombre Apellidos" in
-// the salary register, so compare order-independent sets of accent-folded tokens.
-export function nameKey(name: string): string {
-  return name
-    .normalize("NFD")
-    .replace(/\p{M}/gu, "")
-    .toLowerCase()
-    .replace(/[^a-z\s]/g, " ")
-    .split(/\s+/)
-    .filter(Boolean)
-    .sort()
-    .join(" ");
-}
+// the salary register, so comparison goes through the shared order-independent key.
+export { nameKey };
 
 export interface RecordedPosition {
   vote: KeyVote;

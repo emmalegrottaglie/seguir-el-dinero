@@ -12,24 +12,30 @@
 //     because that is what these licences require.
 
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
+import { nameKey } from "../lib/name-key.mjs";
 
 const UA = "SeguirElDinero/1.0 (public-funding transparency site)";
 const API = "https://es.wikipedia.org/w/api.php";
 const COMMONS = "https://commons.wikimedia.org/w/api.php";
 
-// Licences we are willing to publish. Anything else (fair use, unknown) is skipped.
-const OK_LICENCE = /^(cc[- ]by(-sa)?|cc0|public domain|pd|attribution)/i;
+// Licences we are willing to publish, matched as whole tokens so that a
+// NonCommercial or NoDerivatives variant cannot slip through on the "CC BY"
+// prefix. Anything not listed here (fair use, GFDL, unknown) is skipped.
+const OK_LICENCE = [
+  /^cc0(\s|$)/i,
+  /^cc[- ]by([- ]sa)?([- ]\d(\.\d+)?)?(\s+\w{2,3})?$/i,
+  /^public domain/i,
+  /^pd([- ]\w+)*$/i,
+  /^attribution$/i,
+];
+// Explicit veto: these forbid the reuse this site makes of the image.
+const BANNED_LICENCE = /n[cd]|noncommercial|non-commercial|noderiv/i;
 
-const fold = (s) =>
-  s
-    .normalize("NFD")
-    .replace(/\p{M}/gu, "")
-    .toLowerCase()
-    .replace(/[^a-z\s]/g, " ")
-    .split(/\s+/)
-    .filter(Boolean);
-
-const nameKey = (s) => [...fold(s)].sort().join(" ");
+function licenceAllowed(licence) {
+  const l = licence.trim();
+  if (BANNED_LICENCE.test(l)) return false;
+  return OK_LICENCE.some((re) => re.test(l));
+}
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -173,7 +179,7 @@ for (const [key, rec] of found) {
     unknown++; // licence could not be read (throttled) — re-run to top up
     continue;
   }
-  if (!OK_LICENCE.test(m.licence)) {
+  if (!licenceAllowed(m.licence)) {
     refused++; // licence is not one we are willing to republish
     continue;
   }

@@ -62,13 +62,15 @@ export default async function CarasPage({
       </div>
 
       <p className="label-mono mt-10 text-[var(--paper-faint)]">{t.caras.note}</p>
-      <p className="label-mono mt-2 text-[var(--paper-faint)]">
-        Fotos ·{" "}
-        <a className="src" href={photoSrc.url} target="_blank" rel="noopener noreferrer">
-          {photoSrc.name}
-        </a>{" "}
-        (licencias libres, con autor y licencia indicados)
-      </p>
+      {photoSrc && (
+        <p className="label-mono mt-2 text-[var(--paper-faint)]">
+          Fotos ·{" "}
+          <a className="src" href={photoSrc.url} target="_blank" rel="noopener noreferrer">
+            {photoSrc.name}
+          </a>{" "}
+          (licencias libres, con autor y licencia indicados)
+        </p>
+      )}
     </main>
   );
 }

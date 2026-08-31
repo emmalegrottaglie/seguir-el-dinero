@@ -33,3 +33,9 @@ next-env.d.ts
 
 # intermediate scraper caches (regenerate with npm run build:photos / discover:votes)
 data/_*.json
+
+# scratch files from probing endpoints (root-level)
+/_*.json
+/_*.html
+/_*.mjs
+/_*.txt

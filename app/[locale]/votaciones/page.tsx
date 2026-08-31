@@ -35,17 +35,21 @@ export default async function VotacionesPage({
 
   const data = await getVotes();
 
-  // Deputy lookup: one row per person, showing their ballot on each tracked law.
-  let found: { name: string; group: string; ballots: Record<string, Ballot> }[] = [];
+  // Deputy lookup: one row per person, showing their ballot on each tracked item.
+  // The parliamentary group is stored per ballot, not per person: deputies change
+  // group between legislatures, so a single group label would misattribute their
+  // affiliation on the other legislature's votes.
+  type Cast = { ballot: Ballot; group: string };
+  let found: { name: string; ballots: Record<string, Cast> }[] = [];
   if (q?.trim()) {
     const needle = nameKey(q).split(" ").filter(Boolean);
-    const people = new Map<string, { name: string; group: string; ballots: Record<string, Ballot> }>();
+    const people = new Map<string, { name: string; ballots: Record<string, Cast> }>();
     for (const vote of data.votes) {
       for (const dv of vote.votes) {
         const key = nameKey(dv.deputy);
         if (!needle.every((n) => key.includes(n))) continue;
-        const rec = people.get(key) ?? { name: dv.deputy, group: dv.group, ballots: {} };
-        rec.ballots[vote.id] = dv.vote;
+        const rec = people.get(key) ?? { name: dv.deputy, ballots: {} };
+        rec.ballots[vote.id] = { ballot: dv.vote, group: dv.group };
         people.set(key, rec);
       }
     }
@@ -88,15 +92,12 @@ export default async function VotacionesPage({
                 {found.map((p) => (
                   <div key={p.name}>
                     <div className="py-4">
-                      <p className="text-[var(--paper)]">
-                        {p.name}
-                        <span className="label-mono ml-2 text-[var(--paper-faint)]">{p.group}</span>
-                      </p>
+                      <p className="text-[var(--paper)]">{p.name}</p>
                       <div className="mt-2 flex flex-wrap gap-2">
                         {data.votes.map((vote) => {
-                          const b = p.ballots[vote.id];
-                          if (!b) return null;
-                          const color = BALLOT_COLOR[b] ?? "var(--paper-faint)";
+                          const cast = p.ballots[vote.id];
+                          if (!cast) return null;
+                          const color = BALLOT_COLOR[cast.ballot] ?? "var(--paper-faint)";
                           return (
                             <span
                               key={vote.id}
@@ -104,7 +105,8 @@ export default async function VotacionesPage({
                               style={{ color, borderColor: `${color}55` }}
                               title={vote.law}
                             >
-                              {vote.law}: {ballotLabel(b, t)}
+                              {vote.law}: {ballotLabel(cast.ballot, t)}
+                              <span className="ml-1.5 text-[var(--paper-faint)]">({cast.group})</span>
                             </span>
                           );
                         })}

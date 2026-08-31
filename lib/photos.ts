@@ -1,5 +1,6 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
+import { nameKey } from "./name-key.mjs";
 
 export interface Portrait {
   name: string;
@@ -22,36 +23,37 @@ interface PhotosFile {
 const FILE = path.join(process.cwd(), "data", "photos.json");
 let cache: PhotosFile | null = null;
 
+const EMPTY: PhotosFile = {
+  generatedAt: "",
+  source: { name: "", url: "" },
+  count: 0,
+  photos: {},
+};
+
+// A read failure is never cached: the file may be briefly missing during a
+// deploy, and caching the empty result would drop portraits for the lifetime of
+// the instance.
 async function load(): Promise<PhotosFile> {
   if (cache) return cache;
   try {
-    cache = JSON.parse(await fs.readFile(FILE, "utf-8")) as PhotosFile;
+    const parsed = JSON.parse(await fs.readFile(FILE, "utf-8")) as PhotosFile;
+    cache = parsed;
+    return parsed;
   } catch {
-    cache = { generatedAt: "", source: { name: "", url: "" }, count: 0, photos: {} };
+    return EMPTY;
   }
-  return cache;
-}
-
-// Same order-independent, accent-folded key the fetch script writes.
-function key(name: string): string {
-  return name
-    .normalize("NFD")
-    .replace(/\p{M}/gu, "")
-    .toLowerCase()
-    .replace(/[^a-z\s]/g, " ")
-    .split(/\s+/)
-    .filter(Boolean)
-    .sort()
-    .join(" ");
 }
 
 // A portrait only exists when the Wikipedia article title matched the person's
 // name exactly, so a hit here is not a guess. Returns null when unknown.
 export async function portraitFor(name: string): Promise<Portrait | null> {
   const data = await load();
-  return data.photos[key(name)] ?? null;
+  return data.photos[nameKey(name)] ?? null;
 }
 
-export async function photoSource(): Promise<PhotosFile["source"]> {
-  return (await load()).source;
+// Null when the portrait file could not be read, so callers can omit the credit
+// line instead of rendering an empty link.
+export async function photoSource(): Promise<PhotosFile["source"] | null> {
+  const { source } = await load();
+  return source.name && source.url ? source : null;
 }

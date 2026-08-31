@@ -86,7 +86,9 @@ const num = (v) => {
 };
 
 const people = [];
-const seen = new Set();
+// slug -> index in `people`, so duplicate slugs resolve deterministically
+// instead of depending on the row order of the export.
+const seen = new Map();
 
 for (const r of lines) {
   if (r.length < header.length) continue;
@@ -96,13 +98,12 @@ for (const r of lines) {
   const name = r[col.nombre]?.trim();
   const gross = num(r[col.sueldo_bruto_anual]);
   if (!slug || !name || gross === null) continue;
-  if (seen.has(slug)) continue; // the export contains a few duplicate slugs
-  seen.add(slug);
 
   const partyLabel = r[col.partido]?.trim() || "";
   const canon = PARTY_BY_LABEL[partyLabel] ?? null;
+  const updated = r[col.fecha_actualizacion]?.trim() || "";
 
-  people.push({
+  const row = {
     slug,
     name,
     role: r[col.cargo]?.trim() || "",
@@ -113,8 +114,26 @@ for (const r of lines) {
     municipality: r[col.municipio]?.trim() || null,
     gross,
     monthly: num(r[col.sueldo_bruto_mensual]),
-  });
+    updated,
+  };
+
+  // The export contains a few duplicate slugs. Keep the most recently updated
+  // row, falling back to the higher gross, so the result does not depend on
+  // which line happened to come first.
+  const prevIndex = seen.get(slug);
+  if (prevIndex === undefined) {
+    seen.set(slug, people.length);
+    people.push(row);
+    continue;
+  }
+  const prev = people[prevIndex];
+  const newer = row.updated > prev.updated;
+  const sameDate = row.updated === prev.updated;
+  if (newer || (sameDate && row.gross > prev.gross)) people[prevIndex] = row;
 }
+
+// `updated` was only needed to resolve duplicates.
+for (const p of people) delete p.updated;
 
 people.sort((a, b) => b.gross - a.gross);
 

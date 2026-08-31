@@ -1,5 +1,6 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
+import { foldText } from "./name-key.mjs";
 
 export interface Officeholder {
   slug: string;
@@ -35,12 +36,7 @@ export async function getSalaries(): Promise<SalaryData> {
 }
 
 // Strip accents/case so "Diaz" matches "Díaz".
-function fold(s: string): string {
-  return s
-    .normalize("NFD")
-    .replace(/\p{M}/gu, "")
-    .toLowerCase();
-}
+const fold = foldText;
 
 export interface SalaryQuery {
   q?: string;
@@ -61,12 +57,13 @@ export async function querySalaries(opts: SalaryQuery): Promise<SalaryPage> {
   const data = await getSalaries();
   const perPage = opts.perPage ?? 50;
 
-  let list = data.people;
-  if (opts.party) list = list.filter((p) => p.partyShort === opts.party);
+  // Apply the text filter first: the party facets are counted over this set, so
+  // the number on each chip matches what selecting it actually returns.
+  let matching = data.people;
   if (opts.q) {
     const needle = fold(opts.q.trim());
     if (needle) {
-      list = list.filter(
+      matching = matching.filter(
         (p) =>
           fold(p.name).includes(needle) ||
           fold(p.role).includes(needle) ||
@@ -76,9 +73,13 @@ export async function querySalaries(opts: SalaryQuery): Promise<SalaryPage> {
     }
   }
 
-  // Party facet counts, computed over the whole dataset so the filter list is stable.
+  let list = matching;
+  if (opts.party) list = list.filter((p) => p.partyShort === opts.party);
+
+  // Party facet counts over the text-filtered set, excluding the party filter
+  // itself so the user can switch between parties.
   const counts = new Map<string, number>();
-  for (const p of data.people) counts.set(p.partyShort, (counts.get(p.partyShort) ?? 0) + 1);
+  for (const p of matching) counts.set(p.partyShort, (counts.get(p.partyShort) ?? 0) + 1);
   const parties = [...counts.entries()]
     .map(([short, count]) => ({ short, count }))
     .sort((a, b) => b.count - a.count)
