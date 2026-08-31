@@ -104,7 +104,7 @@ export default async function VotacionesPage({
                               style={{ color, borderColor: `${color}55` }}
                               title={vote.law}
                             >
-                              {vote.topicLabel}: {ballotLabel(b, t)}
+                              {vote.law}: {ballotLabel(b, t)}
                             </span>
                           );
                         })}
@@ -129,10 +129,30 @@ export default async function VotacionesPage({
             <p className="eyebrow">{vote.topicLabel}</p>
             <h2 className="display section-tick mt-2 text-2xl">{vote.law}</h2>
 
+            <p className="label-mono mt-5 flex flex-wrap items-center gap-2">
+              <span
+                className="rounded border px-2 py-1"
+                style={{
+                  color: vote.binding ? "var(--gold)" : "var(--paper-faint)",
+                  borderColor: vote.binding ? "var(--gold)55" : "var(--line-strong)",
+                }}
+              >
+                {v.kinds[vote.kind as keyof typeof v.kinds] ?? vote.kindLabel}
+              </span>
+              {!vote.binding && (
+                <span className="text-[var(--paper-faint)]">· {v.nonBinding}</span>
+              )}
+              <span className="text-[var(--paper-faint)]">
+                · {v.legislature} {vote.legislature}
+              </span>
+            </p>
+
             <p className="label-mono mt-6 flex flex-wrap gap-4">
-              <a className="src" href={vote.lawUrl} target="_blank" rel="noopener noreferrer">
-                {v.lawText}
-              </a>
+              {vote.lawUrl && (
+                <a className="src" href={vote.lawUrl} target="_blank" rel="noopener noreferrer">
+                  {v.lawText}
+                </a>
+              )}
               <a className="src" href={vote.sourceUrl} target="_blank" rel="noopener noreferrer">
                 {v.officialRecord}
               </a>

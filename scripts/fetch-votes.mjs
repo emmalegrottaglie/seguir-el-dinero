@@ -1,31 +1,47 @@
-// Fetch roll-call votes from the Congreso de los Diputados open-data portal.
+// Fetch the pinned roll-call votes from the Congreso de los Diputados open-data
+// portal and write data/votes.json.
 //
-// Usage: node scripts/fetch-votes.mjs <LEG-ROMAN> <DD/MM/YYYY> [more dates...]
+// Usage: node scripts/fetch-votes.mjs
 //
-// For each plenary date it collects every vote's JSON (title, totals and the
-// per-deputy Sí/No/Abstención record), keeps those whose subject matches one of
-// the tracked topics, and writes data/votes.json.
+// Every vote published by the app is listed by hand in KEY_VOTES below, with the
+// tally observed on the official record. The fetcher refuses to publish a vote
+// whose tally does not match, which catches picking up the wrong ballot.
 //
-// Every stance shown in the app comes from these records. Nothing is inferred:
-// a deputy has a position on a law only if they were recorded voting on it.
+// Nothing here infers a position. A person has a stance on an item only if their
+// name appears in that item's roll call. Candidates were located with
+// scripts/discover-votes.mjs and then chosen and labelled manually.
 
-import { writeFileSync, mkdirSync } from "node:fs";
+import { writeFileSync } from "node:fs";
 
 const UA =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Safari/537.36";
 const BASE = "https://www.congreso.es";
 
-// The specific final-passage votes we surface, verified against the officially
-// reported outcome for each law. Amendment and procedural votes on the same bill
-// are deliberately excluded: only the decisive vote is shown as a position.
+// kind matters for honesty: a "proposición no de Ley" or a "moción" is a
+// non-binding position statement, not the passage of a law. The UI labels them.
+const KIND = {
+  ley: "Votación final de ley",
+  toma: "Toma en consideración",
+  pnl: "Proposición no de Ley (no vinculante)",
+  mocion: "Moción consecuencia de interpelación (no vinculante)",
+};
+
+const TOPICS = {
+  lgtbi: "Derechos trans y LGTBI",
+  aborto: "Aborto y salud sexual",
+  vivienda: "Vivienda",
+};
+
 const KEY_VOTES = [
+  // ---- XIV Legislatura (2019–2023): the landmark laws ----
   {
     id: "ley-trans-2023",
     topic: "lgtbi",
-    topicLabel: "Derechos trans y LGTBI",
-    law: "Ley 4/2023 (Ley Trans)",
-    lawUrl: "https://www.boe.es/buscar/act.php?id=BOE-A-2023-5366",
+    kind: "ley",
+    label: "Ley 4/2023 (Ley Trans)",
+    refUrl: "https://www.boe.es/buscar/act.php?id=BOE-A-2023-5366",
     legislature: "XIV",
+    date: "16/02/2023",
     session: 236,
     number: 17,
     expect: { afavor: 191, enContra: 60, abstenciones: 91 },
@@ -33,10 +49,11 @@ const KEY_VOTES = [
   {
     id: "lo-1-2023-aborto",
     topic: "aborto",
-    topicLabel: "Aborto y salud sexual",
-    law: "LO 1/2023 (reforma del aborto)",
-    lawUrl: "https://www.boe.es/buscar/act.php?id=BOE-A-2023-5364",
+    kind: "ley",
+    label: "LO 1/2023 (reforma del aborto)",
+    refUrl: "https://www.boe.es/buscar/act.php?id=BOE-A-2023-5364",
     legislature: "XIV",
+    date: "16/02/2023",
     session: 236,
     number: 13,
     expect: { afavor: 185, enContra: 154, abstenciones: 3 },
@@ -44,13 +61,82 @@ const KEY_VOTES = [
   {
     id: "ley-12-2023-vivienda",
     topic: "vivienda",
-    topicLabel: "Vivienda",
-    law: "Ley 12/2023 por el derecho a la vivienda",
-    lawUrl: "https://www.boe.es/buscar/act.php?id=BOE-A-2023-12203",
+    kind: "ley",
+    label: "Ley 12/2023 por el derecho a la vivienda",
+    refUrl: "https://www.boe.es/buscar/act.php?id=BOE-A-2023-12203",
     legislature: "XIV",
+    date: "27/04/2023",
     session: 256,
     number: 173,
     expect: { afavor: 176, enContra: 167, abstenciones: 1 },
+  },
+
+  // ---- XV Legislatura (2023–): current deputies ----
+  {
+    id: "xv-alquiler-temporada-2024",
+    topic: "vivienda",
+    kind: "toma",
+    label: "Regulación del alquiler de temporada y de habitaciones",
+    legislature: "XV",
+    date: "17/12/2024",
+    session: 86,
+    number: 1,
+    expect: { afavor: 176, enContra: 169, abstenciones: 0 },
+  },
+  {
+    id: "xv-reforma-ley-vivienda-2025",
+    topic: "vivienda",
+    kind: "toma",
+    label: "Reforma de la Ley 12/2023 de vivienda (Sumar)",
+    legislature: "XV",
+    date: "27/11/2025",
+    session: 151,
+    number: 2,
+    expect: { afavor: 44, enContra: 179, abstenciones: 124 },
+  },
+  {
+    id: "xv-salud-sexual-2024",
+    topic: "aborto",
+    kind: "pnl",
+    label: "Garantía del derecho a la salud sexual y reproductiva",
+    legislature: "XV",
+    date: "21/11/2024",
+    session: 79,
+    number: 25,
+    expect: { afavor: 178, enContra: 33, abstenciones: 138 },
+  },
+  {
+    id: "xv-educacion-sexual-2026",
+    topic: "aborto",
+    kind: "pnl",
+    label: "Educación sexual integral",
+    legislature: "XV",
+    date: "26/02/2026",
+    session: 164,
+    number: 1,
+    expect: { afavor: 167, enContra: 183, abstenciones: 0 },
+  },
+  {
+    id: "xv-orgullo-hungria-2025",
+    topic: "lgtbi",
+    kind: "pnl",
+    label: "Condena de la prohibición del Orgullo LGTBI en Hungría",
+    legislature: "XV",
+    date: "19/06/2025",
+    session: 121,
+    number: 3,
+    expect: { afavor: 176, enContra: 33, abstenciones: 136 },
+  },
+  {
+    id: "xv-terapias-conversion-2026",
+    topic: "lgtbi",
+    kind: "mocion",
+    label: "Apoyo a víctimas de pseudoterapias de conversión LGBTIQ+",
+    legislature: "XV",
+    date: "25/06/2026",
+    session: 191,
+    number: 15,
+    expect: { afavor: 174, enContra: 169, abstenciones: 5 },
   },
 ];
 
@@ -71,54 +157,62 @@ async function voteLinksForDate(leg, date) {
   return [...new Set([...html.matchAll(/\/webpublica\/opendata\/votaciones\/[^"']+?\.json/g)].map((m) => m[0]))];
 }
 
-const leg = process.argv[2];
-const dates = process.argv.slice(3);
-if (!leg || !dates.length) {
-  console.error("usage: node scripts/fetch-votes.mjs <LEG-ROMAN> <DD/MM/YYYY> [...]");
-  process.exit(1);
+// Group the pinned votes by the day page that lists them.
+const byDay = new Map();
+for (const k of KEY_VOTES) {
+  const key = `${k.legislature}|${k.date}`;
+  if (!byDay.has(key)) byDay.set(key, []);
+  byDay.get(key).push(k);
 }
 
 const kept = [];
 
-for (const date of dates) {
+for (const [key, wanted] of byDay) {
+  const [leg, date] = key.split("|");
   const links = await voteLinksForDate(leg, date);
-  console.log(`${date}: ${links.length} votes`);
-  for (const link of links) {
+  console.log(`${leg} ${date}: ${links.length} votes on the order paper`);
+
+  for (const k of wanted) {
+    // Session and vote number are encoded in the file path.
+    const link = links.find((l) =>
+      new RegExp(`/Sesion0*${k.session}/.*/Votacion0*${k.number}/`).test(l),
+    );
+    if (!link) {
+      console.warn(`  MISSING ${k.id}: no link for S${k.session}#${k.number}`);
+      continue;
+    }
     await sleep(250); // be a polite client
     let data;
     try {
       data = await (await get(BASE + link)).json();
     } catch (e) {
-      console.warn(`  skip ${link}: ${e.message}`);
+      console.warn(`  ERROR ${k.id}: ${e.message}`);
       continue;
     }
-    const info = data.informacion ?? {};
-    const key = KEY_VOTES.find(
-      (k) => k.legislature === leg && k.session === info.sesion && k.number === info.numeroVotacion,
-    );
-    if (!key) continue;
 
-    // Refuse to publish a vote whose tally does not match the officially reported
-    // outcome — that would mean we grabbed the wrong ballot.
+    const info = data.informacion ?? {};
     const t = data.totales ?? {};
-    const { afavor, enContra, abstenciones } = key.expect;
+    const { afavor, enContra, abstenciones } = k.expect;
     if (t.afavor !== afavor || t.enContra !== enContra || t.abstenciones !== abstenciones) {
       console.warn(
-        `  MISMATCH ${key.id}: expected ${afavor}/${enContra}/${abstenciones}, got ${t.afavor}/${t.enContra}/${t.abstenciones} — skipped`,
+        `  MISMATCH ${k.id}: expected ${afavor}/${enContra}/${abstenciones}, got ${t.afavor}/${t.enContra}/${t.abstenciones} — skipped`,
       );
       continue;
     }
 
     kept.push({
-      id: key.id,
-      topic: key.topic,
-      topicLabel: key.topicLabel,
-      law: key.law,
-      lawUrl: key.lawUrl,
-      legislature: leg,
-      session: info.sesion ?? null,
-      number: info.numeroVotacion ?? null,
-      date: info.fecha ?? date,
+      id: k.id,
+      topic: k.topic,
+      topicLabel: TOPICS[k.topic],
+      kind: k.kind,
+      kindLabel: KIND[k.kind],
+      binding: k.kind === "ley" || k.kind === "toma",
+      law: k.label,
+      lawUrl: k.refUrl ?? null,
+      legislature: k.legislature,
+      session: info.sesion ?? k.session,
+      number: info.numeroVotacion ?? k.number,
+      date: info.fecha ?? k.date,
       title: info.titulo ?? "",
       expediente: info.textoExpediente ?? "",
       totals: t,
@@ -129,27 +223,31 @@ for (const date of dates) {
         vote: v.voto,
       })),
     });
-    console.log(`  [${key.topic}] ${key.law} — ${t.afavor}/${t.enContra}/${t.abstenciones}`);
+    console.log(`  [${k.topic}/${k.kind}] ${k.label} — ${t.afavor}/${t.enContra}/${t.abstenciones}`);
   }
 }
 
-mkdirSync("data", { recursive: true });
+// Newest first within each topic.
+const order = { lgtbi: 0, aborto: 1, vivienda: 2 };
+kept.sort(
+  (a, b) =>
+    order[a.topic] - order[b.topic] ||
+    b.legislature.length - a.legislature.length ||
+    (b.session ?? 0) - (a.session ?? 0),
+);
+
 writeFileSync(
   "data/votes.json",
-  JSON.stringify(
-    {
-      generatedAt: new Date().toISOString(),
-      source: {
-        name: "Congreso de los Diputados — Datos Abiertos (votaciones)",
-        url: "https://www.congreso.es/es/opendata/votaciones",
-      },
-      topics: [...new Map(KEY_VOTES.map((k) => [k.topic, { id: k.topic, label: k.topicLabel }])).values()],
-      count: kept.length,
-      votes: kept,
+  JSON.stringify({
+    generatedAt: new Date().toISOString(),
+    source: {
+      name: "Congreso de los Diputados — Datos Abiertos (votaciones)",
+      url: "https://www.congreso.es/es/opendata/votaciones",
     },
-    null,
-    0,
-  ),
+    topics: Object.entries(TOPICS).map(([id, label]) => ({ id, label })),
+    count: kept.length,
+    votes: kept,
+  }),
   "utf-8",
 );
-console.log(`\nwrote data/votes.json — ${kept.length} matched votes`);
+console.log(`\nwrote data/votes.json — ${kept.length}/${KEY_VOTES.length} votes`);

@@ -5,6 +5,9 @@ import { getAggregation } from "@/lib/data";
 import { getDict } from "@/lib/i18n";
 import { euroCompact } from "@/lib/format";
 import NewsFeed from "@/components/NewsFeed";
+import Avatar from "@/components/Avatar";
+import PhotoCredit from "@/components/PhotoCredit";
+import { portraitFor } from "@/lib/photos";
 import BlueskyFeed from "@/components/BlueskyFeed";
 
 export const revalidate = 3600;
@@ -25,6 +28,7 @@ export default async function PoliticianPage({
   const agg = await getAggregation();
   const party = agg.parties.find((p) => p.nif === politician.partyNif);
   const { locale, bcp47, t } = getDict(localeParam);
+  const portrait = await portraitFor(politician.name);
 
   return (
     <main className="mx-auto max-w-3xl px-5 pb-8">
@@ -33,14 +37,19 @@ export default async function PoliticianPage({
       </Link>
 
       {/* Header */}
-      <div className="mt-4 flex items-start gap-4">
-        <span
-          className="mt-2 inline-block h-8 w-1.5 shrink-0 rounded-full"
-          style={{ backgroundColor: party?.color ?? "var(--paper-faint)" }}
-        />
+      <div className="mt-4 flex items-start gap-5">
         <div>
+          <Avatar
+            name={politician.name}
+            portrait={portrait}
+            color={party?.color}
+            size={92}
+          />
+        </div>
+        <div className="min-w-0">
           <p className="eyebrow">{politician.role}</p>
           <h1 className="display mt-2 text-4xl sm:text-5xl">{politician.name}</h1>
+          {portrait && <PhotoCredit portrait={portrait} />}
         </div>
       </div>
 

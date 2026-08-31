@@ -12,6 +12,9 @@ Available in **Spanish, English and Catalan**.
 |-------|--------|-----------|
 | State subsidies to parties | BDNS / SNPSAP REST API | Live, refreshed daily |
 | Private donations to parties | Tribunal de Cuentas report nº 1573 (2020) | Fixed snapshot, lagged 1–2 years |
+| Public salaries of officeholders | Registro de Altos Cargos / transparencia.gob.es | Rebuilt from a CSV export |
+| Key roll-call votes | Congreso de los Diputados open data | Rebuilt on demand |
+| Portraits | Wikipedia / Wikimedia Commons | Rebuilt on demand |
 | Individual politicians | Curated registry + Bluesky public API + Google News RSS | Feeds live |
 
 ### Honest limits
@@ -25,6 +28,14 @@ Read `/metodologia` in the app before drawing conclusions. In short:
   person. Politician pages link to their party's funding instead of inventing a personal number.
 - **Private data is not an API.** Donation figures come from annual Tribunal de Cuentas PDF
   reports, published one to two years late — hence a fixed snapshot rather than a live feed.
+- **Recorded votes only.** Vote positions come from named roll calls, pinned by hand in
+  `scripts/fetch-votes.mjs` with the tally expected on the official record; the fetcher refuses
+  to publish a vote whose tally does not match. Each item is labelled by type, because a
+  "proposición no de Ley" or a motion is a non-binding position, not the passage of a law.
+  A person has a position only if their vote is on record — never inferred from their party.
+- **Portraits are only attached on an exact name match** with the Wikipedia article title, and
+  only when the licence permits reuse; author and licence are shown wherever the photo appears.
+  Everyone else gets initials, never a stand-in photo of someone else.
 - **Bluesky handles are verified one by one** (follower count and bio) before a politician is
   added, because Bluesky has weak identity checks. Unverifiable handles are excluded.
 
@@ -123,11 +134,17 @@ A healthy response reports `"storage":{"configured":"kv","writtenTo":"kv"}`.
 | `lib/parties.ts` | Canonical NIF → party registry (name, colour, bloc) |
 | `lib/politicians.ts` | Curated politicians with verified Bluesky handles |
 | `lib/donations.ts` | Private donations 2020, transcribed from the Tribunal de Cuentas report |
+| `lib/salaries.ts` + `scripts/build-salaries.mjs` | Officeholder pay: load, search, party join |
+| `lib/votes.ts` + `scripts/fetch-votes.mjs` | Pinned roll-call votes and per-deputy positions |
+| `scripts/discover-votes.mjs` | Finds candidate votes for review (publishes nothing) |
+| `lib/photos.ts` + `scripts/fetch-photos.mjs` | Freely-licensed portraits with attribution |
 | `lib/i18n.ts`, `lib/locales.ts` | Dictionaries and locale constants |
 | `middleware.ts` | Locale redirects |
 | `app/[locale]/page.tsx` + `components/Dashboard.tsx` | Overview: totals, filters, ranked bars |
 | `app/[locale]/party/[nif]/page.tsx` | Party detail: public and private money, ledger, news |
 | `app/[locale]/politician/[slug]/page.tsx` | Politician: party funding, Bluesky, news |
+| `app/[locale]/sueldos/page.tsx` | Public salary index: search, party facets, paging |
+| `app/[locale]/votaciones/page.tsx` | Key votes: result, per-group breakdown, deputy search |
 | `app/[locale]/metodologia/page.tsx` | Methodology and legal caveats |
 
 ## Sources

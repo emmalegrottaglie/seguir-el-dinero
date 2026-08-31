@@ -18,9 +18,9 @@ const es = {
   votes: {
     title: "Votaciones clave",
     intro:
-      "Posiciones registradas en votaciones nominales del Congreso sobre leyes concretas. Cada posición es un voto emitido y verificable, no una opinión atribuida.",
+      "Posiciones registradas en votaciones nominales del Congreso sobre asuntos concretos. Cada posición es un voto realmente emitido y verificable, no una opinión atribuida.",
     caveat:
-      "Solo se muestran las votaciones finales de cada ley, con el resultado contrastado con el oficial. Un diputado aparece solo si consta su voto; no se deduce postura de nadie a partir de su partido.",
+      "Cada votación se etiqueta según su tipo: unas aprueban leyes, otras son proposiciones no de Ley o mociones, que no son vinculantes. Se excluyen las votaciones de enmiendas. Un diputado aparece solo si consta su voto; no se deduce la postura de nadie a partir de su partido.",
     searchLabel: "Buscar diputado",
     searchPlaceholder: "Apellido o nombre…",
     inFavour: "A favor",
@@ -35,6 +35,14 @@ const es = {
     session: "Sesión",
     noMatch: "Sin votos registrados para esa búsqueda.",
     results: "diputados",
+    kinds: {
+      ley: "Votación final de ley",
+      toma: "Toma en consideración",
+      pnl: "Proposición no de Ley",
+      mocion: "Moción consecuencia de interpelación",
+    },
+    nonBinding: "no vinculante",
+    legislature: "Legislatura",
   },
   salaries: {
     title: "Sueldos públicos",
@@ -185,9 +193,9 @@ const en: Dict = {
   votes: {
     title: "Key votes",
     intro:
-      "Positions recorded in roll-call votes of the Congress on specific laws. Each position is a ballot actually cast and verifiable, not an opinion attributed to anyone.",
+      "Positions recorded in roll-call votes of the Congress on specific items. Each position is a ballot actually cast and verifiable, not an opinion attributed to anyone.",
     caveat:
-      "Only each law's final vote is shown, with the tally checked against the official result. A deputy appears only if their vote is on record; nobody's stance is inferred from their party.",
+      "Each vote is labelled by type: some pass laws, others are non-legislative motions, which are not binding. Amendment votes are excluded. A deputy appears only if their vote is on record; nobody's stance is inferred from their party.",
     searchLabel: "Search deputy",
     searchPlaceholder: "Surname or name…",
     inFavour: "In favour",
@@ -202,6 +210,14 @@ const en: Dict = {
     session: "Session",
     noMatch: "No recorded votes for that search.",
     results: "deputies",
+    kinds: {
+      ley: "Final vote on a law",
+      toma: "Leave to proceed",
+      pnl: "Non-legislative motion",
+      mocion: "Motion following an urgent interpellation",
+    },
+    nonBinding: "non-binding",
+    legislature: "Legislature",
   },
   salaries: {
     title: "Public salaries",
@@ -350,9 +366,9 @@ const ca: Dict = {
   votes: {
     title: "Votacions clau",
     intro:
-      "Posicions registrades en votacions nominals del Congrés sobre lleis concretes. Cada posició és un vot emès i verificable, no una opinió atribuïda.",
+      "Posicions registrades en votacions nominals del Congrés sobre assumptes concrets. Cada posició és un vot realment emès i verificable, no una opinió atribuïda.",
     caveat:
-      "Només es mostren les votacions finals de cada llei, amb el resultat contrastat amb l'oficial. Un diputat apareix només si consta el seu vot; no es dedueix la postura de ningú a partir del seu partit.",
+      "Cada votació s'etiqueta segons el seu tipus: unes aproven lleis, altres són proposicions no de Llei o mocions, que no són vinculants. S'exclouen les votacions d'esmenes. Un diputat apareix només si consta el seu vot; no es dedueix la postura de ningú a partir del seu partit.",
     searchLabel: "Cerca diputat",
     searchPlaceholder: "Cognom o nom…",
     inFavour: "A favor",
@@ -367,6 +383,14 @@ const ca: Dict = {
     session: "Sessió",
     noMatch: "Sense vots registrats per a aquesta cerca.",
     results: "diputats",
+    kinds: {
+      ley: "Votació final de llei",
+      toma: "Presa en consideració",
+      pnl: "Proposició no de Llei",
+      mocion: "Moció conseqüència d'interpel·lació",
+    },
+    nonBinding: "no vinculant",
+    legislature: "Legislatura",
   },
   salaries: {
     title: "Sous públics",

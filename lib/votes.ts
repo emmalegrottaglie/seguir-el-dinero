@@ -9,12 +9,18 @@ export interface DeputyVote {
   vote: Ballot;
 }
 
+export type VoteKind = "ley" | "toma" | "pnl" | "mocion";
+
 export interface KeyVote {
   id: string;
   topic: string;
   topicLabel: string;
+  kind: VoteKind;
+  kindLabel: string;
+  /** true for votes with legal effect; false for non-binding motions. */
+  binding: boolean;
   law: string;
-  lawUrl: string;
+  lawUrl: string | null;
   legislature: string;
   session: number | null;
   number: number | null;

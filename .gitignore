@@ -30,3 +30,6 @@ next-env.d.ts
 
 # scratch / large source PDFs (re-downloadable)
 *.pdf
+
+# intermediate scraper caches (regenerate with npm run build:photos / discover:votes)
+data/_*.json
