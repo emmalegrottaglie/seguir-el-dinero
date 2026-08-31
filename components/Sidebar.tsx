@@ -17,6 +17,7 @@ export default function Sidebar({ locale, nav }: { locale: Locale; nav: Dict["na
 
   const data: Item[] = [
     { href: `/${locale}`, label: nav.panel },
+    { href: `/${locale}/financiacion`, label: nav.funding },
     { href: `/${locale}/politicos`, label: nav.people },
     { href: `/${locale}/votaciones`, label: nav.votes },
   ];
