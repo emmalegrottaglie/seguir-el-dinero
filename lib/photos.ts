@@ -53,6 +53,12 @@ export async function portraitFor(name: string): Promise<Portrait | null> {
 
 // Null when the portrait file could not be read, so callers can omit the credit
 // line instead of rendering an empty link.
+/** Keys that have a portrait — lets callers test many names without awaiting each. */
+export async function portraitKeys(): Promise<Set<string>> {
+  const data = await load();
+  return new Set(Object.keys(data.photos));
+}
+
 export async function photoSource(): Promise<PhotosFile["source"] | null> {
   const { source } = await load();
   return source.name && source.url ? source : null;

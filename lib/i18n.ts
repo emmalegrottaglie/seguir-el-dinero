@@ -14,7 +14,42 @@ const es = {
     description:
       "Rastreo de las subvenciones públicas estatales que reciben los partidos políticos españoles, con datos de la Base de Datos Nacional de Subvenciones (BDNS).",
   },
-  nav: { panel: "Panel", faces: "Caras", salaries: "Sueldos", votes: "Votaciones", methodology: "Metodología" },
+  nav: {
+    panel: "Panel",
+    faces: "Caras",
+    salaries: "Sueldos",
+    people: "Políticos",
+    votes: "Votaciones",
+    methodology: "Metodología",
+    funding: "Financiación",
+    sectionData: "Datos",
+    sectionAbout: "Sobre",
+    menu: "Menú",
+  },
+  people: {
+    title: "Políticos",
+    intro:
+      "Cada cargo público en activo: lo que cobra, la financiación de su partido, su voto registrado en leyes de derechos y, cuando existe, sus redes y los titulares en los que aparece.",
+    featured: "Con voto registrado",
+    featuredNote:
+      "Perfiles con votación nominal documentada. El resto del registro aparece en el buscador.",
+    directory: "Registro completo",
+    hasRecord: "voto registrado",
+    hasSocial: "redes",
+    noRecord: "Sin voto registrado",
+    noRecordExplain:
+      "No consta ninguna votación nominal de esta persona en los asuntos que seguimos. No se deduce su postura a partir de su partido.",
+    pay: "Retribución",
+    partyFunding: "Financiación del partido",
+    rightsRecord: "Voto en leyes de derechos",
+    juxtaposition:
+      "Voto registrado y financiación del partido se muestran juntos como asociación, no como causa: el dinero público no explica un voto concreto.",
+    profile: "Ver perfil →",
+    backToPeople: "← Políticos",
+    affects: "Asuntos que afectan a minorías",
+    affectsNote:
+      "Leyes y mociones sobre derechos trans y LGTBI, salud sexual y reproductiva, y vivienda. Cada posición enlaza al acta oficial.",
+  },
   votes: {
     title: "Votaciones clave",
     intro:
@@ -88,6 +123,48 @@ const es = {
     seguridad: "Gastos de seguridad",
     otra: "Otra",
     all: "Todas",
+  },
+  foundations: {
+    title: "Fundaciones vinculadas a partidos",
+    intro:
+      "Las fundaciones y asociaciones ligadas a los partidos reciben dinero por su cuenta. Según el Tribunal de Cuentas, sus donaciones recibidas se duplicaron en 2021 y 2022 respecto a 2020.",
+    privateDonations: "Donaciones privadas",
+    publicSubsidies: "Subvenciones públicas",
+    entities: "entidades auditadas",
+    legalTitle: "Por qué importa",
+    legalBody:
+      "A los partidos les está prohibido recibir donaciones de personas jurídicas desde 2015. Estas fundaciones tampoco pueden aceptar donaciones de organismos, entidades o empresas públicas, y las donaciones de personas jurídicas privadas están sujetas a los mismos límites que las de los partidos. La diferencia está en una excepción: las entregas de dinero o bienes destinadas a financiar una actividad o un proyecto concreto de la fundación no se consideran donaciones, cuando responden a un interés común o al objeto estatutario de ambas entidades. Están obligadas a informar cada año al Ministerio de Hacienda.",
+    gapTitle: "Lo que no muestra",
+    gapBody:
+      "Estas son las cifras agregadas que publicó el Tribunal de Cuentas. El desglose por fundación está en el informe completo, que aún no se ha incorporado, así que aquí no se nombra ninguna fundación ni se atribuye ninguna cantidad a un partido concreto.",
+    lawLink: "Ley Orgánica 8/2007, disposición adicional séptima ↗",
+  },
+  portal: {
+    eyebrow: "Portal de transparencia política",
+    titlePre: "Quién les paga, y ",
+    titleEmph: "cómo votan",
+    titlePost: ".",
+    lead:
+      "Seguimiento del dinero público y privado que reciben los partidos españoles, junto al voto registrado de sus cargos en las leyes que afectan a las personas trans y LGTBI, a la salud sexual y reproductiva, y al derecho a la vivienda.",
+    statPublic: "Dinero público a partidos",
+    statPrivate: "Donaciones privadas declaradas",
+    statPeople: "Cargos públicos en activo",
+    statVotes: "Votaciones seguidas",
+    stanceTitle: "Cómo votó cada grupo",
+    stanceNote:
+      "Voto mayoritario de cada grupo, contado a partir de los votos nominales. Se indica el sentido del voto tal cual consta en el acta, no una interpretación: en votaciones de enmiendas, un No puede significar rechazar la enmienda y no oponerse a la ley. Consulta el acta oficial y el asunto de cada votación.",
+    inFavourGroups: "Votó Sí",
+    againstGroups: "Votó No",
+    abstainGroups: "Se abstuvo",
+    newsTitle: "Derechos LGTBI y trans en la actualidad",
+    newsNote: "Titulares recientes · Google News",
+    exploreTitle: "Explorar",
+    exploreMoney: "El reparto del dinero público entre partidos, año a año.",
+    explorePeople: "Cada cargo en activo: sueldo, partido y voto registrado.",
+    exploreVotes: "Las votaciones seguidas, con desglose por grupo.",
+    exploreMethod: "Fuentes, límites y qué no muestra esta herramienta.",
+    linkFraming:
+      "El dinero y los votos se publican juntos para poder consultarlos, no porque uno explique al otro. Una subvención pública no determina un voto concreto.",
   },
   home: {
     eyebrow: "Subvenciones estatales",
@@ -189,7 +266,42 @@ const en: Dict = {
     description:
       "Tracking the public state subsidies that Spanish political parties receive, with data from the National Subsidies Database (BDNS).",
   },
-  nav: { panel: "Dashboard", faces: "Faces", salaries: "Salaries", votes: "Votes", methodology: "Methodology" },
+  nav: {
+    panel: "Dashboard",
+    faces: "Faces",
+    salaries: "Salaries",
+    people: "Politicians",
+    votes: "Votes",
+    methodology: "Methodology",
+    funding: "Funding",
+    sectionData: "Data",
+    sectionAbout: "About",
+    menu: "Menu",
+  },
+  people: {
+    title: "Politicians",
+    intro:
+      "Every serving officeholder: what they are paid, how their party is funded, their recorded vote on rights legislation and, where it exists, their social presence and the headlines they appear in.",
+    featured: "With a voting record",
+    featuredNote:
+      "Profiles with a documented roll-call vote. The rest of the register is in the search below.",
+    directory: "Full register",
+    hasRecord: "voting record",
+    hasSocial: "social",
+    noRecord: "No recorded vote",
+    noRecordExplain:
+      "This person has no roll-call vote on record for the items we track. Their position is not inferred from their party.",
+    pay: "Pay",
+    partyFunding: "Party funding",
+    rightsRecord: "Vote on rights legislation",
+    juxtaposition:
+      "Recorded votes and party funding are shown side by side as association, not cause: public money does not explain any particular vote.",
+    profile: "View profile →",
+    backToPeople: "← Politicians",
+    affects: "Issues affecting minorities",
+    affectsNote:
+      "Laws and motions on trans and LGBTI rights, sexual and reproductive health, and housing. Every position links to the official record.",
+  },
   votes: {
     title: "Key votes",
     intro:
@@ -263,6 +375,48 @@ const en: Dict = {
     seguridad: "Security costs",
     otra: "Other",
     all: "All",
+  },
+  foundations: {
+    title: "Party-linked foundations",
+    intro:
+      "The foundations and associations tied to political parties receive money in their own right. According to the Court of Auditors, the donations they received doubled in 2021 and 2022 compared with 2020.",
+    privateDonations: "Private donations",
+    publicSubsidies: "Public subsidies",
+    entities: "entities audited",
+    legalTitle: "Why it matters",
+    legalBody:
+      "Parties have been barred from accepting donations from legal entities since 2015. These foundations likewise cannot accept donations from public bodies, entities or companies, and donations from private legal entities are subject to the same limits that apply to parties. The difference lies in one exception: money or assets given to finance a specific activity or project of the foundation are not treated as donations, where they answer to a common interest or to the statutory purpose of both entities. They must report annually to the Ministry of Finance.",
+    gapTitle: "What this does not show",
+    gapBody:
+      "These are the aggregate figures the Court of Auditors published. The per-foundation breakdown is in the full report, which has not been ingested, so no individual foundation is named here and no amount is attributed to a particular party.",
+    lawLink: "Organic Law 8/2007, seventh additional provision ↗",
+  },
+  portal: {
+    eyebrow: "Political transparency portal",
+    titlePre: "Who pays them, and ",
+    titleEmph: "how they vote",
+    titlePost: ".",
+    lead:
+      "Tracking the public and private money Spanish parties receive, alongside the recorded votes of their officeholders on laws affecting trans and LGBTI people, sexual and reproductive health, and the right to housing.",
+    statPublic: "Public money to parties",
+    statPrivate: "Declared private donations",
+    statPeople: "Serving officeholders",
+    statVotes: "Votes tracked",
+    stanceTitle: "How each group voted",
+    stanceNote:
+      "Each group's majority ballot, counted from the named votes. It reports the ballot as recorded, not an interpretation of intent: in a vote on amendments, a No can mean rejecting the amendment rather than opposing the law. Check the official record and the subject of each vote.",
+    inFavourGroups: "Voted Yes",
+    againstGroups: "Voted No",
+    abstainGroups: "Abstained",
+    newsTitle: "LGBTI and trans rights in the news",
+    newsNote: "Recent headlines · Google News",
+    exploreTitle: "Explore",
+    exploreMoney: "How public money is split between parties, year by year.",
+    explorePeople: "Every serving officeholder: pay, party and recorded vote.",
+    exploreVotes: "The votes we track, broken down by group.",
+    exploreMethod: "Sources, limits, and what this tool does not show.",
+    linkFraming:
+      "Money and votes are published together so they can be looked up, not because one explains the other. A public subsidy does not determine any particular vote.",
   },
   home: {
     eyebrow: "State subsidies",
@@ -362,7 +516,42 @@ const ca: Dict = {
     description:
       "Seguiment de les subvencions públiques estatals que reben els partits polítics espanyols, amb dades de la Base de Dades Nacional de Subvencions (BDNS).",
   },
-  nav: { panel: "Tauler", faces: "Cares", salaries: "Sous", votes: "Votacions", methodology: "Metodologia" },
+  nav: {
+    panel: "Tauler",
+    faces: "Cares",
+    salaries: "Sous",
+    people: "Polítics",
+    votes: "Votacions",
+    methodology: "Metodologia",
+    funding: "Finançament",
+    sectionData: "Dades",
+    sectionAbout: "Sobre",
+    menu: "Menú",
+  },
+  people: {
+    title: "Polítics",
+    intro:
+      "Cada càrrec públic en actiu: què cobra, el finançament del seu partit, el seu vot registrat en lleis de drets i, quan existeix, les seves xarxes i els titulars on apareix.",
+    featured: "Amb vot registrat",
+    featuredNote:
+      "Perfils amb votació nominal documentada. La resta del registre és al cercador.",
+    directory: "Registre complet",
+    hasRecord: "vot registrat",
+    hasSocial: "xarxes",
+    noRecord: "Sense vot registrat",
+    noRecordExplain:
+      "No consta cap votació nominal d'aquesta persona en els assumptes que seguim. No es dedueix la seva postura a partir del seu partit.",
+    pay: "Retribució",
+    partyFunding: "Finançament del partit",
+    rightsRecord: "Vot en lleis de drets",
+    juxtaposition:
+      "Vot registrat i finançament del partit es mostren junts com a associació, no com a causa: els diners públics no expliquen un vot concret.",
+    profile: "Veure perfil →",
+    backToPeople: "← Polítics",
+    affects: "Assumptes que afecten minories",
+    affectsNote:
+      "Lleis i mocions sobre drets trans i LGBTI, salut sexual i reproductiva, i habitatge. Cada posició enllaça a l'acta oficial.",
+  },
   votes: {
     title: "Votacions clau",
     intro:
@@ -436,6 +625,48 @@ const ca: Dict = {
     seguridad: "Despeses de seguretat",
     otra: "Altra",
     all: "Totes",
+  },
+  foundations: {
+    title: "Fundacions vinculades a partits",
+    intro:
+      "Les fundacions i associacions lligades als partits reben diners pel seu compte. Segons el Tribunal de Comptes, les donacions rebudes es van duplicar el 2021 i el 2022 respecte al 2020.",
+    privateDonations: "Donacions privades",
+    publicSubsidies: "Subvencions públiques",
+    entities: "entitats auditades",
+    legalTitle: "Per què importa",
+    legalBody:
+      "Als partits els està prohibit rebre donacions de persones jurídiques des del 2015. Aquestes fundacions tampoc no poden acceptar donacions d'organismes, entitats o empreses públiques, i les donacions de persones jurídiques privades estan subjectes als mateixos límits que les dels partits. La diferència és una excepció: les entregues de diners o béns destinades a finançar una activitat o un projecte concret de la fundació no es consideren donacions, quan responen a un interès comú o a l'objecte estatutari de les dues entitats. Estan obligades a informar cada any al Ministeri d'Hisenda.",
+    gapTitle: "Què no mostra",
+    gapBody:
+      "Aquestes són les xifres agregades que va publicar el Tribunal de Comptes. El desglossament per fundació és a l'informe complet, que encara no s'ha incorporat, així que aquí no es nomena cap fundació ni s'atribueix cap quantitat a un partit concret.",
+    lawLink: "Llei Orgànica 8/2007, disposició addicional setena ↗",
+  },
+  portal: {
+    eyebrow: "Portal de transparència política",
+    titlePre: "Qui els paga, i ",
+    titleEmph: "com voten",
+    titlePost: ".",
+    lead:
+      "Seguiment dels diners públics i privats que reben els partits espanyols, juntament amb el vot registrat dels seus càrrecs en les lleis que afecten les persones trans i LGBTI, la salut sexual i reproductiva, i el dret a l'habitatge.",
+    statPublic: "Diners públics als partits",
+    statPrivate: "Donacions privades declarades",
+    statPeople: "Càrrecs públics en actiu",
+    statVotes: "Votacions seguides",
+    stanceTitle: "Com va votar cada grup",
+    stanceNote:
+      "Vot majoritari de cada grup, comptat a partir dels vots nominals. Indica el sentit del vot tal com consta a l'acta, no una interpretació: en votacions d'esmenes, un No pot significar rebutjar l'esmena i no oposar-se a la llei. Consulta l'acta oficial i l'assumpte de cada votació.",
+    inFavourGroups: "Va votar Sí",
+    againstGroups: "Va votar No",
+    abstainGroups: "Es va abstenir",
+    newsTitle: "Drets LGBTI i trans a l'actualitat",
+    newsNote: "Titulars recents · Google News",
+    exploreTitle: "Explorar",
+    exploreMoney: "El repartiment dels diners públics entre partits, any a any.",
+    explorePeople: "Cada càrrec en actiu: sou, partit i vot registrat.",
+    exploreVotes: "Les votacions seguides, amb desglossament per grup.",
+    exploreMethod: "Fonts, límits i què no mostra aquesta eina.",
+    linkFraming:
+      "Els diners i els vots es publiquen junts per poder consultar-los, no perquè l'un expliqui l'altre. Una subvenció pública no determina un vot concret.",
   },
   home: {
     eyebrow: "Subvencions estatals",
