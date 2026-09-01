@@ -5,6 +5,59 @@ figures name their source; corrections and gaps are recorded alongside the work,
 
 ---
 
+## 2026-09-01 — Design critique and WCAG 2.1 AA audit (no code shipped)
+
+Audited the running app rather than the source: seven routes at 1440×900 and 375×812, nine
+route/locale combinations for the accessibility pass. Contrast was read with `getComputedStyle` on
+live elements and composited against the real background, keyboard behaviour was driven with real key
+events, and reflow was tested at 320 CSS px. Findings and the plan are in `PLAN-VISUAL.md`. Nothing
+was changed in the app.
+
+**The cascade bug that hid two others.** `.label-mono` in `app/globals.css` sets a colour. It has the
+same specificity as a Tailwind colour utility and is defined after the Tailwind layers, so it
+silently wins — **every element combining `label-mono` with a `text-[var(--…)]` utility renders
+`--paper-dim` regardless of what the code says, across 62 occurrences.** Two are visible failures:
+the active filter chip on `/es/financiacion` and `/es/votaciones` asks for `--ink` on `--gold` and
+renders `--paper-dim` on `--gold` at **1.14 : 1**. The control that tells the reader which filter is
+selected is the least readable text on the page.
+
+**A token below AA.** `--paper-faint` `#6f6857` on `--ink` is **3.48 : 1**, under the 4.5 : 1 normal
+text needs. 21 elements render at it today; 43 more are masked by the cascade bug. The two defects
+must be fixed in the same change, because fixing the cascade alone newly exposes those 43.
+
+**Five more, all verified in the browser.** Escape does not close the mobile menu (`aria-expanded`
+stays `"true"`). No route carries a skip link, though the sidebar's six links precede `<main>` every
+time. All eight filter chips lack `aria-pressed`, so with the contrast defect the selected state is
+unavailable both visually and programmatically. There are no live regions anywhere, on pages whose
+entire result set is replaced by filtering or searching. The chips' only boundary measures
+**1.77 : 1** where non-text contrast needs 3 : 1.
+
+**What passes was checked, not assumed**, and is recorded so a future pass does not redo it: correct
+`lang` per locale, exactly one `<h1>` and no skipped heading levels on all nine, `<main>`/`<nav>`/
+`<footer>` present, every image with `alt`, every control with an accessible name, the search field
+labelled, focus visible under real keyboard use, and reflow clean at 320 px with the wide table
+scrolling inside its own box. One caveat recorded with the pass: the site contains **no `:focus` rule
+at all**, so the focus ring is entirely the browser's default — adequate today, but undesigned on a
+near-black ground.
+
+**The visual finding.** A data-journalism site with **zero `<svg>` and zero `<canvas>` on any
+route** — every chart is a `div` with a percentage width, and the politician profile, party page and
+directory have no chart at all. `data/photos.json` holds 133 portraits against 6,670 register rows,
+so the directory is 98% initials. The plan proposes a small server-rendered chart primitive rather
+than a charting framework, converting the 54 existing bars first, then one lead visual per page.
+
+The page it recommends starting with is `/metodologia`: the project's strongest quality is that it
+states its gaps, and those gaps are currently only prose. A coverage chart — 133 of 6,670 portraits,
+268 of 6,670 with a roll-call record, 4,964 of 6,670 with a published salary — makes the honesty
+visible.
+
+**Deliberately left out.** No code changes, no token edits, and no screen-reader claims: an NVDA or
+VoiceOver pass over the profile and votes pages is listed as outstanding, along with a check of
+whether the vote cards work without colour vision. Automated checks catch roughly a third of real
+barriers and the document says so.
+
+---
+
 ## 2026-09-01 — News source registry, Atom support, and two staleness guards
 
 First implementation step of the context layer designed in `PLAN-CONTEXT-LAYER.md`. The portal's

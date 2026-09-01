@@ -9,7 +9,7 @@ Available in **Spanish, English and Catalan**.
 
 ## Documentation map
 
-Five documents, each with one job. Start with the one that matches your question.
+Six documents, each with one job. Start with the one that matches your question.
 
 | Document | Answers |
 |---|---|
@@ -17,6 +17,7 @@ Five documents, each with one job. Start with the one that matches your question
 | [`AGENTS.md`](AGENTS.md) | How it is built: architecture, data flow, endpoint gotchas, honesty rules |
 | [`NEXT-STEPS.md`](NEXT-STEPS.md) | What is planned, with enough detail to pick any item up cold |
 | [`PLAN-CONTEXT-LAYER.md`](PLAN-CONTEXT-LAYER.md) | Design for the wages / poverty / housing layer, with verified sources |
+| [`PLAN-VISUAL.md`](PLAN-VISUAL.md) | Design critique, the WCAG 2.1 AA audit, and the plan to make the site visual |
 | [`CHANGELOG.md`](CHANGELOG.md) | What changed, why, the source behind each figure, and what was left out |
 
 ## What it shows
