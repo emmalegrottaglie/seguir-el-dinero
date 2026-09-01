@@ -5,6 +5,173 @@ figures name their source; corrections and gaps are recorded alongside the work,
 
 ---
 
+## 2026-09-01 — Fixed the two critical contrast defects (P1, P2)
+
+Two WCAG 1.4.3 failures from the audit, fixed together because they were entangled.
+
+**P1 — the cascade defect.** `.label-mono` set `color: var(--paper-dim)` from an unlayered rule.
+Tailwind v4 emits utilities inside `@layer utilities`, and **unlayered styles beat every cascade
+layer regardless of specificity**, so the class won against any `text-[var(--…)]` written beside it.
+62 call sites silently rendered `--paper-dim`. The visible casualty was the active filter chip on
+`/financiacion` and `/votaciones`, which asks for `--ink` on `--gold` and rendered **1.14 : 1** — the
+control telling the reader which filter is selected was the least readable text on the page.
+
+The audit's first diagnosis was wrong and is corrected in `PLAN-VISUAL.md`: it said "same
+specificity, defined later" and proposed `:where(.label-mono)`. Applying that changed nothing, and
+measuring it is what showed why — `:where()` drops specificity to zero but does not touch layer
+order. The fix that works is moving `.label-mono` and `.eyebrow` into `@layer base`, which loses to
+`utilities` by layer order.
+
+**P2 — the failing token.** `--paper-faint` was `#6f6857`, **3.48 : 1** on `--ink`, below the 4.5 : 1
+that normal text needs, and used at `text-xs` and `text-sm`. It is now `#8a8270`, **5.06 : 1**, in
+the same warm-grey family. This had to ship with P1: fixing the cascade alone would have newly
+exposed the 43 elements that were accidentally being rescued by it.
+
+**Verified in the browser, not assumed.** The active chip now measures **8.30 : 1** (`rgb(16,14,10)`
+on gold); a probe with `label-mono text-[var(--ink)]` computes `rgb(16,14,10)`; a probe with
+`label-mono text-[var(--paper-faint)]` computes `#8a8270` at 5.06 : 1. A sweep then walked every
+visible text-bearing element on nine route/locale combinations, composited each against its real
+background, and applied the large-text threshold by measured size and weight. **Eight of the nine
+routes now report zero contrast failures.**
+
+**One new finding, from that sweep.** `/es/politicos` reports four. The avatar initials use the
+party's brand colour as text on `--ink-3`, and three party colours fall under 4.5 : 1 at 16.3 px:
+`#8b5cc4` (3.61), `#d64545` (3.92), `#c7527f` (4.04). Recorded as P4 and **not fixed**: the initials
+are `aria-hidden` and sit beside the person's name, so treating them as incidental decoration is
+defensible, and the honest fixes — initials in `--paper` with the brand colour kept for the ring, or
+a lighter tile — are design decisions rather than defect repairs. Lightening the party colours
+themselves is not on the table, since those are the parties' own identities.
+
+**Deliberately left out.** Only P1 and P2 were in scope. P3 (chip borders at 1.77 : 1), O1 (no skip
+link), O2 (Escape does not close the mobile menu), O3 (target size), R1 (no `aria-pressed`), R2 (no
+live regions) and R3 (table semantics) are unchanged and still listed in `PLAN-VISUAL.md` §2b. Also
+recorded there: `.display`, `.mono`, `.src` and `.panel` remain unlayered and carry the same latent
+trap as P1, with no measured casualty today.
+
+Typecheck clean, production build clean at 104 pages.
+
+---
+
+## 2026-09-01 — Design critique and WCAG 2.1 AA audit (no code shipped)
+
+Audited the running app rather than the source: seven routes at 1440×900 and 375×812, nine
+route/locale combinations for the accessibility pass. Contrast was read with `getComputedStyle` on
+live elements and composited against the real background, keyboard behaviour was driven with real key
+events, and reflow was tested at 320 CSS px. Findings and the plan are in `PLAN-VISUAL.md`. Nothing
+was changed in the app.
+
+**The cascade bug that hid two others.** `.label-mono` in `app/globals.css` sets a colour. It has the
+same specificity as a Tailwind colour utility and is defined after the Tailwind layers, so it
+silently wins — **every element combining `label-mono` with a `text-[var(--…)]` utility renders
+`--paper-dim` regardless of what the code says, across 62 occurrences.** Two are visible failures:
+the active filter chip on `/es/financiacion` and `/es/votaciones` asks for `--ink` on `--gold` and
+renders `--paper-dim` on `--gold` at **1.14 : 1**. The control that tells the reader which filter is
+selected is the least readable text on the page.
+
+**A token below AA.** `--paper-faint` `#6f6857` on `--ink` is **3.48 : 1**, under the 4.5 : 1 normal
+text needs. 21 elements render at it today; 43 more are masked by the cascade bug. The two defects
+must be fixed in the same change, because fixing the cascade alone newly exposes those 43.
+
+**Five more, all verified in the browser.** Escape does not close the mobile menu (`aria-expanded`
+stays `"true"`). No route carries a skip link, though the sidebar's six links precede `<main>` every
+time. All eight filter chips lack `aria-pressed`, so with the contrast defect the selected state is
+unavailable both visually and programmatically. There are no live regions anywhere, on pages whose
+entire result set is replaced by filtering or searching. The chips' only boundary measures
+**1.77 : 1** where non-text contrast needs 3 : 1.
+
+**What passes was checked, not assumed**, and is recorded so a future pass does not redo it: correct
+`lang` per locale, exactly one `<h1>` and no skipped heading levels on all nine, `<main>`/`<nav>`/
+`<footer>` present, every image with `alt`, every control with an accessible name, the search field
+labelled, focus visible under real keyboard use, and reflow clean at 320 px with the wide table
+scrolling inside its own box. One caveat recorded with the pass: the site contains **no `:focus` rule
+at all**, so the focus ring is entirely the browser's default — adequate today, but undesigned on a
+near-black ground.
+
+**The visual finding.** A data-journalism site with **zero `<svg>` and zero `<canvas>` on any
+route** — every chart is a `div` with a percentage width, and the politician profile, party page and
+directory have no chart at all. `data/photos.json` holds 133 portraits against 6,670 register rows,
+so the directory is 98% initials. The plan proposes a small server-rendered chart primitive rather
+than a charting framework, converting the 54 existing bars first, then one lead visual per page.
+
+The page it recommends starting with is `/metodologia`: the project's strongest quality is that it
+states its gaps, and those gaps are currently only prose. A coverage chart — 133 of 6,670 portraits,
+268 of 6,670 with a roll-call record, 4,964 of 6,670 with a published salary — makes the honesty
+visible.
+
+**Deliberately left out.** No code changes, no token edits, and no screen-reader claims: an NVDA or
+VoiceOver pass over the profile and votes pages is listed as outstanding, along with a check of
+whether the vote cards work without colour vision. Automated checks catch roughly a third of real
+barriers and the document says so.
+
+---
+
+## 2026-09-01 — News source registry, Atom support, and two staleness guards
+
+First implementation step of the context layer designed in `PLAN-CONTEXT-LAYER.md`. The portal's
+news panel no longer runs a Google News search: it reads a fixed, auditable list of RSS and Atom
+feeds, so the publisher of every headline is known.
+
+**Fixed a real bug.** `lib/news.ts` matched `<item>` only, so it returned an empty array for Atom
+feeds — El Salto publishes Atom — without raising an error. The parser now handles both `<item>` and
+`<entry>`, and reads Atom's self-closing `<link href>` attribute rather than element text.
+
+**New registry.** `lib/news-sources.mjs` holds 15 verified sources with their format, topics,
+language, whether they are an organisation or an outlet, and the date of their newest item at the
+2026-09-01 probe. It follows the `lib/name-key.mjs` precedent — a `.mjs` module with a `.d.mts`
+declaration — so the app and the build script read the same list rather than two copies. Seven
+deliberately excluded feeds are listed with the reason each was left out.
+
+**Two guards, each from an observed failure.** A source whose newest item is more than 365 days old
+is dropped whole; nothing older than 120 days enters the panel regardless of source. The reason is
+dosmanzanas: the most obvious LGBTI news source in Spain serves HTTP 200 with ten items whose newest
+post is 23 February 2024. A status-code check calls that healthy, and it would have filled a "recent
+news" panel with two-year-old articles.
+
+**Two further rules, added after watching the merged output.** At most two items per source, because
+the first working version was four-fifths Shangay — sorting purely by date makes the panel a ranking
+of who publishes most often, burying the organisations the registry exists to include. And items in
+the reader's language sort first, because TGEU and ILGA-Europe post daily in English and had taken
+the top of the Spanish page. Catalan readers get the Spanish sources first; the registry has no
+Catalan feed and Spanish is the nearer of the two.
+
+**Provenance shown, not just used.** Every item carries its source name, and items from an
+organisation's own site are marked as such — an association's statement about a law is not the same
+kind of item as a newspaper's report on it. The methodology page now lists the whole registry with
+links, the guard thresholds in words, and the excluded feeds with their reasons, in all three
+languages. The portal's news heading now says rights *and* housing, which is what the panel actually
+contains, and the note states plainly that organisation posts may cover their own activities as much
+as rights news — one COGAM item in the live feed is a hiking outing, and filtering organisation
+feeds by keyword would be arbitrary where labelling them is not.
+
+**New check.** `npm run check:feeds` fetches every registered feed, reports the age of its newest
+item, and exits non-zero on any source that is unreachable, unparseable or stale. It has one retry
+per source: fetching fifteen feeds at once produces the occasional timeout, and a health check that
+reports transient failures as dead feeds is one people learn to ignore. It found two things this
+run — `provivienda.org` answers 403 to a descriptive bot User-Agent and 200 to an ordinary browser
+one (so `FEED_HEADERS` sends the browser string), and Arcópoli is live but has published nothing in
+201 days, which the report marks with `~` rather than treating as a failure.
+
+**Verified.** All 15 sources live, 0 failing. `/api/news?topic=lgtbi,vivienda&lang=es` returns eight
+items across six distinct Spanish sources with an empty `dropped` list; `lang=en` puts the English
+organisations first. Typecheck clean, production build clean at 104 pages, no console errors.
+
+**Deliberately left out.** No keyword filtering of organisation feeds, no attempt to rank items by
+relevance, and no new statistical figures — the INE ingest is the next step, not this one. Query mode
+is unchanged, so party and politician pages still use Google News.
+
+**Two review findings fixed before the branch went further.** Both were drift risks rather than
+present bugs, and both were cheap:
+
+- `SOURCE_STALE_DAYS` and `ITEM_MAX_AGE_DAYS` were defined twice, once in `lib/news.ts` and once in
+  `scripts/check-feeds.mjs`. Changing one would have left the health check passing feeds the live
+  code then filtered out. They now live in `lib/news-sources.mjs` and both consumers import them.
+- The per-source cap was keyed on the display name. Two registry entries sharing a name would have
+  shared one counter. It is keyed on the registry id now, and `check:feeds` refuses to run at all if
+  any `id`, `name` or `url` is duplicated — the uniqueness the cap relies on is checked rather than
+  assumed. Verified by constructing a duplicate and confirming the detection fires.
+
+---
+
 ## 2026-09-01 — Context layer designed and sources verified (no code shipped)
 
 Planning task. The site answers who funds the parties and how they voted; the missing third side is

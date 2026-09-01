@@ -1,10 +1,24 @@
 # Seguir el Dinero — Spanish party-funding tracker
 
-A dashboard tracking the money behind Spanish political parties: the public state subsidies
-they receive (pulled live from the official national subsidies database), the private
-donations they declare, and the politicians attached to them.
+A transparency portal for the money behind Spanish political parties: the public state subsidies
+they receive (pulled live from the official national subsidies database), the private donations
+they declare, the foundations attached to them, the officeholders they put in post, and how the
+parliamentary groups voted on the laws that affect minorities.
 
 Available in **Spanish, English and Catalan**.
+
+## Documentation map
+
+Six documents, each with one job. Start with the one that matches your question.
+
+| Document | Answers |
+|---|---|
+| **README.md** (this file) | What the project is, how to run it, where things live |
+| [`AGENTS.md`](AGENTS.md) | How it is built: architecture, data flow, endpoint gotchas, honesty rules |
+| [`NEXT-STEPS.md`](NEXT-STEPS.md) | What is planned, with enough detail to pick any item up cold |
+| [`PLAN-CONTEXT-LAYER.md`](PLAN-CONTEXT-LAYER.md) | Design for the wages / poverty / housing layer, with verified sources |
+| [`PLAN-VISUAL.md`](PLAN-VISUAL.md) | Design critique, the WCAG 2.1 AA audit, and the plan to make the site visual |
+| [`CHANGELOG.md`](CHANGELOG.md) | What changed, why, the source behind each figure, and what was left out |
 
 ## What it shows
 
@@ -12,39 +26,52 @@ Available in **Spanish, English and Catalan**.
 |-------|--------|-----------|
 | State subsidies to parties | BDNS / SNPSAP REST API | Live, refreshed daily |
 | Private donations to parties | Tribunal de Cuentas report nº 1573 (2020) | Fixed snapshot, lagged 1–2 years |
+| Party-linked foundations | Tribunal de Cuentas report nº 1.642 (2021–22) | Fixed snapshot, lagged |
 | Public salaries of officeholders | Registro de Altos Cargos / transparencia.gob.es | Rebuilt from a CSV export |
 | Key roll-call votes | Congreso de los Diputados open data | Rebuilt on demand |
 | Portraits | Wikipedia / Wikimedia Commons | Rebuilt on demand |
-| Individual politicians | Curated registry + Bluesky public API + Google News RSS | Feeds live |
+| Politician social presence | Curated registry + Bluesky public API | Live per request |
+| Rights, housing and poverty news | Curated RSS/Atom registry (`lib/news-sources.mjs`) | Live, 30-minute cache |
 
 ### Honest limits
 
 Read `/metodologia` in the app before drawing conclusions. In short:
 
+- **Facts are placed side by side, never joined by an asserted cause.** Votes appear next to
+  funding because both are on the public record, not because one is claimed to explain the other.
+  There are no derived scores and no ranking of parties by anything computed.
 - **Company donations to parties are illegal** in Spain. Since the 2015 reform of Organic Law
   8/2007 only individuals may donate, capped at €50,000/year, with no anonymous donations. So
   "corporations funding parties" barely exists as a legal category.
+- **The foundations layer is not the corporate-money story either.** Party-linked foundations
+  cannot take donations from public bodies or from companies that contract with them, and
+  donations from private legal entities count against the party's own limits. The gap worth
+  watching is the exception for financing specific projects, which is what the page says.
 - **There is no per-politician funding figure.** Subsidies are granted to the party, not the
   person. Politician pages link to their party's funding instead of inventing a personal number.
-- **Private data is not an API.** Donation figures come from annual Tribunal de Cuentas PDF
-  reports, published one to two years late — hence a fixed snapshot rather than a live feed.
-- **Recorded votes only.** Vote positions come from named roll calls, pinned by hand in
-  `scripts/fetch-votes.mjs` with the tally expected on the official record; the fetcher refuses
-  to publish a vote whose tally does not match. Each item is labelled by type, because a
-  "proposición no de Ley" or a motion is a non-binding position, not the passage of a law.
-  A person has a position only if their vote is on record — never inferred from their party.
+- **Private data is not an API.** Donation and foundation figures come from annual Tribunal de
+  Cuentas PDF reports, published one to two years late — hence fixed snapshots, not live feeds.
+- **Recorded votes only**, and labelled by ballot language. Vote positions come from named roll
+  calls, pinned by hand in `scripts/fetch-votes.mjs` with the tally expected on the official
+  record; the fetcher refuses to publish a vote whose tally does not match. Each item is labelled
+  by type, because a "proposición no de Ley" or a motion is a non-binding position, not the
+  passage of a law. A person has a position only if their vote is on record — never inferred from
+  their party.
 - **Portraits are only attached on an exact name match** with the Wikipedia article title, and
   only when the licence permits reuse; author and licence are shown wherever the photo appears.
   Everyone else gets initials, never a stand-in photo of someone else.
 - **Bluesky handles are verified one by one** (follower count and bio) before a politician is
   added, because Bluesky has weak identity checks. Unverifiable handles are excluded.
+- **News comes from a fixed, published list of feeds**, not an open-web search, and every item
+  shows its publisher. A source that stops publishing is dropped rather than left to fill the
+  panel with old articles.
 
 ## Stack
 
 - Next.js 15 (App Router) + TypeScript + Tailwind v4
 - `motion` for animations
 - Vercel KV / Upstash Redis for the refreshed data snapshot (filesystem fallback in dev)
-- No API keys required: BDNS, Bluesky and Google News RSS are all public
+- No API keys required: BDNS, Bluesky, the news feeds and Google News RSS are all public
 
 ## Quick start
 
@@ -53,9 +80,11 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:3000 — it redirects to `/es`. Also try `/en` and `/ca`.
+Open http://localhost:3000 — it redirects to `/es`. Also try `/en` and `/ca`. Every dataset the
+app needs is committed under `data/`, so a clean checkout renders fully without running anything
+else.
 
-Pull fresh data from BDNS into the local snapshot:
+Pull fresh subsidy data from BDNS into the local snapshot:
 
 ```bash
 curl http://localhost:3000/api/refresh
@@ -67,6 +96,29 @@ call above returns 401. Pass the secret instead:
 ```bash
 curl -H "Authorization: Bearer $CRON_SECRET" http://localhost:3000/api/refresh
 ```
+
+### Rebuilding the committed datasets
+
+Each of these regenerates one file under `data/` and is safe to re-run. They are separate from
+`npm run build` on purpose: they hit third-party sources, and none of them should run during a
+deploy.
+
+| Command | Writes | Notes |
+|---|---|---|
+| `npm run build:salaries -- <csv>` | `data/salaries.json` | Officeholder pay from the transparency CSV export |
+| `npm run build:votes` | `data/votes.json` | Pinned roll calls; **aborts** if a tally does not match the official record |
+| `npm run discover:votes -- XV` | nothing | Shortlists candidate votes for a human to review |
+| `npm run build:photos` | `data/photos.json` | Wikimedia portraits; skips anything not freely licensed. Re-run to top up after throttling |
+| `npm run build:foundations -- <pdf>` | `data/foundations.json` | Python, needs `pip install pypdf`; **aborts** unless the extracted sums reconcile with the report's own totals |
+| `npm run check:feeds` | nothing | Health-checks every news feed; **exits non-zero** on a dead, unparseable or stale source |
+
+Run `npm run check:feeds` after editing `lib/news-sources.mjs`. A feed can answer HTTP 200 and
+still have published nothing for two years, so the check reports the age of each source's newest
+item rather than its status code.
+
+> **Do not run `npm run build` while `npm run dev` is running.** The two share `.next` and the
+> production build corrupts the dev server's chunks (`Cannot find module './586.js'`). Stop dev,
+> delete `.next`, then build.
 
 ## Data flow
 
@@ -84,6 +136,11 @@ lib/data.ts (read + cache) ──► lib/normalize.ts (aggregate) ──► app/
 The browser never calls BDNS directly — pages read the stored snapshot, so rendering is fast
 and free of CORS and rate-limit problems. `data/subsidies.json` is committed so the app works
 on a clean checkout before any refresh has run.
+
+The other layers are static: a build script writes a JSON file under `data/`, a `lib/*.ts` module
+loads and caches it, and `lib/people.ts` joins them into one profile per officeholder. Names are
+folded through the single shared implementation in `lib/name-key.mjs` — if the app and a build
+script folded names differently, portrait and social lookups would silently miss.
 
 ## Internationalization
 
@@ -123,6 +180,23 @@ curl -H "Authorization: Bearer $CRON_SECRET" https://YOUR-APP.vercel.app/api/ref
 
 A healthy response reports `"storage":{"configured":"kv","writtenTo":"kv"}`.
 
+## Routes
+
+| Path | Page |
+|------|------|
+| `/[locale]` | Portal: headline figures, how each group voted, rights and housing news |
+| `/[locale]/financiacion` | Money: subsidies dashboard and the party-linked foundations layer |
+| `/[locale]/politicos` | Every officeholder: search, party facets, paging |
+| `/[locale]/politico/[slug]` | One person: pay, party funding, recorded ballots, social, news |
+| `/[locale]/party/[nif]` | One party: public and private money, faces, ledger, news |
+| `/[locale]/votaciones` | Key votes: result, per-group breakdown, deputy search |
+| `/[locale]/metodologia` | Methodology, legal caveats, and the full news-source registry |
+
+`/sueldos`, `/caras` and `/politician/[slug]` are permanent redirects to `/politicos`; the pages
+were merged. See `next.config.ts`.
+
+API routes: `/api/refresh` (BDNS pull, cron-protected), `/api/news`, `/api/bluesky`.
+
 ## Key files
 
 | Path | Role |
@@ -132,23 +206,30 @@ A healthy response reports `"storage":{"configured":"kv","writtenTo":"kv"}`.
 | `lib/data.ts` | Load, cache and invalidate the aggregated snapshot |
 | `lib/normalize.ts` | Parse `beneficiario` into NIF, classify subsidy kind, aggregate, filter |
 | `lib/parties.ts` | Canonical NIF → party registry (name, colour, bloc) |
+| `lib/people.ts` | The join: one profile per officeholder from every dataset |
+| `lib/name-key.mjs` | Shared accent-folded name keys — single source of truth for every join |
 | `lib/politicians.ts` | Curated politicians with verified Bluesky handles |
-| `lib/donations.ts` | Private donations 2020, transcribed from the Tribunal de Cuentas report |
+| `lib/donations.ts` | Private donations 2020, transcribed from Tribunal de Cuentas report 1573 |
+| `lib/foundations.ts` + `scripts/extract-foundations.py` | Party-linked foundations from report 1.642 |
 | `lib/salaries.ts` + `scripts/build-salaries.mjs` | Officeholder pay: load, search, party join |
 | `lib/votes.ts` + `scripts/fetch-votes.mjs` | Pinned roll-call votes and per-deputy positions |
 | `scripts/discover-votes.mjs` | Finds candidate votes for review (publishes nothing) |
 | `lib/photos.ts` + `scripts/fetch-photos.mjs` | Freely-licensed portraits with attribution |
+| `lib/news.ts` | Feed fetching and merging: RSS and Atom, staleness guards, per-source cap |
+| `lib/news-sources.mjs` + `scripts/check-feeds.mjs` | The feed registry and its health check |
 | `lib/i18n.ts`, `lib/locales.ts` | Dictionaries and locale constants |
 | `middleware.ts` | Locale redirects |
-| `app/[locale]/page.tsx` + `components/Dashboard.tsx` | Overview: totals, filters, ranked bars |
-| `app/[locale]/party/[nif]/page.tsx` | Party detail: public and private money, ledger, news |
-| `app/[locale]/politician/[slug]/page.tsx` | Politician: party funding, Bluesky, news |
-| `app/[locale]/sueldos/page.tsx` | Public salary index: search, party facets, paging |
-| `app/[locale]/votaciones/page.tsx` | Key votes: result, per-group breakdown, deputy search |
-| `app/[locale]/metodologia/page.tsx` | Methodology and legal caveats |
+| `components/Sidebar.tsx` | Left rail navigation and the mobile menu |
+| `components/Dashboard.tsx` | Overview: totals, filters, ranked bars |
+| `components/StanceByGroup.tsx` | Per-group ballots, labelled by how each group voted |
+| `components/NewsFeed.tsx` | News panel: topic mode (registry) or query mode (search) |
 
 ## Sources
 
 - [BDNS / SNPSAP — grants to political parties](https://www.infosubvenciones.es/bdnstrans/GE/es/concesiones/partidosPoliticos)
 - [Tribunal de Cuentas — political parties](https://www.tcu.es/es/partidos-politicos/)
 - [Organic Law 8/2007 on party financing](https://www.boe.es/buscar/act.php?id=BOE-A-2007-13022)
+- [Congreso de los Diputados — open data](https://www.congreso.es/es/opendata)
+
+The full news-source registry, including the feeds deliberately excluded and the reason for each,
+is listed in the app at `/metodologia` and in `lib/news-sources.mjs`.

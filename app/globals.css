@@ -10,7 +10,9 @@
   --ink-3: #1f1b13;
   --paper: #ece2cd;
   --paper-dim: #a99e86;
-  --paper-faint: #6f6857;
+  /* 5.06:1 on --ink. The previous #6f6857 was 3.48:1, under the 4.5:1 WCAG AA
+     needs for normal text, and this token is used at text-xs and text-sm. */
+  --paper-faint: #8a8270;
   --gold: #d3a24c;
   --gold-bright: #f2c56a;
   --red: #cc5a45;
@@ -93,20 +95,33 @@ footer {
   font-variant-numeric: tabular-nums;
 }
 
-.eyebrow {
-  font-family: var(--font-mono);
-  text-transform: uppercase;
-  letter-spacing: 0.28em;
-  font-size: 0.68rem;
-  color: var(--gold);
-}
+/* These two set properties a Tailwind utility routinely overrides — colour and
+   size — so they belong in the `base` layer. Authored unlayered they won against
+   every utility regardless of specificity, because unlayered styles beat every
+   cascade layer, and Tailwind emits its utilities inside `@layer utilities`.
+   `:where()` does not fix it: the problem is layer order, not specificity.
 
-.label-mono {
-  font-family: var(--font-mono);
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  font-size: 0.7rem;
-  color: var(--paper-dim);
+   The cost of getting this wrong was 62 call sites silently rendering
+   `--paper-dim` instead of the colour they asked for. The visible casualty was
+   the active filter chip on /financiacion and /votaciones, which asks for --ink
+   on --gold and rendered --paper-dim on --gold at 1.14:1 — the control telling
+   the reader which filter is selected was the least readable text on the page. */
+@layer base {
+  .eyebrow {
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    font-size: 0.68rem;
+    color: var(--gold);
+  }
+
+  .label-mono {
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.7rem;
+    color: var(--paper-dim);
+  }
 }
 
 .hairline {

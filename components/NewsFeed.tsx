@@ -3,16 +3,36 @@
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import type { NewsItem } from "@/lib/news";
+import type { NewsTopic } from "@/lib/news-sources.mjs";
 import { DICTS, relativeTime, type Locale } from "@/lib/i18n";
 
-export default function NewsFeed({ query, locale }: { query: string; locale: Locale }) {
+/**
+ * Either a free-text `query` (Google News search, used for one party or one
+ * politician) or a list of `topics` read from the curated feed registry.
+ */
+export default function NewsFeed({
+  query,
+  topics,
+  locale,
+}: {
+  query?: string;
+  topics?: NewsTopic[];
+  locale: Locale;
+}) {
   const [items, setItems] = useState<NewsItem[] | null>(null);
   const [failed, setFailed] = useState(false);
   const f = DICTS[locale].feed;
 
+  const key = topics
+    ? `topic=${topics.join(",")}&lang=${locale === "en" ? "en" : "es"}`
+    : query
+      ? `q=${encodeURIComponent(query)}`
+      : "";
+
   useEffect(() => {
+    if (!key) return;
     let alive = true;
-    fetch(`/api/news?q=${encodeURIComponent(query)}`)
+    fetch(`/api/news?${key}`)
       .then((r) => r.json())
       .then((d: { items: NewsItem[] }) => {
         if (alive) setItems(d.items ?? []);
@@ -21,7 +41,7 @@ export default function NewsFeed({ query, locale }: { query: string; locale: Loc
     return () => {
       alive = false;
     };
-  }, [query]);
+  }, [key]);
 
   if (failed) return null;
 
@@ -53,9 +73,12 @@ export default function NewsFeed({ query, locale }: { query: string; locale: Loc
           <p className="text-[var(--paper)] transition-colors group-hover:text-[var(--gold-bright)]">
             {n.title}
           </p>
-          <p className="label-mono mt-1.5 flex gap-3 text-[var(--paper-faint)]">
+          <p className="label-mono mt-1.5 flex flex-wrap gap-x-3 gap-y-1 text-[var(--paper-faint)]">
             <span className="text-[var(--gold)]">{n.source}</span>
             <span>{relativeTime(n.date, locale)}</span>
+            {/* An association's own statement is a different kind of item from a
+                newspaper's report on it, so the distinction is shown. */}
+            {n.sourceKind === "org" && <span>{f.fromOrg}</span>}
           </p>
           <hr className="hairline mt-4" />
         </motion.a>
