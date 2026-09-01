@@ -29,10 +29,16 @@ data is the story, and right now the reader has to assemble it from numerals in 
 
 ### 🔴 D1 — `.label-mono` silently overrides every text colour set beside it
 
-`.label-mono` in `app/globals.css` sets `color: var(--paper-dim)`. It has the same specificity as a
-Tailwind colour utility (both a single class), and it is defined *after* the Tailwind layers, so it
-wins the cascade. **Every element that combines `label-mono` with a `text-[var(--…)]` utility renders
-`--paper-dim` regardless of what the code asked for. 62 occurrences.**
+**Fixed 2026-09-01.** `.label-mono` in `app/globals.css` set `color: var(--paper-dim)` from an
+*unlayered* rule. Tailwind v4 emits its utilities inside `@layer utilities`, and **unlayered styles
+beat every cascade layer regardless of specificity**, so the class won against any `text-[var(--…)]`
+set beside it. **62 call sites silently rendered `--paper-dim`.**
+
+The first diagnosis here said "same specificity, defined later" and proposed `:where(.label-mono)`.
+That was wrong, and trying it proved it: `:where()` drops specificity to zero but changes nothing
+about layer order, and the chip still measured 1.14 : 1. The fix that works is moving `.label-mono`
+and `.eyebrow` into `@layer base`, which loses to `utilities` by layer order. Recorded because the
+same trap applies to every custom class in this file.
 
 Most are harmless — they ask for `--paper-faint` and get `--paper-dim`, which is darker text becoming
 lighter, so contrast improves. Two are not harmless:
@@ -47,12 +53,13 @@ lighter, so contrast improves. Two are not harmless:
 they are looking at — is the least readable text on the page. Confirmed by reading
 `getComputedStyle` on the live elements on both routes, not inferred from the source.
 
-**Fix.** Remove `color` from `.label-mono` and make it typography only (family, transform, tracking,
-size), then set the default colour explicitly at each call site. That is 62 edits but they are
-mechanical, and it removes a whole class of future surprise. The cheaper alternative — bumping
-`.label-mono` to `:where(.label-mono)` so it loses every specificity tie — is a one-line change and
-makes the 62 call sites start behaving as written; prefer this one, and check the 43 sites that were
-relying on the accident before shipping it.
+**Applied.** `.label-mono` and `.eyebrow` now live in `@layer base`. Verified in the browser: a
+probe element with `label-mono text-[var(--ink)]` computes `rgb(16, 14, 10)`, and the active chip
+measures 8.30 : 1 on both filtered routes.
+
+Still unlayered and carrying the same latent trap: `.display`, `.mono`, `.src`, `.panel`. None has a
+measured casualty today — `.display` sets `line-height: 0.95` and the one page using `leading-[…]`
+asks for 0.95 as well — but a future `leading-` or `text-` utility on them will be ignored.
 
 ### 🔴 D2 — `--paper-faint` fails WCAG AA for body text
 
@@ -70,9 +77,9 @@ are masked by D1 and would start failing the moment D1 is fixed. Several are `te
 | `--gold-bright` | 11.91 | pass | pass |
 | `--red` | 4.70 | pass | pass |
 
-**Fix.** Lighten `--paper-faint` to `#867e6a` (4.78 : 1) or `#8a8270` (5.06 : 1). Both stay in the
-same warm-grey family, so nothing about the look changes. Fix D2 and D1 together: fixing D1 alone
-would newly expose 43 elements to the failing value.
+**Applied.** `--paper-faint` is now `#8a8270`, **5.06 : 1**, same warm-grey family. Shipped in the
+same change as D1, which was necessary: fixing D1 alone would have newly exposed the 43 masked
+elements to the failing value.
 
 ### 🔴 D3 — reduced motion is declared but not honoured
 
@@ -126,15 +133,25 @@ served HTML, contrast and focus measured with `getComputedStyle` on live element
 behaviour driven with real key events, reflow tested at 320 CSS px. Ratios below are computed from
 the actual rendered colours, including alpha compositing against the page background.
 
-**Issues found: 7 · Critical 2 · Major 3 · Minor 2.**
+**Issues found: 8 · Critical 2 · Major 3 · Minor 3.** P1 and P2 were fixed on 2026-09-01 and
+re-verified; P4 was found by the verification sweep that followed them.
 
 ### Perceivable
 
 | # | Issue | Criterion | Severity | Fix |
 |---|---|---|---|---|
-| P1 | Active filter chip renders `--paper-dim` on `--gold` at **1.14 : 1** on `/es/financiacion` and `/es/votaciones`. The code says `text-[var(--ink)]`; `.label-mono` overrides it (D1) | 1.4.3 Contrast | 🔴 Critical | Fix D1; the chip then reads 8.30 : 1 |
-| P2 | `--paper-faint` `#6f6857` on `--ink` is **3.48 : 1**, under the 4.5 : 1 needed for normal text. 21 elements render at it today; 43 more are masked by D1 and start failing the moment D1 is fixed | 1.4.3 Contrast | 🔴 Critical | Lighten to `#867e6a` (4.78) or `#8a8270` (5.06) |
+| P1 | ~~Active filter chip renders `--paper-dim` on `--gold` at **1.14 : 1**~~ **FIXED 2026-09-01** — now `--ink` on `--gold` at **8.30 : 1** | 1.4.3 Contrast | 🔴 Critical | done |
+| P2 | ~~`--paper-faint` `#6f6857` is **3.48 : 1**~~ **FIXED 2026-09-01** — token is now `#8a8270`, **5.06 : 1** | 1.4.3 Contrast | 🔴 Critical | done |
 | P3 | Filter and year chips have no boundary other than a 1 px `--line-strong` border, measured at **1.77 : 1** against the page. UI component boundaries need 3 : 1 | 1.4.11 Non-text contrast | 🟡 Major | Raise the resting border to ≥ 3 : 1, or give the control a filled resting state |
+
+| P4 | Avatar initials use the party's brand colour as text on `--ink-3`. Three party colours fall under 4.5 : 1 at 16.3 px: `#8b5cc4` (3.61), `#d64545` (3.92), `#c7527f` (4.04) | 1.4.3 Contrast | 🟢 Minor | Borderline — see below |
+
+**On P4.** The initials carry `aria-hidden="true"` and sit immediately beside the person's name, so
+they are redundant decoration rather than content, which is the case for treating them as incidental
+text under 1.4.3. It is a defensible exemption but not a clean one. Fixing it properly is a design
+decision and not mine to take: lightening the party colours misrepresents party identity, so the
+better options are keeping the brand colour for the ring and tinted field while setting the initials
+themselves in `--paper`, or raising the tile background contrast. Left for a decision.
 
 ### Operable
 

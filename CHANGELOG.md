@@ -5,6 +5,53 @@ figures name their source; corrections and gaps are recorded alongside the work,
 
 ---
 
+## 2026-09-01 — Fixed the two critical contrast defects (P1, P2)
+
+Two WCAG 1.4.3 failures from the audit, fixed together because they were entangled.
+
+**P1 — the cascade defect.** `.label-mono` set `color: var(--paper-dim)` from an unlayered rule.
+Tailwind v4 emits utilities inside `@layer utilities`, and **unlayered styles beat every cascade
+layer regardless of specificity**, so the class won against any `text-[var(--…)]` written beside it.
+62 call sites silently rendered `--paper-dim`. The visible casualty was the active filter chip on
+`/financiacion` and `/votaciones`, which asks for `--ink` on `--gold` and rendered **1.14 : 1** — the
+control telling the reader which filter is selected was the least readable text on the page.
+
+The audit's first diagnosis was wrong and is corrected in `PLAN-VISUAL.md`: it said "same
+specificity, defined later" and proposed `:where(.label-mono)`. Applying that changed nothing, and
+measuring it is what showed why — `:where()` drops specificity to zero but does not touch layer
+order. The fix that works is moving `.label-mono` and `.eyebrow` into `@layer base`, which loses to
+`utilities` by layer order.
+
+**P2 — the failing token.** `--paper-faint` was `#6f6857`, **3.48 : 1** on `--ink`, below the 4.5 : 1
+that normal text needs, and used at `text-xs` and `text-sm`. It is now `#8a8270`, **5.06 : 1**, in
+the same warm-grey family. This had to ship with P1: fixing the cascade alone would have newly
+exposed the 43 elements that were accidentally being rescued by it.
+
+**Verified in the browser, not assumed.** The active chip now measures **8.30 : 1** (`rgb(16,14,10)`
+on gold); a probe with `label-mono text-[var(--ink)]` computes `rgb(16,14,10)`; a probe with
+`label-mono text-[var(--paper-faint)]` computes `#8a8270` at 5.06 : 1. A sweep then walked every
+visible text-bearing element on nine route/locale combinations, composited each against its real
+background, and applied the large-text threshold by measured size and weight. **Eight of the nine
+routes now report zero contrast failures.**
+
+**One new finding, from that sweep.** `/es/politicos` reports four. The avatar initials use the
+party's brand colour as text on `--ink-3`, and three party colours fall under 4.5 : 1 at 16.3 px:
+`#8b5cc4` (3.61), `#d64545` (3.92), `#c7527f` (4.04). Recorded as P4 and **not fixed**: the initials
+are `aria-hidden` and sit beside the person's name, so treating them as incidental decoration is
+defensible, and the honest fixes — initials in `--paper` with the brand colour kept for the ring, or
+a lighter tile — are design decisions rather than defect repairs. Lightening the party colours
+themselves is not on the table, since those are the parties' own identities.
+
+**Deliberately left out.** Only P1 and P2 were in scope. P3 (chip borders at 1.77 : 1), O1 (no skip
+link), O2 (Escape does not close the mobile menu), O3 (target size), R1 (no `aria-pressed`), R2 (no
+live regions) and R3 (table semantics) are unchanged and still listed in `PLAN-VISUAL.md` §2b. Also
+recorded there: `.display`, `.mono`, `.src` and `.panel` remain unlayered and carry the same latent
+trap as P1, with no measured casualty today.
+
+Typecheck clean, production build clean at 104 pages.
+
+---
+
 ## 2026-09-01 — Design critique and WCAG 2.1 AA audit (no code shipped)
 
 Audited the running app rather than the source: seven routes at 1440×900 and 375×812, nine
