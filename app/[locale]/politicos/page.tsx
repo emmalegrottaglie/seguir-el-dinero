@@ -111,6 +111,7 @@ export default async function PoliticosPage({
         <div className="mt-4 flex flex-wrap gap-2">
           <Link
             href={href({ party: undefined, page: 1 })}
+            aria-current={!party ? "page" : undefined}
             className={`label-mono rounded-full border px-3 py-1.5 transition-colors ${
               !party
                 ? "border-[var(--gold)] text-[var(--gold-bright)]"
@@ -123,6 +124,7 @@ export default async function PoliticosPage({
             <Link
               key={p.short}
               href={href({ party: p.short, page: 1 })}
+              aria-current={party === p.short ? "page" : undefined}
               className={`label-mono rounded-full border px-3 py-1.5 transition-colors ${
                 party === p.short
                   ? "border-[var(--gold)] text-[var(--gold-bright)]"

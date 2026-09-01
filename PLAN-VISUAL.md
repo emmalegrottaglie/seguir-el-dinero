@@ -133,8 +133,18 @@ served HTML, contrast and focus measured with `getComputedStyle` on live element
 behaviour driven with real key events, reflow tested at 320 CSS px. Ratios below are computed from
 the actual rendered colours, including alpha compositing against the page background.
 
-**Issues found: 8 · Critical 2 · Major 3 · Minor 3.** P1, P2 and P3 were fixed on 2026-09-01 and
-re-verified; P4 was found by the verification sweep that followed P1 and P2.
+**Issues found: 8 · Critical 2 · Major 3 · Minor 3.** P1, P2, P3, O2, R1 and R2 were fixed on
+2026-09-01 and re-verified; P4 was found by the verification sweep that followed P1 and P2. Open:
+O1 (skip link), O3 (target size — partly done, the menu button is now 44 px), R3 (table semantics),
+P4.
+
+**A verification limitation, stated because it matters.** Real key events stopped being delivered to
+the page partway through this session — the Browser pane reports itself hidden, and a listener
+recording every `keydown` saw nothing for either Escape or a letter key. O2’s fix is therefore
+verified the two ways that remain available: by code, and by dispatching a `KeyboardEvent` on
+`document`, which exercises the exact listener the handler registers. The original finding does not
+depend on that plumbing either — `components/Sidebar.tsx` had no key handler at all, which is
+visible in the source.
 
 **On P3's fix.** `--line-strong` was doing two jobs: the boundary of interactive controls and
 decorative rules and hover states. Raising it wholesale would have thickened panel edges and card
@@ -166,15 +176,15 @@ themselves in `--paper`, or raising the tile background contrast. Left for a dec
 | # | Issue | Criterion | Severity | Fix |
 |---|---|---|---|---|
 | O1 | No skip link on any of the nine routes. The sidebar's six links are repeated before `<main>` on every page | 2.4.1 Bypass Blocks | 🟡 Major | A visually-hidden "skip to content" link that reveals on focus, targeting `<main>` |
-| O2 | **Escape does not close the mobile menu.** Verified: `aria-expanded` stays `"true"` after Escape. Focus also stays on the trigger when the panel opens | 2.1.2 / 2.4.3 | 🟡 Major | Close on Escape, move focus into the panel on open and back to the trigger on close |
+| O2 | ~~Escape does not close the mobile menu; focus stays on the trigger when it opens~~ **FIXED 2026-09-01** — Escape closes it and returns focus to the trigger, opening moves focus into the panel, and the button gained `aria-controls` | 2.1.2 / 2.4.3 | 🟡 Major | done |
 | O3 | 34 interactive elements under 44 × 44 px at 375 px wide (menu button 31 px, chips 34–35 px) | 2.5.5 (AAA) / 2.5.8 AA | 🟢 Minor | Clears the 24 px AA minimum; raise to 44 px anyway |
 
 ### Robust
 
 | # | Issue | Criterion | Severity | Fix |
 |---|---|---|---|---|
-| R1 | All 8 filter chips lack `aria-pressed`, so a screen reader cannot tell which filter is active. Combined with P1, the selected state is unavailable both visually and programmatically | 4.1.2 Name, Role, Value | 🟡 Major | `aria-pressed={isActive}` on every toggle chip |
-| R2 | **No live regions anywhere** (0 across all routes). Filtering `/es/financiacion` and searching `/es/politicos` replace the result set with no announcement | 4.1.3 Status Messages | 🟡 Major | `role="status"` on a result-count node: "28 partidos, 300,6 M €" |
+| R1 | ~~All 8 filter chips lack `aria-pressed`~~ **FIXED 2026-09-01** — the 8 Dashboard toggle chips carry `aria-pressed`; the directory’s party facets are links, so they carry `aria-current="page"` instead | 4.1.2 Name, Role, Value | 🟡 Major | done |
+| R2 | ~~No live regions anywhere~~ **FIXED 2026-09-01** — `/es/financiacion` has a `role="status"` result count. **Correction to the original finding:** it named `/es/politicos` too, wrongly — that page’s search is a form GET, so it navigates, and a change of context is announced by the browser rather than being a status message | 4.1.3 Status Messages | 🟡 Major | done |
 | R3 | `<th>` elements carry no `scope` (4 on `/financiacion`, 3 on `/metodologia`); neither table has a `<caption>` | 1.3.1 Info and Relationships | 🟢 Minor | Both tables are simple single-header-row, so association is already programmatically determinable — add `scope="col"` and a caption as good practice, not as a failure fix |
 
 ### Passing, and worth keeping

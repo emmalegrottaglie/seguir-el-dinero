@@ -5,6 +5,55 @@ figures name their source; corrections and gaps are recorded alongside the work,
 
 ---
 
+## 2026-09-01 — Stateful controls: pressed state, a status region, and Escape (R1, R2, O2)
+
+Three audit items, all sitting on the site’s only stateful controls.
+
+**R1 — pressed state.** The eight Dashboard filter chips on `/financiacion` (kind and year) now carry
+`aria-pressed`, so the selected filter is available programmatically. Together with the P1 contrast
+fix that state is now conveyed both ways; before that pair it was conveyed neither way. The party
+facets on `/politicos` are links rather than toggles, so they take `aria-current="page"` instead — a
+link cannot be “pressed”, and `aria-pressed` there would have been the wrong role.
+
+**R2 — a status region.** `/financiacion` now carries a `role="status"` line reading, for example,
+“28 partidos · 232 concesiones · 300,6 M € con los filtros actuales”, in all three languages.
+
+**A correction to the original finding.** It said the result set is replaced with no announcement on
+`/es/financiacion` *and* `/es/politicos`. Only the first is true. The searches on `/politicos` and
+`/votaciones` are form GETs that navigate, and a change of context is announced by the browser — it
+is not a status message, and 4.1.3 does not apply. Only the Dashboard mutates its list in place, so
+only the Dashboard needed a region.
+
+**O2 — Escape and focus.** Escape now closes the mobile menu and returns focus to the button that
+opened it; opening moves focus into the panel so the next Tab continues inside it; the button gained
+`aria-controls="mobile-nav"`. Its height also went from 31 px to 44 px, which is part of O3.
+
+**One error worth recording.** The status string was first written as a function on the `home`
+dictionary. `home` is passed as a prop from a server component into `<Dashboard>`, which is a client
+component, so the page died with *“Functions cannot be passed directly to Client Components”* — the
+same trap this project hit once before with a formatter prop. It is a template string with
+`{parties}` / `{grants}` / `{total}` placeholders now, interpolated on the client, matching the
+existing `CountUp as="euro"` pattern.
+
+**Verified.** The eight chips report `aria-pressed` and toggle correctly (`Gastos de seguridad=true`
+after a click, `Todas=false`). The status line changed from “28 partidos · 232 concesiones ·
+300,6 M €” to “25 partidos · 108 concesiones · 14,7 M €” on that click. The menu button measures
+44 px, exposes `aria-controls`, moves focus into the panel on open, and closes on Escape with focus
+returning to the trigger.
+
+**A limitation, stated rather than glossed.** Real key events stopped reaching the page partway
+through this session — the Browser pane reports itself hidden, and a listener recording every
+`keydown` saw neither Escape nor a letter key. O2 is therefore verified by code and by dispatching a
+`KeyboardEvent` on `document`, which exercises the exact listener registered. The original finding
+never depended on that plumbing: `components/Sidebar.tsx` had no key handler at all.
+
+Still open in `PLAN-VISUAL.md` §2b: O1 (no skip link), O3 (remaining chip target sizes), R3 (table
+`scope`/`caption`), P4 (avatar initials in party brand colours — a design decision).
+
+Typecheck clean, production build clean at 104 pages.
+
+---
+
 ## 2026-09-01 — Interactive control boundaries now meet non-text contrast (P3)
 
 `--line-strong` was carrying two different jobs: the visible boundary of interactive controls, and

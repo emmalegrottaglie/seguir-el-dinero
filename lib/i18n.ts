@@ -194,6 +194,7 @@ const es = {
     reset: "Reset",
     distribution: "Reparto por partido",
     noResults: "No hay concesiones para esta selección.",
+    filterStatus: "{parties} partidos · {grants} concesiones · {total} con los filtros actuales",
   },
   party: {
     totalReceived: "Total recibido",
@@ -473,6 +474,7 @@ const en: Dict = {
     reset: "Reset",
     distribution: "Breakdown by party",
     noResults: "No grants for this selection.",
+    filterStatus: "{parties} parties · {grants} grants · {total} under the current filters",
   },
   party: {
     totalReceived: "Total received",
@@ -750,6 +752,7 @@ const ca: Dict = {
     reset: "Reset",
     distribution: "Repartiment per partit",
     noResults: "No hi ha concessions per a aquesta selecció.",
+    filterStatus: "{parties} partits · {grants} concessions · {total} amb els filtres actuals",
   },
   party: {
     totalReceived: "Total rebut",

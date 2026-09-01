@@ -109,6 +109,7 @@ export default function Dashboard({
               <button
                 key={tab.key}
                 onClick={() => setKind(tab.key)}
+                aria-pressed={kind === tab.key}
                 className={`label-mono rounded-full border px-4 py-2 transition-all ${
                   kind === tab.key
                     ? "border-[var(--gold)] bg-[var(--gold)] text-[var(--ink)]"
@@ -127,6 +128,7 @@ export default function Dashboard({
                 <button
                   key={y}
                   onClick={() => toggleYear(y)}
+                  aria-pressed={years.includes(y)}
                   className={`mono rounded border px-3 py-1.5 text-sm transition-all ${
                     years.includes(y)
                       ? "border-[var(--gold)] text-[var(--gold-bright)]"
@@ -160,6 +162,17 @@ export default function Dashboard({
             <Legend color="var(--red)" label={kinds.seguridad} />
           </div>
         </div>
+
+        {/* Filtering here mutates the list in place with no navigation, so without
+            a status region a screen reader user gets no confirmation that
+            anything happened. The search forms elsewhere on the site navigate,
+            which announces itself, and so need no equivalent. */}
+        <p role="status" className="label-mono mb-4 text-[var(--paper-dim)]">
+          {home.filterStatus
+            .replace("{parties}", integer(agg.parties.length, bcp47))
+            .replace("{grants}", integer(totalGrants, bcp47))
+            .replace("{total}", euroCompact(agg.grandTotal, bcp47))}
+        </p>
 
         <ol className="flex flex-col">
           {agg.parties.map((p, i) => {
