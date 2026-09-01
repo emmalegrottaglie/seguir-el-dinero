@@ -98,7 +98,7 @@ export default async function PoliticosPage({
             defaultValue={q ?? ""}
             placeholder={S.searchPlaceholder}
             aria-label={S.search}
-            className="mono min-w-0 flex-1 rounded border border-[var(--line-strong)] bg-[var(--ink-3)] px-3 py-2 text-sm text-[var(--paper)] outline-none focus:border-[var(--gold)]"
+            className="mono min-w-0 flex-1 rounded border border-[var(--line-control)] bg-[var(--ink-3)] px-3 py-2 text-sm text-[var(--paper)] outline-none focus:border-[var(--gold)]"
           />
           <button
             type="submit"
@@ -114,7 +114,7 @@ export default async function PoliticosPage({
             className={`label-mono rounded-full border px-3 py-1.5 transition-colors ${
               !party
                 ? "border-[var(--gold)] text-[var(--gold-bright)]"
-                : "border-[var(--line-strong)] text-[var(--paper-faint)] hover:text-[var(--paper)]"
+                : "border-[var(--line-control)] text-[var(--paper-faint)] hover:text-[var(--paper)]"
             }`}
           >
             {S.all}
@@ -126,7 +126,7 @@ export default async function PoliticosPage({
               className={`label-mono rounded-full border px-3 py-1.5 transition-colors ${
                 party === p.short
                   ? "border-[var(--gold)] text-[var(--gold-bright)]"
-                  : "border-[var(--line-strong)] text-[var(--paper-faint)] hover:text-[var(--paper)]"
+                  : "border-[var(--line-control)] text-[var(--paper-faint)] hover:text-[var(--paper)]"
               }`}
             >
               {p.short} <span className="opacity-60">{p.count}</span>

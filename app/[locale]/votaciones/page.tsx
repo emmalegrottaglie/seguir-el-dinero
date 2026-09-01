@@ -69,7 +69,7 @@ export default async function VotacionesPage({
           defaultValue={q ?? ""}
           placeholder={v.searchPlaceholder}
           aria-label={v.searchLabel}
-          className="mono min-w-0 flex-1 rounded border border-[var(--line-strong)] bg-[var(--ink-3)] px-3 py-2 text-sm text-[var(--paper)] outline-none focus:border-[var(--gold)]"
+          className="mono min-w-0 flex-1 rounded border border-[var(--line-control)] bg-[var(--ink-3)] px-3 py-2 text-sm text-[var(--paper)] outline-none focus:border-[var(--gold)]"
         />
         <button
           type="submit"

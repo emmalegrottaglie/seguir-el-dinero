@@ -18,6 +18,12 @@
   --red: #cc5a45;
   --line: rgba(236, 226, 205, 0.12);
   --line-strong: rgba(236, 226, 205, 0.22);
+  /* The boundary of an interactive control, kept separate from the decorative
+     rules above. WCAG 1.4.11 wants 3:1 for the visual information needed to
+     identify a UI component, and a filter chip has no boundary other than its
+     border: --line-strong measures 1.77:1 over --ink, this measures 3.22:1.
+     Decorative hairlines and panel edges stay on --line / --line-strong. */
+  --line-control: rgba(236, 226, 205, 0.4);
 
   --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
   --font-body: var(--font-archivo), system-ui, sans-serif;

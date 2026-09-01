@@ -133,8 +133,16 @@ served HTML, contrast and focus measured with `getComputedStyle` on live element
 behaviour driven with real key events, reflow tested at 320 CSS px. Ratios below are computed from
 the actual rendered colours, including alpha compositing against the page background.
 
-**Issues found: 8 · Critical 2 · Major 3 · Minor 3.** P1 and P2 were fixed on 2026-09-01 and
-re-verified; P4 was found by the verification sweep that followed them.
+**Issues found: 8 · Critical 2 · Major 3 · Minor 3.** P1, P2 and P3 were fixed on 2026-09-01 and
+re-verified; P4 was found by the verification sweep that followed P1 and P2.
+
+**On P3's fix.** `--line-strong` was doing two jobs: the boundary of interactive controls and
+decorative rules and hover states. Raising it wholesale would have thickened panel edges and card
+hovers that are not UI boundaries at all. Instead there is now a separate `--line-control` token at
+`rgba(236, 226, 205, 0.4)` — **3.22 : 1** over `--ink` — used on the filter and year chips, the party
+facet chips, both search fields and the mobile menu button. `--line` and `--line-strong` keep the
+decorative work. Verified across the three filtered routes: every interactive control measures
+≥ 3 : 1, worst case 3.22, and the active states sit at 8.30 on the gold border.
 
 ### Perceivable
 
@@ -142,7 +150,7 @@ re-verified; P4 was found by the verification sweep that followed them.
 |---|---|---|---|---|
 | P1 | ~~Active filter chip renders `--paper-dim` on `--gold` at **1.14 : 1**~~ **FIXED 2026-09-01** — now `--ink` on `--gold` at **8.30 : 1** | 1.4.3 Contrast | 🔴 Critical | done |
 | P2 | ~~`--paper-faint` `#6f6857` is **3.48 : 1**~~ **FIXED 2026-09-01** — token is now `#8a8270`, **5.06 : 1** | 1.4.3 Contrast | 🔴 Critical | done |
-| P3 | Filter and year chips have no boundary other than a 1 px `--line-strong` border, measured at **1.77 : 1** against the page. UI component boundaries need 3 : 1 | 1.4.11 Non-text contrast | 🟡 Major | Raise the resting border to ≥ 3 : 1, or give the control a filled resting state |
+| P3 | ~~Chips have no boundary other than a 1 px `--line-strong` border at **1.77 : 1**~~ **FIXED 2026-09-01** — a new `--line-control` token at **3.22 : 1** carries every interactive boundary | 1.4.11 Non-text contrast | 🟡 Major | done |
 
 | P4 | Avatar initials use the party's brand colour as text on `--ink-3`. Three party colours fall under 4.5 : 1 at 16.3 px: `#8b5cc4` (3.61), `#d64545` (3.92), `#c7527f` (4.04) | 1.4.3 Contrast | 🟢 Minor | Borderline — see below |
 

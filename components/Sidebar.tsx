@@ -88,7 +88,7 @@ export default function Sidebar({ locale, nav }: { locale: Locale; nav: Dict["na
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-label={nav.menu}
-          className="label-mono rounded border border-[var(--line-strong)] px-3 py-1.5"
+          className="label-mono rounded border border-[var(--line-control)] px-3 py-1.5"
         >
           {nav.menu}
         </button>

@@ -5,6 +5,38 @@ figures name their source; corrections and gaps are recorded alongside the work,
 
 ---
 
+## 2026-09-01 — Interactive control boundaries now meet non-text contrast (P3)
+
+`--line-strong` was carrying two different jobs: the visible boundary of interactive controls, and
+decorative rules and card hover states. At `rgba(236, 226, 205, 0.22)` it measured **1.77 : 1** over
+`--ink`, below the 3 : 1 that WCAG 1.4.11 requires for the visual information needed to identify a UI
+component — and a filter chip has no boundary other than its border.
+
+Raising `--line-strong` wholesale would also have thickened panel edges and card hovers, which are
+not UI boundaries and are exempt. So the fix splits the token: **`--line-control`** at
+`rgba(236, 226, 205, 0.4)`, **3.22 : 1**, now carries the filter and year chips on `/financiacion`,
+the party facet chips and search field on `/politicos`, the search field on `/votaciones`, and the
+mobile menu button. `--line` and `--line-strong` keep the decorative work unchanged.
+
+**Verified in the browser across the three filtered routes.** Every interactive control now measures
+≥ 3 : 1 — worst case 3.22, active states at 8.30 on their gold border, and all 21 party facet chips
+on `/politicos` confirmed individually. Two things were checked rather than assumed and turned out
+fine: the `opacity-60` count inside each facet chip composites to **5.86 : 1**, and the ES/EN/CA
+locale toggles have no border at all, so they are text-labelled controls with no boundary to fail.
+
+**Deliberately unchanged.** The `.panel` card borders on the portal, party, profile and Bluesky cards
+measure 1.30 : 1 and stay that way: each card is identified by its own heading text, so its edge is
+decoration rather than the information needed to identify the control. The same reasoning leaves the
+vote card border on `/votaciones` alone.
+
+Still open from `PLAN-VISUAL.md` §2b: O1 (no skip link), O2 (Escape does not close the mobile menu),
+O3 (target size), R1 (no `aria-pressed` on filter chips), R2 (no live regions), R3 (table semantics),
+P4 (avatar initials in party brand colours, a design decision).
+
+Typecheck clean, production build clean at 104 pages.
+
+---
+
 ## 2026-09-01 — Fixed the two critical contrast defects (P1, P2)
 
 Two WCAG 1.4.3 failures from the audit, fixed together because they were entangled.

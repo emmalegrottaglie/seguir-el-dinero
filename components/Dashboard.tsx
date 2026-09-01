@@ -112,7 +112,7 @@ export default function Dashboard({
                 className={`label-mono rounded-full border px-4 py-2 transition-all ${
                   kind === tab.key
                     ? "border-[var(--gold)] bg-[var(--gold)] text-[var(--ink)]"
-                    : "border-[var(--line-strong)] text-[var(--paper-dim)] hover:border-[var(--gold)] hover:text-[var(--paper)]"
+                    : "border-[var(--line-control)] text-[var(--paper-dim)] hover:border-[var(--gold)] hover:text-[var(--paper)]"
                 }`}
               >
                 {tab.label}
@@ -131,7 +131,7 @@ export default function Dashboard({
                     years.includes(y)
                       ? "border-[var(--gold)] text-[var(--gold-bright)]"
                       : active
-                        ? "border-[var(--line-strong)] text-[var(--paper-dim)] hover:text-[var(--paper)]"
+                        ? "border-[var(--line-control)] text-[var(--paper-dim)] hover:text-[var(--paper)]"
                         : "border-transparent text-[var(--paper-faint)] opacity-40 hover:opacity-100"
                   }`}
                 >
