@@ -12,11 +12,31 @@
 //
 // Exit code 1 means at least one registered source contributed nothing.
 
-import { NEWS_SOURCES, EXCLUDED_FEEDS, FEED_HEADERS } from "../lib/news-sources.mjs";
+import {
+  NEWS_SOURCES,
+  EXCLUDED_FEEDS,
+  FEED_HEADERS,
+  SOURCE_STALE_DAYS,
+  ITEM_MAX_AGE_DAYS,
+} from "../lib/news-sources.mjs";
 
-const SOURCE_STALE_DAYS = 365;
-const ITEM_MAX_AGE_DAYS = 120;
 const TIMEOUT_MS = 15000;
+
+// Ids key the per-source cap and names are what the reader sees attributed to
+// each item, so a duplicate of either is a correctness problem, not a tidiness
+// one. Caught here rather than assumed.
+for (const field of ["id", "name", "url"]) {
+  const seen = new Map();
+  for (const s of NEWS_SOURCES) {
+    if (seen.has(s[field])) {
+      console.error(
+        `Duplicate ${field} in lib/news-sources.mjs: "${s[field]}" used by both "${seen.get(s[field])}" and "${s.id}".`,
+      );
+      process.exit(1);
+    }
+    seen.set(s[field], s.id);
+  }
+}
 
 const now = Date.now();
 const ageDays = (iso) => {

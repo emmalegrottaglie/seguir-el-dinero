@@ -23,6 +23,8 @@ export interface ExcludedFeed {
   reason: string;
 }
 
+export const SOURCE_STALE_DAYS: number;
+export const ITEM_MAX_AGE_DAYS: number;
 export const FEED_HEADERS: Record<string, string>;
 export const NEWS_SOURCES: NewsSource[];
 export const EXCLUDED_FEEDS: ExcludedFeed[];

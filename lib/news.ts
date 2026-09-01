@@ -1,6 +1,8 @@
 import {
   FEED_HEADERS,
+  ITEM_MAX_AGE_DAYS,
   NEWS_SOURCES,
+  SOURCE_STALE_DAYS,
   sourcesForTopics,
   type NewsSource,
   type NewsTopic,
@@ -11,16 +13,12 @@ export interface NewsItem {
   link: string;
   source: string;
   date: string; // ISO
+  /** Registry id of the source. Stable, unlike the display name. */
+  sourceId?: string;
   /** `org` when the item comes from an organisation's own publication. */
   sourceKind?: "org" | "media";
   lang?: "es" | "en";
 }
-
-/** A source whose newest item is older than this is treated as dead and reported. */
-export const SOURCE_STALE_DAYS = 365;
-
-/** Items older than this never enter a "recent news" panel, whatever the source. */
-export const ITEM_MAX_AGE_DAYS = 120;
 
 const FETCH_TIMEOUT_MS = 12_000;
 
@@ -198,6 +196,7 @@ async function readSource(
       link: p.link,
       source: source.name,
       date: p.date,
+      sourceId: source.id,
       sourceKind: source.kind,
       lang: source.lang,
     }));
@@ -238,12 +237,15 @@ export async function fetchTopicNews(
     if (seen.has(item.link)) continue;
     seen.add(item.link);
 
-    const used = perSource.get(item.source) ?? 0;
+    // Keyed on the registry id, not the display name: two entries could share a
+    // name and would then share one cap counter.
+    const key = item.sourceId ?? item.source;
+    const used = perSource.get(key) ?? 0;
     if (used >= PER_SOURCE_CAP) {
       overflow.push(item);
       continue;
     }
-    perSource.set(item.source, used + 1);
+    perSource.set(key, used + 1);
     items.push(item);
   }
 
@@ -280,6 +282,6 @@ export async function fetchNews(query: string, limit = 8): Promise<NewsItem[]> {
     }));
 }
 
-/** Every source in the registry, for the methodology page. */
-export { NEWS_SOURCES };
+/** Every source in the registry, and the guard thresholds, for the methodology page. */
+export { NEWS_SOURCES, SOURCE_STALE_DAYS, ITEM_MAX_AGE_DAYS };
 export type { NewsSource, NewsTopic };

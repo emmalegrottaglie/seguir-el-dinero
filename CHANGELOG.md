@@ -59,6 +59,17 @@ organisations first. Typecheck clean, production build clean at 104 pages, no co
 relevance, and no new statistical figures — the INE ingest is the next step, not this one. Query mode
 is unchanged, so party and politician pages still use Google News.
 
+**Two review findings fixed before the branch went further.** Both were drift risks rather than
+present bugs, and both were cheap:
+
+- `SOURCE_STALE_DAYS` and `ITEM_MAX_AGE_DAYS` were defined twice, once in `lib/news.ts` and once in
+  `scripts/check-feeds.mjs`. Changing one would have left the health check passing feeds the live
+  code then filtered out. They now live in `lib/news-sources.mjs` and both consumers import them.
+- The per-source cap was keyed on the display name. Two registry entries sharing a name would have
+  shared one counter. It is keyed on the registry id now, and `check:feeds` refuses to run at all if
+  any `id`, `name` or `url` is duplicated — the uniqueness the cap relies on is checked rather than
+  assumed. Verified by constructing a duplicate and confirming the detection fires.
+
 ---
 
 ## 2026-09-01 — Context layer designed and sources verified (no code shipped)
