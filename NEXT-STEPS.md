@@ -24,31 +24,36 @@ next time.
 
 Remaining in this area is item 4 below (donation years for the parties themselves).
 
-## 2. EU political-advertising repository
+## 2. EU political-advertising repository — BLOCKED, probed 2026-08-31
 
 **Goal.** A live source for who paid for political advertising, how much, and who was targeted —
-the one funding channel currently invisible on the site.
+the one funding channel still invisible on the site.
 
-**What is known.** Regulation (EU) 2024/900 has applied in full since 10 October 2025. It requires
-political ads to be labelled with the sponsor, the amounts paid, and the targeting criteria used.
-A European Repository for online political advertisements is being established, and an
-implementing act of 9 April 2026 sets its data structure, metadata standards and API
-specification. Source:
-<https://commission.europa.eu/strategy-and-policy/policies/justice-and-fundamental-rights/democracy-eu-citizenship-anti-corruption/democracy-and-electoral-rights/transparency-and-targeting-political-advertising_en>
+**Status: not publicly accessible. Do not re-probe without a trigger.**
 
-**Procedure.**
+What was checked, so it is not repeated:
 
-1. Probe before designing anything: find the repository's actual endpoint and confirm it serves
-   data for Spain. The implementing act defines the API, but an act defining a schema is not
-   evidence that a populated endpoint exists.
-2. If populated: build `lib/adverts.ts` plus a fetch script following the pattern of
-   `scripts/fetch-votes.mjs` — pull, store a typed snapshot in `data/`, render server-side.
-3. Join to parties by sponsor name via `lib/name-key.mjs`, accepting only unambiguous matches,
-   exactly as the social-handle join does.
+- Regulation (EU) 2024/900 applies in full since 10 October 2025; Implementing Regulation (EU)
+  2026/818 of 9 April 2026 defines the repository's data structure, metadata, authentication and
+  common API, applying from 10 April 2026.
+- The Commission's site for the Regulation is <https://political-advertising.ec.europa.eu>. It
+  hosts only the Article 26 election-dates portal and the Article 21 legal-representatives portal.
+  No advertisement repository, no public API. The site's only occurrence of "repositor" is the
+  title of the implementing regulation in a document list, and no launch date is announced.
+- Other plausible hosts return nothing: `political-ads.europa.eu`,
+  `repository.political-advertising.europa.eu`, `transparency.ec.europa.eu/political-advertising_en`
+  all fail to resolve; `ec.europa.eu/political-advertising` is a 404.
+- Even once live, the API authenticates via **EU Login** with JWTs, so access is credentialed. That
+  needs the repo owner's own credentials — it is not something to work around.
 
-**Stop conditions.** If the endpoint is unpopulated or Spain-empty, write the finding into
-`CHANGELOG.md` and stop. Do not substitute a scrape of ad-library pages from individual platforms
-and present it as the EU repository — different provenance, different completeness.
+**Re-check trigger.** A launch announcement on the portal above, or a Commission statement that
+the first version of the repository is functional. Until then this item stays blocked.
+
+**Stop condition, restated.** Do not substitute a scrape of per-platform ad libraries (Meta,
+Google) and present it as the EU repository: an ad library is one company's view of its own
+inventory, while the EU repository is meant to be comprehensive across providers. A
+clearly-labelled per-platform layer is a legitimate but *different* feature, and would need its
+own decision.
 
 ---
 
@@ -84,6 +89,32 @@ annexes in an 851-page-class PDF). Later exercises follow the same report series
 **Procedure.** Same as item 1: identify the report, fetch once, locate the equivalently-named
 annex table, transcribe verbatim into the typed module with its own source block, and add a year
 selector to the party page rather than overwriting 2020.
+
+---
+
+## 5. Context layer — wages, poverty, housing, and measures taken
+
+**Goal.** Place what the country looks like next to who funds the parties and how they voted: wages
+by sector, poverty and inequality, homelessness and empty housing, and a count of the measures
+parties actually put through.
+
+**Designed, not built.** The full design lives in `PLAN-CONTEXT-LAYER.md` — verified endpoints and
+table ids, the traps in each dataset, ten visualisation proposals with a recommended build order,
+and the framing rule that governs the lot. Read that file before starting; the sources were probed
+on 2026-09-01 and the document records which ones lie.
+
+**Shortest first step, and it fixes a live bug.** `lib/news.ts` matches `<item>` only, so it returns
+an empty array for Atom feeds such as El Salto's. Turning it into a source registry with a format
+field, an Atom branch and a staleness guard is self-contained, and the staleness guard is what stops
+a dormant feed — dosmanzanas, last post February 2024 — from quietly filling a "recent news" panel
+with two-year-old articles.
+
+**Stop conditions.** No correlation measure, no derived score, no ordering of parties by anything
+computed: facts side by side, never joined by an asserted cause. Never divide empty dwellings by
+homeless people. Never plot the AROPE *Base 2013* and *objetivo Europa 2030* series as one line. In
+INE data, treat a leading minus sign as a low-sample reliability flag, not a negative value. If the
+Congreso *iniciativas* keyword filter cannot be made precise, publish the vote layer alone and say
+so.
 
 ---
 

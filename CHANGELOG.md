@@ -5,6 +5,117 @@ figures name their source; corrections and gaps are recorded alongside the work,
 
 ---
 
+## 2026-09-01 — Context layer designed and sources verified (no code shipped)
+
+Planning task. The site answers who funds the parties and how they voted; the missing third side is
+what the country those parties govern actually looks like — wages by sector, poverty, homelessness,
+empty housing — placed next to politician pay, party funding and roll-call votes. This entry records
+the source verification behind the new design document `PLAN-CONTEXT-LAYER.md`. No feature code was
+written.
+
+**Sources confirmed working.** The INE JSON API (Tempus3, `servicios.ine.es/wstempus`, no key) is the
+spine of the layer. Verified live: `OPERACIONES_DISPONIBLES`, `TABLAS_OPERACION`, `DATOS_TABLA`.
+Operation 140 EAES table `28185` returns 57 series of gross annual wage by CNAE section and sex for
+2024; operation 155 ECV table `67240` returns 96 AROPE series with 2025 values. EAES 2024 headline
+figures for sanity-checking an ingest: mean €29,540.26, median €24,497.17, mode €16,520.18, highest
+sector energy supply €57,931.81, lowest hostelería €17,653.42. AROPE 2025: 25.7% overall, 33.9% for
+under-16s.
+
+**Traps found before they could reach a chart.** Three matter enough to name here:
+
+- In INE data a **leading minus sign is a reliability flag, not a negative number** — it marks a
+  sample of 100–500 observations. `Mujeres. Industrias extractivas` returns `-51101.45`, meaning
+  €51,101.45 with a variability warning. An ingest that takes the value at face value will draw
+  negative wages.
+- Not every table listed by `TABLAS_OPERACION` is populated: table `80181` answers
+  `{"status": "No existen series para la tabla"}`. Probe before depending on one.
+- The same ECV table carries both the *Base 2013* AROPE series and the *objetivo Europa 2030*
+  series. They are different definitions and must never be plotted as one line.
+
+**Housing: two official numbers that disagree, recorded as such.** INE's Censo 2021 counts ~3.8M
+empty dwellings (14.4% of stock), detected by absent or minimal electricity consumption, with 45% of
+them in municipalities under 10,000 inhabitants and a reference date of 1 January 2021 — a pandemic
+year, which is the basis of the standing criticism of the method. The Ministerio de Vivienda's 2025
+data instead reports ~7.7M non-principal dwellings (28.6%) on a different method. Both will be
+shown, with the methodological difference stated, rather than picking the larger figure.
+
+On homelessness the current INE figure is the *Encuesta de centros y servicios de atención a personas
+sin hogar* **2024**: an average 34,145 people over 18 staying daily in care centres, up 57.5% on
+2022, across 1,376 centres. The widely-quoted 28,552 is the superseded 2022 edition. The plan
+explicitly forbids dividing empty homes by homeless people: it is arithmetically true,
+geographically false, and would discredit the rest of the site. The honest treatment is a map
+placing empty-dwelling density against housing stress in the same geography.
+
+**News feeds: probed every candidate rather than trusting the list.** Twelve feeds work and are
+fresh, including Shangay, FELGTBI+, Fundación Triángulo, COGAM, Euforia, Plataforma Trans, Arcópoli,
+TGEU, ILGA-Europe, Pikara, Provivienda and Hogar Sí. Two findings changed the design:
+
+- **dosmanzanas is dormant.** Its feed returns HTTP 200 with ten items whose newest post is 23
+  February 2024. It is the first LGBTI news source anyone would reach for, and it would have filled a
+  "latest news" panel with two-year-old articles while looking perfectly healthy.
+- **El Salto publishes Atom, not RSS.** The parser in `lib/news.ts` matches `<item>` only, so it
+  returns an empty array for `<feed>`/`<entry>` documents. A latent bug, found by probing rather than
+  by a user noticing an empty panel.
+
+Consequently `lib/news.ts` is to become a registry of named sources with a format field, an Atom
+branch, and a **staleness guard** that drops any source whose newest item is older than a threshold
+and reports it in a build log, so the dosmanzanas failure mode cannot recur silently. Dead or
+unreachable at probe time, recorded so they are not re-probed blindly: chrysallis.org.es,
+kifkif.info, fundacion26d.org, lambdavalencia.org, observatoriolgtb.org, and both feed paths on
+eapn.es.
+
+**Deliberately left out.** Nothing was built, no numbers were added to the site, and no correlation
+measure of any kind was designed. The framing decision taken earlier in the project stands and is
+restated at the top of the plan: facts are placed side by side, never joined by an asserted cause. No
+trend lines between votes and poverty rates, no derived "harm score", no ordering of parties by
+anything computed. Press articles — including the ones that prompted this work — are treated as leads
+only; every figure on the page will cite the statistical office, ministry or audit body that produced
+it.
+
+Also left for the build phase, not decided here: the exact AEAT *Distribución salarios* file URL (the
+open-data catalogue page exposes no direct links, so each year's publication page has to be opened —
+a discovery step of the same class as the Tribunal de Cuentas report hunt), and whether keyword
+filtering of the Congreso *iniciativas* dataset can be made precise enough to publish at all.
+
+---
+
+## 2026-08-31 — EU political-ad repository: probed, not usable yet (no code shipped)
+
+Investigated the European repository for online political advertisements as a live source for who
+paid for political advertising, how much, and who was targeted. **It is not publicly accessible,
+so nothing was built.** Recording the result so the probe is not repeated.
+
+What the law provides. Regulation (EU) 2024/900 has applied in full since 10 October 2025 and
+requires political ads to carry the sponsor, the amounts paid and the targeting criteria.
+Commission Implementing Regulation (EU) 2026/818 of 9 April 2026 defines the repository's common
+data structure, standardised metadata, authentication and common API, and its provisions apply
+from 10 April 2026 — nearly five months before this check.
+
+What actually exists. The Commission's site for the Regulation is
+<https://political-advertising.ec.europa.eu>. It hosts exactly two portals: the Article 26 portal
+for Member States to file election and referendum dates, and the Article 21 portal linking
+national registers of legal representatives for non-EU providers. There is no repository of
+advertisements and no public API. Searching the site's own text for "repositor" returns a single
+hit: the *title* of the implementing regulation, listed among documents. No launch date is
+announced, although the implementing regulation says the date "should be announced on the public
+portal of the repository sufficiently in advance".
+
+Two further blockers even once it exists. The implementing regulation specifies authentication via
+**EU Login** with JSON Web Tokens, so the API is credentialed rather than open; and the regulation
+defines standards for the architecture, not an operational endpoint — the portal address is to be
+announced separately and has not been.
+
+Deliberately not substituted: per-platform ad libraries (Meta, Google) do exist and would produce
+*something*. They were not used, because presenting a platform-by-platform scrape as the EU
+repository would misrepresent both provenance and completeness — the EU repository is meant to be
+comprehensive across providers, an ad library is one company's view of its own inventory. That
+remains available as a clearly-labelled separate layer if wanted, but it is not this.
+
+Re-check trigger: a launch announcement on the portal above, or a Commission statement that the
+first version of the repository is functional.
+
+---
+
 ## 2026-08-31 — Per-foundation detail from Tribunal de Cuentas report 1.642
 
 `/financiacion` now names every audited party-linked foundation instead of showing only
