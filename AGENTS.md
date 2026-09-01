@@ -71,6 +71,9 @@ verified, the feature was cut rather than faked.
 | `votaciones/page.tsx` | Tracked votes: result, per-group breakdown, deputy search |
 | `metodologia/page.tsx` | Methodology and legal caveats |
 
+`/sueldos`, `/caras` and `/politician/[slug]` are redirects in `next.config.ts` — the salary and
+Caras sections were merged into `politicos`.
+
 `app/api/`: `refresh` (BDNS pull, cron-protected), `news`, `bluesky`.
 
 `/api/news` has two modes. `?q=` is a free-text Google News search, used on party and politician
@@ -91,8 +94,6 @@ registry; it fails on any source that is unreachable, unparseable or stale.
 
 One gotcha worth keeping: `provivienda.org` answers 403 to a descriptive bot User-Agent and 200 to an
 ordinary browser one, so `FEED_HEADERS` in the registry sends the browser string.
-`/sueldos`, `/caras` and `/politician/[slug]` are redirects in `next.config.ts` — the salary and
-Caras sections were merged into `politicos`.
 
 ### Library
 
@@ -111,6 +112,8 @@ Caras sections were merged into `politicos`.
 | `lib/politicians.ts` | Curated politicians with verified Bluesky handles |
 | `lib/people.ts` | **The join.** Assembles one profile from every dataset that knows the person |
 | `lib/name-key.mjs` | Shared name folding — `foldText`, `foldTokens`, `nameKey` |
+| `lib/news.ts` | Feed fetching and merging: RSS + Atom, staleness guards, per-source cap |
+| `lib/news-sources.mjs` | The feed registry itself, plus the excluded feeds and why |
 | `lib/i18n.ts` / `lib/locales.ts` | Dictionaries / locale constants (keeps middleware light) |
 | `lib/format.ts` | Currency, number and date formatting, locale-aware via BCP-47 tag |
 | `middleware.ts` | Redirects unprefixed paths to `/{locale}/…` |
@@ -126,7 +129,7 @@ silently miss. Do not fork it.
 licence credit), `NewsFeed`, `BlueskyFeed`, `CountUp`, `LocaleToggle`.
 
 Data files in `data/`: `subsidies.json` (live), `salaries.json` (~1.7 MB), `votes.json`,
-`photos.json`. Read server-side only — pages render a filtered slice, so the browser never
+`photos.json`, `foundations.json`. Read server-side only — pages render a filtered slice, so the browser never
 receives the large datasets. `data/_*.json` are scraper caches and are gitignored.
 
 Locale comes from the URL (`/es`, `/en`, `/ca`), which keeps pages statically generated. Pages
@@ -141,6 +144,7 @@ npm run discover:votes -- XV   # shortlists candidate votes for review; publishe
 npm run build:photos           # Wikimedia portraits; re-run to top up after throttling
 npm run build:foundations -- path/to/I1642.pdf   # needs pypdf: pip install pypdf
 curl http://localhost:3000/api/refresh   # subsidies (add the CRON_SECRET header if set)
+npm run check:feeds            # health-checks every news feed; non-zero on a dead or stale one
 ```
 
 Endpoint notes that cost real time to work out:
@@ -205,3 +209,8 @@ downgrade — see PR #1.
 - **Social coverage.** 6 verified Bluesky handles. Bluesky skews left in Spain, so PP and Vox
   leaders have no verifiable account there — a property of the platform, stated on the site.
 - **Donations years.** Only ejercicio 2020 (report 1573). Later reports are 700-page PDFs.
+- **News registry.** 15 sources, no Catalan-language feed among them, so `/ca` readers are
+  served the Spanish ones. Arcópoli is live but has published nothing in 201 days. Organisation
+  feeds mix rights news with their own activity announcements — one COGAM item in the live feed
+  is a hiking outing. That is labelled rather than keyword-filtered, because filtering an
+  organisation's own feed by keyword would be arbitrary.
