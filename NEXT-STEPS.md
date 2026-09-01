@@ -92,6 +92,32 @@ selector to the party page rather than overwriting 2020.
 
 ---
 
+## 5. Context layer — wages, poverty, housing, and measures taken
+
+**Goal.** Place what the country looks like next to who funds the parties and how they voted: wages
+by sector, poverty and inequality, homelessness and empty housing, and a count of the measures
+parties actually put through.
+
+**Designed, not built.** The full design lives in `PLAN-CONTEXT-LAYER.md` — verified endpoints and
+table ids, the traps in each dataset, ten visualisation proposals with a recommended build order,
+and the framing rule that governs the lot. Read that file before starting; the sources were probed
+on 2026-09-01 and the document records which ones lie.
+
+**Shortest first step, and it fixes a live bug.** `lib/news.ts` matches `<item>` only, so it returns
+an empty array for Atom feeds such as El Salto's. Turning it into a source registry with a format
+field, an Atom branch and a staleness guard is self-contained, and the staleness guard is what stops
+a dormant feed — dosmanzanas, last post February 2024 — from quietly filling a "recent news" panel
+with two-year-old articles.
+
+**Stop conditions.** No correlation measure, no derived score, no ordering of parties by anything
+computed: facts side by side, never joined by an asserted cause. Never divide empty dwellings by
+homeless people. Never plot the AROPE *Base 2013* and *objetivo Europa 2030* series as one line. In
+INE data, treat a leading minus sign as a low-sample reliability flag, not a negative value. If the
+Congreso *iniciativas* keyword filter cannot be made precise, publish the vote layer alone and say
+so.
+
+---
+
 ## Standing practice
 
 - **Document every task in `CHANGELOG.md`** — what changed, why, the source behind any new
