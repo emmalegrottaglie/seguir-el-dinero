@@ -7,12 +7,14 @@ import { getDict } from "@/lib/i18n";
 import { euro, euroCompact, integer } from "@/lib/format";
 import StanceByGroup from "@/components/StanceByGroup";
 import NewsFeed from "@/components/NewsFeed";
+import type { NewsTopic } from "@/lib/news-sources.mjs";
 
 export const revalidate = 3600;
 
-// Rights-focused news: kept as a query so the source stays auditable, and it is
-// the same feed component used on party and politician pages.
-const RIGHTS_QUERY = "LGTBI trans derechos Congreso España";
+// Rights and housing news comes from the curated feed registry in
+// lib/news-sources.mjs rather than a search query, so every item's publisher is
+// known and a feed that goes dark is reported instead of silently disappearing.
+const PORTAL_TOPICS: NewsTopic[] = ["lgtbi", "vivienda"];
 
 export default async function PortalPage({
   params,
@@ -85,8 +87,14 @@ export default async function PortalPage({
       {/* Rights news */}
       <section className="mt-16">
         <h2 className="display section-tick text-2xl">{P.newsTitle}</h2>
-        <p className="label-mono mt-4 text-[var(--paper-faint)]">{P.newsNote}</p>
-        <NewsFeed query={RIGHTS_QUERY} locale={locale} />
+        {/* Not label-mono: that class uppercases, and this note is a sentence. */}
+        <p className="mt-4 max-w-2xl text-sm text-[var(--paper-faint)]">{P.newsNote}</p>
+        <NewsFeed topics={PORTAL_TOPICS} locale={locale} />
+        <p className="label-mono mt-2">
+          <Link href={`/${locale}/metodologia`} className="src">
+            {P.newsSourcesLink} →
+          </Link>
+        </p>
       </section>
 
       {/* Navigation */}

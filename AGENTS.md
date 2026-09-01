@@ -18,6 +18,7 @@ Catalan, deployed on Vercel.
 | Key roll-call votes | Congreso de los Diputados open data | Rebuilt from script |
 | Portraits | Wikipedia / Wikimedia Commons | Rebuilt from script |
 | Politician social + news | Bluesky public API, Google News RSS | Live per request |
+| Rights, housing and poverty news | Curated RSS/Atom registry in `lib/news-sources.mjs` | Live per request, 30 min cache |
 
 Stack: **Next.js 15 (App Router) + TypeScript + Tailwind v4 + `motion`**.
 
@@ -71,6 +72,25 @@ verified, the feature was cut rather than faked.
 | `metodologia/page.tsx` | Methodology and legal caveats |
 
 `app/api/`: `refresh` (BDNS pull, cron-protected), `news`, `bluesky`.
+
+`/api/news` has two modes. `?q=` is a free-text Google News search, used on party and politician
+pages. `?topic=lgtbi,vivienda,pobreza&lang=es` reads the curated feed registry in
+`lib/news-sources.mjs`, used on the portal. Two guards apply to the registry mode, and both exist
+because of feeds that failed silently:
+
+- **Source staleness.** A source whose newest item is older than a year is dropped whole. dosmanzanas
+  serves HTTP 200 with ten items whose newest post is February 2024, so a status-code check calls it
+  healthy — only the item dates reveal it.
+- **Item age.** Nothing older than 120 days enters the panel, whatever the source.
+
+Two further rules keep the panel representative: at most two items per source, so a daily outlet
+cannot bury organisations that post weekly, and items in the reader's language sort first. Feeds are
+parsed for both RSS (`<item>`) and Atom (`<entry>`) — El Salto publishes Atom, and the RSS-only
+parser returned an empty array for it without erroring. Run `npm run check:feeds` after editing the
+registry; it fails on any source that is unreachable, unparseable or stale.
+
+One gotcha worth keeping: `provivienda.org` answers 403 to a descriptive bot User-Agent and 200 to an
+ordinary browser one, so `FEED_HEADERS` in the registry sends the browser string.
 `/sueldos`, `/caras` and `/politician/[slug]` are redirects in `next.config.ts` — the salary and
 Caras sections were merged into `politicos`.
 

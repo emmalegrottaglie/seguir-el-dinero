@@ -103,11 +103,10 @@ table ids, the traps in each dataset, ten visualisation proposals with a recomme
 and the framing rule that governs the lot. Read that file before starting; the sources were probed
 on 2026-09-01 and the document records which ones lie.
 
-**Shortest first step, and it fixes a live bug.** `lib/news.ts` matches `<item>` only, so it returns
-an empty array for Atom feeds such as El Salto's. Turning it into a source registry with a format
-field, an Atom branch and a staleness guard is self-contained, and the staleness guard is what stops
-a dormant feed — dosmanzanas, last post February 2024 — from quietly filling a "recent news" panel
-with two-year-old articles.
+**Step 1 of the build order is DONE (2026-09-01).** `lib/news-sources.mjs` holds the 15-source
+registry, `lib/news.ts` parses both RSS and Atom, and both staleness guards are in place along with a
+per-source cap and reader-language preference. `npm run check:feeds` is the health check. The
+methodology page lists the registry and the excluded feeds. Next up is step 2, the INE ingest.
 
 **Stop conditions.** No correlation measure, no derived score, no ordering of parties by anything
 computed: facts side by side, never joined by an asserted cause. Never divide empty dwellings by

@@ -5,6 +5,62 @@ figures name their source; corrections and gaps are recorded alongside the work,
 
 ---
 
+## 2026-09-01 — News source registry, Atom support, and two staleness guards
+
+First implementation step of the context layer designed in `PLAN-CONTEXT-LAYER.md`. The portal's
+news panel no longer runs a Google News search: it reads a fixed, auditable list of RSS and Atom
+feeds, so the publisher of every headline is known.
+
+**Fixed a real bug.** `lib/news.ts` matched `<item>` only, so it returned an empty array for Atom
+feeds — El Salto publishes Atom — without raising an error. The parser now handles both `<item>` and
+`<entry>`, and reads Atom's self-closing `<link href>` attribute rather than element text.
+
+**New registry.** `lib/news-sources.mjs` holds 15 verified sources with their format, topics,
+language, whether they are an organisation or an outlet, and the date of their newest item at the
+2026-09-01 probe. It follows the `lib/name-key.mjs` precedent — a `.mjs` module with a `.d.mts`
+declaration — so the app and the build script read the same list rather than two copies. Seven
+deliberately excluded feeds are listed with the reason each was left out.
+
+**Two guards, each from an observed failure.** A source whose newest item is more than 365 days old
+is dropped whole; nothing older than 120 days enters the panel regardless of source. The reason is
+dosmanzanas: the most obvious LGBTI news source in Spain serves HTTP 200 with ten items whose newest
+post is 23 February 2024. A status-code check calls that healthy, and it would have filled a "recent
+news" panel with two-year-old articles.
+
+**Two further rules, added after watching the merged output.** At most two items per source, because
+the first working version was four-fifths Shangay — sorting purely by date makes the panel a ranking
+of who publishes most often, burying the organisations the registry exists to include. And items in
+the reader's language sort first, because TGEU and ILGA-Europe post daily in English and had taken
+the top of the Spanish page. Catalan readers get the Spanish sources first; the registry has no
+Catalan feed and Spanish is the nearer of the two.
+
+**Provenance shown, not just used.** Every item carries its source name, and items from an
+organisation's own site are marked as such — an association's statement about a law is not the same
+kind of item as a newspaper's report on it. The methodology page now lists the whole registry with
+links, the guard thresholds in words, and the excluded feeds with their reasons, in all three
+languages. The portal's news heading now says rights *and* housing, which is what the panel actually
+contains, and the note states plainly that organisation posts may cover their own activities as much
+as rights news — one COGAM item in the live feed is a hiking outing, and filtering organisation
+feeds by keyword would be arbitrary where labelling them is not.
+
+**New check.** `npm run check:feeds` fetches every registered feed, reports the age of its newest
+item, and exits non-zero on any source that is unreachable, unparseable or stale. It has one retry
+per source: fetching fifteen feeds at once produces the occasional timeout, and a health check that
+reports transient failures as dead feeds is one people learn to ignore. It found two things this
+run — `provivienda.org` answers 403 to a descriptive bot User-Agent and 200 to an ordinary browser
+one (so `FEED_HEADERS` sends the browser string), and Arcópoli is live but has published nothing in
+201 days, which the report marks with `~` rather than treating as a failure.
+
+**Verified.** All 15 sources live, 0 failing. `/api/news?topic=lgtbi,vivienda&lang=es` returns eight
+items across six distinct Spanish sources with an empty `dropped` list; `lang=en` puts the English
+organisations first. Typecheck clean, production build clean at 104 pages, no console errors.
+
+**Deliberately left out.** No keyword filtering of organisation feeds, no attempt to rank items by
+relevance, and no new statistical figures — the INE ingest is the next step, not this one. Query mode
+is unchanged, so party and politician pages still use Google News.
+
+---
+
 ## 2026-09-01 — Context layer designed and sources verified (no code shipped)
 
 Planning task. The site answers who funds the parties and how they voted; the missing third side is

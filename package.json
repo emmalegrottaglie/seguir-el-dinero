@@ -10,7 +10,8 @@
     "build:votes": "node scripts/fetch-votes.mjs",
     "build:photos": "node scripts/fetch-photos.mjs",
     "discover:votes": "node scripts/discover-votes.mjs",
-    "build:foundations": "python scripts/extract-foundations.py"
+    "build:foundations": "python scripts/extract-foundations.py",
+    "check:feeds": "node scripts/check-feeds.mjs"
   },
   "engines": {
     "node": "22.x"

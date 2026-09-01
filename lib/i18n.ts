@@ -167,8 +167,10 @@ const es = {
     inFavourGroups: "Votó Sí",
     againstGroups: "Votó No",
     abstainGroups: "Se abstuvo",
-    newsTitle: "Derechos LGTBI y trans en la actualidad",
-    newsNote: "Titulares recientes · Google News",
+    newsTitle: "Derechos LGTBI, trans y vivienda en la actualidad",
+    newsNote:
+      "Publicaciones recientes de una lista fija de medios y entidades. Las marcadas como publicación de la entidad son sus propios textos, y pueden tratar tanto de derechos como de su actividad.",
+    newsSourcesLink: "Ver las fuentes",
     exploreTitle: "Explorar",
     exploreMoney: "El reparto del dinero público entre partidos, año a año.",
     explorePeople: "Cada cargo en activo: sueldo, partido y voto registrado.",
@@ -231,6 +233,7 @@ const es = {
     noRecent: "Sin resultados recientes.",
     cannotLoad: "No se pudieron cargar publicaciones ahora mismo.",
     reposted: "↻ Republicado",
+    fromOrg: "publicación de la entidad",
   },
   method: {
     title: "Metodología y límites",
@@ -262,6 +265,19 @@ const es = {
       "Siguiente — Más ejercicios de donaciones del Tribunal de Cuentas y fundaciones vinculadas a partidos (ingesta periódica de PDF, no en directo).",
     roadB3:
       "Después — Contratación pública y grafo de vínculos entre partidos, fundaciones y adjudicatarios, etiquetado siempre como asociación, no prueba de influencia.",
+    feedsTitle: "Fuentes de actualidad",
+    feedsP1:
+      "La portada no busca en la web abierta: lee una lista fija de canales RSS y Atom, de forma que el nombre de quien publica cada titular es siempre conocido y se muestra junto a él.",
+    feedsGuard: (stale: number, item: number) =>
+      `Una fuente cuya publicación más reciente supere los ${stale} días se considera apagada y se descarta por completo. Ninguna pieza con más de ${item} días entra en el panel, sea cual sea la fuente. Se muestran como máximo dos piezas por fuente, para que un medio que publica a diario no desplace a las entidades que publican una vez por semana.`,
+    feedsSource: "Fuente",
+    feedsKind: "Tipo",
+    feedsTopics: "Temas",
+    feedsOrg: "Entidad",
+    feedsMedia: "Medio",
+    feedsTopic: { lgtbi: "LGTBI y trans", vivienda: "Vivienda", pobreza: "Pobreza" },
+    feedsExcludedP:
+      "Estos canales se comprobaron y quedaron fuera. Se listan para que no se vuelvan a probar a ciegas y porque el primer caso es instructivo: un canal puede responder correctamente y llevar años sin publicar.",
     srcTitle: "Fuentes",
     src1: "BDNS / SNPSAP — concesiones a partidos políticos ↗",
     src2: "Tribunal de Cuentas — partidos políticos ↗",
@@ -430,8 +446,10 @@ const en: Dict = {
     inFavourGroups: "Voted Yes",
     againstGroups: "Voted No",
     abstainGroups: "Abstained",
-    newsTitle: "LGBTI and trans rights in the news",
-    newsNote: "Recent headlines · Google News",
+    newsTitle: "LGBTI, trans rights and housing in the news",
+    newsNote:
+      "Recent posts from a fixed list of outlets and organisations. Items marked as an organisation's own post are its own writing, and may cover its activities as much as rights news.",
+    newsSourcesLink: "See the sources",
     exploreTitle: "Explore",
     exploreMoney: "How public money is split between parties, year by year.",
     explorePeople: "Every serving officeholder: pay, party and recorded vote.",
@@ -494,6 +512,7 @@ const en: Dict = {
     noRecent: "No recent results.",
     cannotLoad: "Couldn't load posts right now.",
     reposted: "↻ Reposted",
+    fromOrg: "organisation's own post",
   },
   method: {
     title: "Methodology and limits",
@@ -525,6 +544,19 @@ const en: Dict = {
       "Next — More donation years from the Court of Auditors and party-linked foundations (periodic PDF ingest, not live).",
     roadB3:
       "Later — Public procurement and a graph of links between parties, foundations and contractors, always labelled association, not proof of influence.",
+    feedsTitle: "News sources",
+    feedsP1:
+      "The front page does not search the open web: it reads a fixed list of RSS and Atom feeds, so the publisher of every headline is known and is shown next to it.",
+    feedsGuard: (stale: number, item: number) =>
+      `A source whose newest post is more than ${stale} days old is treated as dead and dropped whole. No item older than ${item} days enters the panel, whatever its source. At most two items per source are shown, so an outlet publishing daily cannot displace organisations that publish weekly.`,
+    feedsSource: "Source",
+    feedsKind: "Type",
+    feedsTopics: "Topics",
+    feedsOrg: "Organisation",
+    feedsMedia: "Outlet",
+    feedsTopic: { lgtbi: "LGBTI and trans", vivienda: "Housing", pobreza: "Poverty" },
+    feedsExcludedP:
+      "These feeds were checked and left out. They are listed so they are not blindly re-probed, and because the first case is instructive: a feed can answer perfectly well and still have published nothing for years.",
     srcTitle: "Sources",
     src1: "BDNS / SNPSAP — grants to political parties ↗",
     src2: "Court of Auditors — political parties ↗",
@@ -691,8 +723,10 @@ const ca: Dict = {
     inFavourGroups: "Va votar Sí",
     againstGroups: "Va votar No",
     abstainGroups: "Es va abstenir",
-    newsTitle: "Drets LGBTI i trans a l'actualitat",
-    newsNote: "Titulars recents · Google News",
+    newsTitle: "Drets LGBTI, trans i habitatge a l'actualitat",
+    newsNote:
+      "Publicacions recents d'una llista fixa de mitjans i entitats. Les marcades com a publicació de l'entitat són els seus propis textos, i poden tractar tant de drets com de la seva activitat.",
+    newsSourcesLink: "Veure les fonts",
     exploreTitle: "Explorar",
     exploreMoney: "El repartiment dels diners públics entre partits, any a any.",
     explorePeople: "Cada càrrec en actiu: sou, partit i vot registrat.",
@@ -755,6 +789,7 @@ const ca: Dict = {
     noRecent: "Sense resultats recents.",
     cannotLoad: "No s'han pogut carregar les publicacions ara mateix.",
     reposted: "↻ Republicat",
+    fromOrg: "publicació de l'entitat",
   },
   method: {
     title: "Metodologia i límits",
@@ -786,6 +821,19 @@ const ca: Dict = {
       "Següent — Més exercicis de donacions del Tribunal de Comptes i fundacions vinculades a partits (ingesta periòdica de PDF, no en directe).",
     roadB3:
       "Després — Contractació pública i graf de vincles entre partits, fundacions i adjudicataris, etiquetat sempre com a associació, no prova d'influència.",
+    feedsTitle: "Fonts d'actualitat",
+    feedsP1:
+      "La portada no cerca a la web oberta: llegeix una llista fixa de canals RSS i Atom, de manera que el nom de qui publica cada titular sempre es coneix i es mostra al costat.",
+    feedsGuard: (stale: number, item: number) =>
+      `Una font amb la publicació més recent de fa més de ${stale} dies es considera apagada i es descarta del tot. Cap peça de més de ${item} dies entra al panell, sigui quina sigui la font. Es mostren com a màxim dues peces per font, perquè un mitjà que publica cada dia no desplaci les entitats que publiquen un cop per setmana.`,
+    feedsSource: "Font",
+    feedsKind: "Tipus",
+    feedsTopics: "Temes",
+    feedsOrg: "Entitat",
+    feedsMedia: "Mitjà",
+    feedsTopic: { lgtbi: "LGBTI i trans", vivienda: "Habitatge", pobreza: "Pobresa" },
+    feedsExcludedP:
+      "Aquests canals es van comprovar i van quedar fora. Es llisten perquè no es tornin a provar a cegues i perquè el primer cas és instructiu: un canal pot respondre correctament i portar anys sense publicar.",
     srcTitle: "Fonts",
     src1: "BDNS / SNPSAP — concessions a partits polítics ↗",
     src2: "Tribunal de Comptes — partits polítics ↗",
