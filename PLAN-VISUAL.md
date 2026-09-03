@@ -187,6 +187,36 @@ themselves in `--paper`, or raising the tile background contrast. Left for a dec
 | R2 | ~~No live regions anywhere~~ **FIXED 2026-09-01** — `/es/financiacion` has a `role="status"` result count. **Correction to the original finding:** it named `/es/politicos` too, wrongly — that page’s search is a form GET, so it navigates, and a change of context is announced by the browser rather than being a status message | 4.1.3 Status Messages | 🟡 Major | done |
 | R3 | `<th>` elements carry no `scope` (4 on `/financiacion`, 3 on `/metodologia`); neither table has a `<caption>` | 1.3.1 Info and Relationships | 🟢 Minor | Both tables are simple single-header-row, so association is already programmatically determinable — add `scope="col"` and a caption as good practice, not as a failure fix |
 
+### Re-audit 2026-09-01 (after the P1–P3, R1, R2, O2 fixes)
+
+Two new findings, both verified live; the fixed items were re-checked and hold.
+
+| # | Issue | Criterion | Severity | Fix |
+|---|---|---|---|---|
+| N1 | On `/votaciones` the per-group rows announce as “GS 116/0/1”. There are no column headers and no legend in that section, so what the three numbers mean is carried only by the colour of the bars — and those sit in a *different* widget higher up the page. The group codes themselves (`GS`, `GCUP-EC-GC`, `GPlu`) are never expanded either | 1.3.1 Info and Relationships | 🟡 Major | Label the three columns, expand the group codes to readable names, and keep the numeric triplet as the non-colour carrier |
+| N2 | The mobile menu button carries `aria-controls="mobile-nav"`, but that element only exists while the menu is open, so the IDREF dangles on all five routes in the closed state. Introduced by the O2 fix | 4.1.2 Name, Role, Value | 🟢 Minor | Render the panel always and toggle `hidden`, or drop `aria-controls` — `aria-expanded` alone is sufficient |
+
+**Newly tested and passing.** These had been listed as untested:
+
+- **1.4.4 Resize text** — text-only zoom to 200% at 1280 px: no horizontal scroll, no clipped boxes.
+- **1.4.12 Text spacing** — with `line-height: 1.5`, `letter-spacing: 0.12em`, `word-spacing: 0.16em`
+  and `2em` paragraph spacing forced: no overflow, no loss of content.
+- **2.4.3 Focus order** in the opened mobile menu — the trigger is focusable #1, the panel occupies
+  #2–#10, focus lands on #2 when it opens, and tabbing past the panel continues into page content.
+- **1.4.1 Use of colour** on the vote bars — the Sí/No/abstention counts are present as text, so the
+  information is not colour-only. What is missing is their *labelling*, which is N1 above.
+- The mobile menu is a **non-modal disclosure**, not a dialog: it pushes content rather than
+  overlaying it, and it correctly has no focus trap. Do not "fix" it into one.
+
+**A measurement caveat worth recording.** The first portal run of the text-spacing test reported
+horizontal overflow. It was an artifact: the Browser pane had collapsed and `clientWidth` read 0, so
+every element "overflowed". Re-run with an explicit 1280 px viewport, it passes. Any run of this
+audit should assert a sane viewport width before trusting an overflow result.
+
+**Confirmed still open**, unchanged by the fixes: O1 (no skip link — checked on all five routes),
+O3 (chip target sizes; the menu button is now 44 px), R3 (7 `<th>` across two tables carry no
+`scope`, and neither table has a `<caption>`), P4 (avatar initials in party brand colours).
+
 ### Passing, and worth keeping
 
 Confirmed rather than assumed:

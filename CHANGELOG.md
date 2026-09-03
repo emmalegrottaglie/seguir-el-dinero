@@ -5,6 +5,44 @@ figures name their source; corrections and gaps are recorded alongside the work,
 
 ---
 
+## 2026-09-01 — WCAG re-audit after the six fixes (no code shipped)
+
+Re-ran the audit against the running app now that P1, P2, P3, R1, R2 and O2 are in. The fixed items
+hold. Two new findings, and five criteria that had been listed as untested now tested and passing.
+Recorded in `PLAN-VISUAL.md` §2b; nothing was changed in the app.
+
+**N1 — the per-group rows on `/votaciones` announce as “GS 116/0/1”.** That section has no column
+headers and no legend, so what the three numbers mean is carried only by the colour of the bars — and
+those bars sit in a different widget higher up the page. The group codes are never expanded either,
+so a reader sees `GS`, `GCUP-EC-GC`, `GPlu` with nothing telling them which parties those are. This
+is 1.3.1, and it is the same problem a reader raised independently about the group labels being
+unreadable. Fix: label the three columns, expand the codes to readable names, keep the numeric
+triplet as the non-colour carrier.
+
+**N2 — a dangling IDREF I introduced.** The O2 fix added `aria-controls="mobile-nav"` to the menu
+button, but that panel only exists while the menu is open, so the reference points at nothing in the
+closed state on all five routes. Either render the panel always and toggle `hidden`, or drop the
+attribute — `aria-expanded` alone is sufficient for a disclosure.
+
+**Newly tested, all passing.** 1.4.4 resize text to 200%; 1.4.12 text spacing with line-height 1.5,
+letter-spacing 0.12em, word-spacing 0.16em and 2em paragraph spacing forced; 2.4.3 focus order in the
+opened mobile menu (trigger is focusable #1, panel #2–#10, focus lands on #2, tabbing past it
+continues into page content); and 1.4.1 on the vote bars — the counts are present as text, so the
+information is not colour-only, only unlabelled. Also confirmed the mobile menu is a non-modal
+disclosure that pushes content rather than overlaying it, and correctly has no focus trap.
+
+**A false positive caught, and why.** The first portal run of the text-spacing test reported
+horizontal overflow. It was an artifact: the Browser pane had collapsed, `clientWidth` read 0, and
+every element therefore “overflowed”. Re-run with an explicit 1280 px viewport it passes. The audit
+notes now say to assert a sane viewport width before trusting any overflow result — a measurement bug
+reported as a defect would have sent someone chasing nothing.
+
+**Confirmed still open**, unchanged: O1 (no skip link, checked on all five routes), O3 (chip target
+sizes — the menu button is now 44 px), R3 (7 `<th>` across two tables with no `scope`, neither table
+with a `<caption>`), P4 (avatar initials in party brand colours).
+
+---
+
 ## 2026-09-01 — Stateful controls: pressed state, a status region, and Escape (R1, R2, O2)
 
 Three audit items, all sitting on the site’s only stateful controls.
