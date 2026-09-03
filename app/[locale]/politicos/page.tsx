@@ -98,11 +98,11 @@ export default async function PoliticosPage({
             defaultValue={q ?? ""}
             placeholder={S.searchPlaceholder}
             aria-label={S.search}
-            className="mono min-w-0 flex-1 rounded border border-[var(--line-control)] bg-[var(--ink-3)] px-3 py-2 text-sm text-[var(--paper)] outline-none focus:border-[var(--gold)]"
+            className="mono min-h-11 min-w-0 flex-1 rounded border border-[var(--line-control)] bg-[var(--ink-3)] px-3 text-sm text-[var(--paper)] outline-none focus:border-[var(--gold)]"
           />
           <button
             type="submit"
-            className="label-mono rounded border border-[var(--gold)] bg-[var(--gold)] px-4 py-2 text-[var(--ink)]"
+            className="label-mono inline-flex min-h-11 items-center rounded border border-[var(--gold)] bg-[var(--gold)] px-4 text-[var(--ink)]"
           >
             {S.search}
           </button>
@@ -112,7 +112,7 @@ export default async function PoliticosPage({
           <Link
             href={href({ party: undefined, page: 1 })}
             aria-current={!party ? "page" : undefined}
-            className={`label-mono rounded-full border px-3 py-1.5 transition-colors ${
+            className={`label-mono inline-flex min-h-11 items-center rounded-full border px-3 transition-colors ${
               !party
                 ? "border-[var(--gold)] text-[var(--gold-bright)]"
                 : "border-[var(--line-control)] text-[var(--paper-faint)] hover:text-[var(--paper)]"
@@ -125,7 +125,7 @@ export default async function PoliticosPage({
               key={p.short}
               href={href({ party: p.short, page: 1 })}
               aria-current={party === p.short ? "page" : undefined}
-              className={`label-mono rounded-full border px-3 py-1.5 transition-colors ${
+              className={`label-mono inline-flex min-h-11 items-center rounded-full border px-3 transition-colors ${
                 party === p.short
                   ? "border-[var(--gold)] text-[var(--gold-bright)]"
                   : "border-[var(--line-control)] text-[var(--paper-faint)] hover:text-[var(--paper)]"
@@ -181,7 +181,7 @@ export default async function PoliticosPage({
         {pages > 1 && (
           <div className="mt-8 flex items-center justify-between">
             {current > 1 ? (
-              <Link href={href({ page: current - 1 })} className="label-mono hover:text-[var(--gold)]">
+              <Link href={href({ page: current - 1 })} className="label-mono inline-flex min-h-11 items-center px-2 hover:text-[var(--gold)]">
                 ← {S.prev}
               </Link>
             ) : (
@@ -191,7 +191,7 @@ export default async function PoliticosPage({
               {S.page} {integer(current, bcp47)} {S.of} {integer(pages, bcp47)}
             </span>
             {current < pages ? (
-              <Link href={href({ page: current + 1 })} className="label-mono hover:text-[var(--gold)]">
+              <Link href={href({ page: current + 1 })} className="label-mono inline-flex min-h-11 items-center px-2 hover:text-[var(--gold)]">
                 {S.next} →
               </Link>
             ) : (

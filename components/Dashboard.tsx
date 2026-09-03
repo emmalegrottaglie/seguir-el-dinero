@@ -110,7 +110,7 @@ export default function Dashboard({
                 key={tab.key}
                 onClick={() => setKind(tab.key)}
                 aria-pressed={kind === tab.key}
-                className={`label-mono rounded-full border px-4 py-2 transition-all ${
+                className={`label-mono inline-flex min-h-11 items-center rounded-full border px-4 transition-all ${
                   kind === tab.key
                     ? "border-[var(--gold)] bg-[var(--gold)] text-[var(--ink)]"
                     : "border-[var(--line-control)] text-[var(--paper-dim)] hover:border-[var(--gold)] hover:text-[var(--paper)]"
@@ -129,7 +129,7 @@ export default function Dashboard({
                   key={y}
                   onClick={() => toggleYear(y)}
                   aria-pressed={years.includes(y)}
-                  className={`mono rounded border px-3 py-1.5 text-sm transition-all ${
+                  className={`mono inline-flex min-h-11 items-center rounded border px-3 text-sm transition-all ${
                     years.includes(y)
                       ? "border-[var(--gold)] text-[var(--gold-bright)]"
                       : active
@@ -144,7 +144,7 @@ export default function Dashboard({
             {years.length > 0 && (
               <button
                 onClick={() => setYears([])}
-                className="label-mono ml-1 text-[var(--red)] hover:underline"
+                className="label-mono ml-1 inline-flex min-h-11 items-center px-1 text-[var(--red)] hover:underline"
               >
                 {home.reset}
               </button>

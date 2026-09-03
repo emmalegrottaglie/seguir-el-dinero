@@ -32,7 +32,7 @@ export default function LocaleToggle({ current }: { current: Locale }) {
           onClick={() => change(code)}
           aria-pressed={code === current}
           title={LOCALE_LABELS[code]}
-          className={`label-mono rounded px-2 py-1 transition-colors ${
+          className={`label-mono inline-flex min-h-11 min-w-11 items-center justify-center rounded transition-colors ${
             code === current
               ? "text-[var(--gold-bright)]"
               : "text-[var(--paper-faint)] hover:text-[var(--paper)]"

@@ -5,6 +5,49 @@ figures name their source; corrections and gaps are recorded alongside the work,
 
 ---
 
+## 2026-09-01 — Skip link, and every control at 44 px (O1, O3)
+
+**O1 — a skip link.** The sidebar repeats six navigation links before the content on every page, so a
+keyboard or screen-reader user had to pass all of them each time. Every route now opens with a skip
+link that moves focus to the content wrapper, which carries `id="main"` and `tabIndex={-1}` so focus
+actually lands there rather than only the scroll position moving. Present and verified on all seven
+route/locale combinations checked.
+
+**How it is built, and what was tried first.** The obvious `sr-only` + `focus:not-sr-only` pair was
+written first and **left the link 2 px tall when focused** — `sr-only`'s `height: 1px` and `clip`
+survived the reset, which the geometry check caught. It is positioned absolutely and translated out
+of view instead: the element keeps its real 44 px size at all times, stays focusable and in the
+accessibility tree, and slides in on focus. Deterministic, and it does not depend on one utility
+undoing another cleanly.
+
+**O3 — target sizes.** Raised to a 44 px minimum: the Dashboard kind and year chips, the reset button,
+the party facet chips, both search fields and their submit buttons, the sidebar navigation links, the
+locale toggles, the mobile wordmark, and the directory's previous/next pager. Where a control was
+`px-3 py-1.5`, the vertical padding was replaced with `inline-flex min-h-11 items-center` so the
+height applies to an inline element and the label stays centred.
+
+**Inline text links are deliberately left alone.** Both 2.5.5 and 2.5.8 exempt a target whose size is
+constrained by the line of text it sits in, and padding out a link inside a sentence or a table cell
+would break the prose around it. The verification therefore separates the two: it reports standalone
+controls under 44 px as offenders and counts inline ones as exempt.
+
+**Verified.** Zero standalone controls under 44 px across `/es`, `/es/financiacion`, `/es/politicos`,
+`/es/votaciones`, `/es/metodologia`, `/en` and `/ca` at 375 px wide, plus `/es/politicos?page=2` and
+`/en/politicos` for the pager specifically. The skip link measures 44 px and sits off-screen at
+`top: -44` until focused on every route; activating it sets `#main` and moves `document.activeElement`
+to that wrapper. Typecheck clean, production build clean at 104 pages.
+
+**A verification limitation.** `:focus` styles could not be exercised: `document.hasFocus()` is false
+because the Browser pane cannot hold focus, which is the same condition that stopped key events
+earlier in the session. The slide-in is therefore evidenced by the rule existing in the compiled CSS
+(`.focus\:translate-y-0:focus`), by the element's measured 44 px size and `top: -44` resting position,
+and by activation moving focus to `#main` — not by observing the transition.
+
+Still open in `PLAN-VISUAL.md` §2b: N2 (the dangling `aria-controls` introduced by the O2 fix) and P4
+(avatar initials in party brand colours, a design decision).
+
+---
+
 ## 2026-09-01 — Parliamentary groups are named, and link to the right party's money (N1, R3)
 
 A reader pointed out that the group labels on `/votaciones` were unreadable — `GS`, `GCUP-EC-GC`,

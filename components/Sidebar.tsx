@@ -62,7 +62,7 @@ export default function Sidebar({ locale, nav }: { locale: Locale; nav: Dict["na
                 href={it.href}
                 onClick={() => setOpen(false)}
                 aria-current={active ? "page" : undefined}
-                className={`block rounded px-3 py-2 text-sm transition-colors ${
+                className={`flex min-h-11 items-center rounded px-3 text-sm transition-colors ${
                   active
                     ? "bg-[var(--ink-3)] text-[var(--gold-bright)]"
                     : "text-[var(--paper-dim)] hover:bg-[var(--ink-2)] hover:text-[var(--paper)]"
@@ -104,7 +104,10 @@ export default function Sidebar({ locale, nav }: { locale: Locale; nav: Dict["na
     <>
       {/* Mobile bar */}
       <div className="flex items-center justify-between px-5 py-4 lg:hidden">
-        <Link href={`/${locale}`} className="display text-base text-[var(--paper)]">
+        <Link
+          href={`/${locale}`}
+          className="display inline-flex min-h-11 items-center text-base text-[var(--paper)]"
+        >
           Seguir&nbsp;el&nbsp;Dinero
         </Link>
         <button

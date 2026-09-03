@@ -25,6 +25,7 @@ const es = {
     sectionData: "Datos",
     sectionAbout: "Sobre",
     menu: "Menú",
+    skipToContent: "Saltar al contenido",
   },
   people: {
     title: "Políticos",
@@ -313,6 +314,7 @@ const en: Dict = {
     sectionData: "Data",
     sectionAbout: "About",
     menu: "Menu",
+    skipToContent: "Skip to content",
   },
   people: {
     title: "Politicians",
@@ -599,6 +601,7 @@ const ca: Dict = {
     sectionData: "Dades",
     sectionAbout: "Sobre",
     menu: "Menú",
+    skipToContent: "Salta al contingut",
   },
   people: {
     title: "Polítics",

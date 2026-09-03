@@ -175,9 +175,9 @@ themselves in `--paper`, or raising the tile background contrast. Left for a dec
 
 | # | Issue | Criterion | Severity | Fix |
 |---|---|---|---|---|
-| O1 | No skip link on any of the nine routes. The sidebar's six links are repeated before `<main>` on every page | 2.4.1 Bypass Blocks | 🟡 Major | A visually-hidden "skip to content" link that reveals on focus, targeting `<main>` |
+| O1 | ~~No skip link on any of the nine routes~~ **FIXED 2026-09-01** — a 44 px skip link, translated out of view until focused, moving focus to `#main` (`tabIndex={-1}`), on every route in all three languages | 2.4.1 Bypass Blocks | 🟡 Major | done |
 | O2 | ~~Escape does not close the mobile menu; focus stays on the trigger when it opens~~ **FIXED 2026-09-01** — Escape closes it and returns focus to the trigger, opening moves focus into the panel, and the button gained `aria-controls` | 2.1.2 / 2.4.3 | 🟡 Major | done |
-| O3 | 34 interactive elements under 44 × 44 px at 375 px wide (menu button 31 px, chips 34–35 px) | 2.5.5 (AAA) / 2.5.8 AA | 🟢 Minor | Clears the 24 px AA minimum; raise to 44 px anyway |
+| O3 | ~~34 interactive elements under 44 × 44 px at 375 px wide~~ **FIXED 2026-09-01** — zero standalone controls under 44 px across seven route/locale combinations; the remainder are inline text links, which 2.5.5 and 2.5.8 both exempt | 2.5.5 (AAA) / 2.5.8 AA | 🟢 Minor | done |
 
 ### Robust
 
@@ -219,9 +219,19 @@ headers: `/votaciones` 138 `<th>` across 9 tables, `/financiacion` 42, `/metodol
 a visually-hidden caption, since the heading above each already says the same thing on screen but the
 table still needs its own accessible name.
 
-**Confirmed still open**: O1 (no skip link — checked on all five routes), O3 (chip target sizes; the
-menu button is now 44 px), N2 (the dangling `aria-controls`), P4 (avatar initials in party brand
-colours).
+**O1 and O3 are also closed (2026-09-01).** Every route in all three languages carries a 44 px skip
+link that sits translated out of view until focused and moves focus to `#main`, and no standalone
+interactive control measures under 44 px at 375 px wide. Inline text links are left as they are:
+2.5.5 and 2.5.8 both exempt a target whose size is constrained by the line of text it sits in, and
+padding them out would break the prose they are set in.
+
+**A note on how the skip link is built.** `sr-only` + `focus:not-sr-only` was tried first and left the
+link **2 px tall when focused** — `sr-only`'s `height: 1px` and `clip` survived the reset. It is
+positioned absolutely and translated out of view instead, so the element keeps its real 44 px size at
+all times, stays focusable and in the accessibility tree, and simply slides in.
+
+**Confirmed still open**: N2 (the dangling `aria-controls` from the O2 fix), P4 (avatar initials in
+party brand colours).
 
 ### Passing, and worth keeping
 
