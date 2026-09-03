@@ -102,18 +102,23 @@ export default async function FinanciacionPage({
 
         <div className="mt-8 overflow-x-auto">
           <table className="w-full min-w-[42rem] border-collapse text-sm">
+            {/* Visually hidden: the heading above already says this, but the
+                table needs its own accessible name. */}
+            <caption className="sr-only">{F.tableTitle}</caption>
             <thead>
               <tr className="label-mono text-left text-[var(--paper-faint)]">
-                <th className="py-2 pr-4 font-normal">{F.entity}</th>
-                <th className="py-2 pr-4 font-normal">{F.party}</th>
-                <th className="py-2 pr-4 text-right font-normal">{F.donations}</th>
-                <th className="py-2 text-right font-normal">{F.subsidies}</th>
+                <th scope="col" className="py-2 pr-4 font-normal">{F.entity}</th>
+                <th scope="col" className="py-2 pr-4 font-normal">{F.party}</th>
+                <th scope="col" className="py-2 pr-4 text-right font-normal">{F.donations}</th>
+                <th scope="col" className="py-2 text-right font-normal">{F.subsidies}</th>
               </tr>
             </thead>
             <tbody>
               {ranked.map((e) => (
                 <tr key={e.name} className="border-t border-[var(--line)]">
-                  <td className="py-2.5 pr-4 text-[var(--paper)]">{e.name}</td>
+                  <th scope="row" className="py-2.5 pr-4 text-left font-normal text-[var(--paper)]">
+                    {e.name}
+                  </th>
                   <td className="label-mono py-2.5 pr-4">
                     {e.party ? (
                       e.nif ? (

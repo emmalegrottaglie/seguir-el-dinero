@@ -193,7 +193,7 @@ Two new findings, both verified live; the fixed items were re-checked and hold.
 
 | # | Issue | Criterion | Severity | Fix |
 |---|---|---|---|---|
-| N1 | On `/votaciones` the per-group rows announce as “GS 116/0/1”. There are no column headers and no legend in that section, so what the three numbers mean is carried only by the colour of the bars — and those sit in a *different* widget higher up the page. The group codes themselves (`GS`, `GCUP-EC-GC`, `GPlu`) are never expanded either | 1.3.1 Info and Relationships | 🟡 Major | Label the three columns, expand the group codes to readable names, and keep the numeric triplet as the non-colour carrier |
+| N1 | ~~On `/votaciones` the per-group rows announce as “GS 116/0/1”. There are no column headers and no legend in that section, so what the three numbers mean is carried only by the colour of the bars — and those sit in a *different* widget higher up the page. The group codes themselves (`GS`, `GCUP-EC-GC`, `GPlu`) are never expanded either~~ **FIXED 2026-09-01** — rebuilt as `components/GroupBreakdown.tsx`: a real table with a caption, `scope="col"` headers, `scope="row"` group names, Sí/No/abstención in their own columns, and the bar reduced to `aria-hidden` decoration | 1.3.1 Info and Relationships | 🟡 Major | done |
 | N2 | The mobile menu button carries `aria-controls="mobile-nav"`, but that element only exists while the menu is open, so the IDREF dangles on all five routes in the closed state. Introduced by the O2 fix | 4.1.2 Name, Role, Value | 🟢 Minor | Render the panel always and toggle `hidden`, or drop `aria-controls` — `aria-expanded` alone is sufficient |
 
 **Newly tested and passing.** These had been listed as untested:
@@ -213,9 +213,15 @@ horizontal overflow. It was an artifact: the Browser pane had collapsed and `cli
 every element "overflowed". Re-run with an explicit 1280 px viewport, it passes. Any run of this
 audit should assert a sane viewport width before trusting an overflow result.
 
-**Confirmed still open**, unchanged by the fixes: O1 (no skip link — checked on all five routes),
-O3 (chip target sizes; the menu button is now 44 px), R3 (7 `<th>` across two tables carry no
-`scope`, and neither table has a `<caption>`), P4 (avatar initials in party brand colours).
+**R3 is also closed (2026-09-01).** Every table on the site now carries a `<caption>` and scoped
+headers: `/votaciones` 138 `<th>` across 9 tables, `/financiacion` 42, `/metodologia` 18, all with
+`scope`, zero tables without a caption, verified in all three locales. The two pre-existing tables got
+a visually-hidden caption, since the heading above each already says the same thing on screen but the
+table still needs its own accessible name.
+
+**Confirmed still open**: O1 (no skip link — checked on all five routes), O3 (chip target sizes; the
+menu button is now 44 px), N2 (the dangling `aria-controls`), P4 (avatar initials in party brand
+colours).
 
 ### Passing, and worth keeping
 

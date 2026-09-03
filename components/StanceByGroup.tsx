@@ -1,5 +1,6 @@
 import type { KeyVote } from "@/lib/votes";
 import { tallyByGroup } from "@/lib/votes";
+import { groupLabel } from "@/lib/groups";
 import type { Dict } from "@/lib/i18n";
 
 /**
@@ -13,13 +14,16 @@ import type { Dict } from "@/lib/i18n";
 export default function StanceByGroup({ vote, t }: { vote: KeyVote; t: Dict }) {
   const groups = tallyByGroup(vote);
 
+  // Readable names, not the Congreso's group codes: "GCUP-EC-GC" tells a reader
+  // nothing. groupLabel falls back to the raw code for anything unregistered.
   const bucket = { si: [] as string[], no: [] as string[], abst: [] as string[] };
   for (const g of groups) {
     const max = Math.max(g.si, g.no, g.abst);
     if (max === 0) continue;
-    if (g.si === max) bucket.si.push(g.group);
-    else if (g.no === max) bucket.no.push(g.group);
-    else bucket.abst.push(g.group);
+    const label = groupLabel(vote.legislature, g.group);
+    if (g.si === max) bucket.si.push(label);
+    else if (g.no === max) bucket.no.push(label);
+    else bucket.abst.push(label);
   }
 
   const tot = vote.totals;

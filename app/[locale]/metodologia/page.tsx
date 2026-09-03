@@ -79,21 +79,22 @@ export default async function MetodologiaPage({
 
         <div className="mt-2 overflow-x-auto">
           <table className="w-full min-w-[34rem] border-collapse text-sm">
+            <caption className="sr-only">{m.feedsTitle}</caption>
             <thead>
               <tr className="label-mono text-left text-[var(--paper-faint)]">
-                <th className="py-2 pr-4 font-normal">{m.feedsSource}</th>
-                <th className="py-2 pr-4 font-normal">{m.feedsKind}</th>
-                <th className="py-2 font-normal">{m.feedsTopics}</th>
+                <th scope="col" className="py-2 pr-4 font-normal">{m.feedsSource}</th>
+                <th scope="col" className="py-2 pr-4 font-normal">{m.feedsKind}</th>
+                <th scope="col" className="py-2 font-normal">{m.feedsTopics}</th>
               </tr>
             </thead>
             <tbody>
               {NEWS_SOURCES.map((s) => (
                 <tr key={s.id} className="border-t border-[var(--line)]">
-                  <td className="py-2.5 pr-4">
+                  <th scope="row" className="py-2.5 pr-4 text-left font-normal">
                     <a className="src" href={s.url} target="_blank" rel="noopener noreferrer">
                       {s.name}
                     </a>
-                  </td>
+                  </th>
                   <td className="label-mono py-2.5 pr-4 text-[var(--paper-dim)]">
                     {s.kind === "org" ? m.feedsOrg : m.feedsMedia}
                     {s.lang === "en" ? " · EN" : ""}

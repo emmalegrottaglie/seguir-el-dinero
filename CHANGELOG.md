@@ -5,6 +5,70 @@ figures name their source; corrections and gaps are recorded alongside the work,
 
 ---
 
+## 2026-09-01 — Parliamentary groups are named, and link to the right party's money (N1, R3)
+
+A reader pointed out that the group labels on `/votaciones` were unreadable — `GS`, `GCUP-EC-GC`,
+`GPlu` with nothing saying which parties those are — and asked for a link to each group's financing.
+The re-audit had reached the same place from the accessibility side (N1, 1.3.1): the rows announced
+as “GS 116/0/1”, and what the three numbers meant was carried only by the colour of bars sitting in a
+different widget higher up the page.
+
+**New `lib/groups.ts`.** A per-legislature registry of the 13 group codes across Leg XIV and XV, each
+with the group's name in full, a short label, and either the NIF of the one party it belongs to or the
+list of parties observed in it.
+
+**The single-party classification is evidence-based, not assumed.** Joining every deputy in
+`data/votes.json` to the officeholder register by folded name gives, per group, the distribution of
+party labels among the deputies that match. A group is only marked single-party where every matched
+deputy carries the same party: GP 57/57 then 89/89 PP; GS 55 PSOE plus 2 unlabelled, then 73/73;
+GVOX 26 Vox plus 2 unlabelled, then 26/26; GR 4/4 then 5/5 ERC; GEH Bildu 4/4 then 5/5; GV (EAJ-PNV)
+3/3 twice; GJxCAT 6/6 Junts. The same join settled the composites: GCUP-EC-GC returned Sumar 6 and
+Podemos 4, GPlu returned Junts 3, CM 1, BNG 1, and GMx returned PP 2, CC 1, Teruel Existe 1 in XIV
+and Podemos 4, UPN 1, BNG 1, CC 1 in XV.
+
+**Two entries are deliberately not decided by that join**, and the file says so. GSUMAR's matched
+deputies all carry the register label “Sumar”, but that is a coalition's label and the group's own
+name is “Plurinacional SUMAR” — linking it to the Movimiento Sumar NIF would attribute a coalition's
+votes to one component, so it is composite. GCs matches no register rows at all, the party having
+dissolved; it is marked single-party on the strength of the group's name being the party's name, with
+that absence of evidence recorded.
+
+**Why the link is missing on some rows, on purpose.** A parliamentary group is not a party. Pointing a
+coalition group at one party's funding page would misattribute the other parties' money, so composite
+rows link to nothing and instead name the parties in them. The table states this in prose beneath it,
+in all three languages, and links the Congreso's own composition page.
+
+**`components/GroupBreakdown.tsx`** replaces the hand-rolled bar list. It is a real table: a caption,
+`scope="col"` headers, the group as a `scope="row"` header, Sí / No / abstención each in their own
+labelled column, the party's colour as a rule down the left, the official group name and the raw
+Congreso code both kept visible so a row can still be matched against the official record, and the
+bar reduced to `aria-hidden` decoration that repeats what the numbers already say. The portal's
+`StanceByGroup` cards now read “PSOE · Unidas Podemos · ERC · Plural · Mixto” in place of the codes.
+
+**R3 closed while in the area.** Every table on the site now has a `<caption>` and scoped headers:
+`/votaciones` 138 `<th>` across 9 tables, `/financiacion` 42, `/metodologia` 18, none unscoped, no
+table without a caption, checked in all three locales. The two older tables took a visually-hidden
+caption, because the heading above each already says the same thing on screen while the table still
+needs its own accessible name.
+
+**Three things wrong in the first draft, fixed before committing.** A code comment claimed the raw
+group code stayed visible when the markup had dropped it — the code is rendered now, as the comment
+said. The caption repeated the `<h3>` above it word for word, so it now says something the heading
+does not. And both the caption and the note below the table were set in `label-mono`, which
+uppercases — a two-sentence paragraph in capitals, the third time that class has caused this, so both
+are plain text now.
+
+**Verified.** All 8 funding links resolve 200 (`/es/party/G28477727` and the rest). Zero contrast
+failures across `/es`, `/es/votaciones`, `/es/financiacion`, `/es/metodologia`, `/en/votaciones` and
+`/ca/votaciones`. Typecheck clean, production build clean at 104 pages.
+
+**Left alone.** No change to the art direction — the audit's judgement was that it is settled and
+working, so this executes the existing dossier language rather than introducing another. Still open:
+O1 (skip link), O3 (chip target sizes), N2 (the dangling `aria-controls` from the O2 fix), P4 (avatar
+initials in party brand colours).
+
+---
+
 ## 2026-09-01 — WCAG re-audit after the six fixes (no code shipped)
 
 Re-ran the audit against the running app now that P1, P2, P3, R1, R2 and O2 are in. The fixed items
