@@ -109,10 +109,11 @@ export default function Dashboard({
               <button
                 key={tab.key}
                 onClick={() => setKind(tab.key)}
-                className={`label-mono rounded-full border px-4 py-2 transition-all ${
+                aria-pressed={kind === tab.key}
+                className={`label-mono inline-flex min-h-11 items-center rounded-full border px-4 transition-all ${
                   kind === tab.key
                     ? "border-[var(--gold)] bg-[var(--gold)] text-[var(--ink)]"
-                    : "border-[var(--line-strong)] text-[var(--paper-dim)] hover:border-[var(--gold)] hover:text-[var(--paper)]"
+                    : "border-[var(--line-control)] text-[var(--paper-dim)] hover:border-[var(--gold)] hover:text-[var(--paper)]"
                 }`}
               >
                 {tab.label}
@@ -127,11 +128,12 @@ export default function Dashboard({
                 <button
                   key={y}
                   onClick={() => toggleYear(y)}
-                  className={`mono rounded border px-3 py-1.5 text-sm transition-all ${
+                  aria-pressed={years.includes(y)}
+                  className={`mono inline-flex min-h-11 items-center rounded border px-3 text-sm transition-all ${
                     years.includes(y)
                       ? "border-[var(--gold)] text-[var(--gold-bright)]"
                       : active
-                        ? "border-[var(--line-strong)] text-[var(--paper-dim)] hover:text-[var(--paper)]"
+                        ? "border-[var(--line-control)] text-[var(--paper-dim)] hover:text-[var(--paper)]"
                         : "border-transparent text-[var(--paper-faint)] opacity-40 hover:opacity-100"
                   }`}
                 >
@@ -142,7 +144,7 @@ export default function Dashboard({
             {years.length > 0 && (
               <button
                 onClick={() => setYears([])}
-                className="label-mono ml-1 text-[var(--red)] hover:underline"
+                className="label-mono ml-1 inline-flex min-h-11 items-center px-1 text-[var(--red)] hover:underline"
               >
                 {home.reset}
               </button>
@@ -160,6 +162,17 @@ export default function Dashboard({
             <Legend color="var(--red)" label={kinds.seguridad} />
           </div>
         </div>
+
+        {/* Filtering here mutates the list in place with no navigation, so without
+            a status region a screen reader user gets no confirmation that
+            anything happened. The search forms elsewhere on the site navigate,
+            which announces itself, and so need no equivalent. */}
+        <p role="status" className="label-mono mb-4 text-[var(--paper-dim)]">
+          {home.filterStatus
+            .replace("{parties}", integer(agg.parties.length, bcp47))
+            .replace("{grants}", integer(totalGrants, bcp47))
+            .replace("{total}", euroCompact(agg.grandTotal, bcp47))}
+        </p>
 
         <ol className="flex flex-col">
           {agg.parties.map((p, i) => {

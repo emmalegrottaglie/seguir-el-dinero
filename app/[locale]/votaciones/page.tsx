@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { getVotes, tallyByGroup, nameKey, type Ballot } from "@/lib/votes";
+import { getVotes, nameKey, type Ballot } from "@/lib/votes";
+import GroupBreakdown from "@/components/GroupBreakdown";
 import { getDict } from "@/lib/i18n";
 import { integer } from "@/lib/format";
 
@@ -69,11 +70,11 @@ export default async function VotacionesPage({
           defaultValue={q ?? ""}
           placeholder={v.searchPlaceholder}
           aria-label={v.searchLabel}
-          className="mono min-w-0 flex-1 rounded border border-[var(--line-strong)] bg-[var(--ink-3)] px-3 py-2 text-sm text-[var(--paper)] outline-none focus:border-[var(--gold)]"
+          className="mono min-h-11 min-w-0 flex-1 rounded border border-[var(--line-control)] bg-[var(--ink-3)] px-3 text-sm text-[var(--paper)] outline-none focus:border-[var(--gold)]"
         />
         <button
           type="submit"
-          className="label-mono rounded border border-[var(--gold)] bg-[var(--gold)] px-4 py-2 text-[var(--ink)]"
+          className="label-mono inline-flex min-h-11 items-center rounded border border-[var(--gold)] bg-[var(--gold)] px-4 text-[var(--ink)]"
         >
           {v.searchLabel}
         </button>
@@ -123,7 +124,6 @@ export default async function VotacionesPage({
 
       {/* One block per tracked law */}
       {data.votes.map((vote) => {
-        const groups = tallyByGroup(vote);
         const tot = vote.totals;
         const width = (n: number) => `${(n / Math.max(1, tot.presentes)) * 100}%`;
         return (
@@ -186,38 +186,7 @@ export default async function VotacionesPage({
 
             {/* Per-group breakdown */}
             <h3 className="label-mono mt-8">{v.byGroup}</h3>
-            <div className="mt-3 flex flex-col">
-              {groups.map((g) => {
-                const total = g.si + g.no + g.abst + g.other;
-                return (
-                  <div key={g.group}>
-                    <div className="grid grid-cols-[4rem_1fr_auto] items-center gap-3 py-2.5">
-                      <span className="mono text-sm text-[var(--paper)]">{g.group}</span>
-                      <span className="flex h-3 overflow-hidden rounded-sm bg-[var(--ink-3)]">
-                        {g.si > 0 && (
-                          <span style={{ width: `${(g.si / total) * 100}%`, backgroundColor: "var(--gold)" }} />
-                        )}
-                        {g.no > 0 && (
-                          <span style={{ width: `${(g.no / total) * 100}%`, backgroundColor: "var(--red)" }} />
-                        )}
-                        {g.abst > 0 && (
-                          <span
-                            style={{
-                              width: `${(g.abst / total) * 100}%`,
-                              backgroundColor: "var(--paper-faint)",
-                            }}
-                          />
-                        )}
-                      </span>
-                      <span className="mono text-xs text-[var(--paper-faint)]">
-                        {g.si}/{g.no}/{g.abst}
-                      </span>
-                    </div>
-                    <hr className="hairline" />
-                  </div>
-                );
-              })}
-            </div>
+            <GroupBreakdown vote={vote} t={t} locale={locale} />
           </section>
         );
       })}

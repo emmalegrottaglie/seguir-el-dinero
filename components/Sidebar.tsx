@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Dict, Locale } from "@/lib/i18n";
 import LocaleToggle from "./LocaleToggle";
 
@@ -14,6 +14,29 @@ interface Item {
 export default function Sidebar({ locale, nav }: { locale: Locale; nav: Dict["nav"] }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLElement>(null);
+
+  // Escape closes the panel and returns focus to the button that opened it. A
+  // keyboard user could previously open the menu and have no way to dismiss it
+  // without tabbing through every link in it.
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setOpen(false);
+        triggerRef.current?.focus();
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [open]);
+
+  // Move focus into the panel when it opens, so the next Tab continues inside it
+  // rather than starting again from the top of the page.
+  useEffect(() => {
+    if (open) panelRef.current?.querySelector<HTMLElement>("a, button")?.focus();
+  }, [open]);
 
   const data: Item[] = [
     { href: `/${locale}`, label: nav.panel },
@@ -39,7 +62,7 @@ export default function Sidebar({ locale, nav }: { locale: Locale; nav: Dict["na
                 href={it.href}
                 onClick={() => setOpen(false)}
                 aria-current={active ? "page" : undefined}
-                className={`block rounded px-3 py-2 text-sm transition-colors ${
+                className={`flex min-h-11 items-center rounded px-3 text-sm transition-colors ${
                   active
                     ? "bg-[var(--ink-3)] text-[var(--gold-bright)]"
                     : "text-[var(--paper-dim)] hover:bg-[var(--ink-2)] hover:text-[var(--paper)]"
@@ -81,22 +104,38 @@ export default function Sidebar({ locale, nav }: { locale: Locale; nav: Dict["na
     <>
       {/* Mobile bar */}
       <div className="flex items-center justify-between px-5 py-4 lg:hidden">
-        <Link href={`/${locale}`} className="display text-base text-[var(--paper)]">
+        <Link
+          href={`/${locale}`}
+          className="display inline-flex min-h-11 items-center text-base text-[var(--paper)]"
+        >
           Seguir&nbsp;el&nbsp;Dinero
         </Link>
         <button
+          ref={triggerRef}
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
+          aria-controls="mobile-nav"
           aria-label={nav.menu}
-          className="label-mono rounded border border-[var(--line-strong)] px-3 py-1.5"
+          className="label-mono min-h-11 rounded border border-[var(--line-control)] px-3 py-1.5"
         >
           {nav.menu}
         </button>
       </div>
 
-      {open && (
-        <nav className="flex flex-col border-b border-[var(--line)] px-2 pb-6 lg:hidden">{inner}</nav>
-      )}
+      {/* Always mounted, so the button's aria-controls="mobile-nav" always
+          resolves to a real element. Conditionally rendering it left the IDREF
+          dangling on every route in the closed state.
+
+          The display is switched by class rather than the `hidden` attribute:
+          `[hidden]{display:none}` sits in Tailwind's base layer and would lose
+          to the `flex` utility, leaving the panel visible when closed. */}
+      <nav
+        ref={panelRef}
+        id="mobile-nav"
+        className={`${open ? "flex" : "hidden"} flex-col border-b border-[var(--line)] px-2 pb-6 lg:hidden`}
+      >
+        {inner}
+      </nav>
 
       {/* Desktop rail */}
       <nav className="sticky top-0 hidden h-dvh w-56 shrink-0 flex-col border-r border-[var(--line)] px-2 py-7 lg:flex">

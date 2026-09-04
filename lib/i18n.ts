@@ -25,6 +25,7 @@ const es = {
     sectionData: "Datos",
     sectionAbout: "Sobre",
     menu: "Menú",
+    skipToContent: "Saltar al contenido",
   },
   people: {
     title: "Políticos",
@@ -65,6 +66,14 @@ const es = {
     present: "Presentes",
     byGroup: "Por grupo parlamentario",
     group: "Grupo",
+    byGroupCaption: "Un grupo por fila, con sus votos contados y el enlace a la financiación del partido cuando el grupo lo forma uno solo.",
+    distribution: "Reparto",
+    funding: "Financiación",
+    severalParties: "Varios partidos",
+    groupUnknown: "Grupo no identificado en el registro",
+    groupNote:
+      "Un grupo parlamentario no es un partido. Cuando el grupo lo forma un solo partido, la última columna enlaza a la financiación de ese partido; cuando lo forman varios, no se enlaza a ninguno, porque atribuir el dinero de una coalición a uno de sus miembros sería falso.",
+    groupSource: "Composición de los grupos ↗",
     officialRecord: "Acta oficial ↗",
     lawText: "Texto de la ley ↗",
     session: "Sesión",
@@ -194,6 +203,7 @@ const es = {
     reset: "Reset",
     distribution: "Reparto por partido",
     noResults: "No hay concesiones para esta selección.",
+    filterStatus: "{parties} partidos · {grants} concesiones · {total} con los filtros actuales",
   },
   party: {
     totalReceived: "Total recibido",
@@ -304,6 +314,7 @@ const en: Dict = {
     sectionData: "Data",
     sectionAbout: "About",
     menu: "Menu",
+    skipToContent: "Skip to content",
   },
   people: {
     title: "Politicians",
@@ -344,6 +355,14 @@ const en: Dict = {
     present: "Present",
     byGroup: "By parliamentary group",
     group: "Group",
+    byGroupCaption: "One group per row, with its ballots counted and a link to the party's funding where the group is made up of one party.",
+    distribution: "Split",
+    funding: "Funding",
+    severalParties: "Several parties",
+    groupUnknown: "Group not in the registry",
+    groupNote:
+      "A parliamentary group is not a party. Where a group is made up of one party, the last column links to that party's funding; where it is a coalition, it links to none of them, because attributing a coalition's money to one member would be false.",
+    groupSource: "Group composition ↗",
     officialRecord: "Official record ↗",
     lawText: "Text of the law ↗",
     session: "Session",
@@ -473,6 +492,7 @@ const en: Dict = {
     reset: "Reset",
     distribution: "Breakdown by party",
     noResults: "No grants for this selection.",
+    filterStatus: "{parties} parties · {grants} grants · {total} under the current filters",
   },
   party: {
     totalReceived: "Total received",
@@ -581,6 +601,7 @@ const ca: Dict = {
     sectionData: "Dades",
     sectionAbout: "Sobre",
     menu: "Menú",
+    skipToContent: "Salta al contingut",
   },
   people: {
     title: "Polítics",
@@ -621,6 +642,14 @@ const ca: Dict = {
     present: "Presents",
     byGroup: "Per grup parlamentari",
     group: "Grup",
+    byGroupCaption: "Un grup per fila, amb els seus vots comptats i l'enllaç al finançament del partit quan el grup el forma un de sol.",
+    distribution: "Repartiment",
+    funding: "Finançament",
+    severalParties: "Diversos partits",
+    groupUnknown: "Grup no identificat al registre",
+    groupNote:
+      "Un grup parlamentari no és un partit. Quan el grup el forma un sol partit, l'última columna enllaça al finançament d'aquest partit; quan el formen diversos, no s'enllaça a cap, perquè atribuir els diners d'una coalició a un dels seus membres seria fals.",
+    groupSource: "Composició dels grups ↗",
     officialRecord: "Acta oficial ↗",
     lawText: "Text de la llei ↗",
     session: "Sessió",
@@ -750,6 +779,7 @@ const ca: Dict = {
     reset: "Reset",
     distribution: "Repartiment per partit",
     noResults: "No hi ha concessions per a aquesta selecció.",
+    filterStatus: "{parties} partits · {grants} concessions · {total} amb els filtres actuals",
   },
   party: {
     totalReceived: "Total rebut",

@@ -5,6 +5,278 @@ figures name their source; corrections and gaps are recorded alongside the work,
 
 ---
 
+## 2026-09-04 — Last two audit items closed (N2, P4), and caveman mode written into the rules
+
+**N2 — the dangling IDREF I introduced.** The O2 fix put `aria-controls="mobile-nav"` on the menu
+button, but the panel was conditionally rendered, so the reference pointed at nothing whenever the
+menu was closed — which is most of the time, on every route. The panel is always mounted now and its
+display is switched by class instead.
+
+Using the `hidden` *attribute* would have been the obvious move and it would have been wrong:
+`[hidden] { display: none }` sits in Tailwind's base layer and loses to the `flex` utility, so the
+panel would have stayed visible when closed. That is the same layer-order trap as D1, three fixes
+later, which is why the reason is written into the component.
+
+**P4 — avatar initials.** The initials were set in the party's brand colour on `--ink-3`, putting
+three parties under 4.5 : 1 (`#8b5cc4` 3.61, `#d64545` 3.92, `#c7527f` 4.04). Lightening those
+colours was never an option — they are the parties' own identities — so the colour moved off the
+text: initials are `--paper` at **13.33 : 1**, and the party colour now carries the tile through its
+ring and a tinted gradient field. Identity preserved, contrast fixed, no party's colour altered.
+
+The gradient's lightest possible stop was checked rather than assumed: the brightest party colour at
+15% over `--ink-3` still gives `--paper` **9.46 : 1**.
+
+**Every item in the WCAG audit is now resolved** — P1, P2, P3, P4, O1, O2, O3, R1, R2, R3, N1 and N2.
+
+**Verified.** Zero contrast failures and zero dangling `aria-controls` across `/es`, `/es/politicos`,
+`/es/politico/[slug]`, `/es/financiacion`, `/es/votaciones`, `/es/metodologia`, `/en/politicos` and
+`/ca/politicos`. The menu panel reports `display: none` with `aria-expanded="false"` when closed and
+`display: flex` with six visible links when open. Typecheck clean, production build clean at 104
+pages.
+
+**Caveman mode is now a written rule, not a per-session request.** Emma asked for it to be enforced
+always. Added `CLAUDE.md` at the repo root and `~/.claude/CLAUDE.md` for every other repo, both
+stating level `full` from the first reply, the compression rules, the auto-clarity exceptions
+(security warnings, irreversible-action confirmations, order-sensitive sequences), and the boundary
+that matters here: **compression is a chat style only**. Everything persisted outside the chat — code,
+comments, commit messages, this changelog, `AGENTS.md`, the `PLAN-*.md` documents, PR and issue
+bodies — stays in normal prose. The project memory note was rewritten from a per-session preference
+into that standing rule.
+
+Worth recording because it cost time twice this session: the `caveman` CLI **is** installed, at
+`%APPDATA%\npm\caveman.cmd` with a proxy at `~/.caveman/bin/caveman-proxy.exe`, and the plugin's
+hooks in `~/.claude/settings.json` inject the mode on `SessionStart` and every `UserPromptSubmit`.
+Two earlier probes reported it missing because `%APPDATA%\npm` is not on the PATH the tool shells
+inherit — check the hook config and that directory directly before concluding it is absent.
+
+---
+
+## 2026-09-01 — Skip link, and every control at 44 px (O1, O3)
+
+**O1 — a skip link.** The sidebar repeats six navigation links before the content on every page, so a
+keyboard or screen-reader user had to pass all of them each time. Every route now opens with a skip
+link that moves focus to the content wrapper, which carries `id="main"` and `tabIndex={-1}` so focus
+actually lands there rather than only the scroll position moving. Present and verified on all seven
+route/locale combinations checked.
+
+**How it is built, and what was tried first.** The obvious `sr-only` + `focus:not-sr-only` pair was
+written first and **left the link 2 px tall when focused** — `sr-only`'s `height: 1px` and `clip`
+survived the reset, which the geometry check caught. It is positioned absolutely and translated out
+of view instead: the element keeps its real 44 px size at all times, stays focusable and in the
+accessibility tree, and slides in on focus. Deterministic, and it does not depend on one utility
+undoing another cleanly.
+
+**O3 — target sizes.** Raised to a 44 px minimum: the Dashboard kind and year chips, the reset button,
+the party facet chips, both search fields and their submit buttons, the sidebar navigation links, the
+locale toggles, the mobile wordmark, and the directory's previous/next pager. Where a control was
+`px-3 py-1.5`, the vertical padding was replaced with `inline-flex min-h-11 items-center` so the
+height applies to an inline element and the label stays centred.
+
+**Inline text links are deliberately left alone.** Both 2.5.5 and 2.5.8 exempt a target whose size is
+constrained by the line of text it sits in, and padding out a link inside a sentence or a table cell
+would break the prose around it. The verification therefore separates the two: it reports standalone
+controls under 44 px as offenders and counts inline ones as exempt.
+
+**Verified.** Zero standalone controls under 44 px across `/es`, `/es/financiacion`, `/es/politicos`,
+`/es/votaciones`, `/es/metodologia`, `/en` and `/ca` at 375 px wide, plus `/es/politicos?page=2` and
+`/en/politicos` for the pager specifically. The skip link measures 44 px and sits off-screen at
+`top: -44` until focused on every route; activating it sets `#main` and moves `document.activeElement`
+to that wrapper. Typecheck clean, production build clean at 104 pages.
+
+**A verification limitation.** `:focus` styles could not be exercised: `document.hasFocus()` is false
+because the Browser pane cannot hold focus, which is the same condition that stopped key events
+earlier in the session. The slide-in is therefore evidenced by the rule existing in the compiled CSS
+(`.focus\:translate-y-0:focus`), by the element's measured 44 px size and `top: -44` resting position,
+and by activation moving focus to `#main` — not by observing the transition.
+
+Still open in `PLAN-VISUAL.md` §2b: N2 (the dangling `aria-controls` introduced by the O2 fix) and P4
+(avatar initials in party brand colours, a design decision).
+
+---
+
+## 2026-09-01 — Parliamentary groups are named, and link to the right party's money (N1, R3)
+
+A reader pointed out that the group labels on `/votaciones` were unreadable — `GS`, `GCUP-EC-GC`,
+`GPlu` with nothing saying which parties those are — and asked for a link to each group's financing.
+The re-audit had reached the same place from the accessibility side (N1, 1.3.1): the rows announced
+as “GS 116/0/1”, and what the three numbers meant was carried only by the colour of bars sitting in a
+different widget higher up the page.
+
+**New `lib/groups.ts`.** A per-legislature registry of the 13 group codes across Leg XIV and XV, each
+with the group's name in full, a short label, and either the NIF of the one party it belongs to or the
+list of parties observed in it.
+
+**The single-party classification is evidence-based, not assumed.** Joining every deputy in
+`data/votes.json` to the officeholder register by folded name gives, per group, the distribution of
+party labels among the deputies that match. A group is only marked single-party where every matched
+deputy carries the same party: GP 57/57 then 89/89 PP; GS 55 PSOE plus 2 unlabelled, then 73/73;
+GVOX 26 Vox plus 2 unlabelled, then 26/26; GR 4/4 then 5/5 ERC; GEH Bildu 4/4 then 5/5; GV (EAJ-PNV)
+3/3 twice; GJxCAT 6/6 Junts. The same join settled the composites: GCUP-EC-GC returned Sumar 6 and
+Podemos 4, GPlu returned Junts 3, CM 1, BNG 1, and GMx returned PP 2, CC 1, Teruel Existe 1 in XIV
+and Podemos 4, UPN 1, BNG 1, CC 1 in XV.
+
+**Two entries are deliberately not decided by that join**, and the file says so. GSUMAR's matched
+deputies all carry the register label “Sumar”, but that is a coalition's label and the group's own
+name is “Plurinacional SUMAR” — linking it to the Movimiento Sumar NIF would attribute a coalition's
+votes to one component, so it is composite. GCs matches no register rows at all, the party having
+dissolved; it is marked single-party on the strength of the group's name being the party's name, with
+that absence of evidence recorded.
+
+**Why the link is missing on some rows, on purpose.** A parliamentary group is not a party. Pointing a
+coalition group at one party's funding page would misattribute the other parties' money, so composite
+rows link to nothing and instead name the parties in them. The table states this in prose beneath it,
+in all three languages, and links the Congreso's own composition page.
+
+**`components/GroupBreakdown.tsx`** replaces the hand-rolled bar list. It is a real table: a caption,
+`scope="col"` headers, the group as a `scope="row"` header, Sí / No / abstención each in their own
+labelled column, the party's colour as a rule down the left, the official group name and the raw
+Congreso code both kept visible so a row can still be matched against the official record, and the
+bar reduced to `aria-hidden` decoration that repeats what the numbers already say. The portal's
+`StanceByGroup` cards now read “PSOE · Unidas Podemos · ERC · Plural · Mixto” in place of the codes.
+
+**R3 closed while in the area.** Every table on the site now has a `<caption>` and scoped headers:
+`/votaciones` 138 `<th>` across 9 tables, `/financiacion` 42, `/metodologia` 18, none unscoped, no
+table without a caption, checked in all three locales. The two older tables took a visually-hidden
+caption, because the heading above each already says the same thing on screen while the table still
+needs its own accessible name.
+
+**Three things wrong in the first draft, fixed before committing.** A code comment claimed the raw
+group code stayed visible when the markup had dropped it — the code is rendered now, as the comment
+said. The caption repeated the `<h3>` above it word for word, so it now says something the heading
+does not. And both the caption and the note below the table were set in `label-mono`, which
+uppercases — a two-sentence paragraph in capitals, the third time that class has caused this, so both
+are plain text now.
+
+**Verified.** All 8 funding links resolve 200 (`/es/party/G28477727` and the rest). Zero contrast
+failures across `/es`, `/es/votaciones`, `/es/financiacion`, `/es/metodologia`, `/en/votaciones` and
+`/ca/votaciones`. Typecheck clean, production build clean at 104 pages.
+
+**Left alone.** No change to the art direction — the audit's judgement was that it is settled and
+working, so this executes the existing dossier language rather than introducing another. Still open:
+O1 (skip link), O3 (chip target sizes), N2 (the dangling `aria-controls` from the O2 fix), P4 (avatar
+initials in party brand colours).
+
+---
+
+## 2026-09-01 — WCAG re-audit after the six fixes (no code shipped)
+
+Re-ran the audit against the running app now that P1, P2, P3, R1, R2 and O2 are in. The fixed items
+hold. Two new findings, and five criteria that had been listed as untested now tested and passing.
+Recorded in `PLAN-VISUAL.md` §2b; nothing was changed in the app.
+
+**N1 — the per-group rows on `/votaciones` announce as “GS 116/0/1”.** That section has no column
+headers and no legend, so what the three numbers mean is carried only by the colour of the bars — and
+those bars sit in a different widget higher up the page. The group codes are never expanded either,
+so a reader sees `GS`, `GCUP-EC-GC`, `GPlu` with nothing telling them which parties those are. This
+is 1.3.1, and it is the same problem a reader raised independently about the group labels being
+unreadable. Fix: label the three columns, expand the codes to readable names, keep the numeric
+triplet as the non-colour carrier.
+
+**N2 — a dangling IDREF I introduced.** The O2 fix added `aria-controls="mobile-nav"` to the menu
+button, but that panel only exists while the menu is open, so the reference points at nothing in the
+closed state on all five routes. Either render the panel always and toggle `hidden`, or drop the
+attribute — `aria-expanded` alone is sufficient for a disclosure.
+
+**Newly tested, all passing.** 1.4.4 resize text to 200%; 1.4.12 text spacing with line-height 1.5,
+letter-spacing 0.12em, word-spacing 0.16em and 2em paragraph spacing forced; 2.4.3 focus order in the
+opened mobile menu (trigger is focusable #1, panel #2–#10, focus lands on #2, tabbing past it
+continues into page content); and 1.4.1 on the vote bars — the counts are present as text, so the
+information is not colour-only, only unlabelled. Also confirmed the mobile menu is a non-modal
+disclosure that pushes content rather than overlaying it, and correctly has no focus trap.
+
+**A false positive caught, and why.** The first portal run of the text-spacing test reported
+horizontal overflow. It was an artifact: the Browser pane had collapsed, `clientWidth` read 0, and
+every element therefore “overflowed”. Re-run with an explicit 1280 px viewport it passes. The audit
+notes now say to assert a sane viewport width before trusting any overflow result — a measurement bug
+reported as a defect would have sent someone chasing nothing.
+
+**Confirmed still open**, unchanged: O1 (no skip link, checked on all five routes), O3 (chip target
+sizes — the menu button is now 44 px), R3 (7 `<th>` across two tables with no `scope`, neither table
+with a `<caption>`), P4 (avatar initials in party brand colours).
+
+---
+
+## 2026-09-01 — Stateful controls: pressed state, a status region, and Escape (R1, R2, O2)
+
+Three audit items, all sitting on the site’s only stateful controls.
+
+**R1 — pressed state.** The eight Dashboard filter chips on `/financiacion` (kind and year) now carry
+`aria-pressed`, so the selected filter is available programmatically. Together with the P1 contrast
+fix that state is now conveyed both ways; before that pair it was conveyed neither way. The party
+facets on `/politicos` are links rather than toggles, so they take `aria-current="page"` instead — a
+link cannot be “pressed”, and `aria-pressed` there would have been the wrong role.
+
+**R2 — a status region.** `/financiacion` now carries a `role="status"` line reading, for example,
+“28 partidos · 232 concesiones · 300,6 M € con los filtros actuales”, in all three languages.
+
+**A correction to the original finding.** It said the result set is replaced with no announcement on
+`/es/financiacion` *and* `/es/politicos`. Only the first is true. The searches on `/politicos` and
+`/votaciones` are form GETs that navigate, and a change of context is announced by the browser — it
+is not a status message, and 4.1.3 does not apply. Only the Dashboard mutates its list in place, so
+only the Dashboard needed a region.
+
+**O2 — Escape and focus.** Escape now closes the mobile menu and returns focus to the button that
+opened it; opening moves focus into the panel so the next Tab continues inside it; the button gained
+`aria-controls="mobile-nav"`. Its height also went from 31 px to 44 px, which is part of O3.
+
+**One error worth recording.** The status string was first written as a function on the `home`
+dictionary. `home` is passed as a prop from a server component into `<Dashboard>`, which is a client
+component, so the page died with *“Functions cannot be passed directly to Client Components”* — the
+same trap this project hit once before with a formatter prop. It is a template string with
+`{parties}` / `{grants}` / `{total}` placeholders now, interpolated on the client, matching the
+existing `CountUp as="euro"` pattern.
+
+**Verified.** The eight chips report `aria-pressed` and toggle correctly (`Gastos de seguridad=true`
+after a click, `Todas=false`). The status line changed from “28 partidos · 232 concesiones ·
+300,6 M €” to “25 partidos · 108 concesiones · 14,7 M €” on that click. The menu button measures
+44 px, exposes `aria-controls`, moves focus into the panel on open, and closes on Escape with focus
+returning to the trigger.
+
+**A limitation, stated rather than glossed.** Real key events stopped reaching the page partway
+through this session — the Browser pane reports itself hidden, and a listener recording every
+`keydown` saw neither Escape nor a letter key. O2 is therefore verified by code and by dispatching a
+`KeyboardEvent` on `document`, which exercises the exact listener registered. The original finding
+never depended on that plumbing: `components/Sidebar.tsx` had no key handler at all.
+
+Still open in `PLAN-VISUAL.md` §2b: O1 (no skip link), O3 (remaining chip target sizes), R3 (table
+`scope`/`caption`), P4 (avatar initials in party brand colours — a design decision).
+
+Typecheck clean, production build clean at 104 pages.
+
+---
+
+## 2026-09-01 — Interactive control boundaries now meet non-text contrast (P3)
+
+`--line-strong` was carrying two different jobs: the visible boundary of interactive controls, and
+decorative rules and card hover states. At `rgba(236, 226, 205, 0.22)` it measured **1.77 : 1** over
+`--ink`, below the 3 : 1 that WCAG 1.4.11 requires for the visual information needed to identify a UI
+component — and a filter chip has no boundary other than its border.
+
+Raising `--line-strong` wholesale would also have thickened panel edges and card hovers, which are
+not UI boundaries and are exempt. So the fix splits the token: **`--line-control`** at
+`rgba(236, 226, 205, 0.4)`, **3.22 : 1**, now carries the filter and year chips on `/financiacion`,
+the party facet chips and search field on `/politicos`, the search field on `/votaciones`, and the
+mobile menu button. `--line` and `--line-strong` keep the decorative work unchanged.
+
+**Verified in the browser across the three filtered routes.** Every interactive control now measures
+≥ 3 : 1 — worst case 3.22, active states at 8.30 on their gold border, and all 21 party facet chips
+on `/politicos` confirmed individually. Two things were checked rather than assumed and turned out
+fine: the `opacity-60` count inside each facet chip composites to **5.86 : 1**, and the ES/EN/CA
+locale toggles have no border at all, so they are text-labelled controls with no boundary to fail.
+
+**Deliberately unchanged.** The `.panel` card borders on the portal, party, profile and Bluesky cards
+measure 1.30 : 1 and stay that way: each card is identified by its own heading text, so its edge is
+decoration rather than the information needed to identify the control. The same reasoning leaves the
+vote card border on `/votaciones` alone.
+
+Still open from `PLAN-VISUAL.md` §2b: O1 (no skip link), O2 (Escape does not close the mobile menu),
+O3 (target size), R1 (no `aria-pressed` on filter chips), R2 (no live regions), R3 (table semantics),
+P4 (avatar initials in party brand colours, a design decision).
+
+Typecheck clean, production build clean at 104 pages.
+
+---
+
 ## 2026-09-01 — Fixed the two critical contrast defects (P1, P2)
 
 Two WCAG 1.4.3 failures from the audit, fixed together because they were entangled.

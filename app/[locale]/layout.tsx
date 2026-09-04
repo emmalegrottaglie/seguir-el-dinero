@@ -58,9 +58,27 @@ export default async function RootLayout({
     // attributes onto <html> before React hydrates; that mismatch is benign.
     <html lang={locale} suppressHydrationWarning>
       <body className={`${fraunces.variable} ${archivo.variable} ${plexMono.variable}`}>
+        {/* Skip link: the sidebar repeats six links before the content on every
+            page, so a keyboard or screen-reader user had to pass all of them
+            each time.
+
+            Deliberately not sr-only/focus:not-sr-only. That pair left the link
+            2px tall when focused, because sr-only's `height: 1px` and `clip`
+            survived the reset. Translating it out of view instead is
+            deterministic: the element keeps its real size at all times, stays
+            focusable and in the accessibility tree, and simply slides in. */}
+        <a
+          href="#main"
+          className="label-mono absolute left-0 top-0 z-50 inline-flex min-h-11 -translate-y-full items-center rounded-br border border-[var(--gold)] bg-[var(--ink-2)] px-4 text-[var(--gold-bright)] transition-transform focus:translate-y-0"
+        >
+          {t.nav.skipToContent}
+        </a>
+
         <div className="lg:flex">
           <Sidebar locale={locale} nav={t.nav} />
-          <div className="min-w-0 flex-1">
+          {/* tabIndex -1 so the skip link actually moves focus here, not just
+              the scroll position. */}
+          <div id="main" tabIndex={-1} className="min-w-0 flex-1 outline-none">
             {children}
             <footer className="mx-auto max-w-6xl px-5 py-12">
               <hr className="hairline mb-6" />

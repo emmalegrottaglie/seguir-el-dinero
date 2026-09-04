@@ -133,8 +133,26 @@ served HTML, contrast and focus measured with `getComputedStyle` on live element
 behaviour driven with real key events, reflow tested at 320 CSS px. Ratios below are computed from
 the actual rendered colours, including alpha compositing against the page background.
 
-**Issues found: 8 · Critical 2 · Major 3 · Minor 3.** P1 and P2 were fixed on 2026-09-01 and
-re-verified; P4 was found by the verification sweep that followed them.
+**Issues found: 8 · Critical 2 · Major 3 · Minor 3.** P1, P2, P3, O2, R1 and R2 were fixed on
+2026-09-01 and re-verified; P4 was found by the verification sweep that followed P1 and P2. Open:
+O1 (skip link), O3 (target size — partly done, the menu button is now 44 px), R3 (table semantics),
+P4.
+
+**A verification limitation, stated because it matters.** Real key events stopped being delivered to
+the page partway through this session — the Browser pane reports itself hidden, and a listener
+recording every `keydown` saw nothing for either Escape or a letter key. O2’s fix is therefore
+verified the two ways that remain available: by code, and by dispatching a `KeyboardEvent` on
+`document`, which exercises the exact listener the handler registers. The original finding does not
+depend on that plumbing either — `components/Sidebar.tsx` had no key handler at all, which is
+visible in the source.
+
+**On P3's fix.** `--line-strong` was doing two jobs: the boundary of interactive controls and
+decorative rules and hover states. Raising it wholesale would have thickened panel edges and card
+hovers that are not UI boundaries at all. Instead there is now a separate `--line-control` token at
+`rgba(236, 226, 205, 0.4)` — **3.22 : 1** over `--ink` — used on the filter and year chips, the party
+facet chips, both search fields and the mobile menu button. `--line` and `--line-strong` keep the
+decorative work. Verified across the three filtered routes: every interactive control measures
+≥ 3 : 1, worst case 3.22, and the active states sit at 8.30 on the gold border.
 
 ### Perceivable
 
@@ -142,9 +160,9 @@ re-verified; P4 was found by the verification sweep that followed them.
 |---|---|---|---|---|
 | P1 | ~~Active filter chip renders `--paper-dim` on `--gold` at **1.14 : 1**~~ **FIXED 2026-09-01** — now `--ink` on `--gold` at **8.30 : 1** | 1.4.3 Contrast | 🔴 Critical | done |
 | P2 | ~~`--paper-faint` `#6f6857` is **3.48 : 1**~~ **FIXED 2026-09-01** — token is now `#8a8270`, **5.06 : 1** | 1.4.3 Contrast | 🔴 Critical | done |
-| P3 | Filter and year chips have no boundary other than a 1 px `--line-strong` border, measured at **1.77 : 1** against the page. UI component boundaries need 3 : 1 | 1.4.11 Non-text contrast | 🟡 Major | Raise the resting border to ≥ 3 : 1, or give the control a filled resting state |
+| P3 | ~~Chips have no boundary other than a 1 px `--line-strong` border at **1.77 : 1**~~ **FIXED 2026-09-01** — a new `--line-control` token at **3.22 : 1** carries every interactive boundary | 1.4.11 Non-text contrast | 🟡 Major | done |
 
-| P4 | Avatar initials use the party's brand colour as text on `--ink-3`. Three party colours fall under 4.5 : 1 at 16.3 px: `#8b5cc4` (3.61), `#d64545` (3.92), `#c7527f` (4.04) | 1.4.3 Contrast | 🟢 Minor | Borderline — see below |
+| P4 | ~~Avatar initials use the party’s brand colour as text; three party colours fall under 4.5 : 1~~ **FIXED 2026-09-04** — initials are `--paper` (**13.33 : 1**), the party colour moved to the ring and a tinted field; the gradient’s lightest possible stop still measures 9.46 : 1 | 1.4.3 Contrast | 🟢 Minor | done |
 
 **On P4.** The initials carry `aria-hidden="true"` and sit immediately beside the person's name, so
 they are redundant decoration rather than content, which is the case for treating them as incidental
@@ -157,17 +175,66 @@ themselves in `--paper`, or raising the tile background contrast. Left for a dec
 
 | # | Issue | Criterion | Severity | Fix |
 |---|---|---|---|---|
-| O1 | No skip link on any of the nine routes. The sidebar's six links are repeated before `<main>` on every page | 2.4.1 Bypass Blocks | 🟡 Major | A visually-hidden "skip to content" link that reveals on focus, targeting `<main>` |
-| O2 | **Escape does not close the mobile menu.** Verified: `aria-expanded` stays `"true"` after Escape. Focus also stays on the trigger when the panel opens | 2.1.2 / 2.4.3 | 🟡 Major | Close on Escape, move focus into the panel on open and back to the trigger on close |
-| O3 | 34 interactive elements under 44 × 44 px at 375 px wide (menu button 31 px, chips 34–35 px) | 2.5.5 (AAA) / 2.5.8 AA | 🟢 Minor | Clears the 24 px AA minimum; raise to 44 px anyway |
+| O1 | ~~No skip link on any of the nine routes~~ **FIXED 2026-09-01** — a 44 px skip link, translated out of view until focused, moving focus to `#main` (`tabIndex={-1}`), on every route in all three languages | 2.4.1 Bypass Blocks | 🟡 Major | done |
+| O2 | ~~Escape does not close the mobile menu; focus stays on the trigger when it opens~~ **FIXED 2026-09-01** — Escape closes it and returns focus to the trigger, opening moves focus into the panel, and the button gained `aria-controls` | 2.1.2 / 2.4.3 | 🟡 Major | done |
+| O3 | ~~34 interactive elements under 44 × 44 px at 375 px wide~~ **FIXED 2026-09-01** — zero standalone controls under 44 px across seven route/locale combinations; the remainder are inline text links, which 2.5.5 and 2.5.8 both exempt | 2.5.5 (AAA) / 2.5.8 AA | 🟢 Minor | done |
 
 ### Robust
 
 | # | Issue | Criterion | Severity | Fix |
 |---|---|---|---|---|
-| R1 | All 8 filter chips lack `aria-pressed`, so a screen reader cannot tell which filter is active. Combined with P1, the selected state is unavailable both visually and programmatically | 4.1.2 Name, Role, Value | 🟡 Major | `aria-pressed={isActive}` on every toggle chip |
-| R2 | **No live regions anywhere** (0 across all routes). Filtering `/es/financiacion` and searching `/es/politicos` replace the result set with no announcement | 4.1.3 Status Messages | 🟡 Major | `role="status"` on a result-count node: "28 partidos, 300,6 M €" |
+| R1 | ~~All 8 filter chips lack `aria-pressed`~~ **FIXED 2026-09-01** — the 8 Dashboard toggle chips carry `aria-pressed`; the directory’s party facets are links, so they carry `aria-current="page"` instead | 4.1.2 Name, Role, Value | 🟡 Major | done |
+| R2 | ~~No live regions anywhere~~ **FIXED 2026-09-01** — `/es/financiacion` has a `role="status"` result count. **Correction to the original finding:** it named `/es/politicos` too, wrongly — that page’s search is a form GET, so it navigates, and a change of context is announced by the browser rather than being a status message | 4.1.3 Status Messages | 🟡 Major | done |
 | R3 | `<th>` elements carry no `scope` (4 on `/financiacion`, 3 on `/metodologia`); neither table has a `<caption>` | 1.3.1 Info and Relationships | 🟢 Minor | Both tables are simple single-header-row, so association is already programmatically determinable — add `scope="col"` and a caption as good practice, not as a failure fix |
+
+### Re-audit 2026-09-01 (after the P1–P3, R1, R2, O2 fixes)
+
+Two new findings, both verified live; the fixed items were re-checked and hold.
+
+| # | Issue | Criterion | Severity | Fix |
+|---|---|---|---|---|
+| N1 | ~~On `/votaciones` the per-group rows announce as “GS 116/0/1”. There are no column headers and no legend in that section, so what the three numbers mean is carried only by the colour of the bars — and those sit in a *different* widget higher up the page. The group codes themselves (`GS`, `GCUP-EC-GC`, `GPlu`) are never expanded either~~ **FIXED 2026-09-01** — rebuilt as `components/GroupBreakdown.tsx`: a real table with a caption, `scope="col"` headers, `scope="row"` group names, Sí/No/abstención in their own columns, and the bar reduced to `aria-hidden` decoration | 1.3.1 Info and Relationships | 🟡 Major | done |
+| N2 | ~~`aria-controls="mobile-nav"` dangles when the menu is closed~~ **FIXED 2026-09-04** — the panel is always mounted and its display switched by class, so the IDREF always resolves; zero dangling `aria-controls` across eight route/locale combinations | 4.1.2 Name, Role, Value | 🟢 Minor | done |
+
+**Newly tested and passing.** These had been listed as untested:
+
+- **1.4.4 Resize text** — text-only zoom to 200% at 1280 px: no horizontal scroll, no clipped boxes.
+- **1.4.12 Text spacing** — with `line-height: 1.5`, `letter-spacing: 0.12em`, `word-spacing: 0.16em`
+  and `2em` paragraph spacing forced: no overflow, no loss of content.
+- **2.4.3 Focus order** in the opened mobile menu — the trigger is focusable #1, the panel occupies
+  #2–#10, focus lands on #2 when it opens, and tabbing past the panel continues into page content.
+- **1.4.1 Use of colour** on the vote bars — the Sí/No/abstention counts are present as text, so the
+  information is not colour-only. What is missing is their *labelling*, which is N1 above.
+- The mobile menu is a **non-modal disclosure**, not a dialog: it pushes content rather than
+  overlaying it, and it correctly has no focus trap. Do not "fix" it into one.
+
+**A measurement caveat worth recording.** The first portal run of the text-spacing test reported
+horizontal overflow. It was an artifact: the Browser pane had collapsed and `clientWidth` read 0, so
+every element "overflowed". Re-run with an explicit 1280 px viewport, it passes. Any run of this
+audit should assert a sane viewport width before trusting an overflow result.
+
+**R3 is also closed (2026-09-01).** Every table on the site now carries a `<caption>` and scoped
+headers: `/votaciones` 138 `<th>` across 9 tables, `/financiacion` 42, `/metodologia` 18, all with
+`scope`, zero tables without a caption, verified in all three locales. The two pre-existing tables got
+a visually-hidden caption, since the heading above each already says the same thing on screen but the
+table still needs its own accessible name.
+
+**O1 and O3 are also closed (2026-09-01).** Every route in all three languages carries a 44 px skip
+link that sits translated out of view until focused and moves focus to `#main`, and no standalone
+interactive control measures under 44 px at 375 px wide. Inline text links are left as they are:
+2.5.5 and 2.5.8 both exempt a target whose size is constrained by the line of text it sits in, and
+padding them out would break the prose they are set in.
+
+**A note on how the skip link is built.** `sr-only` + `focus:not-sr-only` was tried first and left the
+link **2 px tall when focused** — `sr-only`'s `height: 1px` and `clip` survived the reset. It is
+positioned absolutely and translated out of view instead, so the element keeps its real 44 px size at
+all times, stays focusable and in the accessibility tree, and simply slides in.
+
+**N2 and P4 are closed too (2026-09-04), so every item in this audit is now resolved.** The mobile
+menu panel is always mounted with its display switched by class — `hidden` as an attribute would have
+lost to the `flex` utility, since `[hidden]{display:none}` sits in Tailwind's base layer, which is the
+same layer-order trap as D1. And the avatar initials are `--paper` on a party-tinted field, with the
+brand colour kept in the ring: identity preserved, contrast fixed, and no party's colour altered.
 
 ### Passing, and worth keeping
 

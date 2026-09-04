@@ -32,6 +32,11 @@ export default function Avatar({
       />
     );
   }
+  // The party's colour identifies the tile through its ring and a tinted field;
+  // the initials themselves are --paper. Setting them in the brand colour put
+  // three parties under 4.5:1 against --ink-3 (#8b5cc4 at 3.61, #d64545 at 3.92,
+  // #c7527f at 4.04). Lightening those colours was not an option — they are the
+  // parties' own identities — so the colour moved off the text instead.
   return (
     <span
       aria-hidden="true"
@@ -40,9 +45,9 @@ export default function Avatar({
         width: size,
         height: size,
         fontSize: size * 0.34,
-        color,
-        background: "var(--ink-3)",
-        border: `1px solid ${color}55`,
+        color: "var(--paper)",
+        background: `linear-gradient(160deg, ${color}26, var(--ink-3) 70%)`,
+        border: `1px solid ${color}80`,
       }}
     >
       {initials(name)}
