@@ -162,7 +162,7 @@ decorative work. Verified across the three filtered routes: every interactive co
 | P2 | ~~`--paper-faint` `#6f6857` is **3.48 : 1**~~ **FIXED 2026-09-01** — token is now `#8a8270`, **5.06 : 1** | 1.4.3 Contrast | 🔴 Critical | done |
 | P3 | ~~Chips have no boundary other than a 1 px `--line-strong` border at **1.77 : 1**~~ **FIXED 2026-09-01** — a new `--line-control` token at **3.22 : 1** carries every interactive boundary | 1.4.11 Non-text contrast | 🟡 Major | done |
 
-| P4 | Avatar initials use the party's brand colour as text on `--ink-3`. Three party colours fall under 4.5 : 1 at 16.3 px: `#8b5cc4` (3.61), `#d64545` (3.92), `#c7527f` (4.04) | 1.4.3 Contrast | 🟢 Minor | Borderline — see below |
+| P4 | ~~Avatar initials use the party’s brand colour as text; three party colours fall under 4.5 : 1~~ **FIXED 2026-09-04** — initials are `--paper` (**13.33 : 1**), the party colour moved to the ring and a tinted field; the gradient’s lightest possible stop still measures 9.46 : 1 | 1.4.3 Contrast | 🟢 Minor | done |
 
 **On P4.** The initials carry `aria-hidden="true"` and sit immediately beside the person's name, so
 they are redundant decoration rather than content, which is the case for treating them as incidental
@@ -194,7 +194,7 @@ Two new findings, both verified live; the fixed items were re-checked and hold.
 | # | Issue | Criterion | Severity | Fix |
 |---|---|---|---|---|
 | N1 | ~~On `/votaciones` the per-group rows announce as “GS 116/0/1”. There are no column headers and no legend in that section, so what the three numbers mean is carried only by the colour of the bars — and those sit in a *different* widget higher up the page. The group codes themselves (`GS`, `GCUP-EC-GC`, `GPlu`) are never expanded either~~ **FIXED 2026-09-01** — rebuilt as `components/GroupBreakdown.tsx`: a real table with a caption, `scope="col"` headers, `scope="row"` group names, Sí/No/abstención in their own columns, and the bar reduced to `aria-hidden` decoration | 1.3.1 Info and Relationships | 🟡 Major | done |
-| N2 | The mobile menu button carries `aria-controls="mobile-nav"`, but that element only exists while the menu is open, so the IDREF dangles on all five routes in the closed state. Introduced by the O2 fix | 4.1.2 Name, Role, Value | 🟢 Minor | Render the panel always and toggle `hidden`, or drop `aria-controls` — `aria-expanded` alone is sufficient |
+| N2 | ~~`aria-controls="mobile-nav"` dangles when the menu is closed~~ **FIXED 2026-09-04** — the panel is always mounted and its display switched by class, so the IDREF always resolves; zero dangling `aria-controls` across eight route/locale combinations | 4.1.2 Name, Role, Value | 🟢 Minor | done |
 
 **Newly tested and passing.** These had been listed as untested:
 
@@ -230,8 +230,11 @@ link **2 px tall when focused** — `sr-only`'s `height: 1px` and `clip` survi
 positioned absolutely and translated out of view instead, so the element keeps its real 44 px size at
 all times, stays focusable and in the accessibility tree, and simply slides in.
 
-**Confirmed still open**: N2 (the dangling `aria-controls` from the O2 fix), P4 (avatar initials in
-party brand colours).
+**N2 and P4 are closed too (2026-09-04), so every item in this audit is now resolved.** The mobile
+menu panel is always mounted with its display switched by class — `hidden` as an attribute would have
+lost to the `flex` utility, since `[hidden]{display:none}` sits in Tailwind's base layer, which is the
+same layer-order trap as D1. And the avatar initials are `--paper` on a party-tinted field, with the
+brand colour kept in the ring: identity preserved, contrast fixed, and no party's colour altered.
 
 ### Passing, and worth keeping
 

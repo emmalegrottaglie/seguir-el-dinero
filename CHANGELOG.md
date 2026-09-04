@@ -5,6 +5,52 @@ figures name their source; corrections and gaps are recorded alongside the work,
 
 ---
 
+## 2026-09-04 — Last two audit items closed (N2, P4), and caveman mode written into the rules
+
+**N2 — the dangling IDREF I introduced.** The O2 fix put `aria-controls="mobile-nav"` on the menu
+button, but the panel was conditionally rendered, so the reference pointed at nothing whenever the
+menu was closed — which is most of the time, on every route. The panel is always mounted now and its
+display is switched by class instead.
+
+Using the `hidden` *attribute* would have been the obvious move and it would have been wrong:
+`[hidden] { display: none }` sits in Tailwind's base layer and loses to the `flex` utility, so the
+panel would have stayed visible when closed. That is the same layer-order trap as D1, three fixes
+later, which is why the reason is written into the component.
+
+**P4 — avatar initials.** The initials were set in the party's brand colour on `--ink-3`, putting
+three parties under 4.5 : 1 (`#8b5cc4` 3.61, `#d64545` 3.92, `#c7527f` 4.04). Lightening those
+colours was never an option — they are the parties' own identities — so the colour moved off the
+text: initials are `--paper` at **13.33 : 1**, and the party colour now carries the tile through its
+ring and a tinted gradient field. Identity preserved, contrast fixed, no party's colour altered.
+
+The gradient's lightest possible stop was checked rather than assumed: the brightest party colour at
+15% over `--ink-3` still gives `--paper` **9.46 : 1**.
+
+**Every item in the WCAG audit is now resolved** — P1, P2, P3, P4, O1, O2, O3, R1, R2, R3, N1 and N2.
+
+**Verified.** Zero contrast failures and zero dangling `aria-controls` across `/es`, `/es/politicos`,
+`/es/politico/[slug]`, `/es/financiacion`, `/es/votaciones`, `/es/metodologia`, `/en/politicos` and
+`/ca/politicos`. The menu panel reports `display: none` with `aria-expanded="false"` when closed and
+`display: flex` with six visible links when open. Typecheck clean, production build clean at 104
+pages.
+
+**Caveman mode is now a written rule, not a per-session request.** Emma asked for it to be enforced
+always. Added `CLAUDE.md` at the repo root and `~/.claude/CLAUDE.md` for every other repo, both
+stating level `full` from the first reply, the compression rules, the auto-clarity exceptions
+(security warnings, irreversible-action confirmations, order-sensitive sequences), and the boundary
+that matters here: **compression is a chat style only**. Everything persisted outside the chat — code,
+comments, commit messages, this changelog, `AGENTS.md`, the `PLAN-*.md` documents, PR and issue
+bodies — stays in normal prose. The project memory note was rewritten from a per-session preference
+into that standing rule.
+
+Worth recording because it cost time twice this session: the `caveman` CLI **is** installed, at
+`%APPDATA%\npm\caveman.cmd` with a proxy at `~/.caveman/bin/caveman-proxy.exe`, and the plugin's
+hooks in `~/.claude/settings.json` inject the mode on `SessionStart` and every `UserPromptSubmit`.
+Two earlier probes reported it missing because `%APPDATA%\npm` is not on the PATH the tool shells
+inherit — check the hook config and that directory directly before concluding it is absent.
+
+---
+
 ## 2026-09-01 — Skip link, and every control at 44 px (O1, O3)
 
 **O1 — a skip link.** The sidebar repeats six navigation links before the content on every page, so a

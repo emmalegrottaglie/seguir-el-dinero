@@ -122,15 +122,20 @@ export default function Sidebar({ locale, nav }: { locale: Locale; nav: Dict["na
         </button>
       </div>
 
-      {open && (
-        <nav
-          ref={panelRef}
-          id="mobile-nav"
-          className="flex flex-col border-b border-[var(--line)] px-2 pb-6 lg:hidden"
-        >
-          {inner}
-        </nav>
-      )}
+      {/* Always mounted, so the button's aria-controls="mobile-nav" always
+          resolves to a real element. Conditionally rendering it left the IDREF
+          dangling on every route in the closed state.
+
+          The display is switched by class rather than the `hidden` attribute:
+          `[hidden]{display:none}` sits in Tailwind's base layer and would lose
+          to the `flex` utility, leaving the panel visible when closed. */}
+      <nav
+        ref={panelRef}
+        id="mobile-nav"
+        className={`${open ? "flex" : "hidden"} flex-col border-b border-[var(--line)] px-2 pb-6 lg:hidden`}
+      >
+        {inner}
+      </nav>
 
       {/* Desktop rail */}
       <nav className="sticky top-0 hidden h-dvh w-56 shrink-0 flex-col border-r border-[var(--line)] px-2 py-7 lg:flex">
