@@ -4,10 +4,12 @@ import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import type { BlueskyPost } from "@/lib/bluesky";
 import { DICTS, relativeTime, type Locale } from "@/lib/i18n";
+import { useEntrance } from "@/lib/motion";
 
 export default function BlueskyFeed({ actor, locale }: { actor: string; locale: Locale }) {
   const [posts, setPosts] = useState<BlueskyPost[] | null>(null);
   const f = DICTS[locale].feed;
+  const { rise, reduce } = useEntrance();
 
   useEffect(() => {
     let alive = true;
@@ -25,8 +27,12 @@ export default function BlueskyFeed({ actor, locale }: { actor: string; locale: 
       {posts === null &&
         Array.from({ length: 3 }).map((_, i) => (
           <div key={i} className="panel p-4">
-            <div className="h-3 w-full animate-pulse rounded bg-[var(--ink-3)]" />
-            <div className="mt-2 h-3 w-3/5 animate-pulse rounded bg-[var(--ink-3)]" />
+            <div
+              className={`h-3 w-full rounded bg-[var(--ink-3)] ${reduce ? "" : "animate-pulse"}`}
+            />
+            <div
+              className={`mt-2 h-3 w-3/5 rounded bg-[var(--ink-3)] ${reduce ? "" : "animate-pulse"}`}
+            />
           </div>
         ))}
 
@@ -41,9 +47,7 @@ export default function BlueskyFeed({ actor, locale }: { actor: string; locale: 
           target="_blank"
           rel="noopener noreferrer"
           className="panel group block p-4 transition-colors hover:border-[var(--line-strong)]"
-          initial={{ opacity: 0, y: 6 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: Math.min(i * 0.06, 0.4) }}
+          {...rise({ y: 6 }, { duration: 0.4, index: i })}
         >
           {p.isRepost && <p className="label-mono mb-1 text-[var(--paper-faint)]">{f.reposted}</p>}
           <p className="whitespace-pre-wrap text-[var(--paper)]">{p.text}</p>

@@ -39,3 +39,6 @@ data/_*.json
 /_*.html
 /_*.mjs
 /_*.txt
+
+# Playwright MCP scratch output.
+.playwright-mcp/

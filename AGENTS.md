@@ -200,6 +200,24 @@ The overrides take `npm audit` to zero without forcing that upgrade. Keep them u
 ships newer transitives. A stale Vercel-generated branch proposing `next@15.5.9` was closed as a
 downgrade — see PR #1.
 
+## Working habits worth keeping
+
+Measured on 2026-09-07 with `caveman learn`: `Bash(cd)` was the heaviest tool shape in the scanned
+window at 35.8% of 1,082,573 tool-output tokens, over 1,388 calls. Two notes came out of looking at
+it, neither of which is a big win on its own:
+
+- **The `cd` prefix is redundant.** The Bash tool's working directory persists between calls, and
+  `git -C <path>` covers the rest. A `cd` inside a compound command can also trigger a permission
+  prompt, which the tool's own guidance warns about.
+- **The output volume is diffuse, not one bad habit.** Broken down by verb it was `echo` 55k,
+  `git` 37k, `cat` 34k, `python` 31k, `node` 27k, `for` 25k, `sed` 23k — median 115-494 tokens per
+  call. There is no single offender to fix, so the practice is simply to cap output at the source:
+  `| head -N`, `--stat` over a full diff, and quiet flags.
+
+This is recorded here rather than in `CLAUDE.md` on purpose. `CLAUDE.md` is injected into every
+turn, so a rule there costs tokens forever; the measured saving here is diffuse and unproven, and
+paying a permanent prefix cost to chase it would be the wrong trade.
+
 ## Known gaps
 
 - **Foundations years.** Report 1.642 covers 2021 and 2022 only; nothing later is published.

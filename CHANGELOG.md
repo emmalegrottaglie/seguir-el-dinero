@@ -5,6 +5,175 @@ figures name their source; corrections and gaps are recorded alongside the work,
 
 ---
 
+## 2026-09-07 — What the official record says, and what no authority has found
+
+The first thing from the stopped research to reach the site, and the reason it is a small thing: of
+roughly 160 extracted claims only 10 had been adversarially verified, so every figure published here
+was checked against an official source first, and everything that failed to check stayed out.
+
+**New `lib/hate-context.ts`** holds two separate things, and the page keeps them separate: aggregate
+hate-crime statistics from the state's own bodies, and the record of what happened when campaign
+material was actually taken to court. Neither is presented as explaining the other, and nothing in it
+attributes anything to a named person.
+
+**Verified and published.** Police-recorded hate crimes and incidents: **2,268 in 2023, +21.35%** on
+the previous year, of which **856** racism or xenophobia and **522** sexual orientation or gender
+identity — Ministerio del Interior / Oficina Nacional contra los Delitos de Odio. Prosecution output:
+**129 convictions of 173 sentences (74.6%)** and **121** charge sheets citing racism or xenophobia,
+with charges up about **40%** year on year — Fiscalía General del Estado, cross-checked against
+OBERAXE's official summary of the same Memoria.
+
+**Two corrections to my own extraction, caught by verifying.** The digest recorded 1,869 recorded
+incidents for 2022; the current report supersedes that with 2,268 for 2023, and 2,268 ÷ 1.2135 ≈ 1,869
+confirms the old base while retiring it as the headline. And the appellate decision in the *menas*
+case is dated **19 July 2021**, which the digest had left as "on appeal".
+
+**Left out for failing verification.** The 477 preprocedural investigations, the 293 total charge
+sheets, and the ~40% share of investigations concerning online conduct all appear in the extraction
+but could not be confirmed against a primary or official-secondary source in this pass. They stay in
+`research/hate-accountability.md` as leads.
+
+**The negative finding, stated as prominently as any figure.** No Spanish authority has ever ruled
+that a party's campaign spending constituted a hate crime. The electoral board ordered a Vox banner
+in Madrid taken down under **Article 53 LOREG** — propaganda outside the campaign period — and
+expressly declined to rule on its content. The one known criminal attempt, over the *menas* poster
+for the 2021 Madrid Assembly election, was dismissed by Juzgado de Instrucción nº 53 de Madrid on
+29 April 2021 and the archiving was confirmed by Sección Segunda of the Audiencia Provincial de
+Madrid on 19 July 2021, framed as *legítima lucha ideológica* within an election. The dismissal had
+been appealed by the Fiscalía, PSOE, Podemos, Izquierda Unida, the Unidas Podemos coalition and the
+Progresa association.
+
+That outcome is on the page **because** it was negative. A record that lists the accusation and not
+the acquittal is not a transparency tool, and this is the answer to the question the site invites.
+
+**And the page now says why it tags nobody.** Article 10 LOPDGDD reserves criminal-conviction data to
+public authorities, CENDOJ dissociates personal data before disseminating judgments, and STC 58/2018
+treats retrievability of a person by name as the decisive harm for a public figure. Official
+aggregates and specific proceedings with their outcome are published; inferences are not.
+
+**Verified.** All three locales render the section with the right figures — `2.268` / `2,268` per
+locale formatting, `129 / 173`, four source links, no untranslated string leaking through. Zero
+contrast failures on `/es`, `/en` and `/ca` methodology pages, every `<th>` scoped, every table
+captioned. Typecheck clean, production build clean at 104 pages.
+
+**Also recorded, from a `caveman learn` run.** `Bash(cd)` was the heaviest tool shape in the scanned
+window — 35.8% of 1,082,573 tool-output tokens over 1,388 calls — but broken down by verb the volume
+is diffuse rather than one habit. The two notes that came out of it are in `AGENTS.md`, deliberately
+not in `CLAUDE.md`, since a rule there is injected every turn and the saving is unproven.
+
+---
+
+## 2026-09-07 — The dashboard renders without JavaScript (D3b)
+
+D3b was recorded as open earlier the same day, on the strength of the `<h1>` starting at opacity 0 in
+both motion modes. Counting the prerendered HTML rather than reasoning about it made it worse:
+`/financiacion` shipped **32 elements at `opacity: 0`** — four masthead elements and all 28 party
+rows — **plus every bar at `width: 0px`**. Without JavaScript the page was not a blank hero. It was a
+blank page.
+
+**The entrances moved from JS to CSS.** `globals.css` gains `.enter` (`@keyframes enter-rise`) and
+`.enter-bar` (`@keyframes enter-grow`), each taking its delay from a `--enter-delay` custom property
+so the stagger stays a presentational detail rather than a prop threaded through components. A CSS
+animation runs without JavaScript and starts from a state the HTML already carries.
+
+Two details carry the fix:
+
+- **Bars grow by `transform: scaleX()` rather than by animating `width`.** The real width stays inline
+  in the HTML, so a bar is the correct size with no JS, and a `transition: width` covers the other
+  case — a filter change moving the bar without replaying the entrance.
+- **`motion.li` stays, with `initial={false}`.** The row renders visible on the server while `layout`
+  still animates reordering when a filter changes; the entrance sits on the inner `<Link>`.
+
+The reduced-motion block needed one more line, `animation-delay: 0s !important`. Neutralising only
+`animation-duration` would have left a reader who asked for less motion waiting out the stagger while
+the element held its `from` state — the same defect in a new place.
+
+**Verified in three states.** With **JavaScript disabled**: headline opacity 1 with its text present,
+28 of 28 party rows visible, 40 of 53 bars sized (the remainder are sub-pixel segments). Under
+`reduce`, 150 ms after `domcontentloaded`: opacity 1 already. Under `no-preference`, sampled every
+110 ms: 0.057 → 0.762 → 0.99 → 1, so the entrance still plays for everyone else. The prerendered HTML
+now contains zero `opacity: 0` and zero `width: 0px` declarations.
+
+`motion` is left carrying only what needs it: `layout` reordering, the two client-fetched feeds, and
+`CountUp`. `lib/motion.ts` keeps `useEntrance()` for those and exports `stagger()`, which the CSS
+delays are computed from, so both paths share one cap.
+
+**Noted, not fixed:** the only console error on the page is a 404 for `/favicon.ico`, which predates
+this work and is unrelated to it.
+
+Typecheck clean, production build clean at 104 pages, shared First Load JS unchanged at 103 kB.
+
+---
+
+## 2026-09-07 — Reduced motion honoured (D3), a new finding beside it (D3b), and the research saved
+
+**D3 — reduced motion.** `globals.css` declared a `prefers-reduced-motion` block that disabled
+`scroll-behavior` and nothing else, so every fade-and-rise entrance still played for a reader who had
+asked their operating system for less motion. Four components animated with `motion` and none
+consulted `useReducedMotion()`.
+
+New `lib/motion.ts` holds a shared `useEntrance()` hook that builds each entrance's
+`initial` / `animate` / `transition` in one place, collapsing to the final state with a zero duration
+under reduced motion. All four components use it: `Dashboard` for the masthead, party rows and bars,
+plus `NewsFeed`, `BlueskyFeed`, and `CountUp`, which skips its count-up and simply shows the figure.
+The skeleton `animate-pulse` classes drop under the same flag, and the CSS block now neutralises
+`animation-duration` and `transition-duration` globally rather than only the smooth scroll.
+
+The stagger is capped: `stagger(index)` is `min(index × 0.035, 0.4)`. The party bars had used an
+uncapped `i * 0.03`, so with 28 rows the last bar started 0.81 s in and finished past 1.7 s.
+
+**Verified by emulating the media query** rather than by reading the code, sampling `<h1>` opacity
+every 120 ms from `domcontentloaded`. Under `no-preference` the samples run 0, 0, 0, 0, 0.415, 0.866
+— a ramp. Under `reduce` they run 0, 0, 0, 0, 1, 1 — straight to final. Computed
+`transition-duration` on a control drops from `0s` to `1e-05s`, confirming the CSS block applies.
+Both modes settle with the headline visible and all 81 bars at non-zero width.
+
+**D3b — a separate defect the audit had folded into D3, now recorded as its own open finding.** The
+four leading zeros in *both* rows above are not the entrance. `motion` serialises
+`initial={{ opacity: 0 }}` into the server-rendered HTML, and `useReducedMotion()` returns false on
+the server because there is no `matchMedia` there — so the masthead ships as `opacity: 0` and becomes
+visible only when React hydrates, whatever the reader's motion preference, and permanently if
+JavaScript never runs. This is what the original audit caught as the `<h1>` at `opacity: 0.058`, and
+the hook cannot fix it, because the decision happens before the client knows anything. Two candidate
+fixes are recorded in `PLAN-VISUAL.md`; neither is applied.
+
+Stating this rather than closing D3 outright: the reduced-motion half is fixed and measured, the
+pre-hydration half is not.
+
+**Research saved before it was lost.** The deep-research run into party spending and hate-conduct
+records was stopped to protect context. Its cached output is now committed under `research/` rather
+than left in a session directory: the workflow journal, the 160 extracted claims with their 10
+adversarial verification votes, and a written digest in `research/hate-accountability.md`.
+
+**The digest leads with its own status, because only 10 of ~160 claims were verified.** Everything in
+it is a lead to check, not a finding to publish. What it establishes well enough to design against:
+
+- LOREG art. 130 does itemise electoral spending into eight closed categories, mailings separate from
+  publicity — but digital advertising is not separately identifiable, and the Tribunal de Cuentas has
+  itself recommended legislating to make it a distinct capped category.
+- Nothing is machine-readable. TdC reports, the `cuentaspartidospoliticos.es` Observatorio,
+  Infoelectoral subsidies and the Interior hate-crime series are all PDF or on-page tables.
+- **No Spanish authority has ruled that a party's campaign spending constituted hate speech.** The
+  Junta Electoral ordered a Vox banner down on Article 53 LOREG timing grounds and *expressly declined
+  competence* over its content; the one criminal attempt, over the *menas* poster, was archived on
+  appeal by the Audiencia Provincial de Madrid with the Fiscalía among the appellants.
+- A per-politician conviction tag is largely foreclosed: art. 10 LOPDGDD reserves criminal-conviction
+  data to public authorities with *abogados* and *procuradores* the only private exception, CENDOJ
+  requires dissociation of personal data before dissemination, and STC 58/2018 makes
+  retrievability-by-name the decisive harm for a public figure.
+
+The digest ends with resume instructions and the gotcha that cost a run: `resumeFromRunId` replays
+the script but does not carry `args`, so resuming without re-passing the question exits in 9 ms with
+*"No research question provided"*. `NEXT-STEPS.md` gains item 6 with the stop conditions.
+
+**Deliberately not done.** No spending extractor was built, no politician was tagged, and the
+reframing stands: the research was pointed at records that already exist and are attributable rather
+than at a classifier that infers intent.
+
+Typecheck clean, production build clean at 104 pages.
+
+---
+
 ## 2026-09-04 — Last two audit items closed (N2, P4), and caveman mode written into the rules
 
 **N2 — the dangling IDREF I introduced.** The O2 fix put `aria-controls="mobile-nav"` on the menu

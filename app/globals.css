@@ -206,9 +206,67 @@ a {
   color: var(--gold-bright);
 }
 
-/* Reduce motion for users who ask for it. */
+/* Entrance animations ---------------------------------------------------
+   CSS-driven on purpose. The JS versions serialised `opacity: 0` and
+   `width: 0px` into the server-rendered HTML, so /financiacion rendered
+   essentially blank without JavaScript: 32 elements at opacity 0 and ~81 bars
+   at zero width. A CSS animation runs without JS and starts from a state the
+   HTML already carries, so the content is present either way.
+
+   Delay is passed per element as --enter-delay, which keeps the stagger a
+   presentational detail rather than a prop threaded through components. */
+@keyframes enter-rise {
+  from {
+    opacity: 0;
+    transform: translateY(var(--enter-y, 0));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.enter {
+  animation: enter-rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--enter-delay, 0s);
+}
+
+/* Bars grow by transform, not by animating `width`, so the element keeps its
+   real width in the HTML. `transition: width` then covers the other case: a
+   filter change moves the bar to a new width without a re-entrance. */
+@keyframes enter-grow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.enter-bar {
+  transform-origin: left center;
+  animation: enter-grow 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--enter-delay, 0s);
+  transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Reduce motion for users who ask for it.
+   This block used to disable `scroll-behavior` and nothing else, so every
+   fade-and-rise entrance still played. The JS-driven entrances are handled by
+   `useEntrance()` in lib/motion.ts; this covers the CSS side — Tailwind's
+   `transition-*` and `animate-*` utilities, and the smooth scroll. */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
