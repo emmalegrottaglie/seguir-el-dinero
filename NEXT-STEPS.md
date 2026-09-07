@@ -117,7 +117,7 @@ so.
 
 ---
 
-## 6. What the money actually bought — researched, not built
+## 6. What the money actually bought — DONE for one election (2026-09-07)
 
 **Goal.** Make the €300.6M headline mean something. Right now the site shows who received money and
 never what it purchased.
@@ -137,7 +137,24 @@ established to design against:
 - **Two party-level facts need no interpretation at all**: filing compliance against the 30 June
   statutory deadline, and TdC sanction proposals such as non-award of the electoral subsidy.
 
-**Procedure.** Same shape as item 1: identify the fiscalización report, fetch once, extract the
+**Built.** `scripts/extract-electoral-spending.py` extracts report nº 1.628 (the 9 June 2024
+European Parliament elections, approved 26/06/2025) into `data/electoral-spending.json`, rendered by
+`components/ElectoralSpending.tsx` on `/financiacion`. Run it with
+`npm run build:spending -- path/to/I1628.pdf`.
+
+**The result, across the eight formations audited:** €18,433,012.62 of declared ordinary spending,
+of which €6,808,676.26 (36.9%) is the two capped advertising categories and **€10,052,187.82 (54.5%)
+is a single residual line, "Otros gastos ordinarios", that the report does not break down.** Mailings
+of propaganda are accounted separately at €19,307,864.75 across 30.9 million items. No formation
+exceeded a spending cap.
+
+**Where to find the next report.** The URL pattern is
+`https://www.tcu.es/export/sites/portal/repositorio2/INFORME/<approval-year>/I<number>.pdf` — note
+the year segment, which is the approval year, not the election year. A bad URL redirects to the
+site-wide search rather than 404ing, and that search page usefully lists PDF links including the
+`resumen/NR_I<number>.pdf` summary.
+
+**Procedure for another election.** Same shape as item 1: identify the fiscalización report, fetch once, extract the
 expense annex with the eight LOREG categories as the schema, and verify the extracted sums against
 the report's own totals, aborting on mismatch.
 

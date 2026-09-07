@@ -10,6 +10,8 @@ import {
   FOUNDATIONS_LAW_URL,
 } from "@/lib/foundations";
 import Dashboard from "@/components/Dashboard";
+import ElectoralSpending from "@/components/ElectoralSpending";
+import { getSpending } from "@/lib/spending";
 
 export const revalidate = 3600;
 
@@ -19,7 +21,11 @@ export default async function FinanciacionPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale: localeParam } = await params;
-  const [agg, fnd] = await Promise.all([getAggregation(), getFoundations()]);
+  const [agg, fnd, spend] = await Promise.all([
+    getAggregation(),
+    getFoundations(),
+    getSpending(),
+  ]);
   const { locale, bcp47, t } = getDict(localeParam);
   const F = t.foundations;
 
@@ -33,6 +39,8 @@ export default async function FinanciacionPage({
   return (
     <main>
       <Dashboard base={agg} home={t.home} kinds={t.kinds} locale={locale} />
+
+      <ElectoralSpending data={spend} t={t} bcp47={bcp47} />
 
       {/* Party-linked foundations: a channel separate from the parties themselves */}
       <section className="mx-auto mt-20 max-w-6xl px-5">

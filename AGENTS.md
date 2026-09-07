@@ -14,6 +14,7 @@ Catalan, deployed on Vercel.
 | State subsidies to parties | BDNS / SNPSAP REST API | Live, daily cron |
 | Private donations to parties | Tribunal de Cuentas report 1573 (2020) | Fixed, transcribed |
 | Party-linked foundations | Tribunal de Cuentas report 1.642 (2021–22) | Fixed, per-entity |
+| Electoral spending by category | Tribunal de Cuentas report 1.628 (EP 2024) | Fixed, per-formation |
 | Public salaries of officeholders | Registro de Altos Cargos CSV export | Rebuilt from script |
 | Key roll-call votes | Congreso de los Diputados open data | Rebuilt from script |
 | Portraits | Wikipedia / Wikimedia Commons | Rebuilt from script |
@@ -143,6 +144,7 @@ npm run build:votes            # fetches the votes pinned in KEY_VOTES
 npm run discover:votes -- XV   # shortlists candidate votes for review; publishes nothing
 npm run build:photos           # Wikimedia portraits; re-run to top up after throttling
 npm run build:foundations -- path/to/I1642.pdf   # needs pypdf: pip install pypdf
+npm run build:spending -- path/to/I1628.pdf      # electoral spending by category
 curl http://localhost:3000/api/refresh   # subsidies (add the CRON_SECRET header if set)
 npm run check:feeds            # health-checks every news feed; non-zero on a dead or stale one
 ```
@@ -157,7 +159,10 @@ Endpoint notes that cost real time to work out:
   vote titles and tallies in the HTML, so discovery reads day pages rather than thousands of
   per-vote JSONs. Per-vote filenames contain an opaque timestamp and cannot be constructed.
 - **TdC reports** are addressable as
-  `https://www.tcu.es/export/sites/portal/repositorio2/INFORME/<year>/I<number>.pdf`, but the
+  `https://www.tcu.es/export/sites/portal/repositorio2/INFORME/<year>/I<number>.pdf`, where `<year>`
+  is the **approval** year, not the year the report covers — report 1.628 audits the June 2024
+  election and lives under `/2025/`. A wrong URL does not 404: it redirects to the site-wide search,
+  whose HTML usefully lists PDF links, including the `resumen/NR_I<number>.pdf` summary. But the
   `/es/partidos-politicos/Informes/` index lists only 20 reports and does not include 1.642. The
   site-wide POST search at `/es/buscador/` does find it, and it is the only route that worked —
   the press release's own "Informe" and "Resumen" links carry `data-oc-broken-link="true"`.
