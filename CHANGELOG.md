@@ -5,6 +5,48 @@ figures name their source; corrections and gaps are recorded alongside the work,
 
 ---
 
+## 2026-09-07 — The dashboard renders without JavaScript (D3b)
+
+D3b was recorded as open earlier the same day, on the strength of the `<h1>` starting at opacity 0 in
+both motion modes. Counting the prerendered HTML rather than reasoning about it made it worse:
+`/financiacion` shipped **32 elements at `opacity: 0`** — four masthead elements and all 28 party
+rows — **plus every bar at `width: 0px`**. Without JavaScript the page was not a blank hero. It was a
+blank page.
+
+**The entrances moved from JS to CSS.** `globals.css` gains `.enter` (`@keyframes enter-rise`) and
+`.enter-bar` (`@keyframes enter-grow`), each taking its delay from a `--enter-delay` custom property
+so the stagger stays a presentational detail rather than a prop threaded through components. A CSS
+animation runs without JavaScript and starts from a state the HTML already carries.
+
+Two details carry the fix:
+
+- **Bars grow by `transform: scaleX()` rather than by animating `width`.** The real width stays inline
+  in the HTML, so a bar is the correct size with no JS, and a `transition: width` covers the other
+  case — a filter change moving the bar without replaying the entrance.
+- **`motion.li` stays, with `initial={false}`.** The row renders visible on the server while `layout`
+  still animates reordering when a filter changes; the entrance sits on the inner `<Link>`.
+
+The reduced-motion block needed one more line, `animation-delay: 0s !important`. Neutralising only
+`animation-duration` would have left a reader who asked for less motion waiting out the stagger while
+the element held its `from` state — the same defect in a new place.
+
+**Verified in three states.** With **JavaScript disabled**: headline opacity 1 with its text present,
+28 of 28 party rows visible, 40 of 53 bars sized (the remainder are sub-pixel segments). Under
+`reduce`, 150 ms after `domcontentloaded`: opacity 1 already. Under `no-preference`, sampled every
+110 ms: 0.057 → 0.762 → 0.99 → 1, so the entrance still plays for everyone else. The prerendered HTML
+now contains zero `opacity: 0` and zero `width: 0px` declarations.
+
+`motion` is left carrying only what needs it: `layout` reordering, the two client-fetched feeds, and
+`CountUp`. `lib/motion.ts` keeps `useEntrance()` for those and exports `stagger()`, which the CSS
+delays are computed from, so both paths share one cap.
+
+**Noted, not fixed:** the only console error on the page is a 404 for `/favicon.ico`, which predates
+this work and is unrelated to it.
+
+Typecheck clean, production build clean at 104 pages, shared First Load JS unchanged at 103 kB.
+
+---
+
 ## 2026-09-07 — Reduced motion honoured (D3), a new finding beside it (D3b), and the research saved
 
 **D3 — reduced motion.** `globals.css` declared a `prefers-reduced-motion` block that disabled

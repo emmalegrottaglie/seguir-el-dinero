@@ -1,13 +1,13 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, type CSSProperties } from "react";
 import Link from "next/link";
 import { motion } from "motion/react";
 import type { Aggregation, SubsidyKind } from "@/lib/types";
 import { BCP47, type Dict, type Locale } from "@/lib/i18n";
 import { filterAggregation } from "@/lib/normalize";
 import { euroCompact, integer, percent, formatDate } from "@/lib/format";
-import { stagger, useEntrance } from "@/lib/motion";
+import { stagger } from "@/lib/motion";
 import CountUp from "./CountUp";
 
 type KindFilter = SubsidyKind | "all";
@@ -24,7 +24,6 @@ export default function Dashboard({
   locale: Locale;
 }) {
   const bcp47 = BCP47[locale];
-  const { rise } = useEntrance();
   const [kind, setKind] = useState<KindFilter>("all");
   const [years, setYears] = useState<number[]>([]); // empty = all years
 
@@ -50,30 +49,30 @@ export default function Dashboard({
     <div>
       {/* ---------- Masthead ---------- */}
       <section className="mx-auto max-w-6xl px-5 pt-6 pb-10 sm:pt-12">
-        <motion.p className="eyebrow" {...rise({ y: 8 }, { duration: 0.6, delay: 0 })}>
+        <p className="eyebrow enter" style={{ "--enter-y": "8px" } as CSSProperties}>
           {home.eyebrow} · {base.years[0]}–{base.years.at(-1)}
-        </motion.p>
+        </p>
 
-        <motion.h1
-          className="display mt-4 text-5xl leading-[0.92] sm:text-7xl"
-          {...rise({ y: 14 }, { duration: 0.7, delay: 0.05 })}
+        <h1
+          className="display enter mt-4 text-5xl leading-[0.92] sm:text-7xl"
+          style={{ "--enter-y": "14px", "--enter-delay": "0.05s" } as CSSProperties}
         >
           {home.titlePre}
           <span className="italic text-[var(--gold)]">{home.titleEmph}</span>
           {home.titlePost}
-        </motion.h1>
+        </h1>
 
-        <motion.p
-          className="mt-6 max-w-xl text-[var(--paper-dim)]"
-          {...rise({}, { duration: 0.8, delay: 0.2 })}
+        <p
+          className="enter mt-6 max-w-xl text-[var(--paper-dim)]"
+          style={{ "--enter-delay": "0.2s" } as CSSProperties}
         >
           {home.intro}
-        </motion.p>
+        </p>
 
         {/* Grand total */}
-        <motion.div
-          className="mt-10 flex flex-wrap items-end gap-x-10 gap-y-6"
-          {...rise({ y: 16 }, { duration: 0.7, delay: 0.3 })}
+        <div
+          className="enter mt-10 flex flex-wrap items-end gap-x-10 gap-y-6"
+          style={{ "--enter-y": "16px", "--enter-delay": "0.3s" } as CSSProperties}
         >
           <div>
             <p className="label-mono mb-2">{home.totalLabel}</p>
@@ -89,7 +88,7 @@ export default function Dashboard({
             <Stat label={home.concessions} value={integer(totalGrants, bcp47)} />
             <Stat label={home.updated} value={updated} />
           </dl>
-        </motion.div>
+        </div>
       </section>
 
       {/* ---------- Controls ---------- */}
@@ -171,10 +170,15 @@ export default function Dashboard({
             const wSeg = (p.byKind.seguridad / maxTotal) * 100;
             const wOtra = (p.byKind.otra / maxTotal) * 100;
             return (
-              <motion.li key={p.nif} layout {...rise({ x: -12 }, { duration: 0.5, index: i })}>
+              // initial={false} so the row is visible in the server-rendered HTML;
+              // `layout` still animates reordering when a filter changes.
+              <motion.li key={p.nif} layout initial={false}>
                 <Link
                   href={`/${locale}/party/${p.nif}`}
-                  className="group grid grid-cols-[2rem_1fr] items-center gap-x-4 gap-y-2 rounded-md px-2 py-4 transition-colors hover:bg-[var(--ink-2)] sm:grid-cols-[2rem_11rem_1fr_9rem]"
+                  className="group enter grid grid-cols-[2rem_1fr] items-center gap-x-4 gap-y-2 rounded-md px-2 py-4 transition-colors hover:bg-[var(--ink-2)] sm:grid-cols-[2rem_11rem_1fr_9rem]"
+                  style={
+                    { "--enter-y": "0", "--enter-delay": `${stagger(i)}s` } as CSSProperties
+                  }
                 >
                   <span className="mono text-sm text-[var(--paper-faint)]">
                     {String(i + 1).padStart(2, "0")}
@@ -232,22 +236,23 @@ function Bar({
   step?: 0 | 1 | 2;
   striped?: boolean;
 }) {
-  const { entrance } = useEntrance();
   if (width <= 0) return null;
+  // The real width is in the HTML and the growth is a CSS transform, so the bar
+  // is the right size without JavaScript. Animating `width` from 0 the old way
+  // shipped `width: 0px` inline and left every bar invisible until hydration.
   return (
-    <motion.span
-      className="h-full"
-      style={{
-        backgroundColor: color,
-        backgroundImage: striped
-          ? "repeating-linear-gradient(45deg, rgba(0,0,0,0.25) 0 3px, transparent 3px 6px)"
-          : undefined,
-      }}
-      {...entrance(
-        { width: 0 },
-        { width: `${width}%` },
-        { duration: 0.9, delay: stagger(index) + step * 0.05 },
-      )}
+    <span
+      className="enter-bar h-full"
+      style={
+        {
+          width: `${width}%`,
+          backgroundColor: color,
+          backgroundImage: striped
+            ? "repeating-linear-gradient(45deg, rgba(0,0,0,0.25) 0 3px, transparent 3px 6px)"
+            : undefined,
+          "--enter-delay": `${stagger(index) + step * 0.05}s`,
+        } as CSSProperties
+      }
     />
   );
 }

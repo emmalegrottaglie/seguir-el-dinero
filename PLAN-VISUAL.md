@@ -108,7 +108,7 @@ Computed `transition-duration` on a control drops from `0s` to `1e-05s` under `r
 the CSS block applies. Both modes settle with the headline at opacity 1 and all 81 bars at non-zero
 width.
 
-### 🟡 D3b — the hero is blank until hydration, in both motion modes — OPEN
+### 🟡 D3b — the page was blank without JavaScript — FIXED 2026-09-07
 
 Separate defect, and the original D3 entry wrongly folded it in. Those four leading zeros in *both*
 rows of the table above are not the entrance: `motion` serialises `initial={{ opacity: 0 }}` into the
@@ -120,10 +120,40 @@ runs.
 This is what the audit originally caught as the `<h1>` at `opacity: 0.058`, and `useReducedMotion()`
 cannot fix it, because the decision happens before the client knows anything.
 
-**Fix, not yet applied.** Either drive the entrance from CSS, so the element is visible in the HTML
-and the `prefers-reduced-motion` block suppresses the animation; or pass `initial={false}` so motion
-renders the final state on the server and animates only later state changes, accepting the loss of
-the entrance. The first keeps the design and is the more work.
+**It was worse than the first write-up said.** Counting the prerendered HTML rather than reasoning
+about it: `/financiacion` shipped **32 elements at `opacity: 0`** — four masthead elements and all 28
+party rows — **plus every bar at `width: 0px`**. Without JavaScript the page was not a blank hero, it
+was a blank page.
+
+**Applied: the entrances moved from JS to CSS.** `globals.css` gains an `.enter` class
+(`@keyframes enter-rise`) and an `.enter-bar` class (`@keyframes enter-grow`), each taking its delay
+from a `--enter-delay` custom property so the stagger stays presentational. A CSS animation runs
+without JavaScript and starts from a state the HTML already carries, so the content is present either
+way.
+
+Two details that make it work:
+
+- **Bars grow by `transform: scaleX()`, not by animating `width`.** The real width stays inline in the
+  HTML, so the bar is the correct size with no JS. A `transition: width` then covers the other case —
+  a filter change moves the bar without replaying the entrance.
+- **`motion.li` stays, with `initial={false}`.** The row renders visible on the server while `layout`
+  still animates reordering when a filter changes; the entrance lives on the inner `<Link>`.
+
+The reduced-motion block also needed `animation-delay: 0s !important` — neutralising only
+`animation-duration` would have left a reader who asked for less motion waiting out the stagger while
+the element held its `from` state.
+
+**Verified in three states**, not two:
+
+| State | `<h1>` opacity | Party rows visible | Bars sized |
+|---|---|---|---|
+| **JavaScript disabled** | **1** | **28 / 28** | **40 of 53** (the rest are sub-pixel segments) |
+| `reduce`, 150 ms after DCL | 1 | 28 / 28 | 41 |
+| `no-preference`, sampled | 0.057 → 0.762 → 0.99 → 1 | 28 / 28 | 41 |
+
+So the content is present without JavaScript, immediate under reduced motion, and still animates for
+everyone else. `motion` now carries only what genuinely needs it: `layout` reordering, the two
+client-fetched feeds, and `CountUp`.
 
 ### 🟡 D4 — the directory is 98 % initials
 
