@@ -1,0 +1,299 @@
+{
+ "source": {
+  "body": "Tribunal de Cuentas",
+  "report": "nº 1.628",
+  "approved": "26/06/2025",
+  "election": "INFORME DE FISCALIZACIÓN DE LAS CONTABILIDADES DE LAS ELECCIONES AL PARLAMENTO EUROPEO DE 9 DE JUNIO DE 2024 El Pleno del Tribunal de Cuentas, en el ejercicio de la función fiscalizadora establecida e",
+  "url": "https://www.tcu.es/export/sites/portal/repositorio2/INFORME/2025/I1628.pdf"
+ },
+ "formations": [
+  {
+   "name": "AHORA REPÚBLICAS (ERC-EH BILDU-BNG-ARA MÉS)",
+   "resources": {
+    "private": 0.0,
+    "borrowing": 0.0,
+    "subsidyAdvances": 0.0,
+    "fromParty": 0.0,
+    "other": 0.0,
+    "total": 0.0
+   },
+   "ordinary": {
+    "declared": 1077394.71,
+    "outdoorAdvertising": 120310.53,
+    "pressRadioAdvertising": 83069.26,
+    "financialSettled": 0.0,
+    "financialEstimated": 0.0,
+    "otherOrdinary": 874014.92,
+    "reclassifiedNet": 12127.83,
+    "notSubsidisable": 0.0,
+    "nonElectoral": 421.08,
+    "mailingsInLimit": 0.0,
+    "totalJustified": 1089101.46
+   },
+   "mailings": {
+    "declared": 929935.08,
+    "otherMailing": 929935.08,
+    "reclassifiedNet": -12127.83,
+    "notSubsidisable": 0.0,
+    "totalJustified": 917807.25,
+    "countWithSubsidyRight": 1077724
+   },
+   "limits": {
+    "exceededMaximum": false,
+    "exceededOutdoorAdvertising": false
+   }
+  },
+  {
+   "name": "COALICIÓN POR UNA EUROPA SOLIDARIA",
+   "resources": {
+    "private": 0.0,
+    "borrowing": 0.0,
+    "subsidyAdvances": 0.0,
+    "fromParty": 0.0,
+    "other": 0.0,
+    "total": 0.0
+   },
+   "ordinary": {
+    "declared": 490145.88,
+    "outdoorAdvertising": 215835.64,
+    "pressRadioAdvertising": 274310.24,
+    "financialSettled": 0.0,
+    "financialEstimated": 0.0,
+    "otherOrdinary": 0.0,
+    "reclassifiedNet": 5011.11,
+    "notSubsidisable": 0.0,
+    "nonElectoral": 0.0,
+    "mailingsInLimit": 260994.74,
+    "totalJustified": 756151.73
+   },
+   "mailings": {
+    "declared": 656636.47,
+    "otherMailing": 656636.47,
+    "reclassifiedNet": -5011.11,
+    "notSubsidisable": 0.0,
+    "totalJustified": 651625.36,
+    "countWithSubsidyRight": 390630
+   },
+   "limits": {
+    "exceededMaximum": false,
+    "exceededOutdoorAdvertising": false
+   }
+  },
+  {
+   "name": "JUNTS I LLIURES PER EUROPA",
+   "resources": {
+    "private": 0.0,
+    "borrowing": 0.0,
+    "subsidyAdvances": 0.0,
+    "fromParty": 0.0,
+    "other": 0.0,
+    "total": 0.0
+   },
+   "ordinary": {
+    "declared": 598039.76,
+    "outdoorAdvertising": 64442.42,
+    "pressRadioAdvertising": 145195.12,
+    "financialSettled": 0.0,
+    "financialEstimated": 0.0,
+    "otherOrdinary": 388402.22,
+    "reclassifiedNet": 0.0,
+    "notSubsidisable": 27232.02,
+    "nonElectoral": 4416.7,
+    "mailingsInLimit": 0.0,
+    "totalJustified": 566391.04
+   },
+   "mailings": {
+    "declared": 584130.5,
+    "otherMailing": 584130.5,
+    "reclassifiedNet": 0.0,
+    "notSubsidisable": 0.0,
+    "totalJustified": 584130.5,
+    "countWithSubsidyRight": 912941
+   },
+   "limits": {
+    "exceededMaximum": false,
+    "exceededOutdoorAdvertising": false
+   }
+  },
+  {
+   "name": "PARTIDO POPULAR",
+   "resources": {
+    "private": 0.0,
+    "borrowing": 0.0,
+    "subsidyAdvances": 0.0,
+    "fromParty": 0.0,
+    "other": 0.0,
+    "total": 0.0
+   },
+   "ordinary": {
+    "declared": 6255254.24,
+    "outdoorAdvertising": 1507828.97,
+    "pressRadioAdvertising": 1280092.39,
+    "financialSettled": 72542.73,
+    "financialEstimated": 425433.72,
+    "otherOrdinary": 2969356.43,
+    "reclassifiedNet": 281010.58,
+    "notSubsidisable": 4041.0,
+    "nonElectoral": 330278.21,
+    "mailingsInLimit": 51215.77,
+    "totalJustified": 6253161.38
+   },
+   "mailings": {
+    "declared": 5833219.5,
+    "otherMailing": 5833219.5,
+    "reclassifiedNet": -281010.58,
+    "notSubsidisable": 0.0,
+    "totalJustified": 5552208.92,
+    "countWithSubsidyRight": 5500993
+   },
+   "limits": {
+    "exceededMaximum": false,
+    "exceededOutdoorAdvertising": false
+   }
+  },
+  {
+   "name": "PARTIDO SOCIALISTA OBRERO ESPAÑOL",
+   "resources": {
+    "private": 0.0,
+    "borrowing": 0.0,
+    "subsidyAdvances": 0.0,
+    "fromParty": 0.0,
+    "other": 0.0,
+    "total": 0.0
+   },
+   "ordinary": {
+    "declared": 5876205.02,
+    "outdoorAdvertising": 1148329.37,
+    "pressRadioAdvertising": 1087517.68,
+    "financialSettled": 84148.99,
+    "financialEstimated": 102691.99,
+    "otherOrdinary": 3453516.99,
+    "reclassifiedNet": 0.0,
+    "notSubsidisable": 0.0,
+    "nonElectoral": 1616.48,
+    "mailingsInLimit": 0.0,
+    "totalJustified": 5874588.54
+   },
+   "mailings": {
+    "declared": 5748687.79,
+    "otherMailing": 5748687.79,
+    "reclassifiedNet": 0.0,
+    "notSubsidisable": 0.0,
+    "totalJustified": 5748687.79,
+    "countWithSubsidyRight": 5887912
+   },
+   "limits": {
+    "exceededMaximum": false,
+    "exceededOutdoorAdvertising": false
+   }
+  },
+  {
+   "name": "PODEMOS",
+   "resources": {
+    "private": 0.0,
+    "borrowing": 0.0,
+    "subsidyAdvances": 0.0,
+    "fromParty": 0.0,
+    "other": 0.0,
+    "total": 0.0
+   },
+   "ordinary": {
+    "declared": 693309.01,
+    "outdoorAdvertising": 221112.49,
+    "pressRadioAdvertising": 6200.51,
+    "financialSettled": 0.0,
+    "financialEstimated": 0.0,
+    "otherOrdinary": 465996.01,
+    "reclassifiedNet": 0.0,
+    "notSubsidisable": 3267.0,
+    "nonElectoral": 90.75,
+    "mailingsInLimit": 641256.64,
+    "totalJustified": 1331207.9
+   },
+   "mailings": {
+    "declared": 817419.55,
+    "otherMailing": 817419.55,
+    "reclassifiedNet": 0.0,
+    "notSubsidisable": 0.0,
+    "totalJustified": 817419.55,
+    "countWithSubsidyRight": 176162
+   },
+   "limits": {
+    "exceededMaximum": false,
+    "exceededOutdoorAdvertising": false
+   }
+  },
+  {
+   "name": "SUMAR",
+   "resources": {
+    "private": 0.0,
+    "borrowing": 0.0,
+    "subsidyAdvances": 0.0,
+    "fromParty": 0.0,
+    "other": 0.0,
+    "total": 0.0
+   },
+   "ordinary": {
+    "declared": 978723.74,
+    "outdoorAdvertising": 41378.29,
+    "pressRadioAdvertising": 66579.35,
+    "financialSettled": 0.0,
+    "financialEstimated": 19178.03,
+    "otherOrdinary": 851588.07,
+    "reclassifiedNet": 0.0,
+    "notSubsidisable": 16237.04,
+    "nonElectoral": 34864.34,
+    "mailingsInLimit": 382928.47,
+    "totalJustified": 1310550.83
+   },
+   "mailings": {
+    "declared": 810687.17,
+    "otherMailing": 810687.17,
+    "reclassifiedNet": 0.0,
+    "notSubsidisable": 0.0,
+    "totalJustified": 810687.17,
+    "countWithSubsidyRight": 427758
+   },
+   "limits": {
+    "exceededMaximum": false,
+    "exceededOutdoorAdvertising": false
+   }
+  },
+  {
+   "name": "VOX",
+   "resources": {
+    "private": 0.0,
+    "borrowing": 0.0,
+    "subsidyAdvances": 0.0,
+    "fromParty": 0.0,
+    "other": 0.0,
+    "total": 0.0
+   },
+   "ordinary": {
+    "declared": 2463940.26,
+    "outdoorAdvertising": 405180.54,
+    "pressRadioAdvertising": 141293.46,
+    "financialSettled": 0.0,
+    "financialEstimated": 868153.08,
+    "otherOrdinary": 1049313.18,
+    "reclassifiedNet": 0.0,
+    "notSubsidisable": 563.07,
+    "nonElectoral": 272252.71,
+    "mailingsInLimit": 98818.85,
+    "totalJustified": 2289943.33
+   },
+   "mailings": {
+    "declared": 4225298.21,
+    "otherMailing": 4225298.21,
+    "reclassifiedNet": 0.0,
+    "notSubsidisable": 0.0,
+    "totalJustified": 4225298.21,
+    "countWithSubsidyRight": 4126479
+   },
+   "limits": {
+    "exceededMaximum": false,
+    "exceededOutdoorAdvertising": false
+   }
+  }
+ ]
+}

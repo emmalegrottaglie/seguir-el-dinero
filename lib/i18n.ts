@@ -245,6 +245,26 @@ const es = {
     reposted: "↻ Republicado",
     fromOrg: "publicación de la entidad",
   },
+  spending: {
+    title: "En qué se declaró gastado el dinero electoral",
+    intro:
+      "El Tribunal de Cuentas fiscaliza las cuentas de cada elección y desglosa el gasto declarado. Sólo dos tipos de publicidad tienen límite legal y aparecen detallados; el resto del gasto ordinario se agrupa en una única línea que el informe no desglosa.",
+    unexplained: "Sin desglosar",
+    ofDeclared: "del gasto ordinario declarado",
+    advertising: "Publicidad",
+    cappedOnly:
+      "Publicidad exterior (art. 55 LOREG) y en prensa y radio (art. 58). Son los dos únicos gastos con límite propio.",
+    mailings: "Envíos de propaganda",
+    mailingItems: "envíos con derecho a subvención",
+    declared: "Declarado",
+    formation: "Formación",
+    split: "Reparto",
+    caption:
+      "Una formación por fila, con el gasto ordinario declarado y cuánto de él corresponde a publicidad con límite legal frente a la línea residual «Otros gastos ordinarios». Los envíos de propaganda se contabilizan aparte y no entran en estas columnas.",
+    gapTitle: "Lo que el registro no dice",
+    gapBody:
+      "«Otros gastos ordinarios» es una sola línea sin desglose y es la mayor parte del gasto declarado. El informe no dice en qué se gastó, y la ley no obliga a detallarlo: la publicidad digital no es una categoría con límite propio, y el propio Tribunal de Cuentas ha recomendado al Gobierno que legisle para que lo sea. Estas cifras son gasto declarado y fiscalizado, no una imputación de nada a nadie.",
+  },
   method: {
     title: "Metodología y límites",
     lead: "Esta herramienta es honesta sobre lo que puede y no puede mostrar. Léelo antes de sacar conclusiones.",
@@ -557,6 +577,26 @@ const en: Dict = {
     reposted: "↻ Reposted",
     fromOrg: "organisation's own post",
   },
+  spending: {
+    title: "What the electoral money was declared to have bought",
+    intro:
+      "The Tribunal de Cuentas audits each election's accounts and itemises the declared spending. Only two kinds of advertising carry a legal cap and appear broken out; the rest of ordinary spending is grouped into a single line the report does not break down.",
+    unexplained: "Not broken down",
+    ofDeclared: "of declared ordinary spending",
+    advertising: "Advertising",
+    cappedOnly:
+      "Outdoor advertising (LOREG art. 55) and press and radio (art. 58). These are the only two expenses with a cap of their own.",
+    mailings: "Propaganda mailings",
+    mailingItems: "mailings carrying a subsidy entitlement",
+    declared: "Declared",
+    formation: "Formation",
+    split: "Split",
+    caption:
+      "One formation per row, with its declared ordinary spending and how much of it is capped advertising against the residual line “Otros gastos ordinarios”. Propaganda mailings are accounted separately and are not in these columns.",
+    gapTitle: "What the record does not say",
+    gapBody:
+      "“Otros gastos ordinarios” is a single line with no breakdown, and it is most of the declared spending. The report does not say what it bought, and the law does not require it to: digital advertising is not a category with its own cap, and the Tribunal de Cuentas has itself recommended that the Government legislate to make it one. These are declared and audited figures, not an imputation of anything to anyone.",
+  },
   method: {
     title: "Methodology and limits",
     lead: "This tool is honest about what it can and cannot show. Read this before drawing conclusions.",
@@ -866,6 +906,26 @@ const ca: Dict = {
     cannotLoad: "No s'han pogut carregar les publicacions ara mateix.",
     reposted: "↻ Republicat",
     fromOrg: "publicació de l'entitat",
+  },
+  spending: {
+    title: "En què es va declarar gastat el diner electoral",
+    intro:
+      "El Tribunal de Comptes fiscalitza els comptes de cada elecció i desglossa la despesa declarada. Només dos tipus de publicitat tenen límit legal i apareixen detallats; la resta de la despesa ordinària s'agrupa en una única línia que l'informe no desglossa.",
+    unexplained: "Sense desglossar",
+    ofDeclared: "de la despesa ordinària declarada",
+    advertising: "Publicitat",
+    cappedOnly:
+      "Publicitat exterior (art. 55 LOREG) i a premsa i ràdio (art. 58). Són les dues úniques despeses amb límit propi.",
+    mailings: "Trameses de propaganda",
+    mailingItems: "trameses amb dret a subvenció",
+    declared: "Declarat",
+    formation: "Formació",
+    split: "Repartiment",
+    caption:
+      "Una formació per fila, amb la despesa ordinària declarada i quina part correspon a publicitat amb límit legal davant la línia residual «Otros gastos ordinarios». Les trameses de propaganda es comptabilitzen a part i no entren en aquestes columnes.",
+    gapTitle: "Què no diu el registre",
+    gapBody:
+      "«Otros gastos ordinarios» és una sola línia sense desglossament i és la major part de la despesa declarada. L'informe no diu en què es va gastar, i la llei no obliga a detallar-ho: la publicitat digital no és una categoria amb límit propi, i el mateix Tribunal de Comptes ha recomanat al Govern que legisli perquè ho sigui. Aquestes xifres són despesa declarada i fiscalitzada, no una imputació de res a ningú.",
   },
   method: {
     title: "Metodologia i límits",

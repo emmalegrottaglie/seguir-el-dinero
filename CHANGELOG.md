@@ -5,6 +5,78 @@ figures name their source; corrections and gaps are recorded alongside the work,
 
 ---
 
+## 2026-09-07 — What the electoral money was declared to have bought
+
+The site could show which parties received public money and never what it purchased. This is the
+first answer, and part of the answer is that the record does not say.
+
+**New `scripts/extract-electoral-spending.py`** extracts Tribunal de Cuentas report nº 1.628 — the
+fiscalización of the 9 June 2024 European Parliament election accounts, approved 26/06/2025 — into
+`data/electoral-spending.json`, rendered by `components/ElectoralSpending.tsx` on `/financiacion`.
+`npm run build:spending -- path/to/I1628.pdf`.
+
+**Across the eight formations audited: €18,433,012.62 of declared ordinary spending.** €6,808,676.26
+of it (36.9%) is the two advertising categories the law caps — outdoor under LOREG art. 55 and press
+and radio under art. 58. **€10,052,187.82 (54.5%) is a single residual line, "Otros gastos
+ordinarios", which the report does not break down.** Propaganda mailings are accounted separately at
+€19,307,864.75 across 30.9 million items. No formation exceeded a spending cap.
+
+Per formation the residual runs from 0% for Coalición por una Europa Solidaria, whose entire declared
+spend is the two advertising lines, to 87.0% for Sumar, with PP at 47.5% and PSOE at 58.8%.
+
+**This corrects the research digest.** It recorded the eight lettered categories of LOREG art. 130 as
+the itemisation to expect. Those are the legal definition of *gasto electoral*, but the fiscalización
+reports against something else: the two advertising caps, mailings, financial costs, and the
+residual. `research/hate-accountability.md` §1 should be read with that correction.
+
+**Verification is the report's own arithmetic, and it earned its keep.** The report prints
+`F = A + B - C - D + E` for ordinary spending and `D = A + B - C` for mailings; both are recomputed
+per formation and the script aborts on a mismatch over one cent. A third check requires the five
+itemised sub-lines to sum **exactly** to the declared total, which they do for all eight.
+
+Five defects were caught by those guards rather than by reading the output, and every one of them
+would have put wrong figures on the page:
+
+- **A typo in the source document.** Report 1.628 prints Podemos's ordinary total as
+  `1.331.207.90` — a period where the decimal comma belongs. The report's own arithmetic gives
+  1,331,207.90. `money()` reinterprets that shape deterministically rather than by guessing: in this
+  format every thousands group after the first is exactly three digits, so a final group of exactly
+  two digits cannot be one.
+- **A blank cell stealing its neighbour's value.** Podemos's empty "B) Gastos reclasificados netos"
+  let a look-ahead scan run into "C) Gastos no subvencionables" and read its 3.267,00. Fixed by
+  splitting the table into rows before reading any figure.
+- **Four formations silently skipped.** The heading matcher already excluded the dotted
+  table-of-contents entries, but the code then also took the later half of the matches to drop TOC
+  duplicates that were never in the list. The four that survived verified cleanly, so nothing looked
+  wrong. Each heading is now confirmed by the subsection that must follow it.
+- **Tables in a different order.** Podemos prints "2. RECURSOS DECLARADOS" *after* its expenditure
+  table, so slicing between two fixed heading texts returned an empty resources table and let the
+  expenditure slice run on into the next one, where "Total recursos" was read as the expenditure
+  total. Sections are now split on their numbering, which is order-independent.
+- **A guard that passed an empty parse.** All-zero figures satisfy `A+B-C-D+E = F` trivially, and for
+  one run the script reported eight empty formations as verified. The guard now requires a declared
+  total to be present, and requires the sub-lines to equal it exactly rather than merely not exceed
+  it — which is what finally caught a label that had stopped matching the report's "- " bullet.
+
+**Left out rather than shipped wrong.** The limits table's rows carry no lettered marker or bullet,
+so the row splitter does not divide them and every cap amount read as zero. Publishing zeros that
+look like real caps would be worse than omitting them, so only the SÍ/NO exceedance verdicts are
+extracted — those are read from the raw text and are correct.
+
+**Also recorded in `AGENTS.md`:** the TdC report URL's year segment is the **approval** year, not the
+year covered — report 1.628 audits a June 2024 election and lives under `/2025/`. And a wrong URL
+does not 404; it redirects to the site-wide search, whose HTML lists PDF links including the
+`resumen/NR_I<number>.pdf` summary. That is how this report was found.
+
+**Verified.** All three locales render the section with per-locale number formatting, eight rows, a
+caption, every `<th>` scoped and zero contrast failures. Typecheck clean, production build clean at
+104 pages.
+
+**Framing unchanged.** These are declared and audited figures next to the subsidies that funded them.
+Nothing is imputed to anyone, and the panel says so.
+
+---
+
 ## 2026-09-07 — What the official record says, and what no authority has found
 
 The first thing from the stopped research to reach the site, and the reason it is a small thing: of

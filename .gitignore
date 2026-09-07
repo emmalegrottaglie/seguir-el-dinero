@@ -42,3 +42,7 @@ data/_*.json
 
 # Playwright MCP scratch output.
 .playwright-mcp/
+
+# Python bytecode from the extractor scripts.
+__pycache__/
+*.pyc

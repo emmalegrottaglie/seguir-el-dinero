@@ -11,7 +11,8 @@
     "build:photos": "node scripts/fetch-photos.mjs",
     "discover:votes": "node scripts/discover-votes.mjs",
     "build:foundations": "python scripts/extract-foundations.py",
-    "check:feeds": "node scripts/check-feeds.mjs"
+    "check:feeds": "node scripts/check-feeds.mjs",
+    "build:spending": "python scripts/extract-electoral-spending.py"
   },
   "engines": {
     "node": "22.x"
