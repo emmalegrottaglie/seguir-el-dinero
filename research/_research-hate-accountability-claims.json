@@ -1,0 +1,1187 @@
+{
+ "question": "How can public data be used to trace what Spanish political parties actually do with their public subsidies and campaign money, and to link named politicians to hate-related conduct using only verifiable records rather than inference?",
+ "claims": [
+  {
+   "claim": "ILGA-Europe's Rainbow Map scores 49 European countries on a 0–100% scale using 76 criteria grouped into seven weighted thematic categories, making it a fully explicit, reproducible rubric that a Spanish tracker could imitate for defensible scoring.",
+   "quote": "76 criteria – divided between seven thematic categories",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "Not stated on page; Rainbow Map editions published annually in the week of 17 May (page describes the ongoing/continuously updated methodology, accessed 2026-09-06)"
+  },
+  {
+   "claim": "One of the seven Rainbow Map categories is 'Hate crime and hate speech', weighted at 19% of the total score — i.e. hate-related conduct is measured as a legal/policy variable with a fixed weight, not as an inferred label.",
+   "quote": "Hate crime and hate speech (19%)",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "Not stated on page; Rainbow Map editions published annually in the week of 17 May (page describes the ongoing/continuously updated methodology, accessed 2026-09-06)"
+  },
+  {
+   "claim": "The Rainbow Map methodology is deliberately restricted to legislation and policy and explicitly does NOT measure societal acceptance or general safety — so it offers no precedent for scoring individual politicians' discourse.",
+   "quote": "specifically ranks countries based on their legislation and policies",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "Not stated on page; Rainbow Map editions published annually in the week of 17 May (page describes the ongoing/continuously updated methodology, accessed 2026-09-06)"
+  },
+  {
+   "claim": "ILGA-Europe validates each data point against original sources through member organisations and a network of in-country experts (human rights defenders, researchers, lawyers) across the 49 countries, a verification layer a tracker can copy for source-backed claims.",
+   "quote": "fact-check[s] the information with original sources",
+   "importance": "supporting",
+   "_sourceQuality": "primary",
+   "_publishDate": "Not stated on page; Rainbow Map editions published annually in the week of 17 May (page describes the ongoing/continuously updated methodology, accessed 2026-09-06)"
+  },
+  {
+   "claim": "The Rainbow Map is published annually in the week of 17 May (IDAHOBIT) but the underlying website is updated continuously as laws and policies change, establishing a dual cadence model (stable annual snapshot plus rolling updates).",
+   "quote": "published annually during the week of May 17",
+   "importance": "supporting",
+   "_sourceQuality": "primary",
+   "_publishDate": "Not stated on page; Rainbow Map editions published annually in the week of 17 May (page describes the ongoing/continuously updated methodology, accessed 2026-09-06)"
+  },
+  {
+   "claim": "The cuentaspartidospoliticos.es Observatorio publishes only aggregate compliance/submission statistics on party annual accounts, not itemised spending data — users are redirected to each entity's own transparency portal for account contents.",
+   "quote": "Para acceder al contenido de las cuentas anuales, consulte los portales de transparencia",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "2026-09-05 (page last-updated date; no article publish date)"
+  },
+  {
+   "claim": "The Observatorio's accountability data begins with fiscal year 2016 and is refreshed frequently (page states a last-update date of 05/09/2026), meaning submission-status data is current but historically shallow.",
+   "quote": "última actualización 05/09/2026",
+   "importance": "supporting",
+   "_sourceQuality": "primary",
+   "_publishDate": "2026-09-05 (page last-updated date; no article publish date)"
+  },
+  {
+   "claim": "The portal tracks submission timeliness against a 30 June statutory filing deadline, so late/non-filing by a named party is itself a verifiable, published fact independent of the account contents.",
+   "quote": "accounts filed before June 30 deadline versus cumulative submissions",
+   "importance": "supporting",
+   "_sourceQuality": "primary",
+   "_publishDate": "2026-09-05 (page last-updated date; no article publish date)"
+  },
+  {
+   "claim": "Reporting entities are classified into six categories (electoral groupings, coalitions, federations, foundations, political parties, and commercial entities/associations), which gives a usable join key for linking party-affiliated foundations and companies to the parent party.",
+   "quote": "electoral groupings, party coalitions, party federations, foundations, political parties, and commercial entities/associations",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "2026-09-05 (page last-updated date; no article publish date)"
+  },
+  {
+   "claim": "The Observatorio does not distinguish electoral (campaign) accounts from annual accounts and exposes no downloadable/machine-readable feed (no CSV, Excel or API documented), so electoral-spending granularity must be sourced elsewhere, i.e. Tribunal de Cuentas fiscalización PDFs.",
+   "quote": "no itemized expense categories, specific spending data, or downloadable formats",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "2026-09-05 (page last-updated date; no article publish date)"
+  },
+  {
+   "claim": "Annual state subsidies to Spanish political parties are governed by Article 3 of Ley Orgánica 8/2007 on the financing of political parties, and are allocated per party on the basis of seats and votes obtained in the last Congress of Deputies election — so the published figure is a per-party, per-year lump sum, not itemised spending.",
+   "quote": "Artículo 3 de la Ley Orgánica 8/2007, de 4 de julio, sobre financiación de los partidos políticos.",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "not stated on page (rolling official page, Ministerio del Interior; legal basis dated 4 July 2007)"
+  },
+  {
+   "claim": "The Infoelectoral annual-subsidies page publishes only two subsidy categories (ordinary operating-expense financing and a security-expenses subsidy), giving no breakdown of what the money is spent on (publicity, mailings, rallies, digital ads).",
+   "quote": "el número de escaños y votos obtenidos por cada partido político",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "not stated on page (rolling official page, Ministerio del Interior; legal basis dated 4 July 2007)"
+  },
+  {
+   "claim": "The authoritative source for the underlying figures is the Boletín Oficial del Estado — official election results and quarterly publications — meaning the money trail at this level is document-based (BOE text/PDF) rather than a structured dataset.",
+   "quote": "los resultados oficiales obtenidos por las formaciones políticas...publicados en el Boletín Oficial del Estado",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "not stated on page (rolling official page, Ministerio del Interior; legal basis dated 4 July 2007)"
+  },
+  {
+   "claim": "This Ministerio del Interior page exposes no machine-readable access to subsidy amounts: it offers no CSV, XLSX, JSON or API endpoint and no open-data download area for the subsidies figures themselves, unlike Infoelectoral's electoral-results download section.",
+   "quote": "The page does not mention an open data download area, CSV/XLSX exports, or APIs for accessing subsidies data directly.",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "not stated on page (rolling official page, Ministerio del Interior; legal basis dated 4 July 2007)"
+  },
+  {
+   "claim": "Parties receive the subsidy by designating a bank account through the electronic office of the Secretaría General del Tesoro, an administrative channel that is not itself a public transparency dataset.",
+   "quote": "la sede electrónica de la Secretaría General del Tesoro",
+   "importance": "tangential",
+   "_sourceQuality": "primary",
+   "_publishDate": "not stated on page (rolling official page, Ministerio del Interior; legal basis dated 4 July 2007)"
+  },
+  {
+   "claim": "ODIHR labels civil-society-sourced cases as \"incidents\" and only officially recorded cases as \"crimes\", explicitly because it cannot verify the legal classification of NGO reports — a provenance-based labelling rule directly transferable to distinguishing court-confirmed hate crime from NGO-observed conduct in a politician tracker.",
+   "quote": "Cases reported by civil society, IGOs and the Holy See are recorded and published as 'incidents' as opposed to 'crimes'. This is because ODIHR cannot verify whether incidents reported by civil society groups can be classified as crimes.",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "Not stated on page; page describes a rolling annual cycle with releases each 16 November (most recent cycle current as of 2026)"
+  },
+  {
+   "claim": "ODIHR warns that a higher recorded hate crime count for a state does not evidence more hate crime occurring there, attributing variation to definitional breadth and recording effectiveness — undercutting any tracker that treats rising reported hate-crime counts (e.g. Ministerio del Interior figures) as an effect of political discourse.",
+   "quote": "A higher incidence of hate crimes recorded and reported by a particular state does not necessarily mean that more hate crimes are being committed there; the statistics may simply reflect a broader definition of hate crimes or a more effective system for recording data.",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "Not stated on page; page describes a rolling annual cycle with releases each 16 November (most recent cycle current as of 2026)"
+  },
+  {
+   "claim": "ODIHR applies exactly two inclusion tests to submitted material: the event must fall in the reporting year, and it must fit the OSCE hate crime definition (a base criminal offence plus a bias motivation) — a minimal, auditable admission rule rather than editorial judgement of \"hatefulness\".",
+   "quote": "When reviewing submissions for inclusion on the website, ODIHR follows two basic rules: the crime, activity or change in the law must have taken place during the relevant year; and the information must fall within the OSCE's definition of a hate crime.",
+   "importance": "supporting",
+   "_sourceQuality": "primary",
+   "_publishDate": "Not stated on page; page describes a rolling annual cycle with releases each 16 November (most recent cycle current as of 2026)"
+  },
+  {
+   "claim": "Government-appointed National Points of Contact review and are consulted on their country's published entry before release, building a right-of-reply/verification step into the publication pipeline.",
+   "quote": "NPCs are consulted about the presentation of their country information before it is published on the website.",
+   "importance": "supporting",
+   "_sourceQuality": "primary",
+   "_publishDate": "Not stated on page; page describes a rolling annual cycle with releases each 16 November (most recent cycle current as of 2026)"
+  },
+  {
+   "claim": "The dataset runs on a fixed annual cycle published each 16 November, so Spain's ODIHR country page offers an annually refreshed, state-supplied comparison point against Ministerio del Interior figures rather than continuous data.",
+   "quote": "This data is released on International Tolerance Day, which falls on 16 November.",
+   "importance": "tangential",
+   "_sourceQuality": "primary",
+   "_publishDate": "Not stated on page; page describes a rolling annual cycle with releases each 16 November (most recent cycle current as of 2026)"
+  },
+  {
+   "claim": "LOREG art. 130 defines electoral expenditure by a fixed time window: only outlays made by parties, federations, coalitions or agrupaciones from the day the election is called (convocatoria) until the proclamation of the elected count as gastos electorales — so any spending outside that window is not captured by the electoral-accounting regime and must be traced through the annual accounts instead.",
+   "quote": "Se consideran gastos electorales los que realicen los partidos, federaciones, coaliciones o agrupaciones participantes en las elecciones desde el día de la convocatoria hasta el de la proclamación de electos",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "Version in force 2015-04-01 to 2016-11-01 (LOREG of 1985-06-19; art. 130 as amended by LO 8/1991); page itself undated"
+  },
+  {
+   "claim": "The statute itemises electoral spending into eight lettered categories (a–h), which is the legal basis for the line-item granularity that parties must declare to the Tribunal de Cuentas: ballot/envelope production, direct and indirect campaign publicity in any medium, venue rental, non-permanent staff remuneration, candidate and staff transport, correspondence and postage, loan interest until subsidy receipt, and electoral office/service operating costs.",
+   "quote": "b) Propaganda y publicidad directa o indirectamente dirigida a promover el voto a sus candidaturas, sea cual fuere la forma y el medio que se utilice",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "Version in force 2015-04-01 to 2016-11-01 (LOREG of 1985-06-19; art. 130 as amended by LO 8/1991); page itself undated"
+  },
+  {
+   "claim": "Advertising is a single undifferentiated legal category — 'publicidad directa o indirectamente dirigida a promover el voto... sea cual fuere la forma y el medio' — meaning the law does not itself split digital ads from print, broadcast or outdoor advertising, so a spending tracker cannot expect a statutory 'digital ads' line and must derive that split from the underlying invoices or supplementary Tribunal de Cuentas detail.",
+   "quote": "sea cual fuere la forma y el medio que se utilice",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "Version in force 2015-04-01 to 2016-11-01 (LOREG of 1985-06-19; art. 130 as amended by LO 8/1991); page itself undated"
+  },
+  {
+   "claim": "Mailings are a distinct declarable category separate from publicity: correspondence and postage costs ('gastos de correspondencia y franqueo') are enumerated under letter f), so direct-mail electoral material is separable in the declared accounts from general advertising spend.",
+   "quote": "f) Correspondence and postage expenses",
+   "importance": "supporting",
+   "_sourceQuality": "primary",
+   "_publishDate": "Version in force 2015-04-01 to 2016-11-01 (LOREG of 1985-06-19; art. 130 as amended by LO 8/1991); page itself undated"
+  },
+  {
+   "claim": "The JEC serves the LOREG text as versioned consolidated HTML — this page carries the version valid from 01/04/2015 to 01/11/2016 and notes the modifying instrument (LO 8/1991, artículo único.49) — indicating the source is a browsable web consolidation with version metadata rather than only a PDF, though it is legal text, not a spending dataset or API.",
+   "quote": "Ley Orgánica 5/1985, de 19 de junio, del Régimen Electoral General",
+   "importance": "supporting",
+   "_sourceQuality": "primary",
+   "_publishDate": "Version in force 2015-04-01 to 2016-11-01 (LOREG of 1985-06-19; art. 130 as amended by LO 8/1991); page itself undated"
+  },
+  {
+   "claim": "The Tribunal de Cuentas is the sole body with legal competence to audit the economic-financial activity of Spanish political parties registered in the Interior Ministry's Registro de Partidos Políticos, covering both public and private resources — making it the single authoritative source for a party money trail.",
+   "quote": "corresponde al Tribunal de Cuentas la fiscalización de la actividad económico-financiera de los partidos políticos inscritos en el Registro de Partidos Políticos del Ministerio del Interior",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": null
+  },
+  {
+   "claim": "TCU publishes two distinct and separate report streams per party: annual financial statement audits (contabilidad anual, one per ejercicio) and electoral accounting audits (contabilidad electoral, per electoral process) — so campaign spending and routine subsidy spending must be traced through different documents.",
+   "quote": "informes que aprueba el Tribunal de Cuentas sobre los estados financieros de los partidos políticos correspondientes a cada ejercicio, así como sobre la contabilidad electoral",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": null
+  },
+  {
+   "claim": "Party account submissions are channelled through a separate dedicated portal, cuentaspartidospoliticos.es (Rendición de Cuentas de Partidos Políticos), rather than being hosted as datasets on tcu.es itself — meaning any scraping or dataset pipeline must target that second domain.",
+   "quote": "[Rendición de Cuentas de Partidos Políticos](https://www.cuentaspartidospoliticos.es/)",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": null
+  },
+  {
+   "claim": "The TCU hub page publishes reports and the accounting plan as PDF documents and exposes no API, machine-readable dataset, or open-data endpoint for party spending, so line-item spending data is not directly queryable from this source.",
+   "quote": "**Accounting Plan**: PDF documents available (adapted 2018-2019, 2013 versions noted)",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": null
+  },
+  {
+   "claim": "TCU has a sanctioning power over parties for infractions typified in Article 17 of the Ley Orgánica de Financiación de los Partidos Políticos (LO 8/2007), and those sanctions are appealable to the Tribunal Supremo — creating a verifiable per-party record of financing violations distinct from criminal proceedings.",
+   "quote": "inicio y la tramitación de los procedimientos sancionadores seguidos contra las formaciones que cometan alguna de las infracciones que se tipifican en el artículo 17 de la Ley Orgánica sobre Financiación de los Partidos Políticos",
+   "importance": "supporting",
+   "_sourceQuality": "primary",
+   "_publishDate": null
+  },
+  {
+   "claim": "ODIHR defines \"bias indicators\" as objective, observable facts rather than inferred motive, giving a documentable evidentiary standard for classifying an act as bias-motivated — the same standard a tracker could adopt to avoid inference-based labelling of politicians.",
+   "quote": "Bias indicators are objective facts, circumstances or patterns connected to a criminal act that, alone or in conjunction with other indicators, suggest that the offender's actions were motivated in whole or in part by bias, prejudice or hostility.",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "2014"
+  },
+  {
+   "claim": "ODIHR explicitly recommends that hate speech and discrimination statistics be kept separate from hate crime statistics, because hate speech normally lacks a base criminal offence and mixing them distorts figures and blocks international comparison — meaning art. 510 CP hate-speech convictions must not be aggregated with Interior Ministry hate-crime counts.",
+   "quote": "Incidents of hate speech and discrimination do not include a base criminal offence in most countries – since the speech or discrimination would not be a crime if it did not have a bias motive – and, therefore, fall outside the hate crime monitoring definition set out in this guide. As a result, including discrimination or hate speech within hate crime data and without disaggregation distorts the statistics and hinders accurate international comparisons.",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "2014"
+  },
+  {
+   "claim": "ODIHR states that demographic data derived from official perception rather than direct confirmation is unsuitable for publication or policy use, and that bias motivation can be recorded without recording any victim or perpetrator personal background — a data-minimisation route compatible with strict data-protection regimes.",
+   "quote": "Demographic information that is based on police perception should only be used for internal intelligence purposes. It is important to recognize that this type of data may be inaccurate and may use categories that are not accepted by minority groups. Therefore, it would be inappropriate to publish these data, or to use them as a basis for policy-making.",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "2014"
+  },
+  {
+   "claim": "Official hate-crime statistics across the OSCE region are not comparable: in 2012 ODIHR received data from only 27 of 57 participating States, with reported annual totals ranging from below 10 to over 40,000, so cross-state comparison of Spain's Interior Ministry figures against other EU states is methodologically unsound without adjustment.",
+   "quote": "in 2012, ODIHR received statistics on hate crimes from only 27 out of 57 participating States, with figures ranging from below 10 to over 40,000 hate crimes.",
+   "importance": "supporting",
+   "_sourceQuality": "primary",
+   "_publishDate": "2014"
+  },
+  {
+   "claim": "Rises in recorded hate crime are, in the early stages of a measurement regime, attributable to improved reporting and police training rather than to a real increase in offences — a confound that undermines any naive correlation between political campaign discourse and reported hate-crime incidence.",
+   "quote": "Increases in reported crimes in the early stages of measuring hate crimes are most likely to reflect an increase in reporting by victims, not an increase in actual offences.",
+   "importance": "supporting",
+   "_sourceQuality": "primary",
+   "_publishDate": "2014"
+  },
+  {
+   "claim": "A peer-reviewed AEJ: Applied Economics paper (Müller & Schwarz 2023) establishes a causal-identification design linking political discourse volume on social media to measured hate-crime incidence: higher county-level Twitter use predicts a sizeable rise in anti-Muslim hate crimes after the 2016 US presidential primaries.",
+   "quote": "Using an instrumental variable strategy based on Twitter's early adopters at the South by Southwest festival in 2007, we find that higher Twitter use in a county is associated with a sizeable increase in anti-Muslim hate crimes after the 2016 presidential primaries.",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "2023-07 (American Economic Journal: Applied Economics, Vol. 15, No. 3, July 2023, pp. 270-312)"
+  },
+  {
+   "claim": "The paper links an individual named politician's own published statements to next-day hate-crime counts, i.e. it demonstrates a verifiable-record methodology (dated politician utterances joined to dated official hate-crime records) rather than inference about the politician's beliefs.",
+   "quote": "Trump's tweets about Muslims predict increases in xenophobic tweets by his followers, cable news mentions of Muslims, and hate crimes on the following days.",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "2023-07 (American Economic Journal: Applied Economics, Vol. 15, No. 3, July 2023, pp. 270-312)"
+  },
+  {
+   "claim": "The authors frame their contribution as evidence that social-media political content produces offline consequences, which is the empirical premise a tracker would need to justify juxtaposing party campaign/digital-ad spending with hate-crime statistics.",
+   "quote": "These results suggest that social media content can affect real-life outcomes.",
+   "importance": "supporting",
+   "_sourceQuality": "primary",
+   "_publishDate": "2023-07 (American Economic Journal: Applied Economics, Vol. 15, No. 3, July 2023, pp. 270-312)"
+  },
+  {
+   "claim": "The study's identification relies on an instrument (2007 SXSW early Twitter adopters) rather than raw correlation, which sets the methodological bar for any Spanish replication: a comparable instrument or natural experiment would be required, since Spain's Ministerio del Interior hate-crime series alone supports only correlational claims.",
+   "quote": "Using an instrumental variable strategy based on Twitter's early adopters at the South by Southwest festival in 2007",
+   "importance": "supporting",
+   "_sourceQuality": "primary",
+   "_publishDate": "2023-07 (American Economic Journal: Applied Economics, Vol. 15, No. 3, July 2023, pp. 270-312)"
+  },
+  {
+   "claim": "The research is US-focused (Trump, 2016 primaries, county-level US hate-crime reporting), so it provides no direct Spanish or EU evidence and cannot itself support claims about Spanish parties or politicians.",
+   "quote": "We study whether social media can amplify antiminority sentiment with a focus on Donald Trump's political rise.",
+   "importance": "tangential",
+   "_sourceQuality": "primary",
+   "_publishDate": "2023-07 (American Economic Journal: Applied Economics, Vol. 15, No. 3, July 2023, pp. 270-312)"
+  },
+  {
+   "claim": "Official publication and custody of Spanish court judgments is a legal competence of the CGPJ under Article 560.1.10ª LOPJ, meaning judgments (including hate-speech convictions) are published through a state body rather than only via private reporters.",
+   "quote": "The CGPJ holds responsibility for \"publicación oficial y custodia de las sentencias\" under Article 560.1.10ª LOPJ.",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": null
+  },
+  {
+   "claim": "CENDOJ, the body that runs the public judgment database, is created by Article 619 LOPJ and is headquartered in San Sebastián.",
+   "quote": "The Centro de Documentación Judicial (CENDOJ), established by Article 619 LOPJ with headquarters in San Sebastián, manages this function.",
+   "importance": "supporting",
+   "_sourceQuality": "primary",
+   "_publishDate": null
+  },
+  {
+   "claim": "Before dissemination, CENDOJ must process judgments to comply with personal-data protection legislation — i.e. the published text is data-protection-treated, which constrains how named individuals appear in retrievable judgments.",
+   "quote": "el tratamiento de las sentencias para cumplir con la legislación en materia de protección de datos personales",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": null
+  },
+  {
+   "claim": "CENDOJ's mandate includes collecting, archiving, certifying and safeguarding judgments so their integrity and authenticity can be relied upon, which supports using CENDOJ texts as verifiable primary records.",
+   "quote": "Collecting, archiving, certifying and safeguarding sentences to ensure their integrity and authenticity",
+   "importance": "supporting",
+   "_sourceQuality": "primary",
+   "_publishDate": null
+  },
+  {
+   "claim": "CENDOJ distributes judicial decisions not only to judges and public administrations but also to citizens and publishing companies, indicating an official reuse/redistribution channel exists.",
+   "quote": "Distributing decisions to citizens, judges, public administrations, and publishing companies",
+   "importance": "supporting",
+   "_sourceQuality": "primary",
+   "_publishDate": null
+  },
+  {
+   "claim": "Across 400 German municipalities, far-right (AfD) vote share in the 2017 federal election and reported right-wing hate crimes against refugees correlate at r = 0.50 (p < 0.001) — a peer-reviewed, quantified ecological association between electoral support for a far-right party and hate-crime incidence, i.e. a template for the kind of correlation a Spanish tracker could compute rather than assert.",
+   "quote": "far right electoral support and right-wing crimes reported were linked substantially and positively, _r_(399) = 0.50, _p_ < 0.001",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "2019-10-18"
+  },
+  {
+   "claim": "The authors explicitly disclaim causal interpretation of the electoral-support / hate-crime link, stating the data are correlational only — the methodological constraint any tracker linking party discourse or campaign spending to hate incidents must adopt (juxtapose, do not causally link).",
+   "quote": "we report correlational data that do not allow for causal inferences",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "2019-10-18"
+  },
+  {
+   "claim": "The study is built from official government hate-crime statistics — 2,211 incidents targeting refugees, 2015–2017 — joined to official election results and municipality-level socio-structural data (unemployment, proportion of foreigners), showing that state hate-crime reporting can be geocoded to sub-national units and merged with electoral data.",
+   "quote": "Official hate crime statistics (2,211 incidents targeting refugees, 2015-2017)",
+   "importance": "supporting",
+   "_sourceQuality": "primary",
+   "_publishDate": "2019-10-18"
+  },
+  {
+   "claim": "Socio-structural confounders explain a substantial share of both outcomes: unemployment positively predicts both AfD vote (β = 0.26) and hate crime (β = 0.34), while proportion of foreigners negatively predicts both (β = −0.42 and −0.31), with predictors accounting for 20–24% of variance — so any Spanish party/hate-crime correlation must control for these or it is uninterpretable.",
+   "quote": "Unemployment positively predicted both outcomes (AfD: β = 0.26; crime: β = 0.34)",
+   "importance": "supporting",
+   "_sourceQuality": "primary",
+   "_publishDate": "2019-10-18"
+  },
+  {
+   "claim": "The direction of the foreigner-share effect reverses by region — non-significant for West German hate crime but significantly positive in East Germany — demonstrating that pooled national correlations mask regional heterogeneity, relevant to any Spain-wide comparison across autonomous communities.",
+   "quote": "in East Germany it showed \"significantly and positively\" correlation with crime rates",
+   "importance": "tangential",
+   "_sourceQuality": "primary",
+   "_publishDate": "2019-10-18"
+  },
+  {
+   "claim": "Reglamento 1/2005 CGPJ Article 7 requires that judicial resolutions sent to CENDOJ be handled with dissociation of personal data, subject to data-protection legislation and articles 234 and 266 of the LOPJ — meaning CENDOJ's public jurisprudence database is anonymised by rule, so it cannot be used as a source of named-politician conviction records.",
+   "quote": "legislación en materia de protección de datos personales y en los artículos 234 y 266 de la LOPJ",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "2005-09-27 (approved 2005-09-15; BOE consolidated text)"
+  },
+  {
+   "claim": "Article 4 permits restricting access to judicial decisions where release would affect the right to privacy, rights of persons deserving special protection, or the anonymity of victims — a discretionary limit that applies to requests for identified individuals' judgments.",
+   "quote": "derecho a la intimidad, a los derechos de las personas dignos de especial tutela",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "2005-09-27 (approved 2005-09-15; BOE consolidated text)"
+  },
+  {
+   "claim": "Access to a sentencia by a non-party requires the Secretario Judicial to assess whether the requester has justified a direct personal interest, so systematic bulk retrieval of named individuals' judgments through this route is not available as an open-data channel.",
+   "quote": "interés personal y directo",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "2005-09-27 (approved 2005-09-15; BOE consolidated text)"
+  },
+  {
+   "claim": "All courts are obliged to remit copies of their sentences to CENDOJ, which must guarantee their integrity, authenticity and access, establishing CENDOJ as the single centralised corpus of Spanish case law available for programmatic search (albeit anonymised).",
+   "quote": "integridad, autenticidad y acceso",
+   "importance": "supporting",
+   "_sourceQuality": "primary",
+   "_publishDate": "2005-09-27 (approved 2005-09-15; BOE consolidated text)"
+  },
+  {
+   "claim": "Article 3 fixes the moment a decision becomes accessible to interested parties: once extended and signed by the judge or all magistrates and deposited in the judicial office and registered in the IT systems — giving a defined, checkable point at which a judgment against a politician becomes retrievable.",
+   "quote": "extendidas y firmadas por el Juez o por todos los Magistrados",
+   "importance": "tangential",
+   "_sourceQuality": "primary",
+   "_publishDate": "2005-09-27 (approved 2005-09-15; BOE consolidated text)"
+  },
+  {
+   "claim": "An Institute for Replication (I4R) replication (Discussion Paper #246, 2025, by Akhtar, Hoang-Lee, Liu and Vangal) reproduced the core result of Müller and Schwarz (2022) that a one standard deviation increase in Twitter usage is associated with a roughly 32% rise in anti-Muslim hate crimes, with only minor rounding differences — i.e. the discourse/hate-crime correlation literature survives independent replication.",
+   "quote": "a one standard deviation increase in Twitter usage is associated with a 32% rise in hate crimes",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "2025"
+  },
+  {
+   "claim": "The underlying study the replication verifies is explicitly about political discourse, not just general social media: it studies anti-Muslim hate crimes in relation to Twitter usage during Donald Trump's political rise, which is the closest published analogue to linking a party's campaign discourse to reported hate-crime incidence.",
+   "quote": "Karsten Müller and Carlo Schwarz (2022) investigate the impact of Twitter on anti-Muslim hate crimes, demonstrating that higher Twitter usage correlates with increased hate crimes, particularly during Donald Trump's political rise.",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "2025"
+  },
+  {
+   "claim": "The replication's extended analyses show the discourse-to-hate-crime effect is heterogeneous by geography — significantly stronger in urban than rural areas — meaning any Spanish adaptation of this method would need sub-national (province/municipality) hate-crime and exposure data rather than national aggregates.",
+   "quote": "Twitter's influence on hate crimes proved significantly stronger in urban versus rural areas, attributed to higher connectivity and media exposure patterns.",
+   "importance": "supporting",
+   "_sourceQuality": "primary",
+   "_publishDate": "2025"
+  },
+  {
+   "claim": "Estimated effect size depends on the population weighting scheme chosen: weighting by Muslim population share strengthens the measured effect while general population weighting weakens it, so headline correlation figures between discourse and hate crime are sensitive to analyst choices and must be reported with their weighting specification.",
+   "quote": "weighting by Muslim population share strengthened the effect, while general population weighting yielded weaker associations",
+   "importance": "supporting",
+   "_sourceQuality": "primary",
+   "_publishDate": "2025"
+  },
+  {
+   "claim": "Higher educational attainment attenuates the translation of anti-Muslim online discourse into recorded hate crimes, identifying a confounder/moderator that any correlation claim between Spanish party campaigning and Ministerio del Interior hate-crime counts would have to control for.",
+   "quote": "Higher educational attainment demonstrated a protective effect, reducing the translation of anti-Muslim tweets into actual hate crimes.",
+   "importance": "tangential",
+   "_sourceQuality": "primary",
+   "_publishDate": "2025"
+  },
+  {
+   "claim": "Under Spanish law (art. 10 LOPDGDD, LO 3/2018), processing of personal data on criminal convictions and offences — including related proceedings and precautionary/security measures — is lawful only when covered by EU law, the LOPDGDD or other legal norms, or when carried out under the supervision of public authorities; a private tracker publishing named politicians' conviction data has no general legal basis.",
+   "quote": "El tratamiento de datos personales relativos a condenas e infracciones penales, así como a procedimientos y medidas cautelares y de seguridad conexas...",
+   "importance": "central",
+   "_sourceQuality": "secondary",
+   "_publishDate": "2026-07-20 (last revised)"
+  },
+  {
+   "claim": "The only private actors Spanish law authorises to process criminal-conviction data are abogados and procuradores, and only to collect information supplied by their own clients for the exercise of their professional functions — an exemption that does not extend to journalists, NGOs or civic data projects.",
+   "quote": "solo serán posibles cuando sean llevados a cabo por abogados y procuradores y tengan por objeto recoger la información facilitada por sus clientes para el ejercicio de sus funciones",
+   "importance": "central",
+   "_sourceQuality": "secondary",
+   "_publishDate": "2026-07-20 (last revised)"
+  },
+  {
+   "claim": "Spanish law permits only a single complete register of criminal convictions, held under the control of the public authorities — so compiling a comprehensive per-politician conviction database outside official control is itself unlawful, independent of whether each individual judgment is public.",
+   "quote": "Solo podrá llevarse un registro completo de condenas penales bajo el control de las autoridades públicas",
+   "importance": "central",
+   "_sourceQuality": "secondary",
+   "_publishDate": "2026-07-20 (last revised)"
+  },
+  {
+   "claim": "The official Spanish registry infrastructure for this data is the system of registros administrativos de apoyo a la Administración de Justicia, regulated by Real Decreto 95/2009 and modified by Real Decreto 913/2024 — identifying the concrete legal instrument governing access to conviction records.",
+   "quote": "The administrative justice support registry system (regulated by Royal Decree 95/2009, modified by RD 913/2024) governs official records",
+   "importance": "supporting",
+   "_sourceQuality": "secondary",
+   "_publishDate": "2026-07-20 (last revised)"
+  },
+  {
+   "claim": "GDPR Art. 10 conditions any such processing on either official-authority supervision or Member State law providing appropriate safeguards for data subjects' rights and freedoms, meaning a Spanish tracker must point to a specific enabling norm plus safeguards rather than rely on public interest alone.",
+   "quote": "supervision of public authorities or where authorized by Union or Member State law",
+   "importance": "supporting",
+   "_sourceQuality": "secondary",
+   "_publishDate": "2026-07-20 (last revised)"
+  },
+  {
+   "claim": "Spain's Constitutional Court, in STC 58/2018 (ECLI:ES:TC:2018:58, 4 June 2018), recognised the \"derecho al olvido\" as a fundamental right derived from data protection under art. 18.4 CE — establishing a constitutional basis on which an individual named in an archived report of past criminal proceedings can demand de-indexing.",
+   "quote": "el denominado jurisprudencialmente «derecho al olvido»",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "2018-06-04 (judgment date; published in BOE 2018 as BOE-A-2018-9534)"
+  },
+  {
+   "claim": "The ruling makes the lawfulness of continuing to publish a named individual's past judicial record depend jointly on the subject matter and on the person's status, so a public figure such as a serving politician retains far weaker olvido protection than a private individual — the doctrinal hook a tracker would rely on to publish named politicians' convictions.",
+   "quote": "la relevancia pública de la información viene determinada tanto por la materia de la misma como por la condición de la persona",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "2018-06-04 (judgment date; published in BOE 2018 as BOE-A-2018-9534)"
+  },
+  {
+   "claim": "The Court balanced arts. 18.1 (honour/intimidad, the LO 1/1982 sphere) and 18.4 CE against art. 20.1 d) CE (freedom of information) and granted amparo only partially against Ediciones El País — upholding de-indexing from general search engines while reversing the ban on internal newspaper-archive search, i.e. removal of a name from the underlying record was held to burden press freedom excessively.",
+   "quote": "prohibición de indexación de nombres y apellidos como medida",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "2018-06-04 (judgment date; published in BOE 2018 as BOE-A-2018-9534)"
+  },
+  {
+   "claim": "The harm the Court treated as decisive was retrievability of the person by name via a general search engine, not the existence of the archived record itself — implying that a politician-tracking database is exposed less by holding judicial records than by making them name-searchable and indexable to the open web.",
+   "quote": "mediante una simple consulta en un buscador generalista",
+   "importance": "supporting",
+   "_sourceQuality": "primary",
+   "_publishDate": "2018-06-04 (judgment date; published in BOE 2018 as BOE-A-2018-9534)"
+  },
+  {
+   "claim": "The judgment concerns a digital press archive (hemeroteca digital) rather than an official judicial database, so it constrains republication of press reports of proceedings and does not itself settle the separate regime governing CENDOJ/CGPJ jurisprudence data or GDPR Art. 10 criminal-conviction processing.",
+   "quote": "información contenida en una hemeroteca digital",
+   "importance": "supporting",
+   "_sourceQuality": "primary",
+   "_publishDate": "2018-06-04 (judgment date; published in BOE 2018 as BOE-A-2018-9534)"
+  },
+  {
+   "claim": "The Junta Electoral de Zona de Madrid ordered Vox to remove, within one day, a large banner (lona) in central Madrid after a PSOE complaint — a documented, retrievable instance of an electoral-board sanction against a named party's campaign material.",
+   "quote": "The **Junta Electoral de Zona de Madrid** (Provincial Electoral Board, not the Central Board) ordered Vox to remove the banner within one day.",
+   "importance": "central",
+   "_sourceQuality": "secondary",
+   "_publishDate": "2023-06-27"
+  },
+  {
+   "claim": "The removal was ordered on timing grounds under Article 53 LOREG (propaganda before the official campaign start), not because of the banner's content.",
+   "quote": "The removal order cited **Article 53 of the Organic Electoral Law (LOREG)**, which prohibits electoral propaganda and campaign activities between election convocation and campaign launch.",
+   "importance": "central",
+   "_sourceQuality": "secondary",
+   "_publishDate": "2023-06-27"
+  },
+  {
+   "claim": "The electoral board explicitly disclaimed competence over whether the banner's content was unlawful, so JEC/JEZ rulings cannot be used as official findings of hate speech or discrimination.",
+   "quote": "The Electoral Board explicitly stated it lacked competence to rule on whether the banner's content itself was illegal, as its jurisdiction covers only campaign regulation compliance.",
+   "importance": "central",
+   "_sourceQuality": "secondary",
+   "_publishDate": "2023-06-27"
+  },
+  {
+   "claim": "The banner's imagery consisted of a hand with a Spanish-flag bracelet throwing LGBTQI+ flags and feminist symbols into a bin, under the slogan \"Decide lo que importa\" — verifiable material content that a tracker could describe factually without labelling it.",
+   "quote": "The billboard displayed the slogan \"Decide lo que importa\" alongside an image of a hand wearing a Spanish flag bracelet discarding symbols into a trash bin, including LGBTQI+ flags and feminist movement logos.",
+   "importance": "supporting",
+   "_sourceQuality": "secondary",
+   "_publishDate": "2023-06-27"
+  },
+  {
+   "claim": "No hate-crime, prosecutorial or campaign-finance proceeding is reported in connection with this banner, indicating the electoral-board and hate-crime tracks are separate record streams.",
+   "quote": "No mention appears regarding hate speech investigations, discrimination charges, *delito de odio*, Prosecutor's Office involvement, or campaign spending violations.",
+   "importance": "supporting",
+   "_sourceQuality": "secondary",
+   "_publishDate": "2023-06-27"
+  },
+  {
+   "claim": "The Comparative/Manifesto Project's published dataset contains systemic coding error: nearly every manifesto in it was coded a single time by a single coder, with no second-coder verification, so no per-document reliability statistic exists for the gold-standard data researchers rely on.",
+   "quote": "nearly all manifestos are coded only once by a single coder",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "2012 (print, Political Analysis 20(1):78-91); Cambridge Core online publication date listed as 04 January 2017"
+  },
+  {
+   "claim": "Mikhaylov, Laver and Benoit ran a coding experiment in which trained human coders re-coded sample manifestos and compared the results against the published CMP codings, and concluded that misclassification is not occasional noise but a systemic property of the dataset.",
+   "quote": "misclassification is a serious and systemic problem with the current CMP data set",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "2012 (print, Political Analysis 20(1):78-91); Cambridge Core online publication date listed as 04 January 2017"
+  },
+  {
+   "claim": "The measured misclassification propagates into the CMP's headline derived measure — its left-right (RILE) policy scale — meaning downstream position estimates built on hand-coded categories inherit quantifiable error rather than being treated as exact.",
+   "quote": "significantly affecting the left-right scale calculations",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "2012 (print, Political Analysis 20(1):78-91); Cambridge Core online publication date listed as 04 January 2017"
+  },
+  {
+   "claim": "The authors' remedy is scheme simplification: they argue the coding category set itself is too fine-grained to be applied reliably by human coders, so reducing category count is the fix for reliability, rather than more coder training alone.",
+   "quote": "CMP scheme should be significantly simplified to address reliability issues",
+   "importance": "supporting",
+   "_sourceQuality": "primary",
+   "_publishDate": "2012 (print, Political Analysis 20(1):78-91); Cambridge Core online publication date listed as 04 January 2017"
+  },
+  {
+   "claim": "The article is a peer-reviewed methods paper in Political Analysis, Volume 20, Issue 1, pages 78-91, print year 2012, providing a citable published standard for reporting coder reliability and category-level misclassification matrices in political text classification.",
+   "quote": "Volume: 20 | Issue: 1 | Pages: 78-91 | Print Publication Year: 2012",
+   "importance": "supporting",
+   "_sourceQuality": "primary",
+   "_publishDate": "2012 (print, Political Analysis 20(1):78-91); Cambridge Core online publication date listed as 04 January 2017"
+  },
+  {
+   "claim": "Spain's police forces recorded 1,869 hate crimes and hate incidents in 2022, a 3.72% rise over 2021, with racism/xenophobia the largest category at 755 hechos (43.50%), sexual orientation/gender identity 459 (24.83%, -1.50%), ideology 245 (-24.85%), religious belief 47, antisemitism 13, antigypsyism 22, aporophobia 17, and sex/gender discrimination 189 (+76.64%). Clearance rate 62.87%.",
+   "quote": "La cifra total de \"delitos e incidentes de odio\" registrada por las Fuerzas y Cuerpos de Seguridad en España, a lo largo de 2022, asciende a un total de 1.869 hechos, lo que supone un leve aumento del 3,72% en relación con 2021.",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "2023 (reporting year 2022; carries the UE23 Spanish EU Presidency branding, NIPO 126-20-020-7)"
+  },
+  {
+   "claim": "The figures are police-recorded incidents drawn from the Sistema Estadístico de Criminalidad (SEC), not convictions: they count hechos conocidos reported by Policía Nacional, Guardia Civil, the autonomous police (Ertzaintza, Mossos d'Esquadra, Policía Foral de Navarra) and those Policías Locales that feed the SEC — so the dataset cannot be used to attribute convictions to named individuals.",
+   "quote": "Los datos han sido obtenidos del Sistema Estadístico de Criminalidad (SEC) [...] Para su cómputo se tienen en cuenta los hechos conocidos por los siguientes cuerpos policiales: Policía Nacional, Guardia Civil, Policías dependientes de las diferentes comunidades autónomas [...] y las Policías Locales que facilitan datos al SEC.",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "2023 (reporting year 2022; carries the UE23 Spanish EU Presidency branding, NIPO 126-20-020-7)"
+  },
+  {
+   "claim": "The report explicitly quantifies its own dark figure: a 2021 national \"Encuesta sobre delitos de odio\" found only one in ten hate-crime victims had reported the offence, meaning recorded counts capture roughly 10% of incidents — a decisive caveat for any correlation between political discourse and reported hate-crime incidence.",
+   "quote": "se pudo comprobar mediante la \"Encuesta sobre delitos de odio\" que se realizó en el año 2021 y dónde solo una de cada diez personas víctimas de delitos de odio había denunciado.",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "2023 (reporting year 2022; carries the UE23 Spanish EU Presidency branding, NIPO 126-20-020-7)"
+  },
+  {
+   "claim": "Hate speech under art. 510 and 510 bis CP is counted inside the criminal-offence figures (separated from administrative infractions since the 2019 edition), and 2022 recorded 105 hechos of \"prom./incitación odio\" overall, of which 169 total hate offences were committed via internet and social media (down 27.16% from 232 in 2021), with 26 of those classed as public incitement to hatred.",
+   "quote": "se recogen de forma separada las \"infracciones administrativas y otros tipos de incidentes de odio\" de los supuestos \"delitos de odio\" en los que se incluye los posibles discursos de odio (art. 510 CP)",
+   "importance": "supporting",
+   "_sourceQuality": "primary",
+   "_publishDate": "2023 (reporting year 2022; carries the UE23 Spanish EU Presidency branding, NIPO 126-20-020-7)"
+  },
+  {
+   "claim": "The data are published as PDF tables with province-level granularity (annex sections 7.2, 7.4, 7.6, 7.8 give hechos conocidos, victimizaciones, detenciones/investigados and hechos esclarecidos per province), and the report points to the Portal Estadístico de Criminalidad (www.estadisticasdecriminalidad.es) as the site where hate-crime figures are broken down by concrete tipologías — the only route beyond the PDF; no API or open dataset is mentioned. Statistics are compiled by date and place of commission, not by the reporting police unit.",
+   "quote": "dentro de la página web del Portal Estadístico de Criminalidad (www.estadisticasdecriminalidad.es), en el apartado reservado a los delitos de odio, se detallan por tipologías concretas",
+   "importance": "supporting",
+   "_sourceQuality": "primary",
+   "_publishDate": "2023 (reporting year 2022; carries the UE23 Spanish EU Presidency branding, NIPO 126-20-020-7)"
+  },
+  {
+   "claim": "Spanish electoral accounting is itemised publicly at party level into two top-line buckets plus sub-categories: for the 9 June 2024 European Parliament elections the Tribunal de Cuentas accepted 38,778,960.96 EUR of justified electoral spending, split into 19,471,096.21 EUR of 'operaciones electorales ordinarias' and 19,307,864.75 EUR of mailing of electoral propaganda, with named sub-lines such as outdoor advertising (3,779,090.51 EUR) and press/radio advertising (3,074,522.19 EUR), and a per-party table giving each formation's ordinary and mailing spend (e.g. Partido Popular 6,253,161.38 and 5,552,208.92 EUR).",
+   "quote": "De los gastos totales, 19.471.096,21 euros corresponden a operaciones electorales ordinarias y 19.307.864,75 euros al envío de propaganda electoral. Los gastos electorales por operaciones ordinarias engloban, a su vez, otras categorías de gastos como por ejemplo los gastos de publicidad exterior (3.779.090,51 euros) y los gastos de publicidad en prensa y radio (3.074.522,19 euros), entre otros.",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "Approved by the Pleno on 26 June 2025 (report no. 1.628; site listing dates the publication 18/12/2025)"
+  },
+  {
+   "claim": "Digital and internet advertising is NOT a separately regulated or capped expense category in Spanish electoral law: the Tribunal de Cuentas recommends the Government legislate to extend the arts. 55 and 58 LOREG spending limits (outdoor advertising, press and radio) to digital press and internet ads, and to specify further the expense categories of art. 130 LOREG — i.e. the current itemisation does not resolve online ad spend.",
+   "quote": "Adecuar los límites de gastos en publicidad exterior y de publicidad en prensa y radio, previstos en los artículos 55 y 58 de la LOREG, respectivamente, a los nuevos soportes de publicidad consecuencia de la introducción de las Nuevas Tecnologías de la Información y la Comunicación, entre los que cabe señalar la publicidad en prensa digital y los anuncios y otros usos en internet, precisándose la naturaleza de los gastos que han de tenerse en cuenta.",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "Approved by the Pleno on 26 June 2025 (report no. 1.628; site listing dates the publication 18/12/2025)"
+  },
+  {
+   "claim": "Parties file their electoral accounts digitally through the Tribunal de Cuentas Sede Electrónica, but there is no unified identifier linking electoral results to accounts: the TCu asks the Junta Electoral Central to create a unique identifying code per political formation precisely to improve matching between candidacy results and electoral accounting — evidence that no ready-made joinable dataset exists behind the PDF reports.",
+   "quote": "Establecer un código identificativo único para cada una de las formaciones políticas, federaciones, coaliciones y agrupaciones de electores que concurran a los procesos electorales, con objeto de facilitar una mejor correspondencia entre los resultados electorales de las candidaturas y las contabilidades electorales.",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "Approved by the Pleno on 26 June 2025 (report no. 1.628; site listing dates the publication 18/12/2025)"
+  },
+  {
+   "claim": "The fiscalización produces verifiable, per-party financial sanctions usable as hard records: for the 2024 European elections the TCu proposed non-award of the electoral subsidy to the agrupación de electores 'Se Acabó la Fiesta' for failing to file accounts, and proposed subsidy reductions totalling 100,899.04 EUR against three formations (Vox 3,003.13; Sumar 15,908.09; Junts i Lliures per Europa 81,987.82 per the summary table), while rejecting 695,280.40 EUR of declared expenses.",
+   "quote": "El Tribunal de Cuentas ha formulado propuestas de reducción de las subvenciones electorales. Respecto de tres formaciones políticas, por un importe total de 100.899,04 euros, por haber concurrido las irregularidades y deficiencias señaladas en la Instrucción del Tribunal de Cuentas aplicable a este proceso electoral.",
+   "importance": "supporting",
+   "_sourceQuality": "primary",
+   "_publishDate": "Approved by the Pleno on 26 June 2025 (report no. 1.628; site listing dates the publication 18/12/2025)"
+  },
+  {
+   "claim": "Vendor-level traceability of party campaign money is incomplete: 26 companies invoicing over 10,000 EUR and one financial institution that granted an electoral-purpose credit failed to report the required detail to the TCu, leaving 1,221,528.15 EUR and 6,594,956 EUR of unreported balances respectively, and invoices frequently lacked service definitions, unit prices and service dates.",
+   "quote": "Veintiséis empresas que han facturado un importe superior a 10.000 euros y una entidad financiera que ha concedido un crédito con finalidad electoral no han cumplido con la obligación de remitir al Tribunal de Cuentas información detallada de dichas operaciones.",
+   "importance": "supporting",
+   "_sourceQuality": "primary",
+   "_publishDate": "Approved by the Pleno on 26 June 2025 (report no. 1.628; site listing dates the publication 18/12/2025)"
+  },
+  {
+   "claim": "A sitting Vox city councillor in Valencia, Cecilia Herrero, has been formally charged (procesamiento, with apertura de juicio oral) under Articles 510.1 and 510.2 of the Spanish Código Penal — establishing that a named, in-office politician's hate-speech prosecution is a matter of public judicial record retrievable from a specific court (Audiencia Provincial de Valencia).",
+   "quote": "Penal Code Articles: 510.1 and 510.2 of the Spanish Penal Code — Procedural Stage: Oral trial opening (apertura de juicio oral) following procesamiento (formal charging)",
+   "importance": "central",
+   "_sourceQuality": "secondary",
+   "_publishDate": "2026-05-27"
+  },
+  {
+   "claim": "The Fiscalía Provincial (public prosecutor), not a private party alone, drove the case: it sought three years' imprisonment, twelve months of fines at €20/day and three years' disqualification from public office, with an alternative request of one year two months plus eight months of fines — a concrete, citable official penalty request attached to a named politician.",
+   "quote": "Primary sentence: Three years imprisonment plus twelve months of daily fines (€20/day), plus public office disqualification for three years; Secondary alternative: One year two months imprisonment plus eight months of fines",
+   "importance": "central",
+   "_sourceQuality": "secondary",
+   "_publishDate": "2026-05-27"
+  },
+  {
+   "claim": "The evidentiary basis is dozens of dated social-media posts published between 2020 and 2024 on public accounts with thousands of followers — meaning the underlying conduct is itself publicly archivable material, not an inference about the politician's views.",
+   "quote": "dozens of messages posted between 2020-2024 on social media (X/Twitter) from public accounts with thousands of followers",
+   "importance": "supporting",
+   "_sourceQuality": "secondary",
+   "_publishDate": "2026-05-27"
+  },
+  {
+   "claim": "The prosecution's characterisation names specific protected groups — migrants of Maghrebi/Muslim origin, LGBTI persons, racialised persons, and persons with disabilities — providing an official, group-by-group classification of the conduct rather than a generic 'hate speech' label.",
+   "quote": "systematic promotion of rejection, contempt, hostility and aversion toward protected groups, including migrants of Maghrebi/Muslim origin, LGBTBI persons, racialized persons, and persons with disabilities",
+   "importance": "supporting",
+   "_sourceQuality": "secondary",
+   "_publishDate": "2026-05-27"
+  },
+  {
+   "claim": "The article frames this as the first time a serving Vox councillor has been procesada for a delito de odio, indicating that as of May 2026 the population of Spanish sitting elected officials formally charged under art. 510 is small enough to be enumerated case by case.",
+   "quote": "Un juez procesa por primera vez a una concejal de Vox en ejercicio por delito de odio",
+   "importance": "supporting",
+   "_sourceQuality": "secondary",
+   "_publishDate": "2026-05-27"
+  },
+  {
+   "claim": "The Manifesto Project's unit of analysis is the quasi-sentence — exactly one statement — and every quasi-sentence is assigned to one and only one of 56 standard categories grouped into seven policy domains, with 12 categories further split into subcategories that coders must use in place of the main category. This gives a reproducible, pre-registered coding frame that a Spanish discourse tracker could adopt rather than inventing ad hoc labels.",
+   "quote": "The coding unit is a quasi-sentence. One quasi-sentence contains exactly one statement or \"message\". ... The Manifesto Project developed a category system whereby each quasi-sentence of every manifesto is coded into one, and only one, of 56 standard categories. The 56 categories are grouped into seven major policy areas ... Furthermore, 12 categories are split up into 2 or more subcategories",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "May 2021 (5th edition; PDF file created 2022-11-10)"
+  },
+  {
+   "claim": "The scheme has no category for \"hate speech\", \"hateful\" or discriminatory intent; the nearest constructs are positional and topic-based — 601.2 Immigration: Negative, 608.1/608.2 Multiculturalism: Negative (cultural homogeneity, assimilation), 608.3 Indigenous rights: Negative, 605.1 Law and Order, 603 Traditional Morality: Positive, and the positive counterparts 602.2, 607.x, 705. A defensible tracker can therefore report measured salience of anti-immigration/anti-multiculturalism positions but cannot derive a \"hateful\" label from Manifesto Project categories.",
+   "quote": "601.2 Immigration: Negative — Statement advocating the restriction of the process of immigration ... 608.1 General — The enforcement or encouragement of cultural integration. Appeals for cultural homogeneity in society. 608.2 Immigrant Integration: Assimilation — Calls for immigrants that are in the country to adopt the manifesto countrys culture and fully assimilate.",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "May 2021 (5th edition; PDF file created 2022-11-10)"
+  },
+  {
+   "claim": "Coding is manifest-content coding of what the party states, explicitly barring the coder's own judgement about whether a claim is right, realistic or will produce the stated outcome — the methodological rule that maps directly onto the project's \"no inferred stances\" constraint.",
+   "quote": "coders need to make sure that the statement is coded as it reads. If a party claims that their policy proposal has certain outcomes, this needs to be coded as it stands, even if coders think that these policies will lead to other or even opposing results ... Any personal judgements (of 'rightness' or 'wrongness', whether a statement is realistic or sensible, etc.) need to be avoided.",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "May 2021 (5th edition; PDF file created 2022-11-10)"
+  },
+  {
+   "claim": "Background country knowledge may be used only as a last-resort tie-breaker for ambiguous quasi-sentences, and personal belief about parties or politicians is explicitly excluded as a coding input — with a specific warning about coding one's favourite and least favourite parties.",
+   "quote": "Coders should draw on background knowledge to help determine the code of ambiguous quasi-sentences only. However, coders should only do so if no other clues are available. In all cases, personal bias must be avoided! Such bias causes distortion. Coders should be especially careful when coding their most favourite and least favourite parties!",
+   "importance": "supporting",
+   "_sourceQuality": "primary",
+   "_publishDate": "May 2021 (5th edition; PDF file created 2022-11-10)"
+  },
+  {
+   "claim": "Coder qualification is a two-test human training pipeline (training test then entry test, each repeatable twice) adjudicated qualitatively by a single named supervisor — not an inter-coder reliability coefficient such as Krippendorff's alpha, which the handbook never specifies. Any tracker citing Manifesto-style coding as its warrant must supply its own reliability statistics.",
+   "quote": "Central features of the training process are the successful completion of two tests by every coder: one training test and one entry test. ... The supervisor decides on the basis of the quality of coding whether coders have sufficient understanding of the coding process to begin production coding. ... If necessary, each test can be taken twice.",
+   "importance": "supporting",
+   "_sourceQuality": "primary",
+   "_publishDate": "May 2021 (5th edition; PDF file created 2022-11-10)"
+  },
+  {
+   "claim": "Spain's Fiscalía General del Estado publishes annual, nationally aggregated hate-crime prosecution counts: 477 diligencias de investigación preprocesal opened in 2024 versus 511 in 2023, giving a verifiable official baseline series for art. 510 CP activity independent of Interior Ministry police statistics.",
+   "quote": "En el año 2024 se incoaron 477 diligencias de investigación preprocesal frente a las 511 diligencias del año 2023",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "2025 (Memoria FGE 2025, reporting on activity during calendar year 2024)"
+  },
+  {
+   "claim": "Prosecutorial output rose sharply in 2024: 293 escritos de acusación versus 210 in 2023 (~40% increase), and 173 sentencias were received of which 129 (74.5%) were convictions and 44 (25.5%) acquittals — so conviction outcomes, not just accusations, are officially counted and publishable.",
+   "quote": "los/las fiscales especialistas reflejan en sus memorias un total de 293 escritos de acusación frente a los 210 del ejercicio de 2023",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "2025 (Memoria FGE 2025, reporting on activity during calendar year 2024)"
+  },
+  {
+   "claim": "Conviction/acquittal breakdown is stated explicitly in the Memoria, meaning a tracker can cite official aggregate conviction rates for hate crimes without inferring them from case samples.",
+   "quote": "Suma global de sentencias condenatorias es de 129 (74,5%). Suma global de sentencias absolutorias es de 44 (25,5%).",
+   "importance": "supporting",
+   "_sourceQuality": "primary",
+   "_publishDate": "2025 (Memoria FGE 2025, reporting on activity during calendar year 2024)"
+  },
+  {
+   "claim": "The Memoria links the hate-crime climate to political discourse only in general, non-nominative terms — it names no party or politician as prosecuted — so it supports a contextual claim about political rhetoric but cannot be used to attach a hate label to any named politician.",
+   "quote": "la excesiva crispación y polarización a la que estamos asistiendo en los discursos políticos, con graves descalificaciones",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "2025 (Memoria FGE 2025, reporting on activity during calendar year 2024)"
+  },
+  {
+   "claim": "About 40% of 2024 hate-crime investigations (192 of 477) were committed via internet or social media, which is the channel where party and politician campaign content circulates — relevant to any attempt to connect campaign digital spending to prosecuted conduct.",
+   "quote": "en 192 diligencias de investigación, se cometieron por internet o redes sociales, lo que representa el 40% aproximadamente",
+   "importance": "supporting",
+   "_sourceQuality": "primary",
+   "_publishDate": "2025 (Memoria FGE 2025, reporting on activity during calendar year 2024)"
+  },
+  {
+   "claim": "The Observatorio Madrileño contra la LGTBfobia (Arcópoli) recorded 326 LGTB hate incidents in the Comunidad de Madrid in 2017 and explicitly frames the figure as an incidence count that is not a prevalence estimate, citing FRA's estimate that only ~10% of hate crimes become known — so NGO counts cannot be read as real incidence.",
+   "quote": "En 2017 hemos conseguido registrar 326 incidentes de odio al colectivo LGTB, lo cual es una cifra importante en esta labor, pero solo implica una tendencia, una indicación.",
+   "importance": "supporting",
+   "_sourceQuality": "primary",
+   "_publishDate": "2018 (covers calendar year 2017; internal citations dated 5 February 2018)"
+  },
+  {
+   "claim": "The report's methodology drops cases whose LGTBphobic motivation is doubtful rather than coding them by inference — a documented exclusion rule that matches a 'verifiable records only' classification standard.",
+   "quote": "Aquellos casos cuya motivación LGTBfoba puede resultar dudosa no se han incluido de momento, así como aquellos datos estadísticos que... no están suficientemente recogidos.",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "2018 (covers calendar year 2017; internal citations dated 5 February 2018)"
+  },
+  {
+   "claim": "The observatory deliberately uses a broader unit of analysis than criminal law: 'incidente de odio o discriminatorio' covers both Código Penal offences and administrative illicits, so its counts are not comparable to art. 510 prosecutions or Ministerio del Interior police-recorded figures.",
+   "quote": "Por ello hablamos siempre de incidentes de odio o discriminatorios, donde incluimos los delitos y los ilícitos administrativos.",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "2018 (covers calendar year 2017; internal citations dated 5 February 2018)"
+  },
+  {
+   "claim": "When naming an organised actor (HazteOír) as a source of anti-LGTBI discourse, the report attaches explicit opinion/alleged hedging AND anchors the claim to a dated formal filing: Arcópoli lodged a written denuncia on 28 February 2017 with the Comunidad de Madrid's Consejería de Servicios Sociales seeking administrative sanction under Ley 3/2016, quoting the bus slogans verbatim. This is a reproducible template for attaching a defensible label to a named actor.",
+   "quote": "Arcópoli presentó el 28 de febrero de 2017 un escrito de denuncia ante la Consejería de Servicios Sociales de la Comunidad de Madrid... es una campaña de Hazteoir.org",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "2018 (covers calendar year 2017; internal citations dated 5 February 2018)"
+  },
+  {
+   "claim": "Police-recorded LGTBphobia hate crimes in the Comunidad de Madrid rose from 12 in 2013 to 687 in 2017 per Ministerio del Interior data cited by the report — roughly 500% — which the report attributes partly to reporting/institutional change, warning that official series cannot be read as raw incidence trend.",
+   "quote": "desde 2013, donde hubo registrados 12 delitos de odio por LGTBfobia en la Comunidad de Madrid según el Ministerio del Interior, a 2017 donde han registrado 687... casi un 500%",
+   "importance": "supporting",
+   "_sourceQuality": "primary",
+   "_publishDate": "2018 (covers calendar year 2017; internal citations dated 5 February 2018)"
+  },
+  {
+   "claim": "On appeal, Section Two of the Audiencia Provincial de Madrid upheld the provisional dismissal (sobreseimiento provisional) of the criminal case over Vox's 'menas' campaign poster, finding no delito de odio and no delito electoral in the messages Vox disseminated during the May 2021 Madrid Assembly election campaign. This is a decisive negative precedent: a party's campaign material was tested judicially under hate-crime law and produced no finding of hate conduct.",
+   "quote": "entendía que no existe delito de odio ni delito electoral en los mensajes que el Partido Político VOX difundió en la campaña electoral relativa a las elecciones a la Asamblea de la Comunidad de Madrid, celebradas el pasado mes de mayo; fundamentación que ahora ratifica la Audiencia Provincial",
+   "importance": "central",
+   "_sourceQuality": "secondary",
+   "_publishDate": "2021-07-19"
+  },
+  {
+   "claim": "The underlying dismissal order was issued on 29 April 2021 by Juzgado de Instrucción nº 53 de Madrid, on the ground that there were no indications the denounced facts even prima facie amounted to a criminal offence — giving a citable, dated, court-level record (auto de 29 de abril de 2021, 'caso del cartel de los menas') rather than an inferred characterisation.",
+   "quote": "contra el auto de 29 de abril de 2021, por el que el Juzgado de Instrucción nº 53 de Madrid decretó el sobreseimiento provisional de las diligencias abiertas por el denominado 'caso del cartel de los menas'",
+   "importance": "central",
+   "_sourceQuality": "secondary",
+   "_publishDate": "2021-07-19"
+  },
+  {
+   "claim": "The prosecution service (Fiscalía) itself was one of the appellants against the dismissal, alongside PSOE, Podemos, Izquierda Unida, the Unidas Podemos electoral coalition and the association 'Progresa' — showing that Fiscalía involvement in a hate-speech case against campaign material is a retrievable public record but is not equivalent to an official finding of hate conduct.",
+   "quote": "desestimar el recurso de apelación formulado por la Fiscalía, la Asociación Ciudadana Progresista 'Progresa', PSOE, Podemos, Izquierda Unida y la coalición electoral Unidas Podemos",
+   "importance": "central",
+   "_sourceQuality": "secondary",
+   "_publishDate": "2021-07-19"
+  },
+  {
+   "claim": "The court's stated reasoning sets a high bar for treating campaign material as criminal hate speech: it framed the poster within legitimate ideological-partisan struggle in an electoral contest, invoked the rule against interpretations contra reo where non-criminal readings are available, and held the poster must be read as addressed to a far broader group than unaccompanied minors.",
+   "quote": "la legítima lucha ideológica-partidista en el marco de una contienda electoral donde constituye una máxima de la experiencia los excesos verbales que se cometen por unos y otros actores políticos; y el hecho de recordar que en el orden penal están prohibidas las interpretaciones contra reo, cuando quepan otras explicaciones no necesariamente delictivas",
+   "importance": "supporting",
+   "_sourceQuality": "secondary",
+   "_publishDate": "2021-07-19"
+  },
+  {
+   "claim": "The appellate order is final and not subject to further appeal, so the case cannot be cited as pending or unresolved; any tracker relying on it must record it as a closed case with a no-offence outcome.",
+   "quote": "Este auto es firme y, por tanto, contra ella no cabe la interposición de recurso alguno.",
+   "importance": "supporting",
+   "_sourceQuality": "secondary",
+   "_publishDate": "2021-07-19"
+  },
+  {
+   "claim": "The Ministerio del Interior's official hate-crime report series is published only as downloadable PDF files — every edition listed on the landing page (2018 through 2023, plus a 2024 victims/witnesses survey report) links to a .pdf under /opencms/pdf/..., with no CSV, XLSX, JSON or API endpoint offered on the page. Any dataset for a tracker must therefore be extracted from PDF, not ingested machine-readably from this source.",
+   "quote": "Informe sobre la evolución de los delitos de odio en España 2023 (NIPO: 126-20-020-7) || https://www.interior.gob.es/opencms/pdf/archivos-y-documentacion/documentacion-y-publicaciones/publicaciones-descargables/publicaciones-periodicas/informe-sobre-la-evolucion-de-los-delitos-de-odio-en-Espana/Informe-evolucion-delitos-odio_126200207_pdfWEB.pdf",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "Landing page undated; latest annual edition covers 2023, latest item is the 2024 hate-crime survey report (NIPO 126-25-019-7, 2025 NIPO year). Page state observed 2026-09-06."
+  },
+  {
+   "claim": "The landing page's full run of the annual series covers only 2018–2023 (seven items total, the seventh being a 2024 survey report), so the publicly indexed annual hate-crime time series from this page starts at the 2018 edition and its most recent annual edition as of September 2026 is the 2023 one.",
+   "quote": "Informe sobre la evolución de los delitos de odio en España 2023 (NIPO: 126-20-020-7) ... Informe sobre la evolución de los delitos de odio en España: 2018 (NIPO 126-19-016-8)",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "Landing page undated; latest annual edition covers 2023, latest item is the 2024 hate-crime survey report (NIPO 126-25-019-7, 2025 NIPO year). Page state observed 2026-09-06."
+  },
+  {
+   "claim": "Alongside the police-recorded annual reports, the Ministry publishes a separate victimisation-survey report, 'Informe de la encuesta sobre delitos de odio (2024): víctimas y testigos' (NIPO 126-25-019-7), which provides a second, survey-based measurement channel distinct from recorded-incident counts and relevant to under-reporting estimates.",
+   "quote": "Informe de la encuesta sobre delitos de odio (2024): víctimas y testigos (NIPO: 126-25-019-7)",
+   "importance": "supporting",
+   "_sourceQuality": "primary",
+   "_publishDate": "Landing page undated; latest annual edition covers 2023, latest item is the 2024 hate-crime survey report (NIPO 126-25-019-7, 2025 NIPO year). Page state observed 2026-09-06."
+  },
+  {
+   "claim": "The landing page routes users seeking further statistical data to the Portal Estadístico de Criminalidad at estadisticasdecriminalidad.ses.mir.es, which is the separate system (rather than interior.gob.es itself) where any tabular or query-based criminality statistics would be sought.",
+   "quote": "Ver más publicaciones del Portal Estadístico de Criminalidad || https://estadisticasdecriminalidad.ses.mir.es/publico/portalestadistico/publicaciones.html",
+   "importance": "supporting",
+   "_sourceQuality": "primary",
+   "_publishDate": "Landing page undated; latest annual edition covers 2023, latest item is the 2024 hate-crime survey report (NIPO 126-25-019-7, 2025 NIPO year). Page state observed 2026-09-06."
+  },
+  {
+   "claim": "The interior.gob.es page is served behind protection that returns HTTP 403 to plain HTTP fetchers and only renders via a full browser engine, meaning automated ingestion of the hate-crime reports requires a headless-browser scraper rather than a simple HTTP client.",
+   "quote": "The server returned HTTP 403 Forbidden.",
+   "importance": "tangential",
+   "_sourceQuality": "primary",
+   "_publishDate": "Landing page undated; latest annual edition covers 2023, latest item is the 2024 hate-crime survey report (NIPO 126-25-019-7, 2025 NIPO year). Page state observed 2026-09-06."
+  },
+  {
+   "claim": "The Junta Electoral de Zona de Madrid ordered Vox to remove within one day a large banner (lona) in central Madrid displaying the slogan \"Decide lo que importa\" with a hand wearing a Spanish-flag wristband throwing the LGBTQ+ flag and the feminist movement symbol into a rubbish bin — a documented, retrievable JEC/JEZ ruling attached to specific party campaign material with anti-LGBTI content.",
+   "quote": "The banner displayed the slogan \"Decide lo que importa\" (Decide what matters) alongside an image of a hand wearing a Spanish flag bracelet discarding various symbols into a trash bin, including the LGBTQ+ flag and feminist movement logo.",
+   "importance": "central",
+   "_sourceQuality": "secondary",
+   "_publishDate": "2023-06-27"
+  },
+  {
+   "claim": "The electoral board's legal ground was Article 53 LOREG (ban on diffusing electoral propaganda between election convocation and the official campaign start), not any content-based or anti-discrimination provision — so this record proves an electoral-timing infringement, not an official hate-speech finding.",
+   "quote": "**Article 53 of the Organic Law of the Electoral System (LOREG):** The board cited this article, which prohibits electoral propaganda between election convocation and campaign start, stating: \"no se puede difundir propaganda electoral\" during prohibited periods, particularly through commercial advertising supports.",
+   "importance": "central",
+   "_sourceQuality": "secondary",
+   "_publishDate": "2023-06-27"
+  },
+  {
+   "claim": "The board expressly declined competence to rule on whether the banner's imagery was discriminatory, confirming that Junta Electoral rulings cannot be used as official determinations of hate or discrimination — such labels require a different body (Fiscalía, courts, equality bodies).",
+   "quote": "It stated: \"no es competente para pronunciarse\" regarding the banner's potentially discriminatory imagery, limiting its assessment to electoral regulation compliance rather than hate speech evaluation.",
+   "importance": "central",
+   "_sourceQuality": "secondary",
+   "_publishDate": "2023-06-27"
+  },
+  {
+   "claim": "The ruling relied on Acuerdo 131/2023 of the Junta Electoral Central, which interprets voter-persuading messages as electoral propaganda even without an explicit request for votes — a citable JEC doctrine usable to classify party advertising material as campaign spend/propaganda.",
+   "quote": "The board also referenced **Agreement 131/2023 from the Central Electoral Board**, interpreting that messages persuading voters constitute propaganda regardless of whether they explicitly request votes.",
+   "importance": "supporting",
+   "_sourceQuality": "secondary",
+   "_publishDate": "2023-06-27"
+  },
+  {
+   "claim": "The proceeding was initiated by a PSOE complaint against Vox and resolved by the Madrid zone board, illustrating that JEZ/JEC complaint-and-resolution records are a party-vs-party, per-campaign-item paper trail available for systematic retrieval.",
+   "quote": "Junta Electoral de Zona de Madrid (Madrid Electoral Zone Board)",
+   "importance": "supporting",
+   "_sourceQuality": "secondary",
+   "_publishDate": "2023-06-27"
+  },
+  {
+   "claim": "The official party-accounts portal's Observatorio publishes only compliance/filing status (whether an entity submitted annual accounts, on time or late), not the contents of those accounts — so no expense granularity is available here; the portal redirects users to each party's own transparency page for account content.",
+   "quote": "Para acceder al contenido de las cuentas anuales, consulte los portales de transparencia de las páginas web de cada entidad",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "2026-09-06 (stated last update)"
+  },
+  {
+   "claim": "Compliance data on the Observatorio begins with fiscal year 2016 annual accounts, so any longitudinal series of party reporting compliance built from this source cannot start earlier than 2016.",
+   "quote": "Se ofrecen datos de rendición a partir de las cuentas anuales correspondientes al ejercicio 2016",
+   "importance": "supporting",
+   "_sourceQuality": "primary",
+   "_publishDate": "2026-09-06 (stated last update)"
+  },
+  {
+   "claim": "The Observatorio's metrics are limited to two compliance indicators — submission before the 30 June legal deadline (\"En plazo\") and submission as of the current date (\"A fecha actual\") — presented as comparative counts and percentages by entity type for 2020-2024.",
+   "quote": "Consulte el estado de rendición de las cuentas anuales de los partidos políticos",
+   "importance": "supporting",
+   "_sourceQuality": "primary",
+   "_publishDate": "2026-09-06 (stated last update)"
+  },
+  {
+   "claim": "Reporting scope covers more than parties themselves: coalitions, federations, party-linked foundations, voter groupings (agrupaciones de electores) and party-owned commercial companies/associations are tracked as separate entity types, meaning a money-trail tracker must enumerate these satellite entities, not just registered parties.",
+   "quote": "Consulte el estado de rendición de las cuentas anuales de los partidos políticos",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "2026-09-06 (stated last update)"
+  },
+  {
+   "claim": "The page offers no machine-readable distribution — no CSV, Excel, API or open-data endpoint is advertised for the compliance data, which is rendered as on-page tables; last content update stated as 06/09/2026.",
+   "quote": "Rendición Cuentas Partidos Políticos - Observatorio de rendición",
+   "importance": "supporting",
+   "_sourceQuality": "primary",
+   "_publishDate": "2026-09-06 (stated last update)"
+  },
+  {
+   "claim": "The Tribunal de Cuentas fiscalises Spanish political parties on two distinct tracks: annual accounting of parties receiving operating subsidies, and electoral income/expenditure compliance per electoral process — so party money oversight splits into two separate report series to retrieve.",
+   "quote": "la contabilidad anual de los partidos políticos que perciben subvenciones para gastos de funcionamiento",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "not stated (undated institutional hub page; fetched 2026-09-07)"
+  },
+  {
+   "claim": "Electoral fiscalización is framed as compliance verification of income and expenditure rules in electoral processes, not as itemised expenditure publication, which limits what granularity the TCU hub itself guarantees.",
+   "quote": "que las formaciones políticas cumplen la normativa en materia de ingresos y gastos en los procesos electorales",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "not stated (undated institutional hub page; fetched 2026-09-07)"
+  },
+  {
+   "claim": "Party expense line items are defined by a sector-specific chart of accounts, the Plan de Contabilidad Adaptado a las Formaciones Políticas, not by the hub page itself; the hub exposes no open-data endpoint, API or machine-readable dataset, so a spending tracker must parse PDFs.",
+   "quote": "Plan de Contabilidad Adaptado a las Formaciones Políticas",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "not stated (undated institutional hub page; fetched 2026-09-07)"
+  },
+  {
+   "claim": "A separate dedicated portal, cuentaspartidospoliticos.es, is the accounts-submission/rendición channel linked from the TCU hub — a second retrieval target beyond tcu.es for party financial filings.",
+   "quote": "Rendición de Cuentas de Partidos Políticos",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "not stated (undated institutional hub page; fetched 2026-09-07)"
+  },
+  {
+   "claim": "Legal basis for the fiscalización is LO 8/2007 on party financing plus LO 6/2002 on political parties and LO 5/1985 (LOREG) for electoral accounts — the statutes that fix what parties must declare.",
+   "quote": "Ley Orgánica 8/2007",
+   "importance": "supporting",
+   "_sourceQuality": "primary",
+   "_publishDate": "not stated (undated institutional hub page; fetched 2026-09-07)"
+  },
+  {
+   "claim": "The Sección Segunda of the Audiencia Provincial de Madrid dismissed the appeals and confirmed the definitive archiving (archivo) of the criminal case over Vox's 2021 Madrid Assembly campaign poster about unaccompanied foreign minors (\"menas\"), rejecting both a hate crime (delito de odio) and an electoral offence; the ruling is final with no further appeal available.",
+   "quote": "La Sección Segunda de la Audiencia Provincial de Madrid desestimó el recurso de apelación, ratificando el archivo de las diligencias. ... La resolución es firme; no cabe recurso.",
+   "importance": "central",
+   "_sourceQuality": "secondary",
+   "_publishDate": "2021-07-19"
+  },
+  {
+   "claim": "The court's reasoning placed the poster within legitimate electoral partisan ideological struggle, invoking the criminal-law prohibition on interpretations against the accused, which shows Spanish courts set a high threshold before campaign material can be criminally labelled as hate speech.",
+   "quote": "la legítima lucha ideológica-partidista\" ... \"en el orden penal están prohibidas las interpretaciones contra reo",
+   "importance": "central",
+   "_sourceQuality": "secondary",
+   "_publishDate": "2021-07-19"
+  },
+  {
+   "claim": "The court further narrowed the art. 510-type target-group element by reading the poster as addressed to a much larger collective than unaccompanied minors themselves, i.e. it declined to treat the poster as directed at a protected group.",
+   "quote": "un mensaje electoral dirigido a un colectivo mucho más numeroso que el de los menas",
+   "importance": "supporting",
+   "_sourceQuality": "secondary",
+   "_publishDate": "2021-07-19"
+  },
+  {
+   "claim": "The first-instance archiving was ordered by Auto of the Juzgado de Instrucción nº 53 de Madrid dated 29 April 2021, which found no indicia that the reported facts amounted to a criminal offence — giving a citable, retrievable resolution identifier for a per-politician/per-party record.",
+   "quote": "Auto del Juzgado de Instrucción nº 53 de Madrid, 29 de abril de 2021**: Concluyó que \"no hay indicios de que los hechos denunciados revistan de forma indiciaria caracteres de infracción penal\"",
+   "importance": "supporting",
+   "_sourceQuality": "secondary",
+   "_publishDate": "2021-07-19"
+  },
+  {
+   "claim": "The complainants/appellants included the Fiscalía itself alongside PSOE, Podemos, Izquierda Unida, Unidas Podemos and the Asociación Ciudadana Progresista \"Progresa\" — so even prosecutorial involvement in a party-campaign hate-speech complaint did not produce a conviction or any official hate finding.",
+   "quote": "Fiscalía, Asociación Ciudadana Progresista \"Progresa\", PSOE, Podemos, Izquierda Unida y Unidas Podemos.",
+   "importance": "central",
+   "_sourceQuality": "secondary",
+   "_publishDate": "2021-07-19"
+  },
+  {
+   "claim": "LOREG art. 130 legally defines \"gasto electoral\" as spending by parties, federations, coalitions or voter groupings running in an election, limited to the window from the day the election is called (convocatoria) to the day elected candidates are proclaimed — so the reporting period for any spending-trail analysis is legally bounded, not the whole campaign year.",
+   "quote": "Se consideran gastos electorales los que realicen los partidos, federaciones, coaliciones o agrupaciones participantes en las elecciones desde el día de la convocatoria hasta el de la proclamación de electos por los siguientes conceptos:",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "Consolidated version in force from 2015-04-01; page shows version period 2015-01-01 to 2016-11-01 (art. 130 last amended by LO 8/1991)"
+  },
+  {
+   "claim": "Art. 130 enumerates eight closed expense categories (a–h), which are the statutory line items parties must classify electoral spending into: ballot envelopes/papers, propaganda and publicity, rental of rally venues, temporary campaign staff pay, transport/travel of candidates and leadership, postage and mailings, interest on campaign loans, and electoral-office operating costs.",
+   "quote": "a) Confección de sobres y papeletas electorales... b) Propaganda y publicidad directa o indirectamente dirigida a promover el voto a sus candidaturas, sea cualquiera la forma y el medio que se utilice... f) Correspondencia y franqueo",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "Consolidated version in force from 2015-04-01; page shows version period 2015-01-01 to 2016-11-01 (art. 130 last amended by LO 8/1991)"
+  },
+  {
+   "claim": "Category b) is drafted medium-neutral — propaganda and publicity promoting a candidacy counts \"whatever the form and medium used\" — meaning digital and social-media advertising falls inside the same single statutory bucket as print and broadcast, with no separate digital-ads line item mandated by art. 130.",
+   "quote": "Promotional activities and advertising intended to encourage votes for candidacies, regardless of form or medium",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "Consolidated version in force from 2015-04-01; page shows version period 2015-01-01 to 2016-11-01 (art. 130 last amended by LO 8/1991)"
+  },
+  {
+   "claim": "The article's current wording derives from an amendment made by Ley Orgánica 8/1991, and the JEC page serves a version-dated consolidated text (version in force from 1 April 2015, displayed for the period 1 January 2015 – 1 November 2016), so the definition of electoral expense has been stable in substance for decades and can be applied consistently across historical election accounts.",
+   "quote": "Article 130 was modified by Article 49, sole provision of Organic Law 8/1991. The version displayed reflects amendments current through April 1, 2015.",
+   "importance": "supporting",
+   "_sourceQuality": "primary",
+   "_publishDate": "Consolidated version in force from 2015-04-01; page shows version period 2015-01-01 to 2016-11-01 (art. 130 last amended by LO 8/1991)"
+  },
+  {
+   "claim": "The JEC publishes LOREG article text only as an HTML/PDF legal-content page indexed by content ID and alphabetical letter, with no accompanying dataset or API for the expense categories — confirming the statutory framework is machine-readable only as prose, while the actual per-party figures must be sought in Tribunal de Cuentas fiscalización reports.",
+   "quote": "LOREG Article 130: Electoral Expenses Definition",
+   "importance": "tangential",
+   "_sourceQuality": "primary",
+   "_publishDate": "Consolidated version in force from 2015-04-01; page shows version period 2015-01-01 to 2016-11-01 (art. 130 last amended by LO 8/1991)"
+  },
+  {
+   "claim": "A Spanish court (Tribunal de Instancia de Valencia) formally ordered the opening of oral trial against a sitting Vox city councillor in Valencia, Cecilia Herrero, for a hate crime — the first such prosecution of a serving Vox councillor. This is a per-politician verifiable judicial record of the type a tracker could cite.",
+   "quote": "El Tribunal de Instancia de Valencia ha acordado la apertura de juicio oral contra la concejal de Vox",
+   "importance": "central",
+   "_sourceQuality": "secondary",
+   "_publishDate": "2026-05-27"
+  },
+  {
+   "claim": "The charge is brought under Código Penal art. 510.1 and 510.2, confirming those subsections are the operative legal hooks for prosecuting politicians' public discourse in Spain.",
+   "quote": "El instructor dirige la causa por los apartados 510.1 y 510.2 del Código Penal",
+   "importance": "central",
+   "_sourceQuality": "secondary",
+   "_publishDate": "2026-05-27"
+  },
+  {
+   "claim": "The Fiscalía requested 3 years' imprisonment plus a 12-month fine, giving a concrete, checkable prosecutorial penalty figure attached to a named politician's case.",
+   "quote": "La Fiscalía solicita inicialmente una pena de tres años de prisión y doce meses de multa",
+   "importance": "supporting",
+   "_sourceQuality": "secondary",
+   "_publishDate": "2026-05-27"
+  },
+  {
+   "claim": "The proceeding originated from a criminal complaint (denuncia) filed by a political party, Compromís, in April 2024 — showing that party-filed denuncias are a traceable entry point into the hate-crime judicial record, not only Fiscalía-initiated action.",
+   "quote": "El procedimiento judicial nació tras una denuncia presentada por Compromís en abril de 2024",
+   "importance": "supporting",
+   "_sourceQuality": "secondary",
+   "_publishDate": "2026-05-27"
+  },
+  {
+   "claim": "The prosecuted conduct consists of specific dated social-media posts (2020-2024) targeting Maghrebi/Muslim immigrants, LGBTI people, racialised persons and people with disabilities, meaning the evidentiary basis is quotable published material rather than inferred stance.",
+   "quote": "No son ni migrantes ni inmigrantes. Son INVASORES",
+   "importance": "central",
+   "_sourceQuality": "secondary",
+   "_publishDate": "2026-05-27"
+  },
+  {
+   "claim": "A Tribunal Supremo (Sala de lo Penal) auto of 29 July 2021 held that art. 510 Código Penal protects the social minorities listed in the provision but not other collectives such as political parties, so calling a rival party fascist/Nazi is not a hate crime.",
+   "quote": "El delito de odio defiende a esas minorías sociales, citadas en el texto del precepto comentado, pero no a otros colectivos, como es el caso de los partidos políticos",
+   "importance": "central",
+   "_sourceQuality": "blog",
+   "_publishDate": "2021-09-29"
+  },
+  {
+   "claim": "The concrete expressions examined in that auto were an accusation that another party \"haga publicidad filofascista\" and that its members would end up being \"unos nazis, pero ya a cara descubierta\" — i.e. campaign-material and advertising characterisations, which the court declined to treat as art. 510 conduct.",
+   "quote": "Expresiones referidas en el caso concreto de este auto, señalando que otro partido «haga publicidad filofascista» y que «acaben siendo evidentemente lo que son, unos nazis, pero ya a cara descubierta»",
+   "importance": "central",
+   "_sourceQuality": "blog",
+   "_publishDate": "2021-09-29"
+  },
+  {
+   "claim": "Parliamentary inviolability under Art. 71.1 CE is treated as travelling with the parliamentarian wherever representative functions are exercised, not confined to the chamber, which blocks criminal, civil and administrative liability for opinions so expressed.",
+   "quote": "La representación popular de la que está investido el parlamentario tiene carácter ambulatorio y acompaña a éstos donde quiera que se encuentren y ejerzan sus funciones representativas",
+   "importance": "central",
+   "_sourceQuality": "blog",
+   "_publishDate": "2021-09-29"
+  },
+  {
+   "claim": "Art. 510 CP enumerates the protected characteristics as race, national origin, sex, sexual orientation, gender identity, disability, ideology, religion or beliefs, and requires public incitement to hatred, hostility, discrimination or violence — setting the threshold any per-politician hate-conduct record must meet.",
+   "quote": "El delito de odio defiende a esas minorías sociales, citadas en el texto del precepto comentado",
+   "importance": "supporting",
+   "_sourceQuality": "blog",
+   "_publishDate": "2021-09-29"
+  },
+  {
+   "claim": "The auto is identified only as an \"Auto en causa especial de fecha 29 de julio de 2021\" of the Tribunal Supremo Sala de lo Penal, with no case number or named politician given in the commentary — so retrieval of the primary record requires a CENDOJ/causa especial lookup rather than this source.",
+   "quote": "Auto en causa especial de fecha 29 de julio de 2021",
+   "importance": "supporting",
+   "_sourceQuality": "blog",
+   "_publishDate": "2021-09-29"
+  },
+  {
+   "claim": "The Fiscalía General del Estado's specialised hate-crime service publishes annual national prosecution counts: 477 preprocedural investigations (diligencias de investigación preprocesal) opened in 2024, down from 511 in 2023 — an official, per-year series usable as a denominator for hate-conduct tracking, though published as HTML/PDF narrative rather than as a dataset.",
+   "quote": "En el año 2024 se incoaron 477 diligencias de investigación preprocesal frente a las 511 diligencias del año 2023",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "2025 (Memoria de la Fiscalía General del Estado 2025, covering calendar year 2024; no exact publication date shown on page)"
+  },
+  {
+   "claim": "Prosecutions specifically under art. 510.2 a) CP (lesion of dignity on discriminatory grounds) nearly doubled year on year, from 85 escritos de acusación in 2023 to 162 in 2024, with total hate-crime accusations rising from 210 to 293 (~40% growth).",
+   "quote": "ha pasado de 85 escritos de acusación en el año 2023 a 162 en el año 2024",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "2025 (Memoria de la Fiscalía General del Estado 2025, covering calendar year 2024; no exact publication date shown on page)"
+  },
+  {
+   "claim": "The Memoria reports court outcomes as well as charging: of 173 sentencias handed down in 2024, 129 (74.5%) were convictions — meaning named-defendant art. 510 convictions exist in appreciable annual numbers and can in principle be located as judgments (CENDOJ) rather than inferred.",
+   "quote": "Suma global de sentencias condenatorias es de 129 (74,5%)",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "2025 (Memoria de la Fiscalía General del Estado 2025, covering calendar year 2024; no exact publication date shown on page)"
+  },
+  {
+   "claim": "The Fiscalía itself formally names political discourse as an aggravating environmental factor for hate crime, describing the polarisation of political speech as fertile ground for intolerant and occasionally violent street behaviour — an official institutional linkage of political rhetoric to hate conduct, but generic and not attributed to any named party or politician.",
+   "quote": "la excesiva crispación y polarización a la que estamos asistiendo en los discursos políticos",
+   "importance": "central",
+   "_sourceQuality": "primary",
+   "_publishDate": "2025 (Memoria de la Fiscalía General del Estado 2025, covering calendar year 2024; no exact publication date shown on page)"
+  },
+  {
+   "claim": "Roughly 40% of 2024 hate-crime investigations (192 of 477) concerned conduct committed via the internet or social networks, indicating that online/published material — the same channel as party digital campaigning — is the dominant medium in the official caseload.",
+   "quote": "en 192 diligencias de investigación, se cometieron por internet o redes sociales, lo que representa el 40% aproximadamente",
+   "importance": "supporting",
+   "_sourceQuality": "primary",
+   "_publishDate": "2025 (Memoria de la Fiscalía General del Estado 2025, covering calendar year 2024; no exact publication date shown on page)"
+  }
+ ],
+ "verificationVotes": [
+  {
+   "refuted": false,
+   "evidence": "Tried to refute; could not. (1) Quote supports claim directly. Primary source https://www.tcu.es/es/partidos-politicos/ confirmed on fetch: TCU approves \"informes ... sobre los estados financieros de los partidos políticos correspondientes a cada ejercicio, así como sobre la contabilidad electoral, verificando la regularidad y la adecuación de las cuentas rendidas\" — two named, distinct audit objects, presented as separate sections/streams. (2) Independent corroboration: TCU press releases exist as two separate series — \"Informe de fiscalización de las cuentas anuales de los partidos políticos y de las fundaciones y entidades vinculadas ... 2017\" (per ejercicio, 25 formaciones, 39 fundaciones) vs. \"Informe de fiscalización de las contabilidades de las elecciones a Cortes Generales de 28 de abril de 2019\" and the autonómicas 2023 report (per electoral process). Different titles, different numbering, different cadence. Legal basis matches: LO 8/2007 art. 16 (contabilidad anual) vs. LOREG arts. 133-134 (contabilidad electoral, 200-day fiscalización deadline). (3) Source quality is adequate — claim is a mundane institutional-structure fact, and the source is the auditing body itself. (4) Not outdated: the two-stream structure predates and survives the 2015 LO 3/2015 reform; the sede electrónica (sede.tcu.es/.../GRCuentas/PartidosPoliticos and cuentaspartidospoliticos.es) still separates \"cuentas anuales\" from \"contabilidad electoral\" rendición channels. (5) Not marketing.\n\nONE QUALIFICATION found that weakens (but does not refute) the second half of the claim: TCU states electoral control \"no se agota en las fiscalizaciones específicas de las contabilidades electorales, ya que éstas deben integrarse en las correspondientes cuentas anuales consolidadas de los partidos políticos\". So electoral income/expense figures do reappear, in aggregated/consolidated form, inside the annual accounts. The claim's \"must be traced through different documents\" is therefore true for ITEMISED campaign spending (only the per-process electoral report itemises publicidad, envíos, mítines, etc. against the LOREG art. 175 límites), but overstated if read as \"electoral money appears nowhere in the annual accounts\". Recommend the downstream use restate as: itemised campaign expense breakdown lives only in the per-process electoral report; the annual report carries the consolidated figure plus the subvención de funcionamiento.",
+   "confidence": "high",
+   "counterSource": "https://www.tcu.es/es/sala-de-prensa/noticias/El-Tribunal-de-Cuentas-ha-fiscalizado-las-contabilidades-de-las-elecciones-autonomicas-de-Cantabria-Castilla-La-Mancha-Extremadura-La-Rioja-y-Murcia-00001./ (states electoral accounts must also be integrated into the consolidated annual accounts — partial overlap between the two streams)"
+  },
+  {
+   "refuted": false,
+   "evidence": "Core claim survives adversarial check against the primary source. tcu.es/es/partidos-politicos/ states the Tribunal de Cuentas approves \"informes ... sobre los estados financieros de los partidos políticos correspondientes a cada ejercicio, así como sobre la contabilidad electoral, verificando la regularidad y la adecuación de las cuentas rendidas\" — i.e. two legally distinct fiscalización mandates (LO 8/2007 party financing accounts, annual; LOREG art. 134 electoral accounts, per electoral process), published as separate documents. Corroborated by named separate report series: \"Informe de fiscalización de los estados contables de los partidos políticos, ejercicio X\" (e.g. TCu nº 1108, nº 1042 on congreso.es) vs. per-process electoral reports (e.g. TCu nº 566, \"Informe de fiscalización ... elecciones autonómicas Cataluña 1999\", hosted on juntaelectoralcentral.es). So campaign spending and routine/subsidy spending genuinely are traced through different documents. Two qualifications that do NOT refute but weaken the precise wording: (1) \"per party\" is imprecise — TCu issues ONE consolidated report per ejercicio/per electoral process covering all formations (the 2017 annual report audited 25 political formations and 39 vinculated foundations in a single document), with per-party sections inside, not one report per party; (2) coverage is incomplete at TCu level — in autonomous communities with their own OCEX (Sindicatura de Comptes de Catalunya, Sindicatura de Comptes de la Comunitat Valenciana, Consello de Contas de Galicia, etc.) electoral accounting for autonomic elections is fiscalizado by that body, not TCu, so a full trace needs a third document family. Neither point contradicts the two-stream separation, which is the substantive assertion. Source is the auditing institution's own site (primary), the claim is structural/statutory rather than fast-moving, and no credible source disputes it.",
+   "confidence": "high",
+   "counterSource": "No contradicting source found. Nearest qualifications: consolidated multi-party report structure (TCu 2017 annual report, tcu.es press release, audits 25 formations in one document) undercuts the \"per party\" phrasing; autonomous-community OCEX competence over autonomic electoral accounts means TCu is not the sole publisher."
+  },
+  {
+   "refuted": false,
+   "evidence": "Attempted refutation failed on all five checklist axes.\n\n(1) Quote supports claim, no overreach. Primary source https://www.tcu.es/es/partidos-politicos/ states verbatim: \"informes que aprueba el Tribunal de Cuentas sobre los estados financieros de los partidos políticos correspondientes a cada ejercicio, así como sobre la contabilidad electoral\". Same page separately says the Pleno \"aprueba los informes de fiscalización correspondientes a las cuentas anuales de los partidos\" and covers \"la contabilidad de los procesos electorales\". The \"así como\" construction plus separate periodicity anchors (\"cada ejercicio\" vs. per electoral process) directly carry the two-stream claim.\n\n(2) No contradicting evidence found. Search returned only corroborating artifacts, and crucially two DIFFERENT title families exist in the wild: annual-stream reports (e.g. Informe nº 1108, nº 1.042, \"Fiscalizacion-TC-18-19\", TCU press release \"informe de fiscalización de las cuentas anuales de los partidos políticos y de las fundaciones y entidades vinculadas... correspondiente al 2017\") vs. electoral-stream reports (e.g. Informe nº 566, \"INFORME DE FISCALIZACIÓN SOBRE LA [contabilidad electoral]\" for Cataluña 1999, hosted by the Junta Electoral Central). Two independently numbered, differently-titled, differently-scoped document series is exactly the physical fact the claim asserts. Statutory basis matches: LO 8/2007 for annual accounts, LOREG (arts. 133-134) for electoral accounting — different legal mandates, different filing deadlines, different report streams.\n\n(3) Source quality exceeds the bar: the claim is descriptive/institutional, and the source is the auditing body's own site (primary), reinforced by third-party-hosted copies of both report types.\n\n(4) Not outdated: institutional structure is statutory and stable since 1987/2007; the 2017-2019 report examples and the current live TCU page confirm both streams still run.\n\n(5) Not marketing — official institutional description, no promotional framing.\n\nOnly qualification, not sufficient to refute: the claim's inference clause (\"must be traced through different documents\") is slightly stronger than the quote alone. Annual accounts do carry some electoral-subsidy traces (subvenciones electorales received appear in the ejercicio's statements), so the two streams are not hermetically sealed. But itemised campaign expenditure is only in the contabilidad electoral reports, so the practical guidance the claim gives is correct.",
+   "confidence": "high",
+   "counterSource": "No contradicting source found. Nearest qualification is self-sourced: annual (ejercicio) accounts still record electoral subsidies received, so the split is by report stream, not a total information partition — see TCU press release on the 2017 cuentas anuales report, https://www.tcu.es/en/sala-de-prensa/noticias/Aprobado-el-informe-de-fiscalizacion-de-las-cuentas-anuales-de-los-partidos-politicos-y-de-las-fundaciones-y-entidades-vinculadas-o-dependientes-de-ellos-correspondiente-al-2017/"
+  },
+  {
+   "refuted": true,
+   "evidence": "Quote supports only \"tcu.es/es/partidos-politicos/ links to cuentaspartidospoliticos.es\". Everything after that is overreach and factually wrong on two counts.\n\n(1) Submission does NOT happen on cuentaspartidospoliticos.es. It happens on the Tribunal's Sede Electrónica, sede.tcu.es/es/sede-electronica/GRCuentas/PartidosPoliticos (\"Rendición de Cuentas de los Partidos Políticos\"), which cites the \"Instrucción que regula la presentación telemática de las cuentas anuales consolidadas de los partidos políticos\" (Resolución 19 enero 2022). cuentaspartidospoliticos.es itself links OUT to that sede URL under \"Saber más\". sede.tcu.es is a tcu.es subdomain, not a \"second domain\".\n\n(2) The substantive spending data IS hosted on tcu.es. https://www.tcu.es/es/partidos-politicos/Informes/ serves the fiscalización PDFs directly from tcu.es infrastructure at paths like /export/sites/portal/repositorio2/INFORME/<year>/<n>.pdf — e.g. \"Informe de Fiscalización de las Elecciones a Cortes Generales de 28 de abril de 2019\", \"Informe de Fiscalización de las contabilidades de las elecciones locales de 28 de mayo de 2023\". Same page tree also has /Observatorio and /Sanciones. So a scraping pipeline for electoral/annual spending must target tcu.es, the opposite of the claim.\n\nWhat cuentaspartidospoliticos.es actually is: a public dissemination portal (Observatorio de rendición — whether a party filed, aggregate filing levels — plus noticias, FAQ, publicaciones). Useful as a supplement, not a required substitute. Neither domain exposes an API or machine-readable dataset of itemised expense categories, so the claim's practical implication (\"target that second domain\") would misdirect the pipeline.\n\nVerdict: unsupported by the quote and contradicted by the primary sources.",
+   "confidence": "high",
+   "counterSource": "https://sede.tcu.es/es/sede-electronica/GRCuentas/PartidosPoliticos ; https://www.tcu.es/es/partidos-politicos/Informes/ ; https://www.cuentaspartidospoliticos.es/es/saber-mas/"
+  },
+  {
+   "refuted": true,
+   "evidence": "The word \"sole\" is directly contradicted by the governing statute. Ley Orgánica 8/2007, art. 16.Uno (consolidated text, BOE-A-2007-13022, version of 30/05/2024) reads: \"Corresponde en exclusiva al Tribunal de Cuentas el control de la actividad económico-financiera de los partidos políticos, SIN PERJUICIO DE LAS COMPETENCIAS RELATIVAS A LA FISCALIZACIÓN DE LOS PROCESOS ELECTORALES AUTONÓMICOS ATRIBUIDAS A LOS ÓRGANOS DE CONTROL EXTERNO DE LAS COMUNIDADES AUTÓNOMAS PREVISTOS EN SUS RESPECTIVOS ESTATUTOS.\" The claim quotes the tcu.es marketing/summary page, which omits the statutory carve-out. That carve-out is operative, not theoretical: regional OCEX audit party electoral accounts for their own elections and can propose reducing or withholding the subsidy — e.g. Sindicatura de Comptes de Catalunya approved the instrucción to fiscalizar the 12-M 2024 Parlament electoral accounts (sindicatura.cat) and reported on mailing spending; Sindicatura de Cuentas del Principado de Asturias does the same for Junta General elections (sindicastur.es, \"Contabilidad electoral\"); both publish instructions via the Junta Electoral Central (juntaelectoralcentral.es/.../sindicatura_cuentas_22042024.pdf). So for autonomous-community campaigns the TCu is NOT the auditing body and its reports do not contain that money trail.\n\nSecond overreach: \"single authoritative source for a party money trail\" is an inference the quote does not make. TCu fiscalización covers registered parties (and, since LO 3/2015, their linked foundations), but not: subsidies to parliamentary groups in the Cortes and regional chambers (audited by the chambers themselves), grupos políticos municipales, the actual disbursement records held by Ministerio del Interior/Congreso, or Junta Electoral Central decisions on advances and campaign content. Also relevant to the research question: TCu output is PDF reports at sede.tcu.es, itemised only at coarse expense categories — calling it \"the\" money trail overstates its granularity as well as its exclusivity.\n\nThe narrow reading — TCu is the exclusive external auditor of party economic-financial activity at state level — is supported. The claim as written (\"sole body\", \"single authoritative source\") is not.",
+   "confidence": "high",
+   "counterSource": "https://www.boe.es/buscar/act.php?id=BOE-A-2007-13022 (LO 8/2007 art. 16.Uno, consolidated 30/05/2024); https://www.sindicatura.cat/es/-/el-ple-aprova-la-instrucci%C3%B3-per-fiscalitzar-la-comptabilitat-electoral-de-les-eleccions-al-parlament-del-12-m; https://sindicastur.es/contabilidad-electoral/"
+  },
+  {
+   "refuted": true,
+   "evidence": "Claim has two halves; the first is trivially true, the operative second half is contradicted.\n\nTRUE PART: cuentaspartidospoliticos.es exists and is the telematic submission channel. TCU approved an Instrucción (30 March 2017) regulating \"remisión telemática de las contabilidades anuales de los partidos políticos\", and the platform (https://www.cuentaspartidospoliticos.es/CuentasPartidos/home) is a login-gated app (\"Darse de alta\" / \"Área privada\", usuario+contraseña) for filings from ejercicio 2016 onward.\n\nOVERREACH vs THE QUOTE: the supporting quote is nothing but a hyperlink on tcu.es. It says nothing about where datasets live, nor that a pipeline \"must target that second domain\". That is inference, not what the source states.\n\nCONTRADICTED BY PRIMARY SOURCES: the actual fiscalización output — the reports containing itemised electoral and annual party spending — is hosted ON tcu.es, not on the second domain:\n- https://tcu.es/es/partidos-politicos/Informes/ (\"El Pleno aprueba los informes de fiscalización correspondientes a las cuentas anuales de los partidos y a los procesos electorales\")\n- https://www.tcu.es/es/partidos-politicos/Sanciones and https://www.tcu.es/es/potestad_sancionadora/index.html (sanctions data)\n- https://www.tcu.es/searcher/document/DocumentSearch.action?docCheckFisSelect=FIS:+PARTIDOS+POLÍTICOS (document searcher on tcu.es)\n\nFetching cuentaspartidospoliticos.es/es/saber-mas/ confirms the reverse direction of the claim: that portal \"links externally to tcu.es\" for fiscalización, pointing at sede.tcu.es, and \"does not host the actual expenditure data or detailed audit findings\". Its only public data layer is the Observatorio — whether a given party/fundación filed, plus aggregate compliance levels (e.g. \"347 partidos políticos y fundaciones presentan en tiempo y forma las cuentas del año 2021\") — not itemised gastos electorales.\n\nSo the practical instruction embedded in the claim is backwards for a scraping/dataset pipeline: the itemised-spending PDFs must be pulled from tcu.es; cuentaspartidospoliticos.es yields only filing-compliance metadata and is otherwise credential-gated (and scraping a login-gated filing portal is not an option anyway). At best the second domain is a supplementary source for \"did X file\", never the required target.",
+   "counterSource": "https://tcu.es/es/partidos-politicos/Informes/ ; https://www.cuentaspartidospoliticos.es/es/saber-mas/ ; https://www.tcu.es/es/potestad_sancionadora/index.html ; https://sede.tcu.es/es/sede-electronica/GRCuentas/PartidosPoliticos/ppoliticos.html",
+   "confidence": "high"
+  },
+  {
+   "refuted": true,
+   "evidence": "Claim overreaches its own quote and is contradicted by the governing statute.\n\n1) Quote does not say \"sole\". The tcu.es sentence only says \"corresponde al Tribunal de Cuentas la fiscalización de la actividad económico-financiera de los partidos... inscritos en el Registro\". \"Sole body\" and \"single authoritative source for a party money trail\" are the reviewer's additions, not the source's words.\n\n2) Statutory exclusivity is expressly qualified. LO 8/2007 art. 16 (as amended by LO 3/2015) grants the TdC exclusive external control \"sin perjuicio de las competencias relativas a la fiscalización de los procesos electorales autonómicos atribuidas a los órganos de fiscalización externa de las Comunidades Autónomas\" (BOE-A-2007-13022 consolidado). In practice, campaign spending for autonomic elections is audited by the CCAA bodies — Sindicatura de Comptes de Catalunya/València, Cámara de Cuentas de Andalucía/Madrid, Consello de Contas, Audiencia de Cuentas de Canarias — and only falls to the TdC where no such body exists. TdC's own Castilla-La Mancha 2019 electoral fiscalización exists precisely because that CCAA lacks an OCEX. So the TdC is not the sole auditor, and for regional campaigns it is often not the auditor at all.\n\n3) A major public-money channel to parties sits outside TdC competence entirely. LO 8/2007's disposición adicional leaves accountability for subsidies to Grupos Parlamentarios (Cortes Generales, autonomic assemblies, Juntas Generales, local groups) to \"lo que dispongan sus respectivos Reglamentos o normativa local específica\" — fiscalised by the granting institutions, not the TdC. The TdC itself has publicly demanded action on \"sobrefinanciación de los partidos a través de sus grupos parlamentarios\" (eldiario.es, reporting TdC), i.e. it flags money it cannot itself audit. A \"single authoritative source for a party money trail\" that structurally omits parliamentary-group funding is not single or complete.\n\n4) Other independent official records carry party money data: parties' own art. 14 publication duty (annual accounts on their websites; donations/legacies >25,000 EUR published with donor identity), Ministerio del Interior subsidy payments, JEC/LOREG electoral-subsidy advances and administrator filings, and CCAA transparency portals. TdC reports also lag years and only cover parties that receive subsidies.\n\nVerdict: the strong half of the claim (\"sole\", \"single authoritative source\") is unsupported by the quote and contradicted by the statute's own proviso plus the parliamentary-group carve-out. Only the weak half (\"TdC audits registered parties' public and private resources\") survives.",
+   "confidence": "high",
+   "counterSource": "https://www.boe.es/buscar/act.php?id=BOE-A-2007-13022 (LO 8/2007 art. 16 + disposición adicional, consolidated with LO 3/2015); https://sede.tcu.es/es/sede-electronica/GRCuentas/PartidosPoliticos/ECCLMAN2019/index.html; https://www.eldiario.es/politica/tribunal-cuentas-pide-actuar-sobrefinanciacion-partidos-traves-grupos-parlamentarios_1_10570708.html"
+  },
+  {
+   "refuted": true,
+   "evidence": "Quote is only a link label (\"Rendición de Cuentas de Partidos Políticos\" → https://www.cuentaspartidospoliticos.es/) on the tcu.es hub page. It supports \"a second domain exists\"; it does not support the operative conclusion that party accounting data is \"rather than being hosted... on tcu.es itself\" and that \"any scraping or dataset pipeline must target that second domain.\" That conclusion is contradicted by tcu.es itself.\n\n1) Same tcu.es hub page carries three internal subsections that are NOT on the second domain: /es/partidos-politicos/Informes/, /es/partidos-politicos/Observatorio, /es/partidos-politicos/Sanciones.\n\n2) tcu.es/es/partidos-politicos/Informes/ hosts the fiscalización reports as PDFs on tcu.es, e.g.:\n- \"Informe de fiscalización de las Cuentas Anuales de los Partidos Políticos, ejercicio 2020\" → /export/sites/portal/repositorio2/INFORME/2024/I1573.pdf\n- \"Informe de Fiscalización de las Elecciones a Cortes Generales de 28 de abril de 2019\" → /export/sites/portal/repositorio2/INFORME/2020/I1380.pdf\n- \"Informe de Fiscalización del cumplimiento del principio de transparencia por los partidos políticos\" → /export/sites/portal/repositorio2/INFORME/2024/I1596.pdf\nAll under tcu.es /repositorio2/INFORME/<year>/I<id>.pdf — a predictable, scrapeable path on the FIRST domain. Electoral-spending fiscalización, the core of the research question, lives there, not on cuentaspartidospoliticos.es.\n\n3) Category error on what the second domain is. cuentaspartidospoliticos.es is a filing platform, launched 2016, for \"la presentación por medios telemáticos de las cuentas anuales\" by the party's economic-financial officer, behind username/password, issuing a submission certificate. Its own \"Saber más\" page does not describe a public repository of submitted accounts; it notes parties must publish on their own websites within 15 days. A credentialed submission portal cannot be the target of a public scraping pipeline.\n\n4) Submission entry point is also not exclusively that domain: sede.tcu.es/es/sede-electronica/GRCuentas/PartidosPoliticos carries the same rendición-de-cuentas procedure, so even the narrow \"submissions are channelled through cuentaspartidospoliticos.es\" is imprecise.\n\nNet: the trivially true part (a second domain exists) is used to license a false operational conclusion. A pipeline for what parties actually DO with subsidies must target tcu.es informes PDFs (plus Sanciones/Observatorio), not the second domain.",
+   "counterSource": "https://www.tcu.es/es/partidos-politicos/Informes/ (PDF repository on tcu.es, e.g. /export/sites/portal/repositorio2/INFORME/2024/I1573.pdf); https://www.cuentaspartidospoliticos.es/es/saber-mas/ (portal described as telematic submission platform); https://sede.tcu.es/es/sede-electronica/GRCuentas/PartidosPoliticos",
+   "confidence": "high"
+  },
+  {
+   "refuted": false,
+   "evidence": "Independently verified against the primary source. Fetch of https://www.tcu.es/es/partidos-politicos/ returns: three subsections (\"Informes\", \"Observatorio\", \"Sanciones\"), regulatory documents in PDF (incl. \"Plan de Contabilidad Adaptado a las Formaciones Políticas\"), and outbound links to three portals (cuentaspartidospoliticos.es, rendiciondecuentas.es, CCAA portal). No API, no CSV/JSON/XLSX dataset, no open-data endpoint advertised on that page. Fetch of https://www.cuentaspartidospoliticos.es/ shows public side = \"Informes de fiscalización\" / \"Cuentas anuales y anexos\" as documents plus a basic \"BUSCADOR\"; no structured public download or API described. Searches for TCU on datos.gob.es and for a TCU \"datos abiertos\"/reutilización section returned nothing — TCU has only a Portal de Transparencia (Ley 19/2013 active-publicity), not an open-data catalogue.\n\nTwo caveats that limit confidence rather than refute:\n1) The supporting quote alone (\"Accounting Plan: PDF documents available\") does NOT support the negative existence part of the claim (\"exposes no API, machine-readable dataset, or open-data endpoint\"). The claim only survives because I re-checked the page directly; the cited quote is an underspecified proof for a negative.\n2) Over-generalization risk: within the TCU ecosystem, machine-readable formats DO exist on the linked filing platform — cuentaspartidospoliticos.es publishes XLSX submission templates and XSD schemas for XML filing of party annual accounts. Those are input/filing artefacts on a different site, so the claim as scoped (\"from this source\", the hub page) holds; a reader extrapolating it to \"TCU publishes nothing machine-readable about party finance\" would be wrong.\n\nNothing found disputes the scoped claim; it is current (page live, checked 2026-09-06), primary-sourced, and modest in strength.",
+   "confidence": "medium",
+   "counterSource": "https://www.cuentaspartidospoliticos.es/ (XLSX templates + XSD/XML filing schemas exist on the linked TCU platform — qualifies any broader reading, does not contradict the hub-page-scoped claim); https://datos.gob.es/es/catalogo/conjuntos-datos (no TCU party-finance dataset found)"
+  },
+  {
+   "refuted": true,
+   "evidence": "Overreach on two words the quote does not contain: \"sole\" and \"single authoritative source\".\n\n1) The quote is only a competence attribution (\"corresponde al Tribunal de Cuentas la fiscalización de la actividad económico-financiera de los partidos políticos inscritos en el Registro...\"). It contains no exclusivity language. The claim silently upgrades it to \"sole body with legal competence\".\n\n2) The actual exclusivity clause lives elsewhere — LO 8/2007 art. 16.1 (BOE-A-2007-13022, consolidated) — and it explicitly carves out other bodies: \"Corresponde en exclusiva al Tribunal de Cuentas el control de la actividad económico-financiera de los partidos políticos, sin perjuicio de las competencias relativas a la fiscalización de los procesos electorales autonómicos atribuidas a los órganos de control externo de las Comunidades Autónomas previstos en sus respectivos estatutos.\" So for regional-election campaign money — a large slice of Spanish party spending — the competent auditor is the regional OCEX, not the Tribunal de Cuentas. Concrete instances: Sindicatura de Comptes de Catalunya approved the fiscalization instruction for the 12-M Parliament election accounts (sindicatura.cat); Sindicatura de Comptes de la Comunitat Valenciana reported on Corts campaign spending (2023); Sindicastur publishes \"contabilidad electoral\" for Asturias. Autonomic electoral accounting for Aragón, Asturias, Canarias, Baleares, Madrid, C. Valenciana and Navarra is handled by their own external control bodies.\n\n3) \"Single authoritative source for a party money trail\" is a research-design conclusion, not a legal fact, and it is false in practice. Other verifiable public money-trail records exist and are not TCu products: parties' own mandated web publication of accounts (LO 8/2007 art. 14.8 + Ley 19/2013), municipal group allocations — which the Tribunal itself criticized in April 2025 for \"significant deficiencies and insufficiencies\" in their regulation and control, i.e. a flow it does not effectively audit — and criminal judgments (Gürtel/Bárcenas) that established party financing facts the TCu audits never surfaced.\n\n4) Practical authority is further weakened by lag: reporting on multi-year delays (e.g. the 2017 report still being the latest approved in 2022, prior five-year delays) means sanctions can prescribe before irregularities are published. GRECO has repeatedly flagged the regime's incompleteness (linked foundations/associations as parallel channels).\n\nBottom line: the underlying gist — TCu is the central/primary party auditor — is sound, but the claim as written is contradicted by the very statute that grants the exclusivity, and its \"single authoritative source\" framing is unsupported by the cited quote.",
+   "confidence": "high",
+   "counterSource": "https://www.boe.es/buscar/act.php?id=BOE-A-2007-13022 (LO 8/2007 art. 16.1, \"sin perjuicio de las competencias ... atribuidas a los órganos de control externo de las Comunidades Autónomas\"); https://www.sindicatura.cat/es/-/el-ple-aprova-la-instrucci%C3%B3-per-fiscalitzar-la-comptabilitat-electoral-de-les-eleccions-al-parlament-del-12-m; https://sindicastur.es/contabilidad-electoral/; https://www.infobae.com/espana/agencias/2025/04/30/el-tribunal-de-cuentas-critica-el-control-de-las-aportaciones-municipales-a-los-partidos/"
+  }
+ ]
+}

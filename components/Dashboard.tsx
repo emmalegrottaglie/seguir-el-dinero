@@ -7,6 +7,7 @@ import type { Aggregation, SubsidyKind } from "@/lib/types";
 import { BCP47, type Dict, type Locale } from "@/lib/i18n";
 import { filterAggregation } from "@/lib/normalize";
 import { euroCompact, integer, percent, formatDate } from "@/lib/format";
+import { stagger, useEntrance } from "@/lib/motion";
 import CountUp from "./CountUp";
 
 type KindFilter = SubsidyKind | "all";
@@ -23,6 +24,7 @@ export default function Dashboard({
   locale: Locale;
 }) {
   const bcp47 = BCP47[locale];
+  const { rise } = useEntrance();
   const [kind, setKind] = useState<KindFilter>("all");
   const [years, setYears] = useState<number[]>([]); // empty = all years
 
@@ -48,20 +50,13 @@ export default function Dashboard({
     <div>
       {/* ---------- Masthead ---------- */}
       <section className="mx-auto max-w-6xl px-5 pt-6 pb-10 sm:pt-12">
-        <motion.p
-          className="eyebrow"
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
+        <motion.p className="eyebrow" {...rise({ y: 8 }, { duration: 0.6, delay: 0 })}>
           {home.eyebrow} · {base.years[0]}–{base.years.at(-1)}
         </motion.p>
 
         <motion.h1
           className="display mt-4 text-5xl leading-[0.92] sm:text-7xl"
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.05 }}
+          {...rise({ y: 14 }, { duration: 0.7, delay: 0.05 })}
         >
           {home.titlePre}
           <span className="italic text-[var(--gold)]">{home.titleEmph}</span>
@@ -70,9 +65,7 @@ export default function Dashboard({
 
         <motion.p
           className="mt-6 max-w-xl text-[var(--paper-dim)]"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          {...rise({}, { duration: 0.8, delay: 0.2 })}
         >
           {home.intro}
         </motion.p>
@@ -80,9 +73,7 @@ export default function Dashboard({
         {/* Grand total */}
         <motion.div
           className="mt-10 flex flex-wrap items-end gap-x-10 gap-y-6"
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.3 }}
+          {...rise({ y: 16 }, { duration: 0.7, delay: 0.3 })}
         >
           <div>
             <p className="label-mono mb-2">{home.totalLabel}</p>
@@ -180,13 +171,7 @@ export default function Dashboard({
             const wSeg = (p.byKind.seguridad / maxTotal) * 100;
             const wOtra = (p.byKind.otra / maxTotal) * 100;
             return (
-              <motion.li
-                key={p.nif}
-                layout
-                initial={{ opacity: 0, x: -12 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: Math.min(i * 0.035, 0.5) }}
-              >
+              <motion.li key={p.nif} layout {...rise({ x: -12 }, { duration: 0.5, index: i })}>
                 <Link
                   href={`/${locale}/party/${p.nif}`}
                   className="group grid grid-cols-[2rem_1fr] items-center gap-x-4 gap-y-2 rounded-md px-2 py-4 transition-colors hover:bg-[var(--ink-2)] sm:grid-cols-[2rem_11rem_1fr_9rem]"
@@ -207,9 +192,9 @@ export default function Dashboard({
 
                   {/* bar track */}
                   <span className="col-span-2 flex h-6 items-center overflow-hidden rounded-sm bg-[var(--ink-3)] sm:col-span-1">
-                    <Bar width={wOrd} color={p.color} delay={i * 0.03} />
-                    <Bar width={wSeg} color="var(--red)" delay={i * 0.03 + 0.05} striped />
-                    <Bar width={wOtra} color="var(--paper-faint)" delay={i * 0.03 + 0.08} />
+                    <Bar width={wOrd} color={p.color} index={i} />
+                    <Bar width={wSeg} color="var(--red)" index={i} step={1} striped />
+                    <Bar width={wOtra} color="var(--paper-faint)" index={i} step={2} />
                   </span>
 
                   <span className="col-start-2 flex items-baseline justify-between gap-3 sm:col-start-4 sm:justify-end">
@@ -235,14 +220,19 @@ export default function Dashboard({
 function Bar({
   width,
   color,
-  delay,
+  index,
+  step = 0,
   striped,
 }: {
   width: number;
   color: string;
-  delay: number;
+  /** Row position; the delay is the capped stagger for that row. */
+  index: number;
+  /** Which segment of the row this is, so the three grow in sequence. */
+  step?: 0 | 1 | 2;
   striped?: boolean;
 }) {
+  const { entrance } = useEntrance();
   if (width <= 0) return null;
   return (
     <motion.span
@@ -253,9 +243,11 @@ function Bar({
           ? "repeating-linear-gradient(45deg, rgba(0,0,0,0.25) 0 3px, transparent 3px 6px)"
           : undefined,
       }}
-      initial={{ width: 0 }}
-      animate={{ width: `${width}%` }}
-      transition={{ duration: 0.9, delay, ease: [0.16, 1, 0.3, 1] }}
+      {...entrance(
+        { width: 0 },
+        { width: `${width}%` },
+        { duration: 0.9, delay: stagger(index) + step * 0.05 },
+      )}
     />
   );
 }

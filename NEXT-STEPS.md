@@ -117,6 +117,41 @@ so.
 
 ---
 
+## 6. What the money actually bought — researched, not built
+
+**Goal.** Make the €300.6M headline mean something. Right now the site shows who received money and
+never what it purchased.
+
+**Researched 2026-09-06/07, incomplete.** See `research/hate-accountability.md`. The run was stopped
+before verification finished, so its 160 claims are leads rather than findings, but enough is
+established to design against:
+
+- Electoral spending **is** itemised by law — LOREG art. 130 fixes eight closed categories (a–h),
+  with mailings separate from publicity — but **digital advertising is not separately identifiable**,
+  and the Tribunal de Cuentas has itself recommended legislating to make it a distinct capped
+  category.
+- **Nothing is machine-readable.** TdC reports, the `cuentaspartidospoliticos.es` Observatorio,
+  Infoelectoral subsidies and the Interior hate-crime series are all PDF or on-page tables with no
+  CSV, API or open-data endpoint. Line items live inside the fiscalización PDFs under the *Plan de
+  Contabilidad Adaptado a las Formaciones Políticas*.
+- **Two party-level facts need no interpretation at all**: filing compliance against the 30 June
+  statutory deadline, and TdC sanction proposals such as non-award of the electoral subsidy.
+
+**Procedure.** Same shape as item 1: identify the fiscalización report, fetch once, extract the
+expense annex with the eight LOREG categories as the schema, and verify the extracted sums against
+the report's own totals, aborting on mismatch.
+
+**Stop conditions.** Do not present a spending category as digital-vs-traditional — the law does not
+separate them. Do not claim any Spanish authority has found a party's campaign spending to be hate
+speech: the Junta Electoral expressly declined competence over content, and the one criminal attempt
+(Vox's *menas* poster) was **archived on appeal, with the Fiscalía among the appellants**. And do not
+build a per-politician "hateful" tag — art. 10 LOPDGDD reserves criminal-conviction data to public
+authorities, CENDOJ requires data dissociation before dissemination, and STC 58/2018 makes
+retrievability-by-name the decisive harm for a public figure. Official aggregates and individually
+sourced proceedings, with status and outcome stated, are the defensible form.
+
+---
+
 ## Standing practice
 
 - **Document every task in `CHANGELOG.md`** — what changed, why, the source behind any new

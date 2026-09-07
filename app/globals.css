@@ -206,9 +206,22 @@ a {
   color: var(--gold-bright);
 }
 
-/* Reduce motion for users who ask for it. */
+/* Reduce motion for users who ask for it.
+   This block used to disable `scroll-behavior` and nothing else, so every
+   fade-and-rise entrance still played. The JS-driven entrances are handled by
+   `useEntrance()` in lib/motion.ts; this covers the CSS side — Tailwind's
+   `transition-*` and `animate-*` utilities, and the smooth scroll. */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { animate, useInView } from "motion/react";
+import { animate, useInView, useReducedMotion } from "motion/react";
 import { euro, integer } from "@/lib/format";
 
 // Formatter chosen by key so this client component can be used from server
@@ -25,6 +25,7 @@ export default function CountUp({
   duration?: number;
 }) {
   const format = (n: number) => FORMATTERS[as](n, bcp47);
+  const reduce = useReducedMotion();
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-10%" });
   const [display, setDisplay] = useState(value);
@@ -32,6 +33,15 @@ export default function CountUp({
   const started = useRef(false);
 
   useEffect(() => {
+    // A reader who asked for less motion gets the figure, not a count-up. The
+    // value is already in `display` from the first render, so showing it needs
+    // no animation at all — this just keeps it in step when a filter changes it.
+    if (reduce) {
+      setDisplay(value);
+      prev.current = value;
+      return;
+    }
+
     // Initial count-up: play once, the first time the element is in view.
     if (!started.current) {
       if (!inView) return;
@@ -54,7 +64,7 @@ export default function CountUp({
       prev.current = value;
       return () => controls.stop();
     }
-  }, [value, inView, duration]);
+  }, [value, inView, duration, reduce]);
 
   return (
     <span ref={ref} className={className}>

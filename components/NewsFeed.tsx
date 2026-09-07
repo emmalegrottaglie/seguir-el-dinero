@@ -5,6 +5,7 @@ import { motion } from "motion/react";
 import type { NewsItem } from "@/lib/news";
 import type { NewsTopic } from "@/lib/news-sources.mjs";
 import { DICTS, relativeTime, type Locale } from "@/lib/i18n";
+import { useEntrance } from "@/lib/motion";
 
 /**
  * Either a free-text `query` (Google News search, used for one party or one
@@ -22,6 +23,7 @@ export default function NewsFeed({
   const [items, setItems] = useState<NewsItem[] | null>(null);
   const [failed, setFailed] = useState(false);
   const f = DICTS[locale].feed;
+  const { rise, reduce } = useEntrance();
 
   const key = topics
     ? `topic=${topics.join(",")}&lang=${locale === "en" ? "en" : "es"}`
@@ -50,7 +52,9 @@ export default function NewsFeed({
       {items === null &&
         Array.from({ length: 4 }).map((_, i) => (
           <div key={i} className="py-4">
-            <div className="h-3 w-2/3 animate-pulse rounded bg-[var(--ink-3)]" />
+            <div
+              className={`h-3 w-2/3 rounded bg-[var(--ink-3)] ${reduce ? "" : "animate-pulse"}`}
+            />
             <hr className="hairline mt-4" />
           </div>
         ))}
@@ -66,9 +70,7 @@ export default function NewsFeed({
           target="_blank"
           rel="noopener noreferrer"
           className="group block py-4"
-          initial={{ opacity: 0, y: 6 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: Math.min(i * 0.05, 0.4) }}
+          {...rise({ y: 6 }, { duration: 0.4, index: i })}
         >
           <p className="text-[var(--paper)] transition-colors group-hover:text-[var(--gold-bright)]">
             {n.title}

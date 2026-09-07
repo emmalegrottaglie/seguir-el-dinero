@@ -5,6 +5,75 @@ figures name their source; corrections and gaps are recorded alongside the work,
 
 ---
 
+## 2026-09-07 — Reduced motion honoured (D3), a new finding beside it (D3b), and the research saved
+
+**D3 — reduced motion.** `globals.css` declared a `prefers-reduced-motion` block that disabled
+`scroll-behavior` and nothing else, so every fade-and-rise entrance still played for a reader who had
+asked their operating system for less motion. Four components animated with `motion` and none
+consulted `useReducedMotion()`.
+
+New `lib/motion.ts` holds a shared `useEntrance()` hook that builds each entrance's
+`initial` / `animate` / `transition` in one place, collapsing to the final state with a zero duration
+under reduced motion. All four components use it: `Dashboard` for the masthead, party rows and bars,
+plus `NewsFeed`, `BlueskyFeed`, and `CountUp`, which skips its count-up and simply shows the figure.
+The skeleton `animate-pulse` classes drop under the same flag, and the CSS block now neutralises
+`animation-duration` and `transition-duration` globally rather than only the smooth scroll.
+
+The stagger is capped: `stagger(index)` is `min(index × 0.035, 0.4)`. The party bars had used an
+uncapped `i * 0.03`, so with 28 rows the last bar started 0.81 s in and finished past 1.7 s.
+
+**Verified by emulating the media query** rather than by reading the code, sampling `<h1>` opacity
+every 120 ms from `domcontentloaded`. Under `no-preference` the samples run 0, 0, 0, 0, 0.415, 0.866
+— a ramp. Under `reduce` they run 0, 0, 0, 0, 1, 1 — straight to final. Computed
+`transition-duration` on a control drops from `0s` to `1e-05s`, confirming the CSS block applies.
+Both modes settle with the headline visible and all 81 bars at non-zero width.
+
+**D3b — a separate defect the audit had folded into D3, now recorded as its own open finding.** The
+four leading zeros in *both* rows above are not the entrance. `motion` serialises
+`initial={{ opacity: 0 }}` into the server-rendered HTML, and `useReducedMotion()` returns false on
+the server because there is no `matchMedia` there — so the masthead ships as `opacity: 0` and becomes
+visible only when React hydrates, whatever the reader's motion preference, and permanently if
+JavaScript never runs. This is what the original audit caught as the `<h1>` at `opacity: 0.058`, and
+the hook cannot fix it, because the decision happens before the client knows anything. Two candidate
+fixes are recorded in `PLAN-VISUAL.md`; neither is applied.
+
+Stating this rather than closing D3 outright: the reduced-motion half is fixed and measured, the
+pre-hydration half is not.
+
+**Research saved before it was lost.** The deep-research run into party spending and hate-conduct
+records was stopped to protect context. Its cached output is now committed under `research/` rather
+than left in a session directory: the workflow journal, the 160 extracted claims with their 10
+adversarial verification votes, and a written digest in `research/hate-accountability.md`.
+
+**The digest leads with its own status, because only 10 of ~160 claims were verified.** Everything in
+it is a lead to check, not a finding to publish. What it establishes well enough to design against:
+
+- LOREG art. 130 does itemise electoral spending into eight closed categories, mailings separate from
+  publicity — but digital advertising is not separately identifiable, and the Tribunal de Cuentas has
+  itself recommended legislating to make it a distinct capped category.
+- Nothing is machine-readable. TdC reports, the `cuentaspartidospoliticos.es` Observatorio,
+  Infoelectoral subsidies and the Interior hate-crime series are all PDF or on-page tables.
+- **No Spanish authority has ruled that a party's campaign spending constituted hate speech.** The
+  Junta Electoral ordered a Vox banner down on Article 53 LOREG timing grounds and *expressly declined
+  competence* over its content; the one criminal attempt, over the *menas* poster, was archived on
+  appeal by the Audiencia Provincial de Madrid with the Fiscalía among the appellants.
+- A per-politician conviction tag is largely foreclosed: art. 10 LOPDGDD reserves criminal-conviction
+  data to public authorities with *abogados* and *procuradores* the only private exception, CENDOJ
+  requires dissociation of personal data before dissemination, and STC 58/2018 makes
+  retrievability-by-name the decisive harm for a public figure.
+
+The digest ends with resume instructions and the gotcha that cost a run: `resumeFromRunId` replays
+the script but does not carry `args`, so resuming without re-passing the question exits in 9 ms with
+*"No research question provided"*. `NEXT-STEPS.md` gains item 6 with the stop conditions.
+
+**Deliberately not done.** No spending extractor was built, no politician was tagged, and the
+reframing stands: the research was pointed at records that already exist and are attributable rather
+than at a classifier that infers intent.
+
+Typecheck clean, production build clean at 104 pages.
+
+---
+
 ## 2026-09-04 — Last two audit items closed (N2, P4), and caveman mode written into the rules
 
 **N2 — the dangling IDREF I introduced.** The O2 fix put `aria-controls="mobile-nav"` on the menu

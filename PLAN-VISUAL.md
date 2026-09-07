@@ -81,18 +81,49 @@ are masked by D1 and would start failing the moment D1 is fixed. Several are `te
 same change as D1, which was necessary: fixing D1 alone would have newly exposed the 43 masked
 elements to the failing value.
 
-### 🔴 D3 — reduced motion is declared but not honoured
+### 🔴 D3 — reduced motion is declared but not honoured — FIXED 2026-09-07
 
-`@media (prefers-reduced-motion: reduce)` in `globals.css` disables `scroll-behavior` and nothing
-else. Four components animate with `motion`, and none consult `useReducedMotion()`. A reader who has
-asked their OS for less motion still gets every fade-and-rise entrance.
+`@media (prefers-reduced-motion: reduce)` in `globals.css` disabled `scroll-behavior` and nothing
+else. Four components animated with `motion`, and none consulted `useReducedMotion()`.
 
-This is also visible as a plain rendering problem: capturing the portal 1.2 s after load caught the
-`<h1>` at `opacity: 0.058` and the lead paragraph at `opacity: 0`, i.e. a screen that is blank where
-the headline should be. On a slow device that window is longer.
+**Applied.** A shared `useEntrance()` hook in `lib/motion.ts` now builds every entrance's
+`initial` / `animate` / `transition`, collapsing to the final state with a zero duration under
+reduced motion. All four components use it: `Dashboard` (masthead, party rows, bars), `NewsFeed`,
+`BlueskyFeed` and `CountUp`, which skips its count-up entirely and shows the figure. The skeleton
+`animate-pulse` classes are dropped under the same flag, and the CSS block now also neutralises
+`animation-duration` and `transition-duration` globally rather than only `scroll-behavior`.
 
-**Fix.** A shared `useReducedMotion()` check in the four animating components, collapsing entrance
-variants to their final state. And cap the stagger: entrance delays currently scale with index.
+The stagger is capped. `stagger(index)` is `min(index × 0.035, 0.4)`; the party bars previously used
+an uncapped `i * 0.03`, so with 28 rows the last bar started 0.81 s in and finished past 1.7 s.
+
+**Verified by emulating the media query**, sampling the `<h1>` opacity every 120 ms from
+`domcontentloaded`:
+
+| `prefers-reduced-motion` | Early `<h1>` opacity samples |
+|---|---|
+| `no-preference` | 0, 0, 0, 0, **0.415, 0.866** — ramps, as designed |
+| `reduce` | 0, 0, 0, 0, **1, 1** — jumps straight to final |
+
+Computed `transition-duration` on a control drops from `0s` to `1e-05s` under `reduce`, confirming
+the CSS block applies. Both modes settle with the headline at opacity 1 and all 81 bars at non-zero
+width.
+
+### 🟡 D3b — the hero is blank until hydration, in both motion modes — OPEN
+
+Separate defect, and the original D3 entry wrongly folded it in. Those four leading zeros in *both*
+rows of the table above are not the entrance: `motion` serialises `initial={{ opacity: 0 }}` into the
+server-rendered HTML, and `useReducedMotion()` returns false on the server because there is no
+`matchMedia` there. So the masthead ships as `opacity: 0` in the HTML and only becomes visible when
+React hydrates — regardless of the reader's motion preference, and permanently if JavaScript never
+runs.
+
+This is what the audit originally caught as the `<h1>` at `opacity: 0.058`, and `useReducedMotion()`
+cannot fix it, because the decision happens before the client knows anything.
+
+**Fix, not yet applied.** Either drive the entrance from CSS, so the element is visible in the HTML
+and the `prefers-reduced-motion` block suppresses the animation; or pass `initial={false}` so motion
+renders the final state on the server and animates only later state changes, accepting the loss of
+the entrance. The first keeps the design and is the more work.
 
 ### 🟡 D4 — the directory is 98 % initials
 
