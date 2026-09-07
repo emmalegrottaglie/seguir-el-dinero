@@ -288,6 +288,29 @@ const es = {
     feedsTopic: { lgtbi: "LGTBI y trans", vivienda: "Vivienda", pobreza: "Pobreza" },
     feedsExcludedP:
       "Estos canales se comprobaron y quedaron fuera. Se listan para que no se vuelvan a probar a ciegas y porque el primer caso es instructivo: un canal puede responder correctamente y llevar años sin publicar.",
+    ctxTitle: "Qué dice el registro oficial sobre los delitos de odio",
+    ctxLead:
+      "Estas cifras son del Estado, no de esta web. Se publican aquí porque el dinero y los votos que recoge este sitio no significan nada sin el contexto de lo que ocurre en el país. No se afirma que una cosa explique la otra.",
+    ctxRecordedTitle: "Hechos registrados por la policía",
+    ctxRecordedNote:
+      "Son hechos conocidos por las Fuerzas y Cuerpos de Seguridad: denuncias e incidentes registrados, no condenas. Los propios informes reconocen que muchos casos nunca llegan a la justicia, así que la cifra es un suelo, no un total.",
+    ctxProsecutedTitle: "Actuación de la Fiscalía",
+    ctxProsecutedNote:
+      "Cuenta lo que hizo el Ministerio Fiscal, no lo que se denunció a la policía. Las dos series no son subconjuntos una de la otra y no deben sumarse.",
+    ctxRacism: "por racismo o xenofobia",
+    ctxLgtbi: "por orientación sexual o identidad de género",
+    ctxSentences: "sentencias recibidas",
+    ctxConvictions: "condenatorias",
+    ctxCharges: "escritos de acusación por racismo o xenofobia",
+    ctxChangeYear: "frente al año anterior",
+    ctxFindingTitle: "Lo que ninguna autoridad ha declarado",
+    ctxFindingBody:
+      "Ninguna autoridad española ha resuelto que el gasto de campaña de un partido constituyera delito de odio. La Junta Electoral ordenó retirar una lona de Vox en Madrid, pero por el artículo 53 de la LOREG —propaganda fuera del periodo de campaña— y declinó expresamente pronunciarse sobre su contenido. El único intento penal conocido acabó archivado.",
+    ctxCaseTitle: "El caso de los «menas», y cómo terminó",
+    ctxCaseBody:
+      "El cartel electoral de Vox para la Asamblea de Madrid de 2021 fue denunciado como delito de odio. El Juzgado de Instrucción nº 53 de Madrid lo sobreseyó el 29 de abril de 2021 y la Sección Segunda de la Audiencia Provincial de Madrid confirmó el archivo el 19 de julio de 2021, encuadrándolo en la «legítima lucha ideológica» de una campaña. Recurrieron el archivo la Fiscalía, el PSOE, Podemos, Izquierda Unida, la coalición Unidas Podemos y la asociación Progresa. Se recoge aquí precisamente porque el resultado fue negativo: un registro que enumere la acusación y no el archivo no es una herramienta de transparencia.",
+    ctxNoTag:
+      "Por eso esta web no etiqueta a nadie como «instigador de odio». No existe un registro público de condenas por persona que un particular pueda consultar y publicar: el artículo 10 de la LOPDGDD reserva los datos de condenas penales a las autoridades públicas, el CENDOJ disocia los datos personales antes de difundir las sentencias, y el Tribunal Constitucional (STC 58/2018) considera determinante que una persona pueda ser recuperada por su nombre. Se publican cifras agregadas oficiales y procedimientos concretos con su resultado; no inferencias.",
     srcTitle: "Fuentes",
     src1: "BDNS / SNPSAP — concesiones a partidos políticos ↗",
     src2: "Tribunal de Cuentas — partidos políticos ↗",
@@ -577,6 +600,29 @@ const en: Dict = {
     feedsTopic: { lgtbi: "LGBTI and trans", vivienda: "Housing", pobreza: "Poverty" },
     feedsExcludedP:
       "These feeds were checked and left out. They are listed so they are not blindly re-probed, and because the first case is instructive: a feed can answer perfectly well and still have published nothing for years.",
+    ctxTitle: "What the official record says about hate crime",
+    ctxLead:
+      "These figures are the state's, not this site's. They are here because the money and the votes this site collects mean nothing without the context of what happens in the country. Neither is claimed to explain the other.",
+    ctxRecordedTitle: "Incidents recorded by the police",
+    ctxRecordedNote:
+      "These are hechos conocidos — reports and incidents recorded by the security forces, not convictions. The reports themselves acknowledge that many cases never reach the justice system, so the figure is a floor, not a total.",
+    ctxProsecutedTitle: "Prosecution activity",
+    ctxProsecutedNote:
+      "This counts what the prosecution service did, not what was reported to the police. The two series are not subsets of one another and must not be added.",
+    ctxRacism: "for racism or xenophobia",
+    ctxLgtbi: "for sexual orientation or gender identity",
+    ctxSentences: "sentences received",
+    ctxConvictions: "convictions",
+    ctxCharges: "charge sheets citing racism or xenophobia",
+    ctxChangeYear: "on the previous year",
+    ctxFindingTitle: "What no authority has found",
+    ctxFindingBody:
+      "No Spanish authority has ever ruled that a party's campaign spending constituted a hate crime. The electoral board ordered a Vox banner in Madrid taken down, but under Article 53 LOREG — propaganda outside the campaign period — and expressly declined to rule on its content. The one known criminal attempt was archived.",
+    ctxCaseTitle: "The «menas» case, and how it ended",
+    ctxCaseBody:
+      "Vox's campaign poster for the 2021 Madrid Assembly election was reported as a hate crime. Juzgado de Instrucción nº 53 de Madrid dismissed the case on 29 April 2021, and Sección Segunda of the Audiencia Provincial de Madrid confirmed the archiving on 19 July 2021, framing it within the legitimate ideological struggle of an election campaign. The dismissal was appealed by the Fiscalía, PSOE, Podemos, Izquierda Unida, the Unidas Podemos coalition and the Progresa association. It is recorded here precisely because the outcome was negative: a record that lists the accusation and not the acquittal is not a transparency tool.",
+    ctxNoTag:
+      "This is why the site tags nobody as a «hate instigator». There is no public per-person register of convictions a private party may consult and republish: Article 10 LOPDGDD reserves criminal-conviction data to public authorities, CENDOJ dissociates personal data before disseminating judgments, and the Constitutional Court (STC 58/2018) treats retrievability of a person by name as the decisive harm. Official aggregates and specific proceedings with their outcome are published; inferences are not.",
     srcTitle: "Sources",
     src1: "BDNS / SNPSAP — grants to political parties ↗",
     src2: "Court of Auditors — political parties ↗",
@@ -864,6 +910,29 @@ const ca: Dict = {
     feedsTopic: { lgtbi: "LGBTI i trans", vivienda: "Habitatge", pobreza: "Pobresa" },
     feedsExcludedP:
       "Aquests canals es van comprovar i van quedar fora. Es llisten perquè no es tornin a provar a cegues i perquè el primer cas és instructiu: un canal pot respondre correctament i portar anys sense publicar.",
+    ctxTitle: "Què diu el registre oficial sobre els delictes d'odi",
+    ctxLead:
+      "Aquestes xifres són de l'Estat, no d'aquest web. Es publiquen aquí perquè els diners i els vots que recull aquest lloc no signifiquen res sense el context del que passa al país. No s'afirma que una cosa expliqui l'altra.",
+    ctxRecordedTitle: "Fets registrats per la policia",
+    ctxRecordedNote:
+      "Són fets coneguts per les Forces i Cossos de Seguretat: denúncies i incidents registrats, no condemnes. Els mateixos informes reconeixen que molts casos no arriben mai a la justícia, així que la xifra és un mínim, no un total.",
+    ctxProsecutedTitle: "Actuació de la Fiscalia",
+    ctxProsecutedNote:
+      "Compta el que va fer el Ministeri Fiscal, no el que es va denunciar a la policia. Les dues sèries no són subconjunts l'una de l'altra i no s'han de sumar.",
+    ctxRacism: "per racisme o xenofòbia",
+    ctxLgtbi: "per orientació sexual o identitat de gènere",
+    ctxSentences: "sentències rebudes",
+    ctxConvictions: "condemnatòries",
+    ctxCharges: "escrits d'acusació per racisme o xenofòbia",
+    ctxChangeYear: "respecte a l'any anterior",
+    ctxFindingTitle: "Què no ha declarat cap autoritat",
+    ctxFindingBody:
+      "Cap autoritat espanyola ha resolt que la despesa de campanya d'un partit constituís un delicte d'odi. La Junta Electoral va ordenar retirar una lona de Vox a Madrid, però per l'article 53 de la LOREG —propaganda fora del període de campanya— i va declinar expressament pronunciar-se sobre el contingut. L'únic intent penal conegut va acabar arxivat.",
+    ctxCaseTitle: "El cas dels «menas», i com va acabar",
+    ctxCaseBody:
+      "El cartell electoral de Vox per a l'Assemblea de Madrid del 2021 va ser denunciat com a delicte d'odi. El Jutjat d'Instrucció núm. 53 de Madrid el va sobreseure el 29 d'abril de 2021 i la Secció Segona de l'Audiència Provincial de Madrid va confirmar l'arxivament el 19 de juliol de 2021, emmarcant-lo en la «legítima lluita ideològica» d'una campanya. Van recórrer l'arxivament la Fiscalia, el PSOE, Podemos, Esquerra Unida, la coalició Unidas Podemos i l'associació Progresa. Es recull aquí precisament perquè el resultat va ser negatiu: un registre que enumeri l'acusació i no l'arxivament no és una eina de transparència.",
+    ctxNoTag:
+      "Per això aquest web no etiqueta ningú com a «instigador d'odi». No existeix un registre públic de condemnes per persona que un particular pugui consultar i publicar: l'article 10 de la LOPDGDD reserva les dades de condemnes penals a les autoritats públiques, el CENDOJ dissocia les dades personals abans de difondre les sentències, i el Tribunal Constitucional (STC 58/2018) considera determinant que una persona pugui ser recuperada pel seu nom. Es publiquen xifres agregades oficials i procediments concrets amb el seu resultat; no inferències.",
     srcTitle: "Fonts",
     src1: "BDNS / SNPSAP — concessions a partits polítics ↗",
     src2: "Tribunal de Comptes — partits polítics ↗",

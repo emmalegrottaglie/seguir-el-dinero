@@ -5,6 +5,64 @@ figures name their source; corrections and gaps are recorded alongside the work,
 
 ---
 
+## 2026-09-07 — What the official record says, and what no authority has found
+
+The first thing from the stopped research to reach the site, and the reason it is a small thing: of
+roughly 160 extracted claims only 10 had been adversarially verified, so every figure published here
+was checked against an official source first, and everything that failed to check stayed out.
+
+**New `lib/hate-context.ts`** holds two separate things, and the page keeps them separate: aggregate
+hate-crime statistics from the state's own bodies, and the record of what happened when campaign
+material was actually taken to court. Neither is presented as explaining the other, and nothing in it
+attributes anything to a named person.
+
+**Verified and published.** Police-recorded hate crimes and incidents: **2,268 in 2023, +21.35%** on
+the previous year, of which **856** racism or xenophobia and **522** sexual orientation or gender
+identity — Ministerio del Interior / Oficina Nacional contra los Delitos de Odio. Prosecution output:
+**129 convictions of 173 sentences (74.6%)** and **121** charge sheets citing racism or xenophobia,
+with charges up about **40%** year on year — Fiscalía General del Estado, cross-checked against
+OBERAXE's official summary of the same Memoria.
+
+**Two corrections to my own extraction, caught by verifying.** The digest recorded 1,869 recorded
+incidents for 2022; the current report supersedes that with 2,268 for 2023, and 2,268 ÷ 1.2135 ≈ 1,869
+confirms the old base while retiring it as the headline. And the appellate decision in the *menas*
+case is dated **19 July 2021**, which the digest had left as "on appeal".
+
+**Left out for failing verification.** The 477 preprocedural investigations, the 293 total charge
+sheets, and the ~40% share of investigations concerning online conduct all appear in the extraction
+but could not be confirmed against a primary or official-secondary source in this pass. They stay in
+`research/hate-accountability.md` as leads.
+
+**The negative finding, stated as prominently as any figure.** No Spanish authority has ever ruled
+that a party's campaign spending constituted a hate crime. The electoral board ordered a Vox banner
+in Madrid taken down under **Article 53 LOREG** — propaganda outside the campaign period — and
+expressly declined to rule on its content. The one known criminal attempt, over the *menas* poster
+for the 2021 Madrid Assembly election, was dismissed by Juzgado de Instrucción nº 53 de Madrid on
+29 April 2021 and the archiving was confirmed by Sección Segunda of the Audiencia Provincial de
+Madrid on 19 July 2021, framed as *legítima lucha ideológica* within an election. The dismissal had
+been appealed by the Fiscalía, PSOE, Podemos, Izquierda Unida, the Unidas Podemos coalition and the
+Progresa association.
+
+That outcome is on the page **because** it was negative. A record that lists the accusation and not
+the acquittal is not a transparency tool, and this is the answer to the question the site invites.
+
+**And the page now says why it tags nobody.** Article 10 LOPDGDD reserves criminal-conviction data to
+public authorities, CENDOJ dissociates personal data before disseminating judgments, and STC 58/2018
+treats retrievability of a person by name as the decisive harm for a public figure. Official
+aggregates and specific proceedings with their outcome are published; inferences are not.
+
+**Verified.** All three locales render the section with the right figures — `2.268` / `2,268` per
+locale formatting, `129 / 173`, four source links, no untranslated string leaking through. Zero
+contrast failures on `/es`, `/en` and `/ca` methodology pages, every `<th>` scoped, every table
+captioned. Typecheck clean, production build clean at 104 pages.
+
+**Also recorded, from a `caveman learn` run.** `Bash(cd)` was the heaviest tool shape in the scanned
+window — 35.8% of 1,082,573 tool-output tokens over 1,388 calls — but broken down by verb the volume
+is diffuse rather than one habit. The two notes that came out of it are in `AGENTS.md`, deliberately
+not in `CLAUDE.md`, since a rule there is injected every turn and the saving is unproven.
+
+---
+
 ## 2026-09-07 — The dashboard renders without JavaScript (D3b)
 
 D3b was recorded as open earlier the same day, on the strength of the `<h1>` starting at opacity 0 in
