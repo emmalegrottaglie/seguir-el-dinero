@@ -22,6 +22,7 @@ const es = {
     votes: "Votaciones",
     methodology: "Metodología",
     funding: "Financiación",
+    rights: "Derechos",
     sectionData: "Datos",
     sectionAbout: "Sobre",
     menu: "Menú",
@@ -221,6 +222,33 @@ const es = {
     peopleCoverage:
       "Patronato documentado en {documented} de {entities} entidades auditadas: {people} personas y {ties} cargos externos, cada uno con su fuente y su fecha. Donde no se localizó un patronato publicado, la ficha lo dice.",
   },
+  rights: {
+    eyebrow: "Voces de las organizaciones",
+    titlePre: "Lo que publican las ",
+    titleEmph: "entidades",
+    titlePost: ", en su propia voz",
+    intro:
+      "El resto de esta web mira al Estado: sus subvenciones, sus auditorías, sus votaciones registradas. Esta sección hace lo contrario y recoge lo que publican las propias organizaciones de derechos LGTBI, con su nombre delante de cada pieza.",
+    orgsTitle: "Publicado por las organizaciones",
+    orgsNote:
+      "Ocho organizaciones, cada una a través de su propio canal. Van primero porque son fuente directa: hablan de sí mismas y de su trabajo, no de segunda mano.",
+    mediaTitle: "Cobertura en medios",
+    mediaNote:
+      "Medios que cubren estos temas de forma continuada. Se muestran aparte para que quede claro qué es fuente directa y qué es cobertura.",
+    directoryTitle: "De dónde sale todo esto",
+    directoryNote:
+      "El registro completo de canales que lee esta sección. Se enlaza cada organización para poder ir a la fuente y no sólo a lo que publicó esta quincena.",
+    kindOrg: "Organizaciones",
+    kindMedia: "Medios",
+    empty:
+      "Ningún canal ha devuelto piezas recientes. No es una afirmación sobre la actualidad: es un fallo de lectura, y se corrige solo cuando los canales responden.",
+    droppedNote: "Canales que no respondieron en esta carga:",
+    caveat:
+      "Esta web no edita, resume ni reescribe estas piezas: muestra el titular, la fecha y el enlace al original. Las imágenes son las que publica cada canal y se sirven a través de este sitio, no directamente desde el servidor de la organización, para no exponer la IP de quien lee. El orden es por fecha, con las fuentes en el idioma de la página primero.",
+    methodLink: "Cómo se eligieron estos canales, y cuáles se descartaron ↗",
+    homeTitle: "Derechos LGTBI, en voz de las organizaciones",
+    homeCta: "Ver la sección de derechos",
+  },
   portal: {
     eyebrow: "Portal de transparencia política",
     titlePre: "Quién les paga, y ",
@@ -419,6 +447,7 @@ const en: Dict = {
     votes: "Votes",
     methodology: "Methodology",
     funding: "Funding",
+    rights: "Rights",
     sectionData: "Data",
     sectionAbout: "About",
     menu: "Menu",
@@ -618,6 +647,33 @@ const en: Dict = {
     peopleCoverage:
       "A board is documented for {documented} of the {entities} audited entities: {people} people and {ties} outside roles, each with its source and date. Where no published board could be found, the dossier says so.",
   },
+  rights: {
+    eyebrow: "The organisations' own voices",
+    titlePre: "What the ",
+    titleEmph: "organisations",
+    titlePost: " publish, in their own words",
+    intro:
+      "The rest of this site looks at the state: its subsidies, its audits, its recorded votes. This section does the opposite and carries what the LGBTQ+ rights organisations publish themselves, with their name in front of every piece.",
+    orgsTitle: "Published by the organisations",
+    orgsNote:
+      "Eight organisations, each through its own channel. They come first because they are first-hand: they are writing about themselves and their own work, not relaying it.",
+    mediaTitle: "Coverage in the press",
+    mediaNote:
+      "Outlets that cover these subjects continuously. Shown separately so it stays clear what is first-hand and what is coverage.",
+    directoryTitle: "Where all of this comes from",
+    directoryNote:
+      "The full registry of channels this section reads. Each organisation is linked so you can go to the source, not only to whatever it published this fortnight.",
+    kindOrg: "Organisations",
+    kindMedia: "Press",
+    empty:
+      "No channel returned anything recent. That is not a statement about the news: it is a read failure, and it clears itself when the channels answer.",
+    droppedNote: "Channels that did not answer on this load:",
+    caveat:
+      "This site does not edit, summarise or rewrite these pieces: it shows the headline, the date and a link to the original. The images are the ones each channel publishes, served through this site rather than straight from the organisation's server, so a reader's IP address is not exposed. Order is by date, with sources in the page's language first.",
+    methodLink: "How these channels were chosen, and which were rejected \u2197",
+    homeTitle: "LGBTQ+ rights, in the organisations' own voices",
+    homeCta: "Open the rights section",
+  },
   portal: {
     eyebrow: "Political transparency portal",
     titlePre: "Who pays them, and ",
@@ -814,6 +870,7 @@ const ca: Dict = {
     votes: "Votacions",
     methodology: "Metodologia",
     funding: "Finançament",
+    rights: "Drets",
     sectionData: "Dades",
     sectionAbout: "Sobre",
     menu: "Menú",
@@ -1012,6 +1069,33 @@ const ca: Dict = {
     peopleCoverageTitle: "Qui governa aquestes entitats",
     peopleCoverage:
       "Patronat documentat en {documented} de {entities} entitats auditades: {people} persones i {ties} càrrecs externs, cada un amb la seva font i la seva data. On no es va localitzar un patronat publicat, la fitxa ho diu.",
+  },
+  rights: {
+    eyebrow: "Veus de les organitzacions",
+    titlePre: "El que publiquen les ",
+    titleEmph: "entitats",
+    titlePost: ", amb la seva pr\u00f2pia veu",
+    intro:
+      "La resta d'aquest web mira l'Estat: les seves subvencions, les seves auditories, les seves votacions registrades. Aquesta secci\u00f3 fa el contrari i recull el que publiquen les mateixes organitzacions de drets LGTBI, amb el seu nom davant de cada pe\u00e7a.",
+    orgsTitle: "Publicat per les organitzacions",
+    orgsNote:
+      "Vuit organitzacions, cada una a trav\u00e9s del seu propi canal. Van primer perqu\u00e8 s\u00f3n font directa: parlen d'elles mateixes i de la seva feina, no de segona m\u00e0.",
+    mediaTitle: "Cobertura als mitjans",
+    mediaNote:
+      "Mitjans que cobreixen aquests temes de manera continuada. Es mostren a part perqu\u00e8 quedi clar qu\u00e8 \u00e9s font directa i qu\u00e8 \u00e9s cobertura.",
+    directoryTitle: "D'on surt tot aix\u00f2",
+    directoryNote:
+      "El registre complet de canals que llegeix aquesta secci\u00f3. S'enlla\u00e7a cada organitzaci\u00f3 per poder anar a la font i no nom\u00e9s al que va publicar aquesta quinzena.",
+    kindOrg: "Organitzacions",
+    kindMedia: "Mitjans",
+    empty:
+      "Cap canal ha retornat pe\u00e7es recents. No \u00e9s una afirmaci\u00f3 sobre l'actualitat: \u00e9s una fallada de lectura, i es corregeix sola quan els canals responen.",
+    droppedNote: "Canals que no van respondre en aquesta c\u00e0rrega:",
+    caveat:
+      "Aquest web no edita, resumeix ni reescriu aquestes pe\u00e7es: mostra el titular, la data i l'enlla\u00e7 a l'original. Les imatges s\u00f3n les que publica cada canal i se serveixen a trav\u00e9s d'aquest lloc, no directament des del servidor de l'organitzaci\u00f3, per no exposar la IP de qui llegeix. L'ordre \u00e9s per data, amb les fonts en l'idioma de la p\u00e0gina primer.",
+    methodLink: "Com es van triar aquests canals, i quins es van descartar \u2197",
+    homeTitle: "Drets LGTBI, amb la veu de les organitzacions",
+    homeCta: "Veure la secci\u00f3 de drets",
   },
   portal: {
     eyebrow: "Portal de transparència política",

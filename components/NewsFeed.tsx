@@ -64,26 +64,45 @@ export default function NewsFeed({
       )}
 
       {items?.map((n, i) => (
+        <div key={n.link + i}>
         <motion.a
-          key={n.link + i}
           href={n.link}
           target="_blank"
           rel="noopener noreferrer"
-          className="group block py-4"
+          className="group flex gap-4 py-4"
           {...rise({ y: 6 }, { duration: 0.4, index: i })}
         >
+          {/* A small thumbnail rather than the rights section's full-width
+              media: this list sits in a narrow column beside other panels, and
+              a 16:9 image per row would push the headlines out of it. Served
+              through the proxy for the same privacy reason. */}
+          {n.image && (
+            <span className="card-media mt-0.5 hidden w-24 shrink-0 rounded-sm sm:block">
+              <img
+                src={`/api/news-image?url=${encodeURIComponent(n.image)}`}
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+            </span>
+          )}
+          <span className="min-w-0 flex-1">
           <p className="text-[var(--paper)] transition-colors group-hover:text-[var(--gold-bright)]">
             {n.title}
           </p>
           <p className="label-mono mt-1.5 flex flex-wrap gap-x-3 gap-y-1 text-[var(--paper-faint)]">
-            <span className="text-[var(--gold)]">{n.source}</span>
+            <span style={{ color: n.sourceKind === "org" ? "var(--verd)" : "var(--gold)" }}>
+              {n.source}
+            </span>
             <span>{relativeTime(n.date, locale)}</span>
             {/* An association's own statement is a different kind of item from a
                 newspaper's report on it, so the distinction is shown. */}
             {n.sourceKind === "org" && <span>{f.fromOrg}</span>}
           </p>
-          <hr className="hairline mt-4" />
+          </span>
         </motion.a>
+        <hr className="hairline" />
+        </div>
       ))}
     </div>
   );

@@ -108,12 +108,21 @@ dossier — the absence is a finding, because apartado Seis requires publication
 | `politico/[slug]/page.tsx` | One person: pay, party funding, recorded ballots, social, news |
 | `party/[nif]/page.tsx` | Party detail: public + private money, faces, ledger, news |
 | `votaciones/page.tsx` | Tracked votes: result, per-group breakdown, deputy search |
+| `derechos/page.tsx` | The rights section: the LGBTQ+ organisations' own feeds, with images, plus the source directory |
 | `metodologia/page.tsx` | Methodology and legal caveats |
 
 `/sueldos`, `/caras` and `/politician/[slug]` are redirects in `next.config.ts` — the salary and
 Caras sections were merged into `politicos`.
 
-`app/api/`: `refresh` (BDNS pull, cron-protected), `news`, `bluesky`.
+`app/api/`: `refresh` (BDNS pull, cron-protected), `news`, `bluesky`, `news-image`.
+
+`news-image` is an **allowlisted** image proxy, and both halves of that matter. Feed images are
+served through this origin so a reader who opens the rights section does not hand their IP
+address to fifteen third-party hosts — several of them LGBTQ+ organisations, where who reads
+them is the last thing to leak. And the allowlist is what keeps it from being an SSRF tool and a
+bandwidth piñata: only hosts vouched for by `lib/news-sources.mjs` (plus their subdomains and
+the `www.`/bare counterpart) are fetched, only responses declaring `image/*` are returned, and
+the response carries `nosniff` and a `sandbox` CSP because the bytes are someone else's.
 
 `/api/news` has two modes. `?q=` is a free-text Google News search, used on party and politician
 pages. `?topic=lgtbi,vivienda,pobreza&lang=es` reads the curated feed registry in

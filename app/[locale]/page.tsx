@@ -90,9 +90,19 @@ export default async function PortalPage({
         {/* Not label-mono: that class uppercases, and this note is a sentence. */}
         <p className="mt-4 max-w-2xl text-sm text-[var(--paper-faint)]">{P.newsNote}</p>
         <NewsFeed topics={PORTAL_TOPICS} locale={locale} />
-        <p className="label-mono mt-2">
+        <p className="label-mono mt-2 flex flex-wrap gap-x-6 gap-y-2">
           <Link href={`/${locale}/metodologia`} className="src">
             {P.newsSourcesLink} →
+          </Link>
+          {/* The portal mixes the three topics; the rights section carries the
+              LGBTQ+ organisations on their own, with images and their own
+              directory. */}
+          <Link
+            href={`/${locale}/derechos`}
+            className="src"
+            style={{ color: "var(--verd-bright)" }}
+          >
+            {t.rights.homeCta} →
           </Link>
         </p>
       </section>

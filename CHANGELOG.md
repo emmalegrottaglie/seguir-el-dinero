@@ -5,6 +5,77 @@ figures name their source; corrections and gaps are recorded alongside the work,
 
 ---
 
+## 2026-09-08 — A rights section in the organisations' own voices, images, and a cooler accent
+
+Three things: article images where the feeds publish them, a dedicated LGBTQ+ rights section built on
+the eight NGO feeds already in the registry, and a polish pass on the palette and cards.
+
+### The rights section
+
+`/derechos` — new, and the ordering is the argument. The eight organisations in
+`lib/news-sources.mjs` come first under their own names, the three outlets follow in a separate
+block, and a directory at the bottom links every channel so a reader can go to the source rather
+than only to whatever it published this fortnight. Every other page on this site reports on the
+state; this one carries what the organisations publish about themselves.
+
+**Server-rendered, unlike the portal's `NewsFeed`.** A section that exists to give these
+organisations a platform should not be the one part of the site that needs JavaScript to appear. All
+three locales ship 24 cards in the HTML.
+
+Feeds that fail are named on the page. The methodology page already lists the seven that were tested
+and rejected; this reports the ones that broke on this load.
+
+### Images, proxied rather than hotlinked
+
+`lib/news.ts` now extracts a lead image per entry, trying candidates in descending order of how
+deliberate they are: `<enclosure type="image/*">`, then `<media:content medium="image">`, then
+`<media:thumbnail>`, and only last the first `<img>` in the entry body — which may equally be a
+tracking pixel or a share badge. Anything that is not plainly an `http(s)` image URL is dropped, and
+obvious trackers (`1x1`, `pixel.`, `/track`, `spacer.gif`) are skipped.
+
+**New `app/api/news-image/route.ts` serves them through this origin.** Rendering `<img src>` at the
+publisher would hand every reader's IP address, user agent and referring page to fifteen third-party
+hosts. Several belong to LGBTQ+ organisations, and who reads them is precisely what should not leak;
+the same holds for the housing and poverty feeds. Proxying also makes the images survive publishers
+that block hotlinking — a broken image on every card is worse than no images.
+
+The allowlist is the other half. An open image proxy is a server-side request forgery tool, so only
+hosts vouched for by the registry are fetched — plus their subdomains, since WordPress sites serve
+from CDN shards, and the `www.`/bare counterpart, which is what makes `shangay.com` resolve against
+the registry's `www.shangay.com`. Only responses declaring `image/*` are returned, capped at 4 MB,
+with `X-Content-Type-Options: nosniff` and a `sandbox` CSP because the bytes are someone else's.
+
+Verified by request: a registry host returns `200 image/jpeg`; a foreign host `403`; the cloud
+metadata address `169.254.169.254` `403`; a missing `url` `400`. On the page, 18 of 18 images load
+and none break, and the server HTML contains **zero** hotlinked `src`.
+
+`NewsFeed` gets the same images as a small thumbnail rather than full-width media, because it sits in
+a narrow column beside other panels where a 16:9 image per row would push the headlines out of it.
+
+### Palette and cards
+
+The palette was gold and red on brown throughout, which made every accent read as the same kind of
+emphasis. A verdigris counter-accent now carries the organisations' own voice — the NGO feeds, the
+rights section — without leaving the aged-document world the rest of the site lives in. Measured on
+`--ink`: `--verd` **7.76:1**, `--verd-bright` **11.57:1**, both clear of WCAG AA's 4.5:1. A source
+label is verdigris when it is an organisation and gold when it is an outlet, everywhere it appears,
+so provenance is legible before the text is read.
+
+Also: a third cooler light in the page aura and a vignette, so a long page darkens at its edges
+instead of ending in a flat field; panels gained an inset highlight along the top edge and a real
+shadow; and a new `.card` treatment with a fixed 16:9 media block, a diagonal hatch behind it so a
+slow image never reflows the grid, a gradient tint so white-heavy press photography does not punch a
+hole in a dark page, and a slight desaturation that pulls photography from fifteen publishers towards
+one palette.
+
+Card images carry empty `alt`: the headline immediately below is the accessible name, and a
+decorative duplicate would make a screen reader announce the same article twice.
+
+**Verified.** Typecheck clean, build clean at 225 pages (104 → 221 → 225), zero contrast failures on
+the new page, images load in the browser and in the server HTML, and all three locales render.
+
+---
+
 ## 2026-09-08 — Who governs the party foundations, and how each claim is sourced
 
 The money layer landed earlier today. This is the part it could not answer: report nº 1.642 records

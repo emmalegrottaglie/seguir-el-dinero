@@ -18,6 +18,14 @@ export interface NewsItem {
   /** `org` when the item comes from an organisation's own publication. */
   sourceKind?: "org" | "media";
   lang?: "es" | "en";
+  /**
+   * Lead image, as an absolute URL on the publisher's own host. Rendered
+   * through /api/news-image rather than directly: hotlinking would hand every
+   * reader's IP address to fifteen third-party hosts, which for a site whose
+   * feeds include LGBTQ+ organisations is a privacy cost, not just a technical
+   * one. Absent where the feed publishes no usable image.
+   */
+  image?: string;
 }
 
 const FETCH_TIMEOUT_MS = 12_000;
@@ -83,8 +91,43 @@ function cleanLink(raw: string): string {
   }
 }
 
+/**
+ * The lead image for one feed entry.
+ *
+ * Feeds disagree about where this lives, so the candidates are tried in
+ * descending order of how deliberate they are: an <enclosure> or <media:*>
+ * element is the publisher stating "this is the image", while an <img> inside
+ * the summary HTML may equally be a tracking pixel or a share badge. Anything
+ * that is not plainly an http(s) image URL is dropped rather than guessed at.
+ */
+function pickImage(raw: string): string {
+  const candidates = [
+    // <enclosure url="…" type="image/jpeg">, RSS's own mechanism.
+    /<enclosure\b[^>]*type=["']image\/[^"']*["'][^>]*\burl=["']([^"']+)["']/i,
+    /<enclosure\b[^>]*\burl=["']([^"']+)["'][^>]*type=["']image\/[^"']*["']/i,
+    // Media RSS, which WordPress and most of this registry emit.
+    /<media:content\b[^>]*\bmedium=["']image["'][^>]*\burl=["']([^"']+)["']/i,
+    /<media:content\b[^>]*\burl=["']([^"']+)["'][^>]*\bmedium=["']image["']/i,
+    /<media:thumbnail\b[^>]*\burl=["']([^"']+)["']/i,
+    // Last resort: the first <img> in the entry body.
+    /<img\b[^>]*\bsrc=["']([^"']+)["']/i,
+  ];
+  for (const re of candidates) {
+    const hit = raw.match(re);
+    if (!hit) continue;
+    const url = decode(hit[1]).trim();
+    if (!/^https?:\/\//i.test(url)) continue;
+    // A one-pixel tracker is technically an image and never worth showing.
+    if (/\b1x1\b|pixel\.|\/track|spacer\.gif/i.test(url)) continue;
+    return url;
+  }
+  return "";
+}
+
 // RSS 2.0: <channel><item><title><link><pubDate>
-function parseRss(xml: string): { title: string; link: string; date: string; source: string }[] {
+type ParsedEntry = { title: string; link: string; date: string; source: string; image: string };
+
+function parseRss(xml: string): ParsedEntry[] {
   const blocks = xml.match(/<item[\s>][\s\S]*?<\/item>/g) ?? [];
   return blocks.map((raw) => {
     const rawTitle = pick(raw, "title");
@@ -99,19 +142,21 @@ function parseRss(xml: string): { title: string; link: string; date: string; sou
       link: cleanLink(pick(raw, "link")),
       date: isoDate(pick(raw, "pubDate") || pick(raw, "dc:date")),
       source,
+      image: pickImage(raw),
     };
   });
 }
 
 // Atom: <feed><entry><title><link href/><updated>. El Salto publishes this, and
 // the previous RSS-only parser returned an empty array for it without erroring.
-function parseAtom(xml: string): { title: string; link: string; date: string; source: string }[] {
+function parseAtom(xml: string): ParsedEntry[] {
   const blocks = xml.match(/<entry[\s>][\s\S]*?<\/entry>/g) ?? [];
   return blocks.map((raw) => ({
     title: pick(raw, "title"),
     link: cleanLink(attr(raw, "link", "href") || pick(raw, "id")),
     date: isoDate(pick(raw, "updated") || pick(raw, "published")),
     source: "",
+    image: pickImage(raw),
   }));
 }
 
@@ -199,6 +244,7 @@ async function readSource(
       sourceId: source.id,
       sourceKind: source.kind,
       lang: source.lang,
+      ...(p.image ? { image: p.image } : {}),
     }));
 
   return { items };
