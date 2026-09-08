@@ -1,13 +1,14 @@
 import Link from "next/link";
 import { getAggregation } from "@/lib/data";
 import { getDict } from "@/lib/i18n";
-import { euro, integer, percent, formatDate } from "@/lib/format";
+import { euro, integer, percent, signedPercent, formatDate } from "@/lib/format";
 import { NEWS_SOURCES, EXCLUDED_FEEDS } from "@/lib/news-sources.mjs";
 import {
   RECORDED,
   PROSECUTED,
   MENAS_CASE,
   CONVICTION_RATE_PCT,
+  CHARGES_CHANGE_PCT,
 } from "@/lib/hate-context";
 import { ITEM_MAX_AGE_DAYS, SOURCE_STALE_DAYS } from "@/lib/news";
 
@@ -139,7 +140,7 @@ export default async function MetodologiaPage({
               {integer(RECORDED.total.value, bcp47)}
             </p>
             <p className="label-mono mt-1 text-[var(--paper-faint)]">
-              {RECORDED.total.year} · +{percent(RECORDED.changePct / 100, bcp47)}{" "}
+              {RECORDED.total.year} · {signedPercent(RECORDED.changePct / 100, bcp47)}{" "}
               {m.ctxChangeYear}
             </p>
             <ul className="mt-4">
@@ -186,7 +187,7 @@ export default async function MetodologiaPage({
               </li>
               <li>
                 <span className="mono text-[var(--paper)]">
-                  +{percent(PROSECUTED.chargesChangePct / 100, bcp47)}
+                  {signedPercent(CHARGES_CHANGE_PCT / 100, bcp47)}
                 </span>{" "}
                 {m.ctxChangeYear}
               </li>

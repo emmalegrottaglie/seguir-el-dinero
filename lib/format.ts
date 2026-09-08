@@ -25,6 +25,19 @@ export function percent(fraction: number, locale = "es-ES", digits = 1): string 
   return `${(fraction * 100).toLocaleString(locale, { maximumFractionDigits: digits })} %`;
 }
 
+/**
+ * A year-on-year change with its direction always visible.
+ *
+ * A bare percentage sitting next to a count reads as growth by default, so a
+ * fall has to carry its sign. Negative values already arrive with the locale's
+ * own minus sign — not always an ASCII hyphen — so only the positive case needs
+ * a prefix here.
+ */
+export function signedPercent(fraction: number, locale = "es-ES", digits = 1): string {
+  const body = percent(fraction, locale, digits);
+  return fraction > 0 ? `+${body}` : body;
+}
+
 export function formatDate(iso: string, locale = "es-ES"): string {
   // iso is "YYYY-MM-DD"; construct as UTC to avoid TZ drift.
   const [y, m, d] = iso.split("-").map(Number);
