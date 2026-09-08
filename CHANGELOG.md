@@ -5,6 +5,158 @@ figures name their source; corrections and gaps are recorded alongside the work,
 
 ---
 
+## 2026-09-08 — The stopped research, finished: 18 findings, 10 refutations, and a year-stale figure
+
+The deep-research run stopped on 2026-09-07 with 160 claims extracted and only 10 adversarial votes
+cast, so `research/hate-accountability.md` had to lead with "the claims below are UNVERIFIED". It is
+now finished: **26 sources, 124 claims, the top 28 each put to a three-vote adversarial panel — 18
+confirmed, 10 refuted, none left unadjudicated.** The digest is rewritten around what survived, and
+the refutations are printed beside the findings because three of them corrected the digest's own
+earlier draft.
+
+**How it was resumed within the rate limit.** `resumeFromRunId` caches each agent on its prompt, not
+on the script's claim cap, so the cap could be raised in steps and every vote already cast replayed
+free. A jump straight to 40 claims fires 120 verifier agents at once and hits the session limit,
+which the harness reports as "unverified" rather than as failure — 138 of 152 agents died that way on
+the first attempt. Climbing 14 → 28 in four resumes cost nothing extra and finished clean.
+
+**The harness's own ranking had to be overridden first.** It sorts by importance then source quality,
+which put ILGA rubric weightings and portal shapes in the first ten slots and never reached the
+statutes that decide whether the feature is buildable. A priority tier was added ahead of that
+ranking for claims naming a statute, a court, a prosecutor or a ruling.
+
+### The finding that decides the feature, confirmed 3-0
+
+A per-politician conviction register is not buildable from bulk retrieval, and the mechanism is now
+precise rather than asserted. Publication of judgments is a CGPJ statutory duty under **art.
+560.1.10ª LOPJ** — but only for resolutions *"que se determinen"*, and **Reglamento 1/2005 art. 7**
+conditions treatment and dissemination on data-protection law and **LOPJ arts. 234 and 266**. Three
+things follow:
+
+- **CENDOJ pseudonymises by design**, substituting real names with randomly assigned archaic given
+  names — Saturnino, Candelaria, Venancio, Eulalia — to avoid collision with real identities in
+  judgments carrying up to ~500 names.
+- **Coverage is selective exactly where it matters**: the Tribunal Supremo plus *"una selección
+  creciente"* of single-judge resolutions, and single-judge courts are where most art. 510 CP
+  convictions sit.
+- **The one statutory carve-out excludes art. 510.** LOPJ art. 235 bis makes a *fallo*'s personal data
+  public only for a closed list of Hacienda Pública offences (CP arts. 305, 305 bis, 306, and 257/258
+  where the creditor is the Treasury). Art. 510 is not in it.
+
+Re-identifying a defendant via case number, court and dates is recorded as a legal hazard, not a
+workaround. This vindicates the decision already published on `/metodologia` and gives it citable
+grounds.
+
+### Three corrections to the digest's own draft
+
+- **Art. 510 scope — refuted 0-3.** The draft said art. 510 protects listed minorities "but not other
+  collectives such as political parties" as doctrine. Art. 510.1 CP **expressly lists *ideología***
+  among the protected motives, with *aporofobia* added by LO 8/2021, and Circular 7/2019 FGE states
+  group vulnerability is **not** an element of the offence and that incitement to hatred against a
+  Nazi-ideology collective can fall within it. The Tribunal Supremo auto of 29 July 2021 does hold
+  what it holds — it archived Vox's *querella* against Ione Belarra on that ground — but the general
+  proposition fails.
+- **The *peligro real* bar was backwards — refuted 0-3.** Circular 7/2019 classes art. 510 hate
+  offences as ***delitos de peligro abstracto***: *"no es preciso un peligro concreto, siendo
+  suficiente el peligro abstracto"*, needing only *"aptitud o idoneidad para generar un clima de
+  odio"*. The exception is the result offence in the first part of art. 510.2 a). The phrase comes
+  from STS 259/2011, which the Circular reads down.
+- **The Herrero charge structure was a misread — refuted 1-2.** The auto pleads **510.1 a) + 510.3 +
+  510.5 + 510.6, or alternatively 510.2 a) + 510.3 + 510.5 + 510.6** — mutually exclusive principal
+  and subsidiary qualifications, not the joint "510.1 and 510.2" the draft published. The draft also
+  dropped the subsections that drive the outcome: 510.3 (diffusion via internet or social media),
+  510.5 (*inhabilitación especial*) and 510.6.
+
+Two further refutations killed claims the draft had asserted: that CENDOJ is "the single institutional
+retrieval point for named-defendant judgments" (0-3, refuted precisely because it is not a
+named-defendant source, and because art. 619 LOPJ *defines* CENDOJ rather than creating it), and that
+Reglamento 1/2005 art. 7 makes CENDOJ a comprehensive corpus (0-2 — universal remission is not
+universal publication).
+
+### A verifier's aside was wrong, and chasing it found the site a year stale
+
+One agent reported the Interior series at "2,417 incidents, +23.6%", which does not chain from the
+2,268 this project published for 2023. Checking it against the ministry produced a real update
+instead. The *Informe sobre la evolución de los delitos e incidentes de odio en España (2024)*,
+published 28 July 2025, records **1,955 penal infractions and hate incidents, −13.8%**; racism and
+xenophobia **804 (−6%)**; sexual orientation and gender identity **528 (+1.15%)**. Antisemitism
++60.9%, aporofobia +33.3%, clearance 71.9%, 905 people arrested or investigated.
+
+Every figure reconciles against the 2023 base — 2,268 × 0.862 = 1,955; 856 × 0.94 = 804; 522 × 1.0115
+= 528 — and OBERAXE, a second ministry, publishes the same numbers, which is why the update is here at
+all rather than flagged as a lead.
+
+So the 2023 figures were right and the page was a year behind **while pointing the wrong way**: it
+showed a 21.35% rise as the state's latest word when the latest word is a 13.8% fall.
+`lib/hate-context.ts` now carries 2024 with 2023 kept beside it and the reconciliation written down.
+
+**A latent bug surfaced with it.** `/metodologia` hardcoded a `+` before the year-on-year change, so
+the first negative figure would have rendered "+−13,8 %". New `signedPercent()` in `lib/format.ts`
+prefixes `+` only for positives and lets the locale supply its own minus sign, which is not always an
+ASCII hyphen.
+
+### Figures recovered, and one previously given up on
+
+The three Fiscalía figures the earlier draft dropped as unverifiable are confirmed 3-0, with the panel
+checking the arithmetic: for 2024, **477** *diligencias de investigación* (511 in 2023), **293**
+*escritos de acusación* (210 in 2023), **173** sentences with **129 convictions and 44 acquittals**,
+most prosecuted offence **art. 510.2 a) at 162 vs 85**.
+
+`chargesChangePct: 40` is replaced by a derived `CHARGES_CHANGE_PCT` computed from 293 and 210, so the
+published percentage cannot drift from its own counts: **+39.5%**, not the "~40%" of press summaries.
+`CONVICTION_RATE_PCT` likewise derives 74.6% where the Memoria prints a truncated 74.5%.
+
+The verifiers flagged a trap now recorded in the code: the motive breakdown differs by stage —
+racism/xenophobia is 150 among investigations but 121 among charge sheets, and *nación u origen
+nacional* is tracked separately at 127 — so the two sets must never be conflated.
+
+### Corrected on the page: "acquittal"
+
+`MENAS_CASE`'s doc comment described the outcome as an acquittal. Both decisions are autos confirming
+*sobreseimiento* at the instruction stage — a finding of no *indicios* — and never merits judgments,
+so "acquitted" overstates what any court decided. Fixed, with the distinction written down. Also added
+what actually closed the case: the **Tribunal Constitucional declined Podemos's *amparo*** for want of
+*especial trascendencia constitucional*, reported 23 January 2023.
+
+### Verified outside the harness
+
+**Art. 10 LOPDGDD** is load-bearing for the published methodology text and the harness never
+adjudicated it — its only source was rated unreliable and yielded no claims. Checked directly against
+the BOE consolidated text of LO 3/2018 (last modified 27/12/2025), the page's claim holds, and the
+chain is three paragraphs: **10.1** permits processing conviction data for non-law-enforcement
+purposes only where covered by a norm of statutory rank; **10.2** routes the *registro completo*
+through the *Sistema de registros administrativos de apoyo a la Administración de Justicia*; **10.3**
+allows it outside those cases **only for *abogados* and *procuradores***, and only for information
+supplied by their own clients.
+
+### Left as gaps rather than filled
+
+- **Angle 1 produced no surviving claim.** The harness's own synthesis says to treat party-spending
+  granularity as *not researched* rather than answered negatively. It was answered in code instead, by
+  the report 1.628 extraction shipped the day before — which is also where the digest's claim about
+  the eight LOREG art. 130 categories was corrected.
+- **STC 58/2018 was in the claim pool but below the cap**, so it remains a lead. The methodology page
+  cites it; the digest says so and says to verify it against the primary ruling.
+- **The *menas* auto's roll number is still unpinned** and all its verification is secondary press, so
+  the digest records that the primary text must be pulled before the case reference itself is
+  published. An earlier AP Madrid resolution on the same matter is reported, so more than one auto may
+  exist.
+- **JEZ acuerdos are published in no machine-readable register**, so secondary reporting is the
+  practical ceiling for the most promising name-bearing channel found.
+
+### Also recorded
+
+`research/README.md` explains how to read a vote, and that a refuted claim was adjudicated against on
+its merits — which is different from one never adjudicated. `_research-hate-accountability-claims.json`
+now carries the findings, caveats and open questions alongside the claims and all 101 votes, with a
+note that its claim list is the union across resume attempts while `stats` describes the final run.
+
+Verified: typecheck clean, production build clean, and `/metodologia` renders the negative change
+correctly in all three locales — `1955 · -13,8 %` (es), `1,955 · -13.8 %` (en), `1.955 · -13,8 %` (ca),
+the grouping difference being CLDR's `minimumGroupingDigits` and not a defect.
+
+---
+
 ## 2026-09-07 — What the electoral money was declared to have bought
 
 The site could show which parties received public money and never what it purchased. This is the
