@@ -47,27 +47,14 @@ export default function Dashboard({
 
   return (
     <div>
-      {/* ---------- Masthead ---------- */}
-      <section className="mx-auto max-w-6xl px-5 pt-6 pb-10 sm:pt-12">
-        <p className="eyebrow enter" style={{ "--enter-y": "8px" } as CSSProperties}>
-          {home.eyebrow} · {base.years[0]}–{base.years.at(-1)}
-        </p>
+      {/* ---------- The state-subsidy channel ----------
+          This section used to carry the page's <h1>, which bound the title to
+          the least surprising of the three money channels. The page owns the
+          title now; this is a section heading like the other two. */}
+      <section className="mx-auto mt-20 max-w-6xl px-5 pb-10">
+        <h2 className="display section-tick text-2xl">{home.channelTitle}</h2>
 
-        <h1
-          className="display enter mt-4 text-5xl leading-[0.92] sm:text-7xl"
-          style={{ "--enter-y": "14px", "--enter-delay": "0.05s" } as CSSProperties}
-        >
-          {home.titlePre}
-          <span className="italic text-[var(--gold)]">{home.titleEmph}</span>
-          {home.titlePost}
-        </h1>
-
-        <p
-          className="enter mt-6 max-w-xl text-[var(--paper-dim)]"
-          style={{ "--enter-delay": "0.2s" } as CSSProperties}
-        >
-          {home.intro}
-        </p>
+        <p className="mt-6 max-w-xl text-[var(--paper-dim)]">{home.intro}</p>
 
         {/* Grand total */}
         <div

@@ -13,7 +13,7 @@ Catalan, deployed on Vercel.
 |-------|--------|-----------|
 | State subsidies to parties | BDNS / SNPSAP REST API | Live, daily cron |
 | Private donations to parties | Tribunal de Cuentas report 1573 (2020) | Fixed, transcribed |
-| Party-linked foundations | Tribunal de Cuentas report 1.642 (2021–22) | Fixed, per-entity |
+| Party-linked foundations | Tribunal de Cuentas report 1.642 (2021–22) | Fixed, per-dossier |
 | Electoral spending by category | Tribunal de Cuentas report 1.628 (EP 2024) | Fixed, per-formation |
 | Public salaries of officeholders | Registro de Altos Cargos CSV export | Rebuilt from script |
 | Key roll-call votes | Congreso de los Diputados open data | Rebuilt from script |
@@ -58,6 +58,43 @@ verified, the feature was cut rather than faked.
 - **Per-politician funding does not exist** and is not invented. Subsidies go to parties;
   profiles link to the party's funding instead.
 
+## The foundation channel runs the other way
+
+Worth stating because the obvious guess is wrong, and the site used to imply it.
+Parties may take **no** corporate money (LO 8/2007 art. 5: no *personas juríicas*, no anonymous
+donations, €50,000 a year per individual, and a donor holding a live public contract must be
+refused). Their **foundations** are governed by *disposición adicional séptima*, where legal
+entities *may* donate — over €120,000 by public deed, notified to the Tribunal de Cuentas within
+three months, donor identity published.
+
+So the arrow runs into the foundations. But in the audited figures the corporate share is small:
+across 2021–22, **89.8% of the €7.9M of contributions came from the parties themselves** and 4.6%
+from companies, with €4.9M of public subsidies on top. The page leads with party money for that
+reason. Do not rewrite it around a corporate-capture framing the figures do not support.
+
+## The people layer is curated, and its sources are typed
+
+`lib/foundation-people.ts` names living people, so it carries stricter rules than any other layer
+and the types enforce them:
+
+- **One dated source per record**, with a URL. A record without one does not exist.
+- **`SourceKind` drives the rendering.** `registry` and `official` read as statements of record;
+  `press` renders as *"según <publisher> (<date>)"*. They are never merged or counted together.
+  This is the ODIHR rule the research verified 3-0: the label must match the evidentiary status of
+  the source.
+- **Nothing is inferred.** No score, no ranking, no derived edge. A tie exists only where a named
+  source states it. `former: true` where the source puts a role in the past.
+- **Names join by `nameKey`**, so an ambiguous match is dropped rather than guessed, exactly as with
+  portraits and social handles.
+
+**Chase the primary source.** Three secondary sources were wrong here. Wikipedia lists an
+eight-member Disenso board from 2020 against the foundation's own filing of three. A 2017 PSOE
+announcement of the Fundación Pablo Iglesias board would have published Félix Bolaños as its
+secretary today. And a press report had Pablo Iglesias presiding over Podemos's foundation with
+Monedero as director, where the entity's own patronato page shows neither and only one name in
+common. Where a board could not be established at all, that goes in `BOARD_GAPS` and prints on the
+dossier — the absence is a finding, because apartado Seis requires publication.
+
 ## Architecture / where things live
 
 ### Routes (all under `app/[locale]/`)
@@ -65,17 +102,27 @@ verified, the feature was cut rather than faked.
 | Path | Role |
 |------|------|
 | `page.tsx` | The portal: headline figures, how each group voted, rights news, section cards |
-| `financiacion/page.tsx` | Party funding dashboard + the party-linked foundations channel |
+| `financiacion/page.tsx` | The three money channels: foundations, electoral spending, state subsidies |
+| `fundacion/[slug]/page.tsx` | One party-linked entity: money in by source, public money by grantor, findings |
 | `politicos/page.tsx` | Politician directory: featured record-holders + the full register |
 | `politico/[slug]/page.tsx` | One person: pay, party funding, recorded ballots, social, news |
 | `party/[nif]/page.tsx` | Party detail: public + private money, faces, ledger, news |
 | `votaciones/page.tsx` | Tracked votes: result, per-group breakdown, deputy search |
+| `derechos/page.tsx` | The rights section: the LGBTQ+ organisations' own feeds, with images, plus the source directory |
 | `metodologia/page.tsx` | Methodology and legal caveats |
 
 `/sueldos`, `/caras` and `/politician/[slug]` are redirects in `next.config.ts` — the salary and
 Caras sections were merged into `politicos`.
 
-`app/api/`: `refresh` (BDNS pull, cron-protected), `news`, `bluesky`.
+`app/api/`: `refresh` (BDNS pull, cron-protected), `news`, `bluesky`, `news-image`.
+
+`news-image` is an **allowlisted** image proxy, and both halves of that matter. Feed images are
+served through this origin so a reader who opens the rights section does not hand their IP
+address to fifteen third-party hosts — several of them LGBTQ+ organisations, where who reads
+them is the last thing to leak. And the allowlist is what keeps it from being an SSRF tool and a
+bandwidth piñata: only hosts vouched for by `lib/news-sources.mjs` (plus their subdomains and
+the `www.`/bare counterpart) are fetched, only responses declaring `image/*` are returned, and
+the response carries `nosniff` and a `sandbox` CSP because the bytes are someone else's.
 
 `/api/news` has two modes. `?q=` is a free-text Google News search, used on party and politician
 pages. `?topic=lgtbi,vivienda,pobreza&lang=es` reads the curated feed registry in
@@ -106,7 +153,8 @@ ordinary browser one, so `FEED_HEADERS` in the registry sends the browser string
 | `lib/normalize.ts` | Parse `beneficiario` into NIF, classify subsidy kind, aggregate, filter |
 | `lib/parties.ts` | Canonical NIF → party (name, colour, bloc) |
 | `lib/donations.ts` | Private donations 2020, transcribed from the TdC report |
-| `lib/foundations.ts` | Party-linked foundations 2021–22, per-entity + the legal mechanism |
+| `lib/foundations.ts` | Party-linked foundations 2021–22, per-dossier + the legal mechanism |
+| `lib/foundation-people.ts` | Curated: who governs each foundation, and their outside roles, one dated source per record |
 | `lib/salaries.ts` | Officeholder pay: load, accent-folded search, paging, party facets |
 | `lib/votes.ts` | Roll-call votes: load, `positionsFor`, `tallyByGroup` |
 | `lib/photos.ts` | Portrait lookup, `portraitKeys` for bulk tests |

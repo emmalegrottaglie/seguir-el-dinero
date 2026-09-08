@@ -1,20 +1,27 @@
-import Link from "next/link";
+import type { CSSProperties } from "react";
 import { getAggregation } from "@/lib/data";
 import { getDict } from "@/lib/i18n";
-import { euro, euroCompact, integer, percent } from "@/lib/format";
-import {
-  getFoundations,
-  foundationYears,
-  foundationTotals,
-  rankedEntities,
-  FOUNDATIONS_LAW_URL,
-} from "@/lib/foundations";
+import { getFoundations } from "@/lib/foundations";
+import { getSpending } from "@/lib/spending";
 import Dashboard from "@/components/Dashboard";
 import ElectoralSpending from "@/components/ElectoralSpending";
-import { getSpending } from "@/lib/spending";
+import FoundationChannel from "@/components/FoundationChannel";
 
 export const revalidate = 3600;
 
+/**
+ * The money channels, most revealing first.
+ *
+ * This page used to be the state-subsidy dashboard under a title that promised
+ * to answer who funds the parties. It answered a narrower question than it
+ * asked, and the ranked bar chart of 28 parties was the least surprising thing
+ * on it. So the order now runs by what the reader cannot get elsewhere: the
+ * foundation channel, then what an election's money was declared to have
+ * bought, then the subsidies as the baseline the other two sit against.
+ *
+ * The page owns its own <h1>. Dashboard used to, which left the title bound to
+ * the least important section.
+ */
 export default async function FinanciacionPage({
   params,
 }: {
@@ -27,156 +34,31 @@ export default async function FinanciacionPage({
     getSpending(),
   ]);
   const { locale, bcp47, t } = getDict(localeParam);
-  const F = t.foundations;
-
-  const years = foundationYears(fnd);
-  const totals = foundationTotals(fnd);
-  const ranked = rankedEntities(fnd);
-  const top = ranked[0];
-  const topShare = totals.donations > 0 ? top.donations / totals.donations : 0;
-  const maxBar = Math.max(...years.map((y) => fnd.years[String(y)].donations), 1);
 
   return (
     <main>
-      <Dashboard base={agg} home={t.home} kinds={t.kinds} locale={locale} />
+      <header className="mx-auto max-w-6xl px-5 pt-10">
+        <p className="eyebrow enter" style={{ "--enter-y": "8px" } as CSSProperties}>
+          {t.home.eyebrow} · {agg.years[0]}–{agg.years.at(-1)}
+        </p>
+        <h1
+          className="display enter mt-4 text-5xl leading-[0.92] sm:text-7xl"
+          style={{ "--enter-y": "14px", "--enter-delay": "0.05s" } as CSSProperties}
+        >
+          {t.home.titlePre}
+          <span className="italic text-[var(--gold)]">{t.home.titleEmph}</span>
+          {t.home.titlePost}
+        </h1>
+        {/* Says which channels are here and which are not, so the title cannot
+            be read as a claim to cover all party finance. */}
+        <p className="mt-6 max-w-2xl text-lg text-[var(--paper-dim)]">{t.home.subtitle}</p>
+      </header>
+
+      <FoundationChannel data={fnd} t={t} bcp47={bcp47} locale={locale} />
 
       <ElectoralSpending data={spend} t={t} bcp47={bcp47} />
 
-      {/* Party-linked foundations: a channel separate from the parties themselves */}
-      <section className="mx-auto mt-20 max-w-6xl px-5">
-        <h2 className="display section-tick text-2xl">{F.title}</h2>
-        <p className="mt-6 max-w-2xl text-[var(--paper-dim)]">{F.intro}</p>
-
-        <div className="mt-8 flex flex-wrap gap-x-10 gap-y-6">
-          <div>
-            <p className="label-mono mb-2">{F.privateDonations}</p>
-            <p className="mono text-2xl text-[var(--gold-bright)]">
-              {euro(totals.donations, bcp47)}
-            </p>
-            <p className="label-mono mt-1 text-[var(--paper-faint)]">
-              {years[0]}–{years.at(-1)}
-            </p>
-          </div>
-          <div>
-            <p className="label-mono mb-2">{F.publicSubsidies}</p>
-            <p className="mono text-2xl text-[var(--paper)]">{euro(totals.subsidies, bcp47)}</p>
-            <p className="label-mono mt-1 text-[var(--paper-faint)]">
-              {years[0]}–{years.at(-1)}
-            </p>
-          </div>
-          <div>
-            <p className="label-mono mb-2">{F.concentration}</p>
-            <p className="mono text-2xl text-[var(--red)]">{percent(topShare, bcp47)}</p>
-            <p className="label-mono mt-1 max-w-xs text-[var(--paper-faint)]">
-              {F.concentrationNote}
-            </p>
-          </div>
-        </div>
-
-        {/* Per-year split */}
-        <div className="mt-10 flex flex-col gap-5">
-          {years.map((y) => {
-            const row = fnd.years[String(y)];
-            return (
-              <div key={y}>
-                <div className="label-mono mb-2 flex flex-wrap items-baseline gap-x-4">
-                  <span className="mono text-[var(--paper)]">{y}</span>
-                  <span style={{ color: "var(--gold)" }}>
-                    {F.privateDonations} {euroCompact(row.donations, bcp47)}
-                  </span>
-                  <span className="text-[var(--paper-dim)]">
-                    {F.publicSubsidies} {euroCompact(row.subsidies, bcp47)}
-                  </span>
-                  <span className="text-[var(--paper-faint)]">
-                    {integer(row.entities, bcp47)} {F.entities}
-                  </span>
-                </div>
-                <div className="flex h-5 overflow-hidden rounded-sm bg-[var(--ink-3)]">
-                  <div
-                    style={{
-                      width: `${(row.donations / maxBar) * 100}%`,
-                      backgroundColor: "var(--gold)",
-                    }}
-                  />
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Per-foundation table */}
-        <h3 className="display section-tick mt-14 text-xl">{F.tableTitle}</h3>
-        <p className="label-mono mt-4 max-w-2xl text-[var(--paper-faint)]">{F.tableNote}</p>
-
-        <div className="mt-8 overflow-x-auto">
-          <table className="w-full min-w-[42rem] border-collapse text-sm">
-            {/* Visually hidden: the heading above already says this, but the
-                table needs its own accessible name. */}
-            <caption className="sr-only">{F.tableTitle}</caption>
-            <thead>
-              <tr className="label-mono text-left text-[var(--paper-faint)]">
-                <th scope="col" className="py-2 pr-4 font-normal">{F.entity}</th>
-                <th scope="col" className="py-2 pr-4 font-normal">{F.party}</th>
-                <th scope="col" className="py-2 pr-4 text-right font-normal">{F.donations}</th>
-                <th scope="col" className="py-2 text-right font-normal">{F.subsidies}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {ranked.map((e) => (
-                <tr key={e.name} className="border-t border-[var(--line)]">
-                  <th scope="row" className="py-2.5 pr-4 text-left font-normal text-[var(--paper)]">
-                    {e.name}
-                  </th>
-                  <td className="label-mono py-2.5 pr-4">
-                    {e.party ? (
-                      e.nif ? (
-                        <Link href={`/${locale}/party/${e.nif}`} className="text-[var(--gold)] hover:underline">
-                          {e.party}
-                        </Link>
-                      ) : (
-                        <span className="text-[var(--paper-dim)]">{e.party}</span>
-                      )
-                    ) : (
-                      <span className="text-[var(--paper-faint)]">{F.noPartyStated}</span>
-                    )}
-                  </td>
-                  <td className="mono py-2.5 pr-4 text-right text-[var(--gold-bright)]">
-                    {e.donations > 0 ? euroCompact(e.donations, bcp47) : "—"}
-                  </td>
-                  <td className="mono py-2.5 text-right text-[var(--paper-dim)]">
-                    {e.subsidies > 0 ? euroCompact(e.subsidies, bcp47) : "—"}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-        {/* The legal mechanism, stated precisely */}
-        <div className="panel mt-12 p-6">
-          <p className="label-mono mb-3 text-[var(--gold)]">{F.legalTitle}</p>
-          <p className="leading-relaxed text-[var(--paper-dim)]">{F.legalBody}</p>
-          <p className="label-mono mt-4">
-            <a className="src" href={FOUNDATIONS_LAW_URL} target="_blank" rel="noopener noreferrer">
-              {F.lawLink}
-            </a>
-          </p>
-        </div>
-
-        {/* What the layer still does not cover */}
-        <div className="mt-8">
-          <p className="label-mono mb-2 text-[var(--paper-dim)]">{F.gapTitle}</p>
-          <p className="label-mono max-w-2xl leading-relaxed text-[var(--paper-faint)]">
-            {F.gapBody}
-          </p>
-        </div>
-
-        <p className="label-mono mt-8">
-          <a className="src" href={fnd.source.url} target="_blank" rel="noopener noreferrer">
-            {fnd.source.body} · {fnd.source.report} ↗
-          </a>
-        </p>
-      </section>
+      <Dashboard base={agg} home={t.home} kinds={t.kinds} locale={locale} />
     </main>
   );
 }

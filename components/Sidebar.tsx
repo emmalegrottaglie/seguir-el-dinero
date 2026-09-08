@@ -43,6 +43,7 @@ export default function Sidebar({ locale, nav }: { locale: Locale; nav: Dict["na
     { href: `/${locale}/financiacion`, label: nav.funding },
     { href: `/${locale}/politicos`, label: nav.people },
     { href: `/${locale}/votaciones`, label: nav.votes },
+    { href: `/${locale}/derechos`, label: nav.rights },
   ];
   const about: Item[] = [{ href: `/${locale}/metodologia`, label: nav.methodology }];
 

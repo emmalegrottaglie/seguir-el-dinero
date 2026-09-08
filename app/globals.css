@@ -16,6 +16,15 @@
   --gold: #d3a24c;
   --gold-bright: #f2c56a;
   --red: #cc5a45;
+  /* A cool counter-accent. The palette was gold and red on brown throughout,
+     which made every accent read as the same kind of emphasis; verdigris gives
+     the organisations' own voice — the NGO feeds, the rights section — a colour
+     of its own without leaving the aged-document world the rest of the site
+     lives in. Measured on --ink: --verd 7.76:1, --verd-bright 11.57:1, both
+     clear of the 4.5:1 that WCAG AA asks of body text. */
+  --verd: #5fb3a1;
+  --verd-bright: #8fd6c6;
+  --verd-deep: #1a3733;
   --line: rgba(236, 226, 205, 0.12);
   --line-strong: rgba(236, 226, 205, 0.22);
   /* The boundary of an interactive control, kept separate from the decorative
@@ -66,7 +75,11 @@ body::before {
   z-index: 0;
   background:
     radial-gradient(120% 60% at 50% -10%, rgba(211, 162, 76, 0.14), transparent 60%),
-    radial-gradient(90% 50% at 85% 0%, rgba(204, 90, 69, 0.06), transparent 55%);
+    radial-gradient(90% 50% at 85% 0%, rgba(204, 90, 69, 0.06), transparent 55%),
+    radial-gradient(70% 45% at 8% 12%, rgba(95, 179, 161, 0.05), transparent 60%),
+    /* A vignette, so a long page darkens at the edges instead of ending in a
+       flat field of one colour. */
+    radial-gradient(140% 110% at 50% 45%, transparent 55%, rgba(8, 7, 5, 0.55));
 }
 
 body::after {
@@ -137,9 +150,85 @@ footer {
 }
 
 .panel {
+  position: relative;
   background: linear-gradient(180deg, var(--ink-2), var(--ink));
   border: 1px solid var(--line);
   border-radius: 4px;
+  box-shadow:
+    0 1px 0 rgba(236, 226, 205, 0.04) inset,
+    0 18px 40px -28px rgba(0, 0, 0, 0.9);
+}
+
+/* A panel that belongs to the organisations rather than to the state. Used by
+   the rights section so its provenance is legible before the text is read. */
+.panel-org {
+  background: linear-gradient(180deg, var(--verd-deep), var(--ink));
+  border-color: rgba(95, 179, 161, 0.22);
+}
+
+/* Editorial card for a linked article. The image is a sibling, not a
+   background, so it still exists with CSS disabled and can carry alt text. */
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: linear-gradient(180deg, var(--ink-2), var(--ink));
+  transition:
+    border-color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.card:hover,
+.card:focus-within {
+  border-color: var(--line-control);
+  transform: translateY(-2px);
+  box-shadow: 0 22px 46px -30px rgba(0, 0, 0, 0.95);
+}
+
+/* Fixed ratio so a missing or slow image never reflows the grid, with a
+   diagonal hatch standing in for one that fails to load. */
+.card-media {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background-color: var(--ink-3);
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(236, 226, 205, 0.05) 0 1px,
+    transparent 1px 9px
+  );
+}
+
+.card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Pulls third-party photography towards the document palette so a grid of
+     images from fifteen publishers still reads as one page. */
+  filter: saturate(0.82) contrast(1.04);
+  transition:
+    transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1),
+    filter 0.35s ease;
+}
+
+.card:hover .card-media img,
+.card:focus-within .card-media img {
+  transform: scale(1.035);
+  filter: saturate(1) contrast(1);
+}
+
+/* A tint over the image, so white-heavy press photography does not punch a
+   hole in a dark page. */
+.card-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(16, 14, 10, 0.1) 0%, rgba(16, 14, 10, 0.55) 100%);
+  pointer-events: none;
 }
 
 .rule-top {

@@ -5,6 +5,294 @@ figures name their source; corrections and gaps are recorded alongside the work,
 
 ---
 
+## 2026-09-08 — A rights section in the organisations' own voices, images, and a cooler accent
+
+Three things: article images where the feeds publish them, a dedicated LGBTQ+ rights section built on
+the eight NGO feeds already in the registry, and a polish pass on the palette and cards.
+
+### The rights section
+
+`/derechos` — new, and the ordering is the argument. The eight organisations in
+`lib/news-sources.mjs` come first under their own names, the three outlets follow in a separate
+block, and a directory at the bottom links every channel so a reader can go to the source rather
+than only to whatever it published this fortnight. Every other page on this site reports on the
+state; this one carries what the organisations publish about themselves.
+
+**Server-rendered, unlike the portal's `NewsFeed`.** A section that exists to give these
+organisations a platform should not be the one part of the site that needs JavaScript to appear. All
+three locales ship 24 cards in the HTML.
+
+Feeds that fail are named on the page. The methodology page already lists the seven that were tested
+and rejected; this reports the ones that broke on this load.
+
+### Images, proxied rather than hotlinked
+
+`lib/news.ts` now extracts a lead image per entry, trying candidates in descending order of how
+deliberate they are: `<enclosure type="image/*">`, then `<media:content medium="image">`, then
+`<media:thumbnail>`, and only last the first `<img>` in the entry body — which may equally be a
+tracking pixel or a share badge. Anything that is not plainly an `http(s)` image URL is dropped, and
+obvious trackers (`1x1`, `pixel.`, `/track`, `spacer.gif`) are skipped.
+
+**New `app/api/news-image/route.ts` serves them through this origin.** Rendering `<img src>` at the
+publisher would hand every reader's IP address, user agent and referring page to fifteen third-party
+hosts. Several belong to LGBTQ+ organisations, and who reads them is precisely what should not leak;
+the same holds for the housing and poverty feeds. Proxying also makes the images survive publishers
+that block hotlinking — a broken image on every card is worse than no images.
+
+The allowlist is the other half. An open image proxy is a server-side request forgery tool, so only
+hosts vouched for by the registry are fetched — plus their subdomains, since WordPress sites serve
+from CDN shards, and the `www.`/bare counterpart, which is what makes `shangay.com` resolve against
+the registry's `www.shangay.com`. Only responses declaring `image/*` are returned, capped at 4 MB,
+with `X-Content-Type-Options: nosniff` and a `sandbox` CSP because the bytes are someone else's.
+
+Verified by request: a registry host returns `200 image/jpeg`; a foreign host `403`; the cloud
+metadata address `169.254.169.254` `403`; a missing `url` `400`. On the page, 18 of 18 images load
+and none break, and the server HTML contains **zero** hotlinked `src`.
+
+`NewsFeed` gets the same images as a small thumbnail rather than full-width media, because it sits in
+a narrow column beside other panels where a 16:9 image per row would push the headlines out of it.
+
+### Palette and cards
+
+The palette was gold and red on brown throughout, which made every accent read as the same kind of
+emphasis. A verdigris counter-accent now carries the organisations' own voice — the NGO feeds, the
+rights section — without leaving the aged-document world the rest of the site lives in. Measured on
+`--ink`: `--verd` **7.76:1**, `--verd-bright` **11.57:1**, both clear of WCAG AA's 4.5:1. A source
+label is verdigris when it is an organisation and gold when it is an outlet, everywhere it appears,
+so provenance is legible before the text is read.
+
+Also: a third cooler light in the page aura and a vignette, so a long page darkens at its edges
+instead of ending in a flat field; panels gained an inset highlight along the top edge and a real
+shadow; and a new `.card` treatment with a fixed 16:9 media block, a diagonal hatch behind it so a
+slow image never reflows the grid, a gradient tint so white-heavy press photography does not punch a
+hole in a dark page, and a slight desaturation that pulls photography from fifteen publishers towards
+one palette.
+
+Card images carry empty `alt`: the headline immediately below is the accessible name, and a
+decorative duplicate would make a screen reader announce the same article twice.
+
+**Verified.** Typecheck clean, build clean at 225 pages (104 → 221 → 225), zero contrast failures on
+the new page, images load in the browser and in the server HTML, and all three locales render.
+
+---
+
+## 2026-09-08 — Who governs the party foundations, and how each claim is sourced
+
+The money layer landed earlier today. This is the part it could not answer: report nº 1.642 records
+what these entities received and never who runs them. `lib/foundation-people.ts` does, for the
+entities that move real money, and every record carries one dated source with its evidentiary status
+attached.
+
+**Coverage: a board documented for 5 of the 39 audited entities — 53 people and 18 outside roles.**
+Small on purpose. Board membership is published unevenly, and where it could not be established the
+dossier says so rather than showing an empty section.
+
+### The rules, enforced in the types
+
+- **One dated source per record**, with a resolvable URL. A record without one does not exist.
+- **`SourceKind` drives the rendering.** `registry` and `official` read as statements of record;
+  `press` renders as *"según {publisher} ({date})"*. They are never merged or counted together —
+  the ODIHR rule this project verified 3-0 in the research: the label must match the evidentiary
+  status of its source.
+- **Nothing is inferred.** No score, no ranking, no derived edge. A tie exists only where a named
+  source states it, and `former: true` where the source puts the role in the past, because a stale
+  role shown as current misrepresents a living person.
+- **Names join by `nameKey`**, so an ambiguous match is dropped rather than guessed — the same rule
+  the portrait and social-handle joins already follow.
+
+### Chasing the primary source overturned three secondary ones
+
+This is the finding of the exercise, and it is why the layer is small rather than broad:
+
+- **Wikipedia lists an eight-member Fundación Disenso board** from 2020. The foundation's own
+  transparency filing lists **three**: Santiago Abascal, Enrique Cabanas and Pablo Sáez.
+- **A 2017 PSOE announcement** of the Fundación Pablo Iglesias board was the most recent list
+  reachable without a bot check. Publishing it would have said **Félix Bolaños is the foundation's
+  secretary today** — he is a minister, and the board has changed twice since. The foundation's own
+  page (last modified 2026-07-02) gives the real 20-member board.
+- **eldiario.es reported in October 2021** that Pablo Iglesias had taken the presidency of Podemos's
+  foundation with Juan Carlos Monedero as director. The entity's own patronato page (modified
+  2024-04-09) shows **neither of them**, and of the six names in that article only Orencio Osuna
+  remains. The press record is kept for the one fact it still evidences: the change of name.
+
+A fourth, smaller trap: a search summary offered a different and larger Podemos board than the
+article it was summarising. Only fetched sources are recorded.
+
+### What the boards actually show
+
+- **Fundación Pablo Iglesias (PSOE)** — 20 trustees including **Pedro Sánchez**, **María Jesús
+  Montero**, **Félix Bolaños**, Carmen Calvo, Cristina Narbona, Reyes Maroto, Pilar Bernabé, Rebeca
+  Torró and César Luena. A foundation that took €451,260 of public subsidies in 2022 is governed by
+  a board carrying the Prime Minister and the Finance Minister.
+- **Fundación Concordia y Libertad (PP)**, which now trades as **Reformismo 21** — a six-member
+  patronato under Pablo Vázquez (former Renfe and Ineco president), with an advisory council chaired
+  by **Alberto Núñez Feijóo** and carrying the corporate ties: **Verónica Pascual**, a Telefónica
+  board member; **Fátima Báñez**, president of Fundación CEOE and a former minister; **María Eugenia
+  Clemente**, chief executive of Alestis Aerospace; plus Román Escolano (former Economy Minister,
+  now at the European Investment Bank) and Ramón Gil-Casares.
+- **Sabino Arana Fundazioa (PNV)** — nine trustees, and the only entity here publishing an
+  appointment date for every one of them, from 2008 to November 2025. It is also the only party
+  foundation holding the Haz Foundation's *"t de transparente"* seal. Its board is professionals
+  rather than serving politicians, chaired by Arantxa Tapia Otaegi.
+- **Fundación Disenso (Vox)** — three trustees, chaired in effect by the party's own president.
+- **Fundación Instituto República y Democracia (Podemos)** — five, under José Julio Rodríguez
+  Fernández, a retired career officer who was chief of staff to the Second Vice-President between
+  January 2020 and March 2021.
+
+### Renames, which the report cannot show
+
+Report nº 1.642 uses the name in force during the audited exercise, and two of these entities have
+since renamed themselves — so a reader searching the current name finds nothing, and one of them
+appears in the report twice under both names. Both renames are now recorded and printed on the
+dossier: **Concordia y Libertad → Reformismo 21 (2023)** and **Instituto 25 de Mayo para la
+Democracia → Instituto República y Democracia (2021)**.
+
+### Gaps, printed rather than hidden
+
+`BOARD_GAPS` records the entities whose board could not be established, with the reason. Fundación
+Ramón Rubial is the pointed one: no published patronato was found, and it is also the entity with
+the most publicity breaches in the report — two agreements with companies, none of them deeded,
+notified or published. Apartado Seis of disposición adicional séptima requires these entities to
+publish; report 1.642 finds 16 did not publish their 2021 accounts and 14 their 2022 accounts. An
+empty section would read as our omission rather than theirs.
+
+### On the page
+
+`components/FoundationGovernance.tsx` sits on each dossier directly under the identity block — who
+runs it belongs next to what it is, not beneath the money. Each person shows their role or roles
+with the source and date, then their outside roles, with corporate ties in the accent colour and
+past roles labelled as past. The channel section carries a short coverage panel stating how much is
+documented and pointing at the dossiers, rather than flattening forty boards into one list; its
+press-count sentence renders only when the count is above zero, so a zero does not read as a
+disclaimer about records that do not exist.
+
+**Verified.** Every one of the 10 entity names in the registry joins to a dossier in
+`data/foundations.json`. Typecheck clean, build clean at 221 pages, and `/es/financiacion` plus the
+dossiers render with zero contrast failures.
+
+**Deliberately not built.** No network graph and no join to the officeholder register. The register
+join is attractive — it would attach an official public post to each trustee from a source the site
+already ingests — but a wrong match would attribute someone else's public office to a named private
+person, so it needs its own verification pass rather than being folded in here.
+
+---
+
+## 2026-09-08 — The foundation channel, and a title that was overclaiming
+
+`/financiacion` was headed *"¿Quién financia a los partidos?"* and answered a much narrower
+question: it showed BDNS state subsidies and nothing else, with a ranked bar chart of 28 parties as
+its hero. Emma's read was right — the title overclaimed and the graphic was the least surprising
+thing on the page.
+
+**The premise behind the fix turned out to be wrong too, and correcting it is the finding.** The
+brief was to document the foundations "who gave money to political parties". Checked against BOE and
+the Tribunal de Cuentas: parties may take **no** corporate money at all (LO 8/2007 art. 5 — no
+*personas jurídicas*, no anonymous donations, €50,000 a year per individual, and a donor holding a
+live public contract must be refused), while their **foundations** fall under *disposición adicional
+séptima*, where legal entities **may** donate: over €120,000 by public deed, notified to the
+Tribunal within three months, donor identity published.
+
+So the money runs *into* the foundations. And the audited figures say it is mostly not corporate
+money either. Across 2021–22, of €7,936,729 in contributions:
+
+- **€7,130,738 (89.8%) came from the parties themselves**
+- €368,982 (4.6%) from companies
+- €437,009 (5.5%) from individuals
+- plus **€4,933,558 of public subsidies** on top
+
+The page leads with party money for that reason. Leading with the corporate line would have been
+accurate and misleading at once.
+
+### What the report actually contains
+
+The previous extractor read only ANEXO III and ANEXO IV and produced two numbers per entity. The
+body of report nº 1.642 carries **70 per-entity dossiers**, and `scripts/extract-foundations.py` now
+reads them: party link, supervising protectorate or *administración competente*, year constituted,
+entry in the Registro de Partidos Políticos, contributions split by source with counts, public
+subsidies **itemised by granting body**, the balance sheet, the collaboration agreements with their
+named counterparties, and the Tribunal's compliance findings verbatim with the article each rests on.
+
+`data/foundations.json` grew from 7.7 KB to 117 KB. New `app/[locale]/fundacion/[slug]/page.tsx`
+gives each of the 39 entities its own dossier — 104 pages to 221.
+
+### Three findings the old page could not show
+
+- **The named corporate counterparties.** Fundación BBK paid Fundación Sabino Arana (PNV) €148,750
+  in each year, expressly to *"promocionar la imagen corporativa del patrocinador"*, and met all
+  three disclosure duties. BBK Fundazioa with **Petronor** (€25,000) and with Grupo Eibar (€30,000)
+  paid Fundación Ramón Rubial (PSOE), and Fundación Cajasol paid Fundación Andalucía, Socialismo y
+  Democracia (PSOE) €10,000 — **none of those three deeded, notified or published.**
+- **The statutory register is nearly empty.** *Disposición adicional cuarta* of LO 6/2002 requires
+  these entities to register. At 31/12/2022 only 18 foundations and 3 entities of those audited were
+  registered; the extractor's own per-dossier flags independently produce exactly 18.
+- **The Tribunal has asked twice.** All seven recommendations repeat those of report nº 1.533 on the
+  2020 exercise, approved 28/09/2023. The three addressed to the Government are unmet because the
+  LOFPP was never amended; recommendations 4 and 5, addressed to the foundations, are unmet too.
+
+Fundación Disenso (Vox) is the single largest recipient — €2,500,900 in 2021 — and its composition
+is the story in miniature: **one transfer of €2,500,000 from Vox itself**, against €900 of corporate
+donations. Fundación Concordia y Libertad (PP) is the mirror image: €16,765 private against
+**€1,012,408 of public money**, including €655,552 from Exteriores and, itemised in the report,
+€23,102 from the Dominican Republic's HIV council and €48,201 from the Global Fund.
+
+### Seven defects the guards caught, and two the guards were extended to catch
+
+The extractor aborts rather than warning, and it earned that four separate times before producing a
+figure:
+
+- **A section anchor that matched only one of two wordings.** Foundations head their fifth section
+  "RENDICIÓN DE LAS CUENTAS" and associations "RENDICIÓN DE CUENTAS" — 28 and 42 of the seventy.
+  Requiring the longer form let the subsidies table run on into the narrative, where dates parsed as
+  amounts. Caught on the first entity by the sum guard.
+- **The word "Total" matching the table's own header.** The contributions header contains "Total
+  aportaciones", which a bare `Total` label matches ahead of the real total row — so every total read
+  as zero. Invisible until the first entity that had any money.
+- **A page artefact read as a total.** Concordia y Libertad's 2022 row ends `15.235,00 69`, and "the
+  last number in the row" is therefore not the total. Amounts are now told from counts by shape: a
+  euro figure always carries decimals or a thousands separator, a count carries neither.
+- **A copy-paste error in the source.** Asociación Juventudes Navarras's second dossier repeats the
+  first one's sentence "las cuentas anuales del ejercicio 2021" while carrying 2022's figures.
+  Reading the year from prose left 2022 an entity short and inflated 2021 by exactly the €9,500
+  involved. The exercise now comes from the annexes, which state how many entities each year covers,
+  and the split is checked against the annex `TOTALES`.
+- **The last dossier swallowing the rest of the document** — conclusions, recommendations and
+  annexes — so a report-wide finding appeared as one entity's own.
+- **A sentence reporting the absence of a breach listed as a breach.** "No se han observado
+  incumplimientos" contains the same words as a finding; listing it under *what the Tribunal found*
+  inverted the report's meaning. 82 findings fell to 54 once negated statements were excluded.
+- **The running page footer quoted inside findings** — "INFORME DE FISCALIZACIÓN APROBADO POR EL
+  PLENO… 92" lands mid-sentence in the text layer.
+
+### One error is the report's own, and both figures are published
+
+Report 1.642 states Fundación Pablo Iglesias's 2022 subsidies as **€451,259.86** while its own three
+lines sum to **€451,259.66**. That is the source's arithmetic, not a parse failure, so a mismatch of
+up to one euro is recorded as a source discrepancy and printed on the dossier with both figures.
+Anything larger still aborts, so the tolerance cannot absorb a stolen cell or a dropped row.
+
+### The page
+
+`components/FoundationChannel.tsx` leads with the four sources of money, then the named
+counterparties with their disclosure verdict, then all 39 entities, then the register gap and the
+repeated recommendations. The order of the page is now foundations → electoral spending → state
+subsidies, and **the page owns its own `<h1>`**; `Dashboard` used to, which bound the title to the
+least important channel. New `home.subtitle` names which channels are on the page and says that
+private donations to the parties themselves are on each party's own page.
+
+`displayName()` title-cases the report's ALL-CAPS entity names for display while the stored name
+stays as the report writes it, because that is what joins a figure back to the source. It leaves
+mixed-case and elided forms alone, so "Centre d`Estudis" survives.
+
+**Verified.** Extractor: 70 dossiers, both exercises reconciling to the cent against the annex
+totals. Typecheck clean, build clean at 221 pages. All three locales render the new order with a
+single `h1`, every `<th>` scoped, and **zero contrast failures**; the sparse dossiers show "no
+inscrita" and "no consta" as stated absences rather than blanks.
+
+**Still to come:** the curated people-and-ties layer — who sits on these boards and what corporate
+and government roles they hold. That is a separate unit and carries its own evidentiary rules.
+
+---
+
 ## 2026-09-08 — The stopped research, finished: 18 findings, 10 refutations, and a year-stale figure
 
 The deep-research run stopped on 2026-09-07 with 160 claims extracted and only 10 adversarial votes
