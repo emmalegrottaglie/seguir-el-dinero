@@ -5,6 +5,122 @@ figures name their source; corrections and gaps are recorded alongside the work,
 
 ---
 
+## 2026-09-08 — The foundation channel, and a title that was overclaiming
+
+`/financiacion` was headed *"¿Quién financia a los partidos?"* and answered a much narrower
+question: it showed BDNS state subsidies and nothing else, with a ranked bar chart of 28 parties as
+its hero. Emma's read was right — the title overclaimed and the graphic was the least surprising
+thing on the page.
+
+**The premise behind the fix turned out to be wrong too, and correcting it is the finding.** The
+brief was to document the foundations "who gave money to political parties". Checked against BOE and
+the Tribunal de Cuentas: parties may take **no** corporate money at all (LO 8/2007 art. 5 — no
+*personas jurídicas*, no anonymous donations, €50,000 a year per individual, and a donor holding a
+live public contract must be refused), while their **foundations** fall under *disposición adicional
+séptima*, where legal entities **may** donate: over €120,000 by public deed, notified to the
+Tribunal within three months, donor identity published.
+
+So the money runs *into* the foundations. And the audited figures say it is mostly not corporate
+money either. Across 2021–22, of €7,936,729 in contributions:
+
+- **€7,130,738 (89.8%) came from the parties themselves**
+- €368,982 (4.6%) from companies
+- €437,009 (5.5%) from individuals
+- plus **€4,933,558 of public subsidies** on top
+
+The page leads with party money for that reason. Leading with the corporate line would have been
+accurate and misleading at once.
+
+### What the report actually contains
+
+The previous extractor read only ANEXO III and ANEXO IV and produced two numbers per entity. The
+body of report nº 1.642 carries **70 per-entity dossiers**, and `scripts/extract-foundations.py` now
+reads them: party link, supervising protectorate or *administración competente*, year constituted,
+entry in the Registro de Partidos Políticos, contributions split by source with counts, public
+subsidies **itemised by granting body**, the balance sheet, the collaboration agreements with their
+named counterparties, and the Tribunal's compliance findings verbatim with the article each rests on.
+
+`data/foundations.json` grew from 7.7 KB to 117 KB. New `app/[locale]/fundacion/[slug]/page.tsx`
+gives each of the 39 entities its own dossier — 104 pages to 221.
+
+### Three findings the old page could not show
+
+- **The named corporate counterparties.** Fundación BBK paid Fundación Sabino Arana (PNV) €148,750
+  in each year, expressly to *"promocionar la imagen corporativa del patrocinador"*, and met all
+  three disclosure duties. BBK Fundazioa with **Petronor** (€25,000) and with Grupo Eibar (€30,000)
+  paid Fundación Ramón Rubial (PSOE), and Fundación Cajasol paid Fundación Andalucía, Socialismo y
+  Democracia (PSOE) €10,000 — **none of those three deeded, notified or published.**
+- **The statutory register is nearly empty.** *Disposición adicional cuarta* of LO 6/2002 requires
+  these entities to register. At 31/12/2022 only 18 foundations and 3 entities of those audited were
+  registered; the extractor's own per-dossier flags independently produce exactly 18.
+- **The Tribunal has asked twice.** All seven recommendations repeat those of report nº 1.533 on the
+  2020 exercise, approved 28/09/2023. The three addressed to the Government are unmet because the
+  LOFPP was never amended; recommendations 4 and 5, addressed to the foundations, are unmet too.
+
+Fundación Disenso (Vox) is the single largest recipient — €2,500,900 in 2021 — and its composition
+is the story in miniature: **one transfer of €2,500,000 from Vox itself**, against €900 of corporate
+donations. Fundación Concordia y Libertad (PP) is the mirror image: €16,765 private against
+**€1,012,408 of public money**, including €655,552 from Exteriores and, itemised in the report,
+€23,102 from the Dominican Republic's HIV council and €48,201 from the Global Fund.
+
+### Seven defects the guards caught, and two the guards were extended to catch
+
+The extractor aborts rather than warning, and it earned that four separate times before producing a
+figure:
+
+- **A section anchor that matched only one of two wordings.** Foundations head their fifth section
+  "RENDICIÓN DE LAS CUENTAS" and associations "RENDICIÓN DE CUENTAS" — 28 and 42 of the seventy.
+  Requiring the longer form let the subsidies table run on into the narrative, where dates parsed as
+  amounts. Caught on the first entity by the sum guard.
+- **The word "Total" matching the table's own header.** The contributions header contains "Total
+  aportaciones", which a bare `Total` label matches ahead of the real total row — so every total read
+  as zero. Invisible until the first entity that had any money.
+- **A page artefact read as a total.** Concordia y Libertad's 2022 row ends `15.235,00 69`, and "the
+  last number in the row" is therefore not the total. Amounts are now told from counts by shape: a
+  euro figure always carries decimals or a thousands separator, a count carries neither.
+- **A copy-paste error in the source.** Asociación Juventudes Navarras's second dossier repeats the
+  first one's sentence "las cuentas anuales del ejercicio 2021" while carrying 2022's figures.
+  Reading the year from prose left 2022 an entity short and inflated 2021 by exactly the €9,500
+  involved. The exercise now comes from the annexes, which state how many entities each year covers,
+  and the split is checked against the annex `TOTALES`.
+- **The last dossier swallowing the rest of the document** — conclusions, recommendations and
+  annexes — so a report-wide finding appeared as one entity's own.
+- **A sentence reporting the absence of a breach listed as a breach.** "No se han observado
+  incumplimientos" contains the same words as a finding; listing it under *what the Tribunal found*
+  inverted the report's meaning. 82 findings fell to 54 once negated statements were excluded.
+- **The running page footer quoted inside findings** — "INFORME DE FISCALIZACIÓN APROBADO POR EL
+  PLENO… 92" lands mid-sentence in the text layer.
+
+### One error is the report's own, and both figures are published
+
+Report 1.642 states Fundación Pablo Iglesias's 2022 subsidies as **€451,259.86** while its own three
+lines sum to **€451,259.66**. That is the source's arithmetic, not a parse failure, so a mismatch of
+up to one euro is recorded as a source discrepancy and printed on the dossier with both figures.
+Anything larger still aborts, so the tolerance cannot absorb a stolen cell or a dropped row.
+
+### The page
+
+`components/FoundationChannel.tsx` leads with the four sources of money, then the named
+counterparties with their disclosure verdict, then all 39 entities, then the register gap and the
+repeated recommendations. The order of the page is now foundations → electoral spending → state
+subsidies, and **the page owns its own `<h1>`**; `Dashboard` used to, which bound the title to the
+least important channel. New `home.subtitle` names which channels are on the page and says that
+private donations to the parties themselves are on each party's own page.
+
+`displayName()` title-cases the report's ALL-CAPS entity names for display while the stored name
+stays as the report writes it, because that is what joins a figure back to the source. It leaves
+mixed-case and elided forms alone, so "Centre d`Estudis" survives.
+
+**Verified.** Extractor: 70 dossiers, both exercises reconciling to the cent against the annex
+totals. Typecheck clean, build clean at 221 pages. All three locales render the new order with a
+single `h1`, every `<th>` scoped, and **zero contrast failures**; the sparse dossiers show "no
+inscrita" and "no consta" as stated absences rather than blanks.
+
+**Still to come:** the curated people-and-ties layer — who sits on these boards and what corporate
+and government roles they hold. That is a separate unit and carries its own evidentiary rules.
+
+---
+
 ## 2026-09-08 — The stopped research, finished: 18 findings, 10 refutations, and a year-stale figure
 
 The deep-research run stopped on 2026-09-07 with 160 claims extracted and only 10 adversarial votes

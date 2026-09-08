@@ -13,7 +13,7 @@ Catalan, deployed on Vercel.
 |-------|--------|-----------|
 | State subsidies to parties | BDNS / SNPSAP REST API | Live, daily cron |
 | Private donations to parties | Tribunal de Cuentas report 1573 (2020) | Fixed, transcribed |
-| Party-linked foundations | Tribunal de Cuentas report 1.642 (2021–22) | Fixed, per-entity |
+| Party-linked foundations | Tribunal de Cuentas report 1.642 (2021–22) | Fixed, per-dossier |
 | Electoral spending by category | Tribunal de Cuentas report 1.628 (EP 2024) | Fixed, per-formation |
 | Public salaries of officeholders | Registro de Altos Cargos CSV export | Rebuilt from script |
 | Key roll-call votes | Congreso de los Diputados open data | Rebuilt from script |
@@ -58,6 +58,20 @@ verified, the feature was cut rather than faked.
 - **Per-politician funding does not exist** and is not invented. Subsidies go to parties;
   profiles link to the party's funding instead.
 
+## The foundation channel runs the other way
+
+Worth stating because the obvious guess is wrong, and the site used to imply it.
+Parties may take **no** corporate money (LO 8/2007 art. 5: no *personas juríicas*, no anonymous
+donations, €50,000 a year per individual, and a donor holding a live public contract must be
+refused). Their **foundations** are governed by *disposición adicional séptima*, where legal
+entities *may* donate — over €120,000 by public deed, notified to the Tribunal de Cuentas within
+three months, donor identity published.
+
+So the arrow runs into the foundations. But in the audited figures the corporate share is small:
+across 2021–22, **89.8% of the €7.9M of contributions came from the parties themselves** and 4.6%
+from companies, with €4.9M of public subsidies on top. The page leads with party money for that
+reason. Do not rewrite it around a corporate-capture framing the figures do not support.
+
 ## Architecture / where things live
 
 ### Routes (all under `app/[locale]/`)
@@ -65,7 +79,8 @@ verified, the feature was cut rather than faked.
 | Path | Role |
 |------|------|
 | `page.tsx` | The portal: headline figures, how each group voted, rights news, section cards |
-| `financiacion/page.tsx` | Party funding dashboard + the party-linked foundations channel |
+| `financiacion/page.tsx` | The three money channels: foundations, electoral spending, state subsidies |
+| `fundacion/[slug]/page.tsx` | One party-linked entity: money in by source, public money by grantor, findings |
 | `politicos/page.tsx` | Politician directory: featured record-holders + the full register |
 | `politico/[slug]/page.tsx` | One person: pay, party funding, recorded ballots, social, news |
 | `party/[nif]/page.tsx` | Party detail: public + private money, faces, ledger, news |
@@ -106,7 +121,7 @@ ordinary browser one, so `FEED_HEADERS` in the registry sends the browser string
 | `lib/normalize.ts` | Parse `beneficiario` into NIF, classify subsidy kind, aggregate, filter |
 | `lib/parties.ts` | Canonical NIF → party (name, colour, bloc) |
 | `lib/donations.ts` | Private donations 2020, transcribed from the TdC report |
-| `lib/foundations.ts` | Party-linked foundations 2021–22, per-entity + the legal mechanism |
+| `lib/foundations.ts` | Party-linked foundations 2021–22, per-dossier + the legal mechanism |
 | `lib/salaries.ts` | Officeholder pay: load, accent-folded search, paging, party facets |
 | `lib/votes.ts` | Roll-call votes: load, `positionsFor`, `tallyByGroup` |
 | `lib/photos.ts` | Portrait lookup, `portraitKeys` for bulk tests |
