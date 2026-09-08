@@ -72,6 +72,29 @@ across 2021–22, **89.8% of the €7.9M of contributions came from the parties 
 from companies, with €4.9M of public subsidies on top. The page leads with party money for that
 reason. Do not rewrite it around a corporate-capture framing the figures do not support.
 
+## The people layer is curated, and its sources are typed
+
+`lib/foundation-people.ts` names living people, so it carries stricter rules than any other layer
+and the types enforce them:
+
+- **One dated source per record**, with a URL. A record without one does not exist.
+- **`SourceKind` drives the rendering.** `registry` and `official` read as statements of record;
+  `press` renders as *"según <publisher> (<date>)"*. They are never merged or counted together.
+  This is the ODIHR rule the research verified 3-0: the label must match the evidentiary status of
+  the source.
+- **Nothing is inferred.** No score, no ranking, no derived edge. A tie exists only where a named
+  source states it. `former: true` where the source puts a role in the past.
+- **Names join by `nameKey`**, so an ambiguous match is dropped rather than guessed, exactly as with
+  portraits and social handles.
+
+**Chase the primary source.** Three secondary sources were wrong here. Wikipedia lists an
+eight-member Disenso board from 2020 against the foundation's own filing of three. A 2017 PSOE
+announcement of the Fundación Pablo Iglesias board would have published Félix Bolaños as its
+secretary today. And a press report had Pablo Iglesias presiding over Podemos's foundation with
+Monedero as director, where the entity's own patronato page shows neither and only one name in
+common. Where a board could not be established at all, that goes in `BOARD_GAPS` and prints on the
+dossier — the absence is a finding, because apartado Seis requires publication.
+
 ## Architecture / where things live
 
 ### Routes (all under `app/[locale]/`)
@@ -122,6 +145,7 @@ ordinary browser one, so `FEED_HEADERS` in the registry sends the browser string
 | `lib/parties.ts` | Canonical NIF → party (name, colour, bloc) |
 | `lib/donations.ts` | Private donations 2020, transcribed from the TdC report |
 | `lib/foundations.ts` | Party-linked foundations 2021–22, per-dossier + the legal mechanism |
+| `lib/foundation-people.ts` | Curated: who governs each foundation, and their outside roles, one dated source per record |
 | `lib/salaries.ts` | Officeholder pay: load, accent-folded search, paging, party facets |
 | `lib/votes.ts` | Roll-call votes: load, `positionsFor`, `tallyByGroup` |
 | `lib/photos.ts` | Portrait lookup, `portraitKeys` for bulk tests |

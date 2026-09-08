@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getDict } from "@/lib/i18n";
 import { euro, integer } from "@/lib/format";
 import { PARTIES } from "@/lib/parties";
+import FoundationGovernance from "@/components/FoundationGovernance";
 import {
   displayName,
   entityBySlug,
@@ -107,6 +108,8 @@ export default async function FundacionPage({
           </div>
         </dl>
       </section>
+
+      <FoundationGovernance foundation={entity.name} t={t} />
 
       {entity.years.map((year) => (
         <Exercise key={year.exercise} year={year} F={F} bcp47={bcp47} />

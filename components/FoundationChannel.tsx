@@ -8,6 +8,7 @@ import {
   FOUNDATIONS_LAW_URL,
   type FoundationsFile,
 } from "@/lib/foundations";
+import { governanceCoverage } from "@/lib/foundation-people";
 import { euro, euroCompact, integer, percent } from "@/lib/format";
 import type { Dict } from "@/lib/i18n";
 
@@ -38,6 +39,7 @@ export default function FoundationChannel({
   const deals = namedDeals(data);
   const reg = registrationTally(data);
   const max = ranked[0] ? ranked[0].contributions + ranked[0].subsidies : 1;
+  const gov = governanceCoverage(ranked.map((e) => e.name));
 
   return (
     <section className="mx-auto mt-20 max-w-6xl px-5">
@@ -260,6 +262,24 @@ export default function FoundationChannel({
           <p className="label-mono mb-3 text-[var(--gold)]">{F.repeatedTitle}</p>
           <p className="leading-relaxed text-[var(--paper-dim)]">{F.repeatedBody}</p>
         </div>
+      </div>
+
+      {/* The people layer is per-entity, so the channel page states its
+          coverage and sends the reader to a dossier rather than flattening
+          forty boards into one list. */}
+      <div className="panel mt-6 p-6">
+        <p className="label-mono mb-3 text-[var(--gold)]">{F.peopleCoverageTitle}</p>
+        <p className="leading-relaxed text-[var(--paper-dim)]">
+          {F.peopleCoverage
+            .replace("{documented}", integer(gov.documented, bcp47))
+            .replace("{entities}", integer(gov.entities, bcp47))
+            .replace("{people}", integer(gov.people, bcp47))
+            .replace("{ties}", integer(gov.ties, bcp47))}
+          {/* Stated only when there is any, so a zero does not read as a
+              disclaimer about records that do not exist. */}
+          {gov.fromPress > 0 &&
+            ` ${F.peopleCoveragePress.replace("{press}", integer(gov.fromPress, bcp47))}`}
+        </p>
       </div>
 
       <div className="panel mt-6 p-6">

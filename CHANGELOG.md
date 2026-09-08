@@ -5,6 +5,107 @@ figures name their source; corrections and gaps are recorded alongside the work,
 
 ---
 
+## 2026-09-08 — Who governs the party foundations, and how each claim is sourced
+
+The money layer landed earlier today. This is the part it could not answer: report nº 1.642 records
+what these entities received and never who runs them. `lib/foundation-people.ts` does, for the
+entities that move real money, and every record carries one dated source with its evidentiary status
+attached.
+
+**Coverage: a board documented for 5 of the 39 audited entities — 53 people and 18 outside roles.**
+Small on purpose. Board membership is published unevenly, and where it could not be established the
+dossier says so rather than showing an empty section.
+
+### The rules, enforced in the types
+
+- **One dated source per record**, with a resolvable URL. A record without one does not exist.
+- **`SourceKind` drives the rendering.** `registry` and `official` read as statements of record;
+  `press` renders as *"según {publisher} ({date})"*. They are never merged or counted together —
+  the ODIHR rule this project verified 3-0 in the research: the label must match the evidentiary
+  status of its source.
+- **Nothing is inferred.** No score, no ranking, no derived edge. A tie exists only where a named
+  source states it, and `former: true` where the source puts the role in the past, because a stale
+  role shown as current misrepresents a living person.
+- **Names join by `nameKey`**, so an ambiguous match is dropped rather than guessed — the same rule
+  the portrait and social-handle joins already follow.
+
+### Chasing the primary source overturned three secondary ones
+
+This is the finding of the exercise, and it is why the layer is small rather than broad:
+
+- **Wikipedia lists an eight-member Fundación Disenso board** from 2020. The foundation's own
+  transparency filing lists **three**: Santiago Abascal, Enrique Cabanas and Pablo Sáez.
+- **A 2017 PSOE announcement** of the Fundación Pablo Iglesias board was the most recent list
+  reachable without a bot check. Publishing it would have said **Félix Bolaños is the foundation's
+  secretary today** — he is a minister, and the board has changed twice since. The foundation's own
+  page (last modified 2026-07-02) gives the real 20-member board.
+- **eldiario.es reported in October 2021** that Pablo Iglesias had taken the presidency of Podemos's
+  foundation with Juan Carlos Monedero as director. The entity's own patronato page (modified
+  2024-04-09) shows **neither of them**, and of the six names in that article only Orencio Osuna
+  remains. The press record is kept for the one fact it still evidences: the change of name.
+
+A fourth, smaller trap: a search summary offered a different and larger Podemos board than the
+article it was summarising. Only fetched sources are recorded.
+
+### What the boards actually show
+
+- **Fundación Pablo Iglesias (PSOE)** — 20 trustees including **Pedro Sánchez**, **María Jesús
+  Montero**, **Félix Bolaños**, Carmen Calvo, Cristina Narbona, Reyes Maroto, Pilar Bernabé, Rebeca
+  Torró and César Luena. A foundation that took €451,260 of public subsidies in 2022 is governed by
+  a board carrying the Prime Minister and the Finance Minister.
+- **Fundación Concordia y Libertad (PP)**, which now trades as **Reformismo 21** — a six-member
+  patronato under Pablo Vázquez (former Renfe and Ineco president), with an advisory council chaired
+  by **Alberto Núñez Feijóo** and carrying the corporate ties: **Verónica Pascual**, a Telefónica
+  board member; **Fátima Báñez**, president of Fundación CEOE and a former minister; **María Eugenia
+  Clemente**, chief executive of Alestis Aerospace; plus Román Escolano (former Economy Minister,
+  now at the European Investment Bank) and Ramón Gil-Casares.
+- **Sabino Arana Fundazioa (PNV)** — nine trustees, and the only entity here publishing an
+  appointment date for every one of them, from 2008 to November 2025. It is also the only party
+  foundation holding the Haz Foundation's *"t de transparente"* seal. Its board is professionals
+  rather than serving politicians, chaired by Arantxa Tapia Otaegi.
+- **Fundación Disenso (Vox)** — three trustees, chaired in effect by the party's own president.
+- **Fundación Instituto República y Democracia (Podemos)** — five, under José Julio Rodríguez
+  Fernández, a retired career officer who was chief of staff to the Second Vice-President between
+  January 2020 and March 2021.
+
+### Renames, which the report cannot show
+
+Report nº 1.642 uses the name in force during the audited exercise, and two of these entities have
+since renamed themselves — so a reader searching the current name finds nothing, and one of them
+appears in the report twice under both names. Both renames are now recorded and printed on the
+dossier: **Concordia y Libertad → Reformismo 21 (2023)** and **Instituto 25 de Mayo para la
+Democracia → Instituto República y Democracia (2021)**.
+
+### Gaps, printed rather than hidden
+
+`BOARD_GAPS` records the entities whose board could not be established, with the reason. Fundación
+Ramón Rubial is the pointed one: no published patronato was found, and it is also the entity with
+the most publicity breaches in the report — two agreements with companies, none of them deeded,
+notified or published. Apartado Seis of disposición adicional séptima requires these entities to
+publish; report 1.642 finds 16 did not publish their 2021 accounts and 14 their 2022 accounts. An
+empty section would read as our omission rather than theirs.
+
+### On the page
+
+`components/FoundationGovernance.tsx` sits on each dossier directly under the identity block — who
+runs it belongs next to what it is, not beneath the money. Each person shows their role or roles
+with the source and date, then their outside roles, with corporate ties in the accent colour and
+past roles labelled as past. The channel section carries a short coverage panel stating how much is
+documented and pointing at the dossiers, rather than flattening forty boards into one list; its
+press-count sentence renders only when the count is above zero, so a zero does not read as a
+disclaimer about records that do not exist.
+
+**Verified.** Every one of the 10 entity names in the registry joins to a dossier in
+`data/foundations.json`. Typecheck clean, build clean at 221 pages, and `/es/financiacion` plus the
+dossiers render with zero contrast failures.
+
+**Deliberately not built.** No network graph and no join to the officeholder register. The register
+join is attractive — it would attach an official public post to each trustee from a source the site
+already ingests — but a wrong match would attribute someone else's public office to a named private
+person, so it needs its own verification pass rather than being folded in here.
+
+---
+
 ## 2026-09-08 — The foundation channel, and a title that was overclaiming
 
 `/financiacion` was headed *"¿Quién financia a los partidos?"* and answered a much narrower
