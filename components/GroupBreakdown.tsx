@@ -34,11 +34,11 @@ export default function GroupBreakdown({
     <div className="mt-3 overflow-x-auto">
       <table className="w-full min-w-[36rem] border-collapse text-sm">
         {/* Not label-mono: it uppercases, and this is a sentence. */}
-        <caption className="max-w-3xl pb-4 text-left text-xs leading-relaxed text-[var(--paper-dim)]">
+        <caption className="max-w-3xl pb-4 text-left text-xs leading-relaxed text-[var(--ink-2)]">
           {v.byGroupCaption}
         </caption>
         <thead>
-          <tr className="label-mono text-left text-[var(--paper-faint)]">
+          <tr className="label-mono text-left text-[var(--ink-3)]">
             <th scope="col" className="py-2 pr-4 font-normal">
               {v.group}
             </th>
@@ -78,17 +78,17 @@ export default function GroupBreakdown({
                     <span
                       aria-hidden="true"
                       className="mt-1 h-3.5 w-[3px] shrink-0 rounded-full"
-                      style={{ backgroundColor: party ? party.color : "var(--line-control)" }}
+                      style={{ backgroundColor: party ? party.color : "var(--line)" }}
                     />
                     <span className="min-w-0">
-                      <span className="block text-[var(--paper)]">
+                      <span className="block text-[var(--ink)]">
                         {info ? info.short : g.group}
                       </span>
-                      <span className="label-mono block text-[var(--paper-faint)]">
+                      <span className="label-mono block text-[var(--ink-3)]">
                         {info ? info.name : v.groupUnknown}
                       </span>
                       {info && (
-                        <span className="mono block text-xs text-[var(--paper-faint)]">
+                        <span className="mono block text-xs text-[var(--ink-3)]">
                           {g.group}
                         </span>
                       )}
@@ -100,7 +100,7 @@ export default function GroupBreakdown({
                 <td className="py-3 pr-4">
                   <span
                     aria-hidden="true"
-                    className="flex h-3 overflow-hidden rounded-sm bg-[var(--ink-3)]"
+                    className="flex h-3 overflow-hidden rounded-sm bg-[var(--track)]"
                   >
                     {g.si > 0 && (
                       <span style={{ width: seg(g.si), backgroundColor: "var(--gold)" }} />
@@ -109,18 +109,18 @@ export default function GroupBreakdown({
                       <span style={{ width: seg(g.no), backgroundColor: "var(--red)" }} />
                     )}
                     {g.abst > 0 && (
-                      <span style={{ width: seg(g.abst), backgroundColor: "var(--paper-dim)" }} />
+                      <span style={{ width: seg(g.abst), backgroundColor: "var(--ink-2)" }} />
                     )}
                   </span>
                 </td>
 
-                <td className="mono py-3 pr-3 text-right" style={{ color: "var(--gold)" }}>
+                <td className="mono py-3 pr-3 text-right" style={{ color: "var(--gold-deep)" }}>
                   {g.si || "—"}
                 </td>
                 <td className="mono py-3 pr-3 text-right" style={{ color: "var(--red)" }}>
                   {g.no || "—"}
                 </td>
-                <td className="mono py-3 pr-4 text-right text-[var(--paper-dim)]">
+                <td className="mono py-3 pr-4 text-right text-[var(--ink-2)]">
                   {g.abst || "—"}
                 </td>
 
@@ -133,7 +133,7 @@ export default function GroupBreakdown({
                       {party.shortName} →
                     </Link>
                   ) : (
-                    <span className="text-[var(--paper-faint)]">
+                    <span className="text-[var(--ink-3)]">
                       {v.severalParties}
                       {info?.parties && (
                         <span className="block normal-case tracking-normal">
@@ -150,7 +150,7 @@ export default function GroupBreakdown({
       </table>
 
       {/* Not label-mono: it uppercases, and this is prose. */}
-      <p className="mt-4 max-w-3xl text-xs leading-relaxed text-[var(--paper-faint)]">
+      <p className="mt-4 max-w-3xl text-xs leading-relaxed text-[var(--ink-3)]">
         {v.groupNote}{" "}
         <a className="src" href={GROUPS_SOURCE} target="_blank" rel="noopener noreferrer">
           {v.groupSource}

@@ -1,32 +1,37 @@
 import type { Metadata } from "next";
-import { Fraunces, Archivo, IBM_Plex_Mono } from "next/font/google";
-import Link from "next/link";
+import { Cormorant_Garamond, Lora } from "next/font/google";
 import { notFound } from "next/navigation";
 import { getDict, LOCALES, isLocale } from "@/lib/i18n";
-import Sidebar from "@/components/Sidebar";
+import Masthead from "@/components/Masthead";
 import "../globals.css";
 
-const fraunces = Fraunces({
+/* Two faces only. Cormorant Garamond carries every heading, kicker, tab and
+   display figure; Lora carries body, meta and table amounts. The previous
+   system loaded three (Fraunces, Archivo, IBM Plex Mono) and the mono face
+   existed only to get tabular figures, which both of these provide. */
+
+const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
-  variable: "--font-fraunces",
-  weight: ["400", "500", "600", "700"],
+  variable: "--font-cormorant",
+  // 600 is the ceiling: the design system caps headings there, and the large
+  // display sizes take the 400 cut.
+  weight: ["400", "600"],
   style: ["normal", "italic"],
   display: "swap",
 });
 
-const archivo = Archivo({
+const lora = Lora({
   subsets: ["latin"],
-  variable: "--font-archivo",
-  weight: ["400", "500", "600"],
+  variable: "--font-lora",
+  weight: ["400", "600"],
+  style: ["normal", "italic"],
   display: "swap",
 });
 
-const plexMono = IBM_Plex_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono-plex",
-  weight: ["400", "500", "600"],
-  display: "swap",
-});
+/* The masthead dateline is rendered from the request's date, so the shell
+   re-renders on the same hourly cadence as the pages inside it. Without this
+   a statically prerendered locale would carry the build date indefinitely. */
+export const revalidate = 3600;
 
 export function generateStaticParams() {
   return LOCALES.map((locale) => ({ locale }));
@@ -51,14 +56,24 @@ export default async function RootLayout({
 }) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
-  const { t } = getDict(locale);
+  const { bcp47, t } = getDict(locale);
+
+  // Formatted on the server: a client-side date would either mismatch at
+  // hydration or leave the dateline absent from the HTML.
+  const dateline = new Intl.DateTimeFormat(bcp47, {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "Europe/Madrid",
+  }).format(new Date());
 
   return (
     // suppressHydrationWarning: browser extensions (e.g. Dark Reader) inject
     // attributes onto <html> before React hydrates; that mismatch is benign.
     <html lang={locale} suppressHydrationWarning>
-      <body className={`${fraunces.variable} ${archivo.variable} ${plexMono.variable}`}>
-        {/* Skip link: the sidebar repeats six links before the content on every
+      <body className={`${cormorant.variable} ${lora.variable}`}>
+        {/* Skip link: the nav repeats eight links before the content on every
             page, so a keyboard or screen-reader user had to pass all of them
             each time.
 
@@ -69,25 +84,33 @@ export default async function RootLayout({
             focusable and in the accessibility tree, and simply slides in. */}
         <a
           href="#main"
-          className="label-mono absolute left-0 top-0 z-50 inline-flex min-h-11 -translate-y-full items-center rounded-br border border-[var(--gold)] bg-[var(--ink-2)] px-4 text-[var(--gold-bright)] transition-transform focus:translate-y-0"
+          className="label-mono absolute left-0 top-0 z-50 inline-flex min-h-11 -translate-y-full items-center border border-[var(--gold)] bg-[var(--surface)] px-4 text-[var(--gold-deep)] transition-transform focus:translate-y-0"
         >
           {t.nav.skipToContent}
         </a>
 
-        <div className="lg:flex">
-          <Sidebar locale={locale} nav={t.nav} />
-          {/* tabIndex -1 so the skip link actually moves focus here, not just
-              the scroll position. */}
-          <div id="main" tabIndex={-1} className="min-w-0 flex-1 outline-none">
-            {children}
-            <footer className="mx-auto max-w-6xl px-5 py-12">
-              <hr className="hairline mb-6" />
-              <div className="label-mono flex flex-col gap-2 sm:flex-row sm:justify-between">
-                <span>{t.footer.source}</span>
-                <span className="text-[var(--paper-faint)]">{t.footer.caveat}</span>
-              </div>
-            </footer>
-          </div>
+        {/* The 6px ink bar that opens the page. */}
+        <div aria-hidden style={{ height: 6, background: "var(--ink)" }} />
+
+        <Masthead locale={locale} nav={t.nav} masthead={t.masthead} dateline={dateline} />
+
+        {/* tabIndex -1 so the skip link actually moves focus here, not just
+            the scroll position. */}
+        <div
+          id="main"
+          tabIndex={-1}
+          className="mx-auto max-w-[1280px] px-[22px] pb-16 outline-none"
+        >
+          {children}
+
+          <footer className="mt-8 flex flex-wrap justify-between gap-x-8 gap-y-2 border-t border-[var(--ink)] pt-3.5">
+            <span className="label-mono" style={{ letterSpacing: "0.1em" }}>
+              {t.footer.source}
+            </span>
+            <span className="label-mono" style={{ letterSpacing: "0.1em" }}>
+              {t.footer.caveat}
+            </span>
+          </footer>
         </div>
       </body>
     </html>

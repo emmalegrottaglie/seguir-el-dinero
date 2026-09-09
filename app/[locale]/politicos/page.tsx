@@ -46,39 +46,39 @@ export default async function PoliticosPage({
   };
 
   return (
-    <main className="mx-auto max-w-5xl px-5 pb-8">
+    <main className="mx-auto max-w-5xl pb-8">
       <h1 className="display mt-6 text-4xl sm:text-5xl">{P.title}</h1>
-      <p className="mt-5 max-w-2xl text-[var(--paper-dim)]">{P.intro}</p>
+      <p className="mt-5 max-w-2xl text-[var(--ink-2)]">{P.intro}</p>
 
       {/* Featured: rich profiles */}
       {featuredProfiles.length > 0 && (
         <section className="mt-12">
           <h2 className="display section-tick text-2xl">{P.featured}</h2>
-          <p className="label-mono mt-4 text-[var(--paper-faint)]">{P.featuredNote}</p>
+          <p className="label-mono mt-4 text-[var(--ink-3)]">{P.featuredNote}</p>
 
           <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {featuredProfiles.map(({ person, party: pty, portrait, social, record }) => (
               <Link
                 key={person.slug}
                 href={`/${locale}/politico/${person.slug}`}
-                className="panel group flex flex-col gap-3 p-5 transition-colors hover:border-[var(--line-strong)]"
+                className="panel group flex flex-col gap-3 p-5 transition-colors hover:border-[var(--line)]"
               >
                 <div className="flex items-center gap-3">
                   <Avatar name={person.name} portrait={portrait} color={pty?.color} size={48} />
                   <div className="min-w-0">
-                    <p className="truncate group-hover:text-[var(--gold-bright)]">{person.name}</p>
-                    <p className="label-mono mt-1 truncate text-[var(--paper-dim)]">
+                    <p className="truncate group-hover:text-[var(--gold-deep)]">{person.name}</p>
+                    <p className="label-mono mt-1 truncate text-[var(--ink-2)]">
                       {person.partyShort}
                     </p>
                   </div>
                 </div>
-                <p className="label-mono truncate text-[var(--paper-faint)]">{person.role}</p>
+                <p className="label-mono truncate text-[var(--ink-3)]">{person.role}</p>
                 <div className="mono flex flex-wrap gap-x-4 gap-y-1 text-xs">
-                  <span className="text-[var(--paper)]">{euroCompact(person.gross, bcp47)}</span>
-                  <span className="text-[var(--gold)]">
+                  <span className="text-[var(--ink)]">{euroCompact(person.gross, bcp47)}</span>
+                  <span className="text-[var(--gold-deep)]">
                     {integer(record.length, bcp47)} {P.hasRecord}
                   </span>
-                  {social && <span className="text-[var(--paper-faint)]">{P.hasSocial}</span>}
+                  {social && <span className="text-[var(--ink-3)]">{P.hasSocial}</span>}
                 </div>
               </Link>
             ))}
@@ -98,7 +98,7 @@ export default async function PoliticosPage({
             defaultValue={q ?? ""}
             placeholder={S.searchPlaceholder}
             aria-label={S.search}
-            className="mono min-h-11 min-w-0 flex-1 rounded border border-[var(--line-control)] bg-[var(--ink-3)] px-3 text-sm text-[var(--paper)] outline-none focus:border-[var(--gold)]"
+            className="mono min-h-11 min-w-0 flex-1 rounded border border-[var(--line)] bg-[var(--track)] px-3 text-sm text-[var(--ink)] outline-none focus:border-[var(--gold)]"
           />
           <button
             type="submit"
@@ -114,8 +114,8 @@ export default async function PoliticosPage({
             aria-current={!party ? "page" : undefined}
             className={`label-mono inline-flex min-h-11 items-center rounded-full border px-3 transition-colors ${
               !party
-                ? "border-[var(--gold)] text-[var(--gold-bright)]"
-                : "border-[var(--line-control)] text-[var(--paper-faint)] hover:text-[var(--paper)]"
+                ? "border-[var(--gold)] text-[var(--gold-deep)]"
+                : "border-[var(--line)] text-[var(--ink-3)] hover:text-[var(--ink)]"
             }`}
           >
             {S.all}
@@ -127,8 +127,8 @@ export default async function PoliticosPage({
               aria-current={party === p.short ? "page" : undefined}
               className={`label-mono inline-flex min-h-11 items-center rounded-full border px-3 transition-colors ${
                 party === p.short
-                  ? "border-[var(--gold)] text-[var(--gold-bright)]"
-                  : "border-[var(--line-control)] text-[var(--paper-faint)] hover:text-[var(--paper)]"
+                  ? "border-[var(--gold)] text-[var(--gold-deep)]"
+                  : "border-[var(--line)] text-[var(--ink-3)] hover:text-[var(--ink)]"
               }`}
             >
               {p.short} <span className="opacity-60">{p.count}</span>
@@ -136,7 +136,7 @@ export default async function PoliticosPage({
           ))}
         </div>
 
-        <p className="label-mono mt-6 text-[var(--paper-faint)]">
+        <p className="label-mono mt-6 text-[var(--ink-3)]">
           {integer(total, bcp47)} {S.results}
         </p>
 
@@ -150,21 +150,21 @@ export default async function PoliticosPage({
                   className="group grid grid-cols-[1fr_auto] items-baseline gap-4 py-4 sm:grid-cols-[1fr_9rem_8rem]"
                 >
                   <div className="min-w-0">
-                    <p className="truncate text-[var(--paper)] group-hover:text-[var(--gold-bright)]">
+                    <p className="truncate text-[var(--ink)] group-hover:text-[var(--gold-deep)]">
                       {p.name}
                       {b?.hasRecord && (
-                        <span className="label-mono ml-2 text-[var(--gold)]">·{P.hasRecord}</span>
+                        <span className="label-mono ml-2 text-[var(--gold-deep)]">·{P.hasRecord}</span>
                       )}
                     </p>
-                    <p className="label-mono mt-1 truncate text-[var(--paper-dim)]">{p.role}</p>
+                    <p className="label-mono mt-1 truncate text-[var(--ink-2)]">{p.role}</p>
                   </div>
                   <div className="hidden min-w-0 sm:block">
-                    <p className="label-mono truncate text-[var(--paper-dim)]">{p.partyShort}</p>
-                    <p className="label-mono mt-1 truncate text-[var(--paper-faint)]">
+                    <p className="label-mono truncate text-[var(--ink-2)]">{p.partyShort}</p>
+                    <p className="label-mono mt-1 truncate text-[var(--ink-3)]">
                       {p.municipality ?? p.region ?? "—"}
                     </p>
                   </div>
-                  <p className="mono text-right text-sm text-[var(--paper)]">
+                  <p className="mono text-right text-sm text-[var(--ink)]">
                     {euroCompact(p.gross, bcp47)}
                   </p>
                 </Link>
@@ -175,23 +175,23 @@ export default async function PoliticosPage({
         </div>
 
         {results.length === 0 && (
-          <p className="label-mono py-10 text-center text-[var(--paper-faint)]">{S.noResults}</p>
+          <p className="label-mono py-10 text-center text-[var(--ink-3)]">{S.noResults}</p>
         )}
 
         {pages > 1 && (
           <div className="mt-8 flex items-center justify-between">
             {current > 1 ? (
-              <Link href={href({ page: current - 1 })} className="label-mono inline-flex min-h-11 items-center px-2 hover:text-[var(--gold)]">
+              <Link href={href({ page: current - 1 })} className="label-mono inline-flex min-h-11 items-center px-2 hover:text-[var(--gold-deep)]">
                 ← {S.prev}
               </Link>
             ) : (
               <span />
             )}
-            <span className="label-mono text-[var(--paper-faint)]">
+            <span className="label-mono text-[var(--ink-3)]">
               {S.page} {integer(current, bcp47)} {S.of} {integer(pages, bcp47)}
             </span>
             {current < pages ? (
-              <Link href={href({ page: current + 1 })} className="label-mono inline-flex min-h-11 items-center px-2 hover:text-[var(--gold)]">
+              <Link href={href({ page: current + 1 })} className="label-mono inline-flex min-h-11 items-center px-2 hover:text-[var(--gold-deep)]">
                 {S.next} →
               </Link>
             ) : (
@@ -201,8 +201,8 @@ export default async function PoliticosPage({
         )}
       </section>
 
-      <p className="label-mono mt-10 text-[var(--paper-faint)]">{S.caveat}</p>
-      <p className="label-mono mt-2 text-[var(--paper-faint)]">{S.sourceNote}</p>
+      <p className="label-mono mt-10 text-[var(--ink-3)]">{S.caveat}</p>
+      <p className="label-mono mt-2 text-[var(--ink-3)]">{S.sourceNote}</p>
     </main>
   );
 }

@@ -1,50 +1,76 @@
 @import "tailwindcss";
 
 /* ------------------------------------------------------------------ *
-   SEGUIR EL DINERO — investigative "dossier" design system
+   SEGUIR EL DINERO — light newsprint design system
+
+   Replaces the dark "dossier" system (ink #100e0a / paper #ece2cd /
+   Fraunces+Archivo+Plex). Tokens come from the bound Classical design
+   system in the design handoff; the added roles — verdigris, red,
+   abstention grey — are kept in-family.
+
+   Two structural rules run through everything here, and both are load
+   bearing rather than stylistic:
+
+   1. No shadows. Structure is carried entirely by hairlines, so a
+      panel that needs to read as separate gets a rule, not elevation.
+   2. Radius is 2px, everywhere, except dots at 50%.
  * ------------------------------------------------------------------ */
 
 :root {
-  --ink: #100e0a;
-  --ink-2: #17140e;
-  --ink-3: #1f1b13;
-  --paper: #ece2cd;
-  --paper-dim: #a99e86;
-  /* 5.06:1 on --ink. The previous #6f6857 was 3.48:1, under the 4.5:1 WCAG AA
-     needs for normal text, and this token is used at text-xs and text-sm. */
-  --paper-faint: #8a8270;
-  --gold: #d3a24c;
-  --gold-bright: #f2c56a;
-  --red: #cc5a45;
-  /* A cool counter-accent. The palette was gold and red on brown throughout,
-     which made every accent read as the same kind of emphasis; verdigris gives
-     the organisations' own voice — the NGO feeds, the rights section — a colour
-     of its own without leaving the aged-document world the rest of the site
-     lives in. Measured on --ink: --verd 7.76:1, --verd-bright 11.57:1, both
-     clear of the 4.5:1 that WCAG AA asks of body text. */
-  --verd: #5fb3a1;
-  --verd-bright: #8fd6c6;
-  --verd-deep: #1a3733;
-  --line: rgba(236, 226, 205, 0.12);
-  --line-strong: rgba(236, 226, 205, 0.22);
-  /* The boundary of an interactive control, kept separate from the decorative
-     rules above. WCAG 1.4.11 wants 3:1 for the visual information needed to
-     identify a UI component, and a filter chip has no boundary other than its
-     border: --line-strong measures 1.77:1 over --ink, this measures 3.22:1.
-     Decorative hairlines and panel edges stay on --line / --line-strong. */
-  --line-control: rgba(236, 226, 205, 0.4);
+  --bg: #f3f2f2;
+  --surface: #eae9e9;
+  --card: #f8f4f4;
 
-  --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
-  --font-body: var(--font-archivo), system-ui, sans-serif;
-  --font-mono: var(--font-mono-plex), "SFMono-Regular", ui-monospace, monospace;
+  --ink: #201f1d;
+  /* Body secondary — deks, standfirsts, group lists. 9.04:1 on --bg. */
+  --ink-2: #444141;
+  /* The lightest permitted text colour: kickers, captions, meta, legends.
+     5.83:1 on --bg, 5.38:1 on --surface. The design handoff states 7.0:1;
+     measured it is 5.83:1, which still clears WCAG AA's 4.5:1 at the
+     10.5–12px this token is used at, but the stated figure was wrong and
+     nothing here should depend on it. */
+  --ink-3: #605d5d;
+
+  /* Gold. --gold is a stroke and fill colour only: 3.02:1 on --bg, which
+     clears WCAG 1.4.11's 3:1 for a control boundary but fails the 4.5:1
+     that text needs. Every gold *text* use takes --gold-deep (5.97:1). */
+  --gold: #b68235;
+  --gold-deep: #7d5411;
+
+  /* Verdigris — the organisations' own voice, kept distinct from the
+     state's gold. Same split as gold, and for the same measured reason:
+     --verd is 4.38:1 on --bg, so it is a graphic colour (bar segments,
+     dots, borders, hatch) and never text. --verd-text is 5.28:1 on --bg
+     and 4.87:1 on --surface, so it passes on both grounds the site uses.
+     --verd-deep is the darkest cut, for links on the tinted panel. */
+  --verd: #2f7d70;
+  --verd-text: #2a6f64;
+  --verd-deep: #1f5f55;
+  --verd-tint: rgba(47, 125, 112, 0.05);
+
+  /* Against / No / warnings. 5.32:1 on --bg. */
+  --red: #b23a2c;
+
+  /* Neutrals. --grey-500 and --abst are 2.59:1 and 1.80:1: bar segments
+     and swatches only, never text and never a control boundary. */
+  --grey-300: #d7d3d3;
+  --grey-500: #9b9797;
+  --abst: #bab6b6;
+  --track: #eae7e7;
+
+  --line: rgba(32, 31, 29, 0.16);
+  --line-soft: rgba(32, 31, 29, 0.11);
+
+  --font-heading: var(--font-cormorant), Garamond, "Times New Roman", serif;
+  --font-body: var(--font-lora), Georgia, serif;
 }
 
 @theme inline {
   --color-ink: var(--ink);
-  --color-paper: var(--paper);
+  --color-bg: var(--bg);
   --color-gold: var(--gold);
   --font-sans: var(--font-body);
-  --font-mono: var(--font-mono);
+  --font-serif: var(--font-heading);
 }
 
 * {
@@ -56,92 +82,78 @@ html {
 }
 
 body {
-  background-color: var(--ink);
-  color: var(--paper);
+  background-color: var(--bg);
+  color: var(--ink);
   font-family: var(--font-body);
-  font-feature-settings: "ss01", "cv01";
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
-  position: relative;
-}
-
-/* Atmosphere: a soft gold aura at the top and a persistent film-grain overlay. */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background:
-    radial-gradient(120% 60% at 50% -10%, rgba(211, 162, 76, 0.14), transparent 60%),
-    radial-gradient(90% 50% at 85% 0%, rgba(204, 90, 69, 0.06), transparent 55%),
-    radial-gradient(70% 45% at 8% 12%, rgba(95, 179, 161, 0.05), transparent 60%),
-    /* A vignette, so a long page darkens at the edges instead of ending in a
-       flat field of one colour. */
-    radial-gradient(140% 110% at 50% 45%, transparent 55%, rgba(8, 7, 5, 0.55));
-}
-
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
-  opacity: 0.05;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-main,
-header,
-footer {
-  position: relative;
-  z-index: 2;
 }
 
 /* Typographic primitives ------------------------------------------------ */
 
+/* Display headings. Cormorant caps at weight 600; the large display sizes
+   take the 400 cut, which is why weight is not set here — call sites choose
+   400 for display sizes and 600 for section and card headings. */
 .display {
-  font-family: var(--font-display);
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 0.95;
+  font-family: var(--font-heading);
+  letter-spacing: -0.025em;
+  line-height: 1.02;
+  text-wrap: balance;
 }
 
+/* Every figure on the site: stat values, tallies, amounts, donor counts,
+   dates, ranks. Running prose keeps proportional figures.
+
+   Retains the class name from the dark system, where it also switched to a
+   monospace face. There is no mono face now — the handoff specifies two
+   families only — so this is the body face with tabular figures, which is
+   what the class was being used for at nearly every call site. */
 .mono {
-  font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
 }
 
-/* These two set properties a Tailwind utility routinely overrides — colour and
-   size — so they belong in the `base` layer. Authored unlayered they won against
-   every utility regardless of specificity, because unlayered styles beat every
-   cascade layer, and Tailwind emits its utilities inside `@layer utilities`.
-   `:where()` does not fix it: the problem is layer order, not specificity.
+/* A large display numeral: the ticker and stat-strip figures. */
+.figure {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
 
-   The cost of getting this wrong was 62 call sites silently rendering
-   `--paper-dim` instead of the colour they asked for. The visible casualty was
-   the active filter chip on /financiacion and /votaciones, which asks for --ink
-   on --gold and rendered --paper-dim on --gold at 1.14:1 — the control telling
-   the reader which filter is selected was the least readable text on the page. */
+/* These set colour and size, which Tailwind utilities routinely override, so
+   they must live in `base`. Authored unlayered they beat every utility
+   regardless of specificity, because unlayered styles win over every cascade
+   layer and Tailwind emits utilities inside `@layer utilities`. `:where()`
+   does not fix it: the problem is layer order, not specificity.
+
+   Getting this wrong once cost 62 call sites silently rendering the wrong
+   colour, including the active filter chip at 1.14:1. */
 @layer base {
+  /* The gold kicker above a heading. */
   .eyebrow {
-    font-family: var(--font-mono);
+    font-family: var(--font-heading);
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.28em;
-    font-size: 0.68rem;
-    color: var(--gold);
+    letter-spacing: 0.22em;
+    font-size: 0.719rem; /* 11.5px */
+    color: var(--gold-deep);
   }
 
+  /* Smaller all-caps label: column kickers, legends, footer, nav. */
   .label-mono {
-    font-family: var(--font-mono);
+    font-family: var(--font-heading);
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.14em;
-    font-size: 0.7rem;
-    color: var(--paper-dim);
+    letter-spacing: 0.16em;
+    font-size: 0.688rem; /* 11px */
+    font-variant-numeric: tabular-nums;
+    color: var(--ink-3);
   }
 }
+
+/* Rules ----------------------------------------------------------------- */
 
 .hairline {
   height: 1px;
@@ -149,57 +161,67 @@ footer {
   border: none;
 }
 
-.panel {
-  position: relative;
-  background: linear-gradient(180deg, var(--ink-2), var(--ink));
-  border: 1px solid var(--line);
-  border-radius: 4px;
-  box-shadow:
-    0 1px 0 rgba(236, 226, 205, 0.04) inset,
-    0 18px 40px -28px rgba(0, 0, 0, 0.9);
+/* Closes a section. Heavier than a hairline on purpose: a hairline separates
+   items inside a section, this separates sections. */
+.rule-ink {
+  border-bottom: 1px solid var(--ink);
 }
 
-/* A panel that belongs to the organisations rather than to the state. Used by
-   the rights section so its provenance is legible before the text is read. */
+/* Closes a lead section — the strongest horizontal break on the page. */
+.rule-double {
+  border-bottom: 3px double var(--ink);
+}
+
+.rule-top {
+  border-top: 1px solid var(--line);
+}
+
+/* Surfaces -------------------------------------------------------------- */
+
+/* Retains the class name from the dark system. No gradient, no shadow, no
+   4px radius: a panel is now a tinted rectangle held by a hairline. */
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+}
+
+/* A panel that belongs to the organisations rather than to the state, so its
+   provenance is legible before the text is read. */
 .panel-org {
-  background: linear-gradient(180deg, var(--verd-deep), var(--ink));
-  border-color: rgba(95, 179, 161, 0.22);
+  background: var(--verd-tint);
+  border: 1px solid var(--line);
+  border-radius: 2px;
 }
 
 /* Editorial card for a linked article. The image is a sibling, not a
    background, so it still exists with CSS disabled and can carry alt text. */
 .card {
-  position: relative;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  background: var(--card);
   border: 1px solid var(--line);
-  border-radius: 4px;
-  background: linear-gradient(180deg, var(--ink-2), var(--ink));
-  transition:
-    border-color 0.25s ease,
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
+  border-radius: 2px;
+  transition: border-color 0.16s ease;
 }
 
 .card:hover,
 .card:focus-within {
-  border-color: var(--line-control);
-  transform: translateY(-2px);
-  box-shadow: 0 22px 46px -30px rgba(0, 0, 0, 0.95);
+  border-color: var(--gold);
 }
 
-/* Fixed ratio so a missing or slow image never reflows the grid, with a
+/* Fixed ratio so a missing or slow image never reflows the grid, with the
    diagonal hatch standing in for one that fails to load. */
 .card-media {
   position: relative;
   aspect-ratio: 16 / 9;
   overflow: hidden;
-  background-color: var(--ink-3);
+  background-color: var(--surface);
   background-image: repeating-linear-gradient(
     135deg,
-    rgba(236, 226, 205, 0.05) 0 1px,
-    transparent 1px 9px
+    rgba(32, 31, 29, 0.07) 0 1px,
+    transparent 1px 10px
   );
 }
 
@@ -209,35 +231,164 @@ footer {
   object-fit: cover;
   /* Pulls third-party photography towards the document palette so a grid of
      images from fifteen publishers still reads as one page. */
-  filter: saturate(0.82) contrast(1.04);
+  filter: saturate(0.9) contrast(1.02);
+}
+
+/* An image placeholder awaiting licensed imagery, and the mat the design
+   system puts around a photograph. */
+.hatch {
+  background-color: var(--surface);
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(32, 31, 29, 0.07) 0 1px,
+    transparent 1px 10px
+  );
+}
+
+.plate {
+  border: 6px solid var(--surface);
+  outline: 1px solid var(--line);
+}
+
+/* Controls -------------------------------------------------------------- */
+
+/* Outlined, never filled — the Classical system's rule, and the reason the
+   accent works as a stroke. */
+.tag {
+  display: inline-block;
+  border: 1px solid currentColor;
+  border-radius: 2px;
+  padding: 2px 7px;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 0.688rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+}
+
+.dot {
+  display: inline-block;
+  border-radius: 50%;
+  flex: none;
+}
+
+/* Nav tab. The active state is a 3px underline flush to the nav's own bottom
+   rule, so the tab reads as continuous with the section below it.
+
+   `bottom: -3px` puts it over that rule rather than above it; the nav's rule
+   is 3px, so anything less leaves a sliver of ink showing through. */
+.nav-tab {
+  position: relative;
+  padding: 11px 18px 9px;
+  border-right: 1px solid var(--line);
+  background: transparent;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  color: var(--ink);
   transition:
-    transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1),
-    filter 0.35s ease;
+    background 0.16s ease,
+    color 0.16s ease;
 }
 
-.card:hover .card-media img,
-.card:focus-within .card-media img {
-  transform: scale(1.035);
-  filter: saturate(1) contrast(1);
+.nav-tab:hover {
+  background: rgba(182, 130, 53, 0.1);
 }
 
-/* A tint over the image, so white-heavy press photography does not punch a
-   hole in a dark page. */
-.card-media::after {
+.nav-tab[data-org]:hover {
+  background: rgba(47, 125, 112, 0.12);
+}
+
+.nav-tab-active::after {
   content: "";
   position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(16, 14, 10, 0.1) 0%, rgba(16, 14, 10, 0.55) 100%);
-  pointer-events: none;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 3px;
+  background: var(--gold);
 }
 
-.rule-top {
-  border-top: 1px solid var(--line-strong);
+.nav-tab-active[data-org]::after {
+  background: var(--verd);
+}
+
+/* Map layer toggle. Outlined, like every other control here. */
+.layer-btn {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 12.5px;
+  line-height: 1.15;
+  padding: 7px 11px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: transparent;
+  white-space: nowrap;
+  color: var(--ink-2);
+  cursor: pointer;
+  transition:
+    border-color 0.18s ease,
+    color 0.18s ease,
+    background 0.18s ease;
+}
+
+.layer-btn:hover {
+  border-color: var(--gold);
+  color: var(--ink);
+}
+
+.layer-btn[aria-pressed="true"] {
+  border-color: var(--gold);
+  color: var(--gold-deep);
+  background: color-mix(in srgb, var(--gold) 12%, transparent);
+}
+
+/* A community on the map. `cursor: pointer` and the hover tint are the only
+   affordance a path has, so both are needed for it to read as selectable. */
+.region {
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.region:hover {
+  opacity: 0.72;
+}
+
+/* Never the browser default. */
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
 }
 
 a {
   color: inherit;
   text-decoration: none;
+}
+
+.src {
+  color: var(--gold-deep);
+  text-decoration: underline;
+  text-decoration-color: rgba(125, 84, 17, 0.4);
+  text-underline-offset: 3px;
+}
+
+.src:hover {
+  text-decoration-color: currentColor;
+}
+
+/* The same link inside an organisations' block. */
+.src-org {
+  color: var(--verd-deep);
+  text-decoration: underline;
+  text-decoration-color: rgba(31, 95, 85, 0.4);
+  text-underline-offset: 3px;
+}
+
+.src-org:hover {
+  text-decoration-color: currentColor;
 }
 
 ::selection {
@@ -249,6 +400,7 @@ a {
 .section-tick {
   position: relative;
 }
+
 .section-tick::after {
   content: "";
   position: absolute;
@@ -259,13 +411,28 @@ a {
   background: var(--gold);
 }
 
+/* Bars ------------------------------------------------------------------ */
+
+.bar-track {
+  display: flex;
+  overflow: hidden;
+  border-radius: 2px;
+  background: var(--track);
+}
+
+/* Justified reportage. Kept as a class rather than applied to every <p>,
+   because only the reportage column is justified. */
+.justified {
+  text-align: justify;
+  hyphens: auto;
+}
+
 /* Methodology prose ---------------------------------------------------- */
 .prose-dossier strong {
-  color: var(--paper);
   font-weight: 600;
 }
 .prose-dossier em {
-  color: var(--gold);
+  color: var(--gold-deep);
   font-style: italic;
 }
 .prose-dossier ul {
@@ -283,67 +450,29 @@ a {
   content: "—";
   position: absolute;
   left: 0;
-  color: var(--gold);
-}
-.src {
-  color: var(--gold);
-  text-decoration: underline;
-  text-decoration-color: rgba(211, 162, 76, 0.4);
-  text-underline-offset: 3px;
-}
-.src:hover {
-  color: var(--gold-bright);
+  color: var(--gold-deep);
 }
 
 /* Entrance animations ---------------------------------------------------
-   CSS-driven on purpose. The JS versions serialised `opacity: 0` and
-   `width: 0px` into the server-rendered HTML, so /financiacion rendered
-   essentially blank without JavaScript: 32 elements at opacity 0 and ~81 bars
-   at zero width. A CSS animation runs without JS and starts from a state the
-   HTML already carries, so the content is present either way.
+   The design specifies no entrance animations, no parallax and no
+   scroll-triggered reveals: transitions are 120–180ms on opacity,
+   border-color, background and colour only.
 
-   Delay is passed per element as --enter-delay, which keeps the stagger a
-   presentational detail rather than a prop threaded through components. */
-@keyframes enter-rise {
-  from {
-    opacity: 0;
-    transform: translateY(var(--enter-y, 0));
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-.enter {
-  animation: enter-rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
-  animation-delay: var(--enter-delay, 0s);
-}
-
-/* Bars grow by transform, not by animating `width`, so the element keeps its
-   real width in the HTML. `transition: width` then covers the other case: a
-   filter change moves the bar to a new width without a re-entrance. */
-@keyframes enter-grow {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
-  }
+   `.enter` and `.enter-bar` are kept as no-op hooks rather than deleted,
+   because roughly 90 call sites pass `--enter-delay` and `--enter-y` to
+   them. Removing the classes would mean touching every one of those files
+   for no visual result. What matters is that neither one now serialises
+   `opacity: 0` or `scaleX(0)` into the server-rendered HTML — the defect
+   that once rendered /financiacion essentially blank without JavaScript. */
+.enter,
+.enter-bar {
+  animation: none;
 }
 
 .enter-bar {
-  transform-origin: left center;
-  animation: enter-grow 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
-  animation-delay: var(--enter-delay, 0s);
-  transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: width 0.18s ease;
 }
 
-/* Reduce motion for users who ask for it.
-   This block used to disable `scroll-behavior` and nothing else, so every
-   fade-and-rise entrance still played. The JS-driven entrances are handled by
-   `useEntrance()` in lib/motion.ts; this covers the CSS side — Tailwind's
-   `transition-*` and `animate-*` utilities, and the smooth scroll. */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

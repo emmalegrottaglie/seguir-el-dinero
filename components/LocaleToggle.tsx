@@ -34,8 +34,8 @@ export default function LocaleToggle({ current }: { current: Locale }) {
           title={LOCALE_LABELS[code]}
           className={`label-mono inline-flex min-h-11 min-w-11 items-center justify-center rounded transition-colors ${
             code === current
-              ? "text-[var(--gold-bright)]"
-              : "text-[var(--paper-faint)] hover:text-[var(--paper)]"
+              ? "text-[var(--gold-deep)]"
+              : "text-[var(--ink-3)] hover:text-[var(--ink)]"
           }`}
         >
           {code.toUpperCase()}

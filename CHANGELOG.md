@@ -5,6 +5,266 @@ figures name their source; corrections and gaps are recorded alongside the work,
 
 ---
 
+## 2026-09-09 — The light newsprint redesign, a sourced territorial map, and a typed court record
+
+The design handoff replaces the dark "dossier" system with a light newsprint one. The route
+structure, the data layer and the honesty rules stay as they were; the shell, the palette, the type
+and three screens are new.
+
+### The shell
+
+The 224px sidebar rail is gone, replaced by a 6px ink bar, a masthead row and a tab nav. The rail
+put six links before the content on every page and spent a fifth of the viewport on navigation. A
+masthead gives that width back to the data, and reads as what this is — an edition of a document,
+not an application.
+
+Fonts drop from three to two. **Cormorant Garamond** carries every heading, kicker, tab and display
+figure; **Lora** carries body, meta and table amounts. The third face was a monospace loaded only to
+get tabular figures, which both of these provide, so `.mono` is now the body face with
+`font-variant-numeric: tabular-nums` — which is what nearly every call site was using it for.
+
+The masthead dateline is formatted on the server from the request date, in `Europe/Madrid`. A
+client-side date would either mismatch at hydration or be absent from the HTML; the layout carries
+`revalidate = 3600` so the shell refreshes on the same cadence as the pages inside it.
+
+### Two corrections to the handoff's own contrast table
+
+Both were found by measuring rather than by reading, and both matter:
+
+- **`#605d5d`** — the lightest permitted text colour — is stated as 7.0:1 on the ground and measures
+  **5.83:1**. It still clears WCAG AA at the 10.5–12px it is used at, so nothing changed except the
+  comment: no decision here should rest on the stated figure.
+- **Verdigris `#2f7d70`** is stated to pass AA and measures **4.38:1**, which fails the 4.5:1 normal
+  text needs — and it was specified for 10.5px organisation names and stance tags. It is now a
+  graphic colour only (bar segments, dots, borders, the live-data dot), exactly as the design already
+  rules for gold, and every verdigris *text* use takes a new `--verd-text` at **5.28:1** on the
+  ground and **4.87:1** on the surface, so it passes on both grounds the site paints.
+
+The same split now applies to gold, which the design states and then breaks in a few places:
+`--gold` at 3.02:1 is a fill and a border, `--gold-deep` at 5.97:1 is text. The one exception is the
+display italics — the masthead wordmark and the `h1` emphasis spans — which run at 32px and up,
+where WCAG's large-text threshold puts the bar at 3:1 and `#b68235` passes as designed.
+
+**Verified across every page**: an audit resolving each element's inline colour against the tokens
+in `app/globals.css` reports **0 failures on all 13 routes** (three locales of the portada, plus
+funding, foundations, map, votes, rights, politicians, methodology, two party pages and a foundation
+dossier). It found 34 that the in-browser pass had missed, in components whose accent is chosen at
+runtime rather than written as a class.
+
+One of those fixes exposed a second defect. The donations legend on a party page drew its swatches
+as a "■" character coloured with the bar's own token; darkening it for contrast fixed the ratio and
+broke what a legend is for, because the swatch no longer matched the segment it labelled. It is now
+an `aria-hidden` span block reading from the same array as the bar, which is the pattern the rest of
+the site already uses, and the two cannot drift apart.
+
+Also fixed while there: the grant tag's border was `` `1px solid ${token}44` ``, which concatenates a
+hex alpha suffix onto a `var()` reference and yields `var(--gold)44` — not a colour, so the border
+had been silently falling back to `currentColor`.
+
+### /financiacion holds three channels, and the foundations moved
+
+The page is now the stat strip, a donut of declared electoral spending by formation, the report's own
+spending lines, the 2020 donations table by tranche, and the subsidy dashboard as the baseline the
+others sit against.
+
+**The foundation channel moved to `/fundaciones`.** The two were answering different questions from
+different statutes — parties may take no corporate money at all, their foundations may take it under
+*disposición adicional séptima* — and folding the second into the first made the funding page read as
+one ranked list of everything, which is what made it uninformative in the first place.
+
+The donut's arcs are explicit SVG paths rather than a stroked circle with a dash offset. A dashed
+stroke needs the circumference to divide evenly and offsets every segment from one origin, which
+puts the rounding error at the last arc, visible as a hairline gap where the ring should close.
+
+The three spending lines partition declared ordinary spending exactly, so their percentages add to
+100 %. Mailings do not belong to that total at all — they are accounted separately, outside the
+general cap — so the fourth row runs full width against a note rather than taking a share of a
+denominator it is not part of.
+
+### /mapa — two layers, not the five designed
+
+The other three layers came with sample values, and are not here. An LGBTI rights index, the state of
+trans-law reform, and vote share for the parties that voted against the tracked bills have **no
+citable per-community source**, and a plausible-looking number on a map is read as a measurement.
+
+So is the hatch overlay marking investitures that depended on Vox, which is the most interesting
+thing the government layer could carry. Five PP presidencies were invested with its votes in July
+2023 and Vox then left three of those governments in July 2024, so one static overlay would be false
+for part of the period it appeared to describe — and at least one arrangement has changed again
+since. It needs each parliament's own investiture record, which is its own verification pass. The
+page says all of this, rather than leaving the absence to be noticed.
+
+What the two shipped layers do have behind them:
+
+- **`scripts/extract-hate-territory.py`** reads the Ministerio del Interior's 2024 report — section
+  2.2 for the rate per 100,000 inhabitants and annex 7.1 for counts by community and motivation. It
+  aborts rather than warning. Every row must reconcile against its own printed total; the whole table
+  must reconcile against the national figure already in `lib/hate-context.ts`; and **both motivation
+  columns the site publishes must reconcile against their own national figures.**
+
+  That last guard is the one that proves the columns are aligned. Fourteen integers on a line are
+  positional, and a single-column shift would leave every row summing correctly while attributing
+  racism figures to orientation. It caught a real defect on the first run: the document carries four
+  tables of identical shape (*hechos conocidos* and *victimizaciones*, each by community and by
+  province, then again for *detenidos* and *esclarecidos*), so a whole-document scan matched all of
+  them and kept the last — reconciling to 1,405 against a national total of 1,955. Scoped to annex
+  7.1, it reconciles exactly: 1,955, of which one incident is recorded in no territory, which is why
+  the orientation column sums to 527 against a national 528.
+
+- **`lib/governments.ts`** carries the presidency of each of the 19 territories with the date it was
+  taken. Curated and dated, because a table without dates cannot be checked and goes stale quietly:
+  the Valencian presidency changed hands in December 2025 within the same legislature and the same
+  party, which a partyless snapshot would have hidden.
+
+**What the figures are, precisely**, and the page says so: *hechos conocidos* are facts reported to
+and recorded by the security forces — including administrative infractions — not convictions and not
+incidence. The two communities with their own police forces (Policía Foral de Navarra, Ertzaintza)
+head the rate table, which says something about how incidents are recorded and not necessarily about
+where more of them happen.
+
+`scripts/build-regions.mjs` projects the geometry once at build time rather than loading d3 and
+topojson in the browser to compute a result that never changes. Ceuta and Melilla are about 19 km²
+each and project to a couple of pixels, so the script also emits a centroid and a projected-area
+flag, and the component draws a minimum-size marker for anything below the threshold — otherwise two
+territories are on the map but cannot be seen, hovered or clicked. The threshold is on rendered area,
+so it decides which territories need one rather than naming the two; it picked out exactly 18 and 19.
+Melilla's centroid sits 8 units from the bottom of the viewBox, so its label flips above the marker
+when there is no room beneath, which there is not.
+
+The choropleth ramp uses CSS `color-mix(in oklab, …)` rather than a colour library. Mixing in a
+perceptual space is the whole reason `d3.interpolateLab` was specified for it, the browser does that
+natively now, and sampling from 0.16 rather than 0 keeps the lightest step reading as a fill instead
+of as empty ground.
+
+Every value is also a row in a table below the map. That is not a fallback: a choropleth cannot be
+read to the precision of a number, and nineteen figures are worth having.
+
+### The money→party→vote flow, on /votaciones
+
+Ribbon thickness is the amount declared in 2020; the column it lands in is how that party's group
+voted in 2026. The caveat saying the two are independent public registers of different years, and
+that neither explains the other, sits **beside** the chart rather than under it.
+
+Only parties whose group maps to them one-to-one appear. A party inside a composite group has no
+stance of its own in the record, and handing it the group's majority would be the inference this
+project refuses everywhere else — so those parties are **named as excluded** instead of dropped. Each
+outcome node is exactly as tall as the ribbons it receives, so the two columns reconcile without a
+second scale: verified at 399 units on both sides, 6 formations in and 6 named out.
+
+That rule now lives once, as `stancesByParty()` in `lib/votes.ts`, and the party ficha uses it too.
+
+### The court record, as a type rather than as copy
+
+`lib/court-records.ts` holds the four resolutions that survived the three-verifier panel in
+`research/hate-accountability.md` at 3-0. The status label is the whole point of the component, so it
+is a union type and not a string, which makes four specific mistakes unrepresentable:
+
+- an archived case is `archived`, **never "acquitted"** — both decisions in the *menas* matter are
+  autos confirming *sobreseimiento* at the instruction stage, a finding of no *indicios*, never a
+  merits judgment;
+- an open case is `awaiting-trial`, and an *auto de apertura de juicio oral* cannot read as a verdict
+  because no status in the union would let it;
+- an electoral board's order is `advertising-infringement` and nothing more, because the Junta
+  Electoral de Zona de Madrid expressly declared itself not competent over the content and opened no
+  sanctioning file;
+- a complaint *against* someone is `complaint-archived`, and the record says whose conduct it
+  concerns: Vox's *querella* against Ione Belarra documents a complaint against her, never conduct by
+  her.
+
+The copy is translated in three languages; the tag is not, so no translation can turn an archiving
+into an acquittal. A party with nothing on file gets an explicit card saying so and saying what that
+does and does not mean — rendering nothing would read as a clean record, and rendering "0" would
+invite a comparison four hand-verified records cannot support.
+
+**On publishing a live prosecution by name.** The Herrero record processes a living person's
+criminal-proceedings data, which engages art. 10 LOPDGDD and LO 1/1982. It is published because she
+is an elected officeholder, the opening order was reported by five outlets across the political
+spectrum, and the label states its procedural stage and nothing beyond it. That is a different thing
+from the per-politician conviction tag this project declined to build, which would have required
+attributing findings to people from records that are pseudonymised at source.
+
+### The party ficha
+
+A formation switcher, taking whichever parties carry a declared-donations record rather than the
+design's fixed five, so the row cannot list a party whose page is empty nor omit one that appears
+when the next audit lands. The active tab is underlined in the party's **own** colour, because the
+reader is inside one party's dossier and the accent should say which.
+
+Below the money: how the group voted on each tracked division, and the court record for that party.
+
+The two kinds of gap are now distinguished, which matters more than it sounds. Sumar leads the Grupo
+Plurinacional SUMAR, which also holds IU, Comuns, Más Madrid and Compromís, so the group has a
+majority but it is not Sumar-the-party's own — attributing it to Sumar's NIF and not to IU's would be
+arbitrary. That reads **"En grupo compartido · Sumar"**. A party that was not in the chamber at all
+reads **"Sin representación"**. A single label for both would have said something false about one of
+them: Sumar's six XV divisions are the first case and its three XIV ones the second.
+
+`sharedGroupFor()` matches on `shortName` from the party registry against the labels in a composite
+group's `parties`, exactly and case-sensitively. Those labels are written to be the registry's own
+short names, so this is a lookup rather than a guess, and a label that stops matching produces no
+group instead of the wrong one.
+
+### The portada
+
+A ticker of the six figures the site rests on; the lead, which is the one finding a reader cannot get
+elsewhere; the organisations' own voices beside it; the three public registers summarised; then three
+columns of detail.
+
+**Every figure comes from the data layer.** The prototype hardcoded them, which is right for a
+prototype and would rot here within one refresh. Computed rather than transcribed, they land on the
+design's verified values exactly: subsidies 300,6 M€, donations 2,07 M€, electoral 18,43 M€, 9
+divisions, 12 donors above €10,000, the residual at 54,5 % of €10,052,187.82, and the donor/money
+tranche split at 91,6 / 8,2 / 0,2 % against 33,3 / 57,4 / 9,3 %.
+
+The lead's ghost numeral is **truncated, not rounded**: the share is 54.5 %, and rounding it to 55
+would put a numeral on the page contradicting the 54,5 % in the standfirst two inches below it.
+
+The reportage column's single-cheque headline reads €23,000 from the data, not from the copy: where a
+party's top tranche holds exactly one donor, its total *is* that gift, and that is the only
+individual figure the report permits without inventing anything.
+
+Both image slots are hatched placeholders awaiting licensed imagery. A placeholder that looked like a
+photograph would be a claim about something that was never photographed.
+
+### Bugs fixed along the way
+
+- **`data/votes.json` stores dates as `D/M/YYYY`.** `formatDate` threw `RangeError: Invalid time
+  value` on them, and picking "the most recent division" by string comparison put 25/6/2026 before
+  27/11/2025. `lib/votes.ts` now owns `voteDateISO()` and `newestFirst()`.
+- **Every face on every party page was a 404**: they linked to `/politician/${slug}` and the route is
+  `/politico/[slug]`.
+- `lib/groups.ts` still returned `var(--paper-faint)` for a composite group's swatch — a token the new
+  sheet does not define. The token sweep had walked `app/` and `components/` but not `lib/`; its guard
+  now covers all three.
+- `RightsMap` is a client component, so importing `lib/regions.ts` pulled `node:fs` into the browser
+  bundle. The curated presidency data moved to `lib/governments.ts`, which is free of Node imports,
+  and `lib/regions.ts` keeps the file loaders and types.
+- Passing the whole `Dict` to `RightsMap` failed at prerender: `Dict` carries functions
+  (`news.hoursAgo` among them) and a function cannot cross the server-to-client boundary. It takes
+  `Dict["map"]`.
+
+### New helpers
+
+`lib/format.ts` gains `cssPercent()`, because a localised percentage is not a parseable CSS length —
+`es-ES` renders 0.545 as "54,5" and a bar given `width: 54,5%` collapses silently rather than
+erroring, so display formatting and layout formatting never share a helper. And `rate()`, because
+`toLocaleString` drops a trailing zero and turned the report's published 14,00 into 14.
+
+### Left out, deliberately
+
+- The design handoff bundle itself is gitignored. It is an input rather than product, and it carries
+  a third-party streaming-template runtime the handoff says not to port.
+- Three map layers and the Vox-investiture hatch, above.
+- A small-phone layout. The flow diagram in particular needs a rethink below ~600px — probably a
+  sorted list rather than ribbons.
+
+**Verified.** Typecheck clean; build clean at **231 pages**; the extractor reconciles to the national
+total and both published motivation columns; the flow diagram's columns balance at 399 units;
+**0 contrast failures across 13 routes**; the map's marker threshold selects exactly Ceuta and
+Melilla; and all three locales render every new screen.
+
+---
+
 ## 2026-09-08 — A rights section in the organisations' own voices, images, and a cooler accent
 
 Three things: article images where the feeds publish them, a dedicated LGBTQ+ rights section built on

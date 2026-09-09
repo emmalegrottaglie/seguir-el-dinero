@@ -26,13 +26,13 @@ export default async function MetodologiaPage({
   const updated = formatDate(agg.generatedAt.slice(0, 10), bcp47);
 
   return (
-    <main className="mx-auto max-w-3xl px-5 pb-8">
-      <Link href={`/${locale}`} className="label-mono inline-block py-4 hover:text-[var(--gold)]">
+    <main className="mx-auto max-w-3xl pb-8">
+      <Link href={`/${locale}`} className="label-mono inline-block py-4 hover:text-[var(--gold-deep)]">
         {t.common.backToPanel}
       </Link>
 
       <h1 className="display mt-4 text-4xl sm:text-5xl">{m.title}</h1>
-      <p className="mt-6 text-lg text-[var(--paper-dim)]">{m.lead}</p>
+      <p className="mt-6 text-lg text-[var(--ink-2)]">{m.lead}</p>
 
       <Block title={m.showTitle}>
         <p>
@@ -80,7 +80,7 @@ export default async function MetodologiaPage({
         <p>{m.feedsP1}</p>
         {/* Not label-mono: that class uppercases, and a whole paragraph in
             capitals is hard to read. */}
-        <p className="text-sm text-[var(--paper-faint)]">
+        <p className="text-sm text-[var(--ink-3)]">
           {m.feedsGuard(SOURCE_STALE_DAYS, ITEM_MAX_AGE_DAYS)}
         </p>
 
@@ -88,7 +88,7 @@ export default async function MetodologiaPage({
           <table className="w-full min-w-[34rem] border-collapse text-sm">
             <caption className="sr-only">{m.feedsTitle}</caption>
             <thead>
-              <tr className="label-mono text-left text-[var(--paper-faint)]">
+              <tr className="label-mono text-left text-[var(--ink-3)]">
                 <th scope="col" className="py-2 pr-4 font-normal">{m.feedsSource}</th>
                 <th scope="col" className="py-2 pr-4 font-normal">{m.feedsKind}</th>
                 <th scope="col" className="py-2 font-normal">{m.feedsTopics}</th>
@@ -102,11 +102,11 @@ export default async function MetodologiaPage({
                       {s.name}
                     </a>
                   </th>
-                  <td className="label-mono py-2.5 pr-4 text-[var(--paper-dim)]">
+                  <td className="label-mono py-2.5 pr-4 text-[var(--ink-2)]">
                     {s.kind === "org" ? m.feedsOrg : m.feedsMedia}
                     {s.lang === "en" ? " · EN" : ""}
                   </td>
-                  <td className="label-mono py-2.5 text-[var(--paper-faint)]">
+                  <td className="label-mono py-2.5 text-[var(--ink-3)]">
                     {s.topics.map((topic) => m.feedsTopic[topic]).join(" · ")}
                   </td>
                 </tr>
@@ -119,8 +119,8 @@ export default async function MetodologiaPage({
         <ul>
           {EXCLUDED_FEEDS.map((f) => (
             <li key={f.url}>
-              <span className="text-[var(--paper)]">{f.name}</span>{" "}
-              <span className="text-[var(--paper-faint)]">— {f.reason}</span>
+              <span className="text-[var(--ink)]">{f.name}</span>{" "}
+              <span className="text-[var(--ink-3)]">— {f.reason}</span>
             </li>
           ))}
         </ul>
@@ -135,29 +135,29 @@ export default async function MetodologiaPage({
 
         <div className="mt-2 grid grid-cols-1 gap-8 sm:grid-cols-2">
           <div>
-            <p className="label-mono mb-3 text-[var(--paper-dim)]">{m.ctxRecordedTitle}</p>
-            <p className="mono text-3xl text-[var(--gold-bright)]">
+            <p className="label-mono mb-3 text-[var(--ink-2)]">{m.ctxRecordedTitle}</p>
+            <p className="mono text-3xl text-[var(--gold-deep)]">
               {integer(RECORDED.total.value, bcp47)}
             </p>
-            <p className="label-mono mt-1 text-[var(--paper-faint)]">
+            <p className="label-mono mt-1 text-[var(--ink-3)]">
               {RECORDED.total.year} · {signedPercent(RECORDED.changePct / 100, bcp47)}{" "}
               {m.ctxChangeYear}
             </p>
             <ul className="mt-4">
               <li>
-                <span className="mono text-[var(--paper)]">
+                <span className="mono text-[var(--ink)]">
                   {integer(RECORDED.racism.value, bcp47)}
                 </span>{" "}
                 {m.ctxRacism}
               </li>
               <li>
-                <span className="mono text-[var(--paper)]">
+                <span className="mono text-[var(--ink)]">
                   {integer(RECORDED.sexualOrientationGenderIdentity.value, bcp47)}
                 </span>{" "}
                 {m.ctxLgtbi}
               </li>
             </ul>
-            <p className="mt-4 text-sm text-[var(--paper-faint)]">{m.ctxRecordedNote}</p>
+            <p className="mt-4 text-sm text-[var(--ink-3)]">{m.ctxRecordedNote}</p>
             <p className="label-mono mt-3">
               <a className="src" href={RECORDED.total.url} target="_blank" rel="noopener noreferrer">
                 {RECORDED.total.body} ↗
@@ -166,33 +166,33 @@ export default async function MetodologiaPage({
           </div>
 
           <div>
-            <p className="label-mono mb-3 text-[var(--paper-dim)]">{m.ctxProsecutedTitle}</p>
-            <p className="mono text-3xl text-[var(--gold-bright)]">
+            <p className="label-mono mb-3 text-[var(--ink-2)]">{m.ctxProsecutedTitle}</p>
+            <p className="mono text-3xl text-[var(--gold-deep)]">
               {integer(PROSECUTED.convictions.value, bcp47)}
-              <span className="text-xl text-[var(--paper-dim)]">
+              <span className="text-xl text-[var(--ink-2)]">
                 {" / "}
                 {integer(PROSECUTED.sentences.value, bcp47)}
               </span>
             </p>
-            <p className="label-mono mt-1 text-[var(--paper-faint)]">
+            <p className="label-mono mt-1 text-[var(--ink-3)]">
               {PROSECUTED.convictions.year} · {m.ctxConvictions} ·{" "}
               {percent(CONVICTION_RATE_PCT / 100, bcp47)}
             </p>
             <ul className="mt-4">
               <li>
-                <span className="mono text-[var(--paper)]">
+                <span className="mono text-[var(--ink)]">
                   {integer(PROSECUTED.racismCharges.value, bcp47)}
                 </span>{" "}
                 {m.ctxCharges}
               </li>
               <li>
-                <span className="mono text-[var(--paper)]">
+                <span className="mono text-[var(--ink)]">
                   {signedPercent(CHARGES_CHANGE_PCT / 100, bcp47)}
                 </span>{" "}
                 {m.ctxChangeYear}
               </li>
             </ul>
-            <p className="mt-4 text-sm text-[var(--paper-faint)]">{m.ctxProsecutedNote}</p>
+            <p className="mt-4 text-sm text-[var(--ink-3)]">{m.ctxProsecutedNote}</p>
             <p className="label-mono mt-3 flex flex-col gap-1">
               <a className="src" href={PROSECUTED.url} target="_blank" rel="noopener noreferrer">
                 {PROSECUTED.body} ↗
@@ -212,19 +212,19 @@ export default async function MetodologiaPage({
         {/* The negative finding. Stated as prominently as any figure, because it
             is the answer to the question the site invites. */}
         <div className="panel mt-8 p-6">
-          <p className="label-mono mb-3 text-[var(--gold)]">{m.ctxFindingTitle}</p>
-          <p className="leading-relaxed text-[var(--paper-dim)]">{m.ctxFindingBody}</p>
+          <p className="label-mono mb-3 text-[var(--gold-deep)]">{m.ctxFindingTitle}</p>
+          <p className="leading-relaxed text-[var(--ink-2)]">{m.ctxFindingBody}</p>
         </div>
 
-        <p className="label-mono mt-8 mb-2 text-[var(--paper-dim)]">{m.ctxCaseTitle}</p>
-        <p className="text-sm leading-relaxed text-[var(--paper-faint)]">{m.ctxCaseBody}</p>
+        <p className="label-mono mt-8 mb-2 text-[var(--ink-2)]">{m.ctxCaseTitle}</p>
+        <p className="text-sm leading-relaxed text-[var(--ink-3)]">{m.ctxCaseBody}</p>
         <p className="label-mono mt-3">
           <a className="src" href={MENAS_CASE.url} target="_blank" rel="noopener noreferrer">
             {MENAS_CASE.appeal.court} ↗
           </a>
         </p>
 
-        <p className="mt-8 text-sm leading-relaxed text-[var(--paper-faint)]">{m.ctxNoTag}</p>
+        <p className="mt-8 text-sm leading-relaxed text-[var(--ink-3)]">{m.ctxNoTag}</p>
       </Block>
 
       <Block title={m.srcTitle}>
@@ -254,7 +254,7 @@ function Block({ title, children }: { title: string; children: React.ReactNode }
   return (
     <section className="mt-12">
       <h2 className="display section-tick text-2xl">{title}</h2>
-      <div className="prose-dossier mt-8 flex flex-col gap-4 text-[var(--paper-dim)] leading-relaxed">
+      <div className="prose-dossier mt-8 flex flex-col gap-4 text-[var(--ink-2)] leading-relaxed">
         {children}
       </div>
     </section>

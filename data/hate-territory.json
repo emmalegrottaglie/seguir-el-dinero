@@ -1,0 +1,194 @@
+{
+  "source": {
+    "body": "Ministerio del Interior · Oficina Nacional contra los Delitos de Odio",
+    "report": "Informe sobre la evolución de los delitos e incidentes de odio en España 2024",
+    "url": "https://www.interior.gob.es/opencms/export/sites/default/.galleries/galeria-de-prensa/documentos-y-multimedia/balances-e-informes/2024/INFORME_Evolucion_delitos_de_odio_2024.pdf",
+    "tables": [
+      "2.2",
+      "7.1"
+    ]
+  },
+  "year": 2024,
+  "national": {
+    "total": 1955,
+    "ratePer100k": 4.02
+  },
+  "unlocated": {
+    "EN EL EXTRAJNERO": {
+      "total": 1
+    }
+  },
+  "territories": {
+    "01": {
+      "reportName": "ANDALUCÍA",
+      "total": 223,
+      "ratePer100k": 2.59,
+      "administrative": 10,
+      "sexualOrientationGenderIdentity": 78,
+      "racism": 78,
+      "ideology": 7
+    },
+    "02": {
+      "reportName": "ARAGÓN",
+      "total": 52,
+      "ratePer100k": 3.86,
+      "administrative": 3,
+      "sexualOrientationGenderIdentity": 13,
+      "racism": 22,
+      "ideology": 10
+    },
+    "03": {
+      "reportName": "ASTURIAS (PRINCIPADO DE)",
+      "total": 45,
+      "ratePer100k": 4.46,
+      "administrative": 4,
+      "sexualOrientationGenderIdentity": 8,
+      "racism": 19,
+      "ideology": 10
+    },
+    "04": {
+      "reportName": "BALEARES (ILLES)",
+      "total": 51,
+      "ratePer100k": 4.18,
+      "administrative": 9,
+      "sexualOrientationGenderIdentity": 10,
+      "racism": 21,
+      "ideology": 2
+    },
+    "05": {
+      "reportName": "CANARIAS",
+      "total": 78,
+      "ratePer100k": 3.5,
+      "administrative": 5,
+      "sexualOrientationGenderIdentity": 26,
+      "racism": 35,
+      "ideology": 1
+    },
+    "06": {
+      "reportName": "CANTABRIA",
+      "total": 22,
+      "ratePer100k": 3.72,
+      "administrative": 0,
+      "sexualOrientationGenderIdentity": 10,
+      "racism": 7,
+      "ideology": 0
+    },
+    "07": {
+      "reportName": "CASTILLA Y LEÓN",
+      "total": 93,
+      "ratePer100k": 3.89,
+      "administrative": 2,
+      "sexualOrientationGenderIdentity": 17,
+      "racism": 35,
+      "ideology": 15
+    },
+    "08": {
+      "reportName": "CASTILLA - LA MANCHA",
+      "total": 63,
+      "ratePer100k": 3.0,
+      "administrative": 0,
+      "sexualOrientationGenderIdentity": 16,
+      "racism": 24,
+      "ideology": 6
+    },
+    "09": {
+      "reportName": "CATALUÑA",
+      "total": 291,
+      "ratePer100k": 3.62,
+      "administrative": 4,
+      "sexualOrientationGenderIdentity": 116,
+      "racism": 96,
+      "ideology": 34
+    },
+    "10": {
+      "reportName": "COMUNITAT VALECIANA",
+      "total": 254,
+      "ratePer100k": 4.78,
+      "administrative": 8,
+      "sexualOrientationGenderIdentity": 59,
+      "racism": 126,
+      "ideology": 11
+    },
+    "11": {
+      "reportName": "EXTREMADURA",
+      "total": 22,
+      "ratePer100k": 2.09,
+      "administrative": 2,
+      "sexualOrientationGenderIdentity": 8,
+      "racism": 7,
+      "ideology": 5
+    },
+    "12": {
+      "reportName": "GALICIA",
+      "total": 77,
+      "ratePer100k": 2.85,
+      "administrative": 5,
+      "sexualOrientationGenderIdentity": 16,
+      "racism": 38,
+      "ideology": 5
+    },
+    "13": {
+      "reportName": "MADRID (COMUNIDAD DE)",
+      "total": 272,
+      "ratePer100k": 3.88,
+      "administrative": 25,
+      "sexualOrientationGenderIdentity": 60,
+      "racism": 116,
+      "ideology": 9
+    },
+    "14": {
+      "reportName": "MURCIA (REGIÓN DE)",
+      "total": 48,
+      "ratePer100k": 3.05,
+      "administrative": 5,
+      "sexualOrientationGenderIdentity": 15,
+      "racism": 14,
+      "ideology": 1
+    },
+    "15": {
+      "reportName": "NAVARRA (COMUNIDAD FORAL DE)",
+      "total": 95,
+      "ratePer100k": 14.0,
+      "administrative": 1,
+      "sexualOrientationGenderIdentity": 14,
+      "racism": 13,
+      "ideology": 10
+    },
+    "16": {
+      "reportName": "PAÍS VASCO",
+      "total": 241,
+      "ratePer100k": 10.8,
+      "administrative": 2,
+      "sexualOrientationGenderIdentity": 54,
+      "racism": 147,
+      "ideology": 18
+    },
+    "17": {
+      "reportName": "RIOJA (LA)",
+      "total": 13,
+      "ratePer100k": 4.01,
+      "administrative": 0,
+      "sexualOrientationGenderIdentity": 5,
+      "racism": 3,
+      "ideology": 1
+    },
+    "18": {
+      "reportName": "CIUDAD AUTÓNOMA DE CEUTA",
+      "total": 7,
+      "ratePer100k": 8.41,
+      "administrative": 0,
+      "sexualOrientationGenderIdentity": 1,
+      "racism": 1,
+      "ideology": 0
+    },
+    "19": {
+      "reportName": "CEIUDAD AUTÓNOMA DE MELILLA",
+      "total": 7,
+      "ratePer100k": 8.16,
+      "administrative": 1,
+      "sexualOrientationGenderIdentity": 1,
+      "racism": 2,
+      "ideology": 2
+    }
+  }
+}

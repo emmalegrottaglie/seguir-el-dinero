@@ -44,32 +44,32 @@ export default async function DerechosPage({
   const ago = (iso: string) => relativeTime(iso, locale);
 
   return (
-    <main className="mx-auto max-w-6xl px-5 pb-8">
-      <Link href={`/${locale}`} className="label-mono inline-block py-4 hover:text-[var(--gold)]">
+    <main className="mx-auto max-w-6xl pb-8">
+      <Link href={`/${locale}`} className="label-mono inline-block py-4 hover:text-[var(--gold-deep)]">
         {t.common.backToPanel}
       </Link>
 
       <header className="mt-4 max-w-3xl">
-        <p className="eyebrow" style={{ color: "var(--verd)" }}>
+        <p className="eyebrow" style={{ color: "var(--verd-text)" }}>
           {r.eyebrow}
         </p>
         <h1 className="display mt-4 text-4xl leading-[0.95] sm:text-6xl">
           {r.titlePre}
-          <span className="italic" style={{ color: "var(--verd-bright)" }}>
+          <span className="italic" style={{ color: "var(--verd-text)" }}>
             {r.titleEmph}
           </span>
           {r.titlePost}
         </h1>
-        <p className="mt-6 text-lg text-[var(--paper-dim)]">{r.intro}</p>
+        <p className="mt-6 text-lg text-[var(--ink-2)]">{r.intro}</p>
       </header>
 
       {/* The organisations' own publications, first and largest. */}
       <section className="mt-16">
         <h2 className="display section-tick text-2xl">{r.orgsTitle}</h2>
-        <p className="mt-6 max-w-2xl text-[var(--paper-dim)]">{r.orgsNote}</p>
+        <p className="mt-6 max-w-2xl text-[var(--ink-2)]">{r.orgsNote}</p>
 
         {orgItems.length === 0 ? (
-          <p className="panel mt-8 p-6 text-[var(--paper-dim)]">{r.empty}</p>
+          <p className="panel mt-8 p-6 text-[var(--ink-2)]">{r.empty}</p>
         ) : (
           <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {orgItems.map((item) => (
@@ -88,7 +88,7 @@ export default async function DerechosPage({
       {mediaItems.length > 0 && (
         <section className="mt-20">
           <h2 className="display section-tick text-2xl">{r.mediaTitle}</h2>
-          <p className="mt-6 max-w-2xl text-[var(--paper-dim)]">{r.mediaNote}</p>
+          <p className="mt-6 max-w-2xl text-[var(--ink-2)]">{r.mediaNote}</p>
           <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {mediaItems.map((item) => (
               <ArticleCard
@@ -107,11 +107,11 @@ export default async function DerechosPage({
           than only reading what it happened to publish this fortnight. */}
       <section className="mt-20">
         <h2 className="display section-tick text-2xl">{r.directoryTitle}</h2>
-        <p className="mt-6 max-w-2xl text-[var(--paper-dim)]">{r.directoryNote}</p>
+        <p className="mt-6 max-w-2xl text-[var(--ink-2)]">{r.directoryNote}</p>
 
         <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2">
           <div className="panel panel-org p-6">
-            <p className="label-mono mb-4" style={{ color: "var(--verd-bright)" }}>
+            <p className="label-mono mb-4" style={{ color: "var(--verd-text)" }}>
               {r.kindOrg}
             </p>
             <ul className="flex flex-col gap-3">
@@ -126,7 +126,7 @@ export default async function DerechosPage({
                     {s.name} ↗
                   </a>
                   {s.lang === "en" && (
-                    <span className="label-mono ml-2 text-[var(--paper-faint)]">EN</span>
+                    <span className="label-mono ml-2 text-[var(--ink-3)]">EN</span>
                   )}
                 </li>
               ))}
@@ -134,7 +134,7 @@ export default async function DerechosPage({
           </div>
 
           <div className="panel p-6">
-            <p className="label-mono mb-4 text-[var(--gold)]">{r.kindMedia}</p>
+            <p className="label-mono mb-4 text-[var(--gold-deep)]">{r.kindMedia}</p>
             <ul className="flex flex-col gap-3">
               {media.map((s) => (
                 <li key={s.id}>
@@ -156,12 +156,12 @@ export default async function DerechosPage({
       {/* A feed that failed is named. The methodology page lists the ones that
           were tested and rejected; this reports the ones that broke today. */}
       {dropped.length > 0 && (
-        <p className="label-mono mt-10 text-[var(--paper-faint)]">
+        <p className="label-mono mt-10 text-[var(--ink-3)]">
           {r.droppedNote} {dropped.map((d) => d.name).join(" · ")}
         </p>
       )}
 
-      <p className="mt-12 max-w-3xl text-sm leading-relaxed text-[var(--paper-faint)]">
+      <p className="mt-12 max-w-3xl text-sm leading-relaxed text-[var(--ink-3)]">
         {r.caveat}
       </p>
 

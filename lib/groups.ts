@@ -125,10 +125,33 @@ export function groupParty(info: GroupInfo | null) {
   return meta ? { nif: info.party, ...meta } : null;
 }
 
+/**
+ * The composite group a party sat in, if it sat in one.
+ *
+ * A party with no stance of its own on a division is in one of two very
+ * different positions, and a single label for both misleads. Sumar leads the
+ * Grupo Plurinacional SUMAR, which also holds IU, Comuns, Más Madrid and
+ * Compromís: the group has a majority but it is not Sumar-the-party's own,
+ * because attributing it to Sumar's NIF and not to IU's would be arbitrary.
+ * A party that was not in the chamber at all is a different gap again.
+ *
+ * The match is on `shortName` from the party registry against the labels in
+ * `parties`, exactly and case-sensitively. Those labels are written to be the
+ * registry's own short names, so this is a lookup rather than a guess, and a
+ * label that stops matching produces no group instead of the wrong one.
+ */
+export function sharedGroupFor(legislature: string, nif: string): GroupInfo | null {
+  const label = PARTIES[nif]?.shortName;
+  if (!label) return null;
+  return (
+    BY_LEGISLATURE[legislature]?.find((g) => !g.party && g.parties?.includes(label)) ?? null
+  );
+}
+
 /** Colour for the group's swatch: its party's, or a neutral tone when composite. */
 export function groupColor(info: GroupInfo | null): string {
   const p = groupParty(info);
-  return p ? p.color : "var(--paper-faint)";
+  return p ? p.color : "var(--grey-500)";
 }
 
 /** Short display label, falling back to the raw code. */
