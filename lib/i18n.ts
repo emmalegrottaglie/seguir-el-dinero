@@ -240,6 +240,10 @@ const es = {
       "A los partidos les está prohibido aceptar dinero de empresas; a sus fundaciones vinculadas no. Pero en las cifras auditadas el dinero de empresas es la parte pequeña, y casi nueve de cada diez euros que entran los pone el propio partido. Aquí están las entidades, sus cuentas y los patronatos que las dirigen.",
   },
   foundations: {
+    officeJoin:
+      "De esas personas, {matched} de {candidates} figuran en el Registro de Altos Cargos con un cargo público, y ese cargo se muestra tal como lo recogía el registro el {updated}. Son dos registros públicos sobre la misma persona, puestos uno al lado del otro: nada aquí dice que el cargo y el patronato tengan relación.",
+    officeJoinDrops:
+      "Quedan fuera {unmatched} personas que no constan en el registro —lo normal en un patronato con miembros que no son cargos públicos—, {ambiguous} cuyo nombre coincide con más de un cargo distinto, y {mismatch} en las que el partido del cargo no coincide con el de la fundación. En los dos últimos casos no se publica nada: un nombre no identifica a una persona.",
     title: "Quién paga a las fundaciones de los partidos",
     intro:
       "Cada partido tiene fundaciones y asociaciones vinculadas que reciben dinero por su cuenta. A los partidos les está prohibido aceptar dinero de empresas; a sus fundaciones no. Pero al mirar las cifras auditadas, el dinero de empresas es la parte pequeña: casi nueve de cada diez euros que entran los pone el propio partido.",
@@ -864,6 +868,10 @@ const en: Dict = {
       "Parties may accept no corporate money at all; their linked foundations may. But in the audited figures corporate money is the small part, and nearly nine in every ten euros coming in are put there by the party itself. Here are the entities, their accounts, and the boards that run them.",
   },
   foundations: {
+    officeJoin:
+      "Of those people, {matched} of {candidates} appear in the Senior Appointments Register holding a public office, and that office is shown as the register recorded it on {updated}. They are two public records about one person, placed side by side: nothing here says the office and the board seat are related.",
+    officeJoinDrops:
+      "Left out: {unmatched} people with no row in the register — ordinary for a board with members who hold no public office — {ambiguous} whose name matches more than one distinct office, and {mismatch} where the office’s party contradicts the foundation’s. Nothing is published in either of the last two cases: a name does not identify a person.",
     title: "Who pays the parties' foundations",
     intro:
       "Every party has linked foundations and associations that take money in their own right. Parties may not accept money from companies; their foundations may. But in the audited figures the corporate share is the small one: almost nine of every ten euros coming in are put there by the party itself.",
@@ -1486,6 +1494,10 @@ const ca: Dict = {
       "Als partits els està prohibit acceptar diners d'empreses; a les seves fundacions vinculades no. Però en les xifres auditades el diner d'empreses és la part petita, i gairebé nou de cada deu euros que entren els posa el mateix partit. Aquí hi ha les entitats, els seus comptes i els patronats que les dirigeixen.",
   },
   foundations: {
+    officeJoin:
+      "D’aquestes persones, {matched} de {candidates} consten al Registre d’Alts Càrrecs amb un càrrec públic, i aquell càrrec es mostra tal com el recollia el registre el {updated}. Són dos registres públics sobre la mateixa persona, posats l’un al costat de l’altre: res d’això no diu que el càrrec i el patronat hi tinguin relació.",
+    officeJoinDrops:
+      "En queden fora {unmatched} persones que no consten al registre —el normal en un patronat amb membres que no són càrrecs públics—, {ambiguous} el nom de les quals coincideix amb més d’un càrrec diferent, i {mismatch} en què el partit del càrrec no coincideix amb el de la fundació. En els dos últims casos no es publica res: un nom no identifica una persona.",
     title: "Qui paga les fundacions dels partits",
     intro:
       "Cada partit té fundacions i associacions vinculades que reben diners pel seu compte. Als partits els està prohibit acceptar diners d'empreses; a les seves fundacions, no. Però en les xifres auditades els diners d'empreses són la part petita: gairebé nou de cada deu euros que entren els posa el propi partit.",

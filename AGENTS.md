@@ -152,6 +152,38 @@ and the label states its procedural stage and nothing beyond it. That is a diffe
 the per-politician conviction tag this project declined to build, which would have required
 attributing findings from records that are pseudonymised at source.
 
+## The officeholder join needs two conditions, and a name is not one of them
+
+`lib/officeholder-ties.ts` attaches the public offices in `data/salaries.json` to the people who
+govern the party foundations. It is the only join here that connects a **named living private
+individual** to a record neither they nor the foundation published, so a wrong match would put
+someone else's public office against a named person. Two conditions must both hold:
+
+1. **One distinct post per folded name.** `nameKey` is order-independent and accent-folded, which
+   is what lets "Apellidos, Nombre" meet "Nombre Apellidos". It is not an identity. Measured:
+   6,670 officeholders resolve to 6,663 folded names, three of which cover genuinely different
+   posts — 0.045 %. A key covering more than one post yields nothing, never the first of them.
+2. **The party must agree** with the party the audit report links the foundation to, or the
+   officeholder must be recorded as unaffiliated (how the register carries government delegates
+   and senior appointees). This is what turns a name match into evidence: two people who happen
+   to share a folded name have no reason to share a party with a foundation neither was matched
+   on. All fourteen current matches agree, and each was read by eye.
+
+The office is stated **as the register had it on the register's own last-updated date**, which
+travels on every tie and is rendered. There is no per-person date and no active flag, so a title
+that has since changed hands is the register's staleness, shown as such. And nothing asserts that
+a board seat and an office are connected — two public records about one person, side by side.
+
+`npm run check:office-join` fails rather than warns, on the assumption underneath the join (the
+collision ceiling), on the `ROLES` literal still being parseable, on every published slug
+existing in the register, and on the join not having silently stopped matching.
+
+It does **not** re-check the party condition, on purpose. That would mean reimplementing
+`partyNifFor` in JavaScript — the report writes "Partido Socialista Obrero Español" where the
+register writes "PSOE" — and a second copy of a rule drifts from the first. The script's own
+first draft tried it with substring matching and failed all ten PSOE and PNV matches, which is
+the drift in miniature.
+
 ## Architecture / where things live
 
 ### Routes (all under `app/[locale]/`)
@@ -219,6 +251,7 @@ ordinary browser one, so `FEED_HEADERS` in the registry sends the browser string
 | `lib/regions.ts` | The communities' projected geometry and the per-territory hate-crime figures (file loaders + types) |
 | `lib/governments.ts` | Curated: who holds each community's presidency, and since when. Free of Node imports, so the map's client component can read it |
 | `lib/court-records.ts` | The four verified judicial and electoral-board resolutions, with the status as a **type** |
+| `lib/officeholder-ties.ts` | The board-member → public-office join, gated on one-post-per-name **and** party agreement |
 | `lib/photos.ts` | Portrait lookup, `portraitKeys` for bulk tests |
 | `lib/politicians.ts` | Curated politicians with verified Bluesky handles |
 | `lib/people.ts` | **The join.** Assembles one profile from every dataset that knows the person |
@@ -274,6 +307,7 @@ npm run build:hate-territory -- path/to/INFORME_odio_2024.pdf   # per-community 
 npm run build:regions          # projects the community geometry into data/regions.json
 curl http://localhost:3000/api/refresh   # subsidies (add the CRON_SECRET header if set)
 npm run check:feeds            # health-checks every news feed; non-zero on a dead or stale one
+npm run check:office-join      # guards the board-member → public-office join; non-zero on a break
 ```
 
 Endpoint notes that cost real time to work out:
@@ -384,6 +418,9 @@ paying a permanent prefix cost to chase it would be the wrong trade.
 - **Donations years.** Only ejercicio 2020 (report 1573). Later reports are 700-page PDFs.
 - **Map layers.** Two of the five designed. The three with no citable per-community source, and
   the Vox-investiture hatch, are covered above.
+- **The officeholder join publishes 14 of 53 board members.** The other 39 have no row in the
+  register, which is the ordinary case for a trustee holding no public office — not a failure to
+  find them. Nothing is inferred for the rest.
 - **Autonomous presidencies.** Curated in `lib/governments.ts` against one secondary source, dated
   `2026-09-09`. There is no machine-readable national register of them; each community's own
   official gazette is the primary route and has not been walked.

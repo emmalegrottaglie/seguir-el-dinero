@@ -1,5 +1,6 @@
 import { getDict } from "@/lib/i18n";
-import { getFoundations } from "@/lib/foundations";
+import { getFoundations, partyNifByFoundation } from "@/lib/foundations";
+import { officeTies } from "@/lib/officeholder-ties";
 import FoundationChannel from "@/components/FoundationChannel";
 
 export const revalidate = 3600;
@@ -25,6 +26,7 @@ export default async function FoundationsPage({
   const { locale: localeParam } = await params;
   const { locale, bcp47, t } = getDict(localeParam);
   const data = await getFoundations();
+  const offices = await officeTies(partyNifByFoundation(data));
   const F = t.foundationsPage;
 
   return (
@@ -47,7 +49,13 @@ export default async function FoundationsPage({
         </p>
       </header>
 
-      <FoundationChannel data={data} t={t} bcp47={bcp47} locale={locale} />
+      <FoundationChannel
+        data={data}
+        t={t}
+        bcp47={bcp47}
+        locale={locale}
+        offices={offices.audit}
+      />
     </main>
   );
 }

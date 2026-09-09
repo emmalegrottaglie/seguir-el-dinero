@@ -14,7 +14,8 @@
     "check:feeds": "node scripts/check-feeds.mjs",
     "build:spending": "python scripts/extract-electoral-spending.py",
     "build:regions": "node scripts/build-regions.mjs",
-    "build:hate-territory": "python scripts/extract-hate-territory.py"
+    "build:hate-territory": "python scripts/extract-hate-territory.py",
+    "check:office-join": "node scripts/check-office-join.mjs"
   },
   "engines": {
     "node": "22.x"

@@ -275,6 +275,15 @@ export function entities(data: FoundationsFile): Entity[] {
   return out;
 }
 
+/**
+ * Each entity's linked party NIF, keyed by the entity name report nº 1.642
+ * uses. This is the report's own party link, which is what makes it usable as
+ * a corroborating condition elsewhere rather than something inferred.
+ */
+export function partyNifByFoundation(data: FoundationsFile): Map<string, string | null> {
+  return new Map(entities(data).map((e) => [e.name, e.partyNif]));
+}
+
 /** Entities ranked by every euro they received, descending. */
 export function rankedEntities(data: FoundationsFile): Entity[] {
   return entities(data).sort(

@@ -9,7 +9,8 @@ import {
   type FoundationsFile,
 } from "@/lib/foundations";
 import { governanceCoverage } from "@/lib/foundation-people";
-import { euro, euroCompact, integer, percent } from "@/lib/format";
+import type { OfficeJoin } from "@/lib/officeholder-ties";
+import { euro, euroCompact, formatDate, integer, percent } from "@/lib/format";
 import type { Dict } from "@/lib/i18n";
 
 /**
@@ -27,11 +28,14 @@ export default function FoundationChannel({
   t,
   bcp47,
   locale,
+  offices,
 }: {
   data: FoundationsFile;
   t: Dict;
   bcp47: string;
   locale: string;
+  /** The officeholder join's audit, so its coverage is stated not implied. */
+  offices?: OfficeJoin["audit"];
 }) {
   const F = t.foundations;
   const totals = channelTotals(data);
@@ -280,6 +284,32 @@ export default function FoundationChannel({
           {gov.fromPress > 0 &&
             ` ${F.peopleCoveragePress.replace("{press}", integer(gov.fromPress, bcp47))}`}
         </p>
+
+        {/* The officeholder join, and what it refused to publish. A match
+            rate on its own would read as a quality score; the two drop
+            conditions are what make the rate mean anything. */}
+        {offices && (
+          <>
+            <p className="mt-4 leading-relaxed text-[var(--ink-2)]">
+              {F.officeJoin
+                .replace("{matched}", integer(offices.matched, bcp47))
+                .replace("{candidates}", integer(offices.candidates, bcp47))
+                .replace(
+                  "{updated}",
+                  offices.registerUpdated ? formatDate(offices.registerUpdated, bcp47) : "—",
+                )}
+            </p>
+            <p className="mt-2 leading-relaxed text-[var(--ink-3)]">
+              {F.officeJoinDrops
+                .replace("{unmatched}", integer(offices.unmatched, bcp47))
+                .replace("{ambiguous}", integer(offices.ambiguous.length, bcp47))
+                .replace(
+                  "{mismatch}",
+                  integer(offices.partyMismatch.length, bcp47),
+                )}
+            </p>
+          </>
+        )}
       </div>
 
       <div className="panel mt-6 p-6">

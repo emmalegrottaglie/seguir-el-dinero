@@ -1,4 +1,6 @@
 import { governanceFor, type Source, type Tie } from "@/lib/foundation-people";
+import { nameKey } from "@/lib/name-key.mjs";
+import type { OfficeTie } from "@/lib/officeholder-ties";
 import type { Dict } from "@/lib/i18n";
 
 /**
@@ -19,9 +21,18 @@ import type { Dict } from "@/lib/i18n";
 export default function FoundationGovernance({
   foundation,
   t,
+  locale,
+  offices,
 }: {
   foundation: string;
   t: Dict;
+  locale: string;
+  /**
+   * Public offices resolved from the Registro de Altos Cargos, keyed by the
+   * person's `nameKey`. Optional so a caller that has not run the join
+   * renders the curated record alone rather than failing.
+   */
+  offices?: Map<string, OfficeTie[]>;
 }) {
   const F = t.foundations;
   const gov = governanceFor(foundation);
@@ -102,16 +113,32 @@ export default function FoundationGovernance({
                 </p>
               ))}
 
-              {p.ties.length > 0 && (
-                <>
-                  <p className="label-mono mt-3 text-[var(--ink-3)]">{F.peopleAlso}</p>
-                  <ul className="mt-1 flex flex-col gap-1">
-                    {p.ties.map((tie, i) => (
-                      <TieLine key={i} tie={tie} F={F} attribution={attribution} />
-                    ))}
-                  </ul>
-                </>
-              )}
+              {/* Curated ties first, then the offices resolved from the
+                  register. Both are ties and both carry their source, so they
+                  share one list; what keeps them honest is that a registry
+                  source renders as a statement of record with the register's
+                  own date, and the office links to that person's page. */}
+              {(() => {
+                const office = offices?.get(nameKey(p.person)) ?? [];
+                const all = [...p.ties, ...office];
+                if (all.length === 0) return null;
+                return (
+                  <>
+                    <p className="label-mono mt-3 text-[var(--ink-3)]">{F.peopleAlso}</p>
+                    <ul className="mt-1 flex flex-col gap-1">
+                      {all.map((tie, i) => (
+                        <TieLine
+                          key={i}
+                          tie={tie}
+                          F={F}
+                          attribution={attribution}
+                          href={"slug" in tie ? `/${locale}/politico/${tie.slug}` : undefined}
+                        />
+                      ))}
+                    </ul>
+                  </>
+                );
+              })()}
             </li>
           ))}
         </ul>
@@ -124,24 +151,41 @@ function TieLine({
   tie,
   F,
   attribution,
+  href,
 }: {
   tie: Tie;
   F: Dict["foundations"];
   attribution: (s: Source) => string;
+  /** Set for an office resolved from the register, which has its own page. */
+  href?: string;
 }) {
   // Corporate ties are the ones a reader came for, so they carry the accent
   // colour. A role the source puts in the past is labelled as past — a stale
   // role shown as current misrepresents the person.
+  //
+  // --gold measures 3.02:1 on the ground: fine as a fill, below AA as 14px
+  // text, so the text cut is used here. No government tie existed when the
+  // contrast audit last ran, which is why this survived it.
   const colour =
     tie.kind === "corporate"
       ? "var(--red)"
       : tie.kind === "government" || tie.kind === "public-body"
-        ? "var(--gold)"
+        ? "var(--gold-deep)"
         : "var(--ink-2)";
+  const org = <span style={{ color: colour }}>{tie.organisation}</span>;
   return (
     <li className="text-sm leading-relaxed">
-      <span style={{ color: colour }}>{tie.organisation}</span>
-      <span className="text-[var(--ink-2)]"> — {tie.role}</span>
+      {href ? (
+        <a href={href} className="hover:underline">
+          {org}
+        </a>
+      ) : (
+        org
+      )}
+      {/* An office tie has no second label when the register gives no
+          region, so the dash is conditional on there being something after
+          it. */}
+      {tie.role && <span className="text-[var(--ink-2)]"> — {tie.role}</span>}
       {tie.former && (
         <span className="label-mono ml-2 text-[var(--ink-3)]"> ({F.peopleFormer})</span>
       )}
