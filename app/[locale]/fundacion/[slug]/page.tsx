@@ -46,7 +46,7 @@ export default async function FundacionPage({
     <main className="mx-auto max-w-4xl pb-8">
       <Link
         href={`/${locale}/financiacion`}
-        className="label-mono inline-block py-4 hover:text-[var(--gold)]"
+        className="label-mono inline-block py-4 hover:text-[var(--gold-deep)]"
       >
         {F.backToChannel}
       </Link>
@@ -65,7 +65,7 @@ export default async function FundacionPage({
             <dt className="label-mono text-[var(--ink-3)]">{F.party}</dt>
             <dd className="mt-1">
               {entity.partyNif ? (
-                <Link className="hover:text-[var(--gold)]" href={`/${locale}/party/${entity.partyNif}`}>
+                <Link className="hover:text-[var(--gold-deep)]" href={`/${locale}/party/${entity.partyNif}`}>
                   {entity.party}
                 </Link>
               ) : (
@@ -222,7 +222,7 @@ function Exercise({
                   <th scope="row" className="py-2.5 pr-4 text-left font-normal text-[var(--ink)]">
                     {item.body}
                   </th>
-                  <td className="mono py-2.5 text-right text-[var(--gold)]">
+                  <td className="mono py-2.5 text-right text-[var(--gold-deep)]">
                     {euro(item.amount, bcp47)}
                   </td>
                 </tr>

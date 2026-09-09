@@ -95,19 +95,78 @@ Monedero as director, where the entity's own patronato page shows neither and on
 common. Where a board could not be established at all, that goes in `BOARD_GAPS` and prints on the
 dossier — the absence is a finding, because apartado Seis requires publication.
 
+## The design system, and the two accents that are not text colours
+
+The visual system is light newsprint: ground `#f3f2f2`, ink `#201f1d`, Cormorant Garamond for
+every heading and display figure and Lora for everything else. Two structural rules run through
+it and both are load-bearing rather than stylistic: **no shadows anywhere** — structure is
+carried entirely by hairlines, so a panel that needs to read as separate gets a rule, not
+elevation — and **radius is 2px**, except dots at 50%.
+
+The thing most likely to be got wrong: `--gold` and `--verd` are **fill and border colours, and
+never text**. Measured on the ground, `--gold` is 3.02:1 and `--verd` is 4.38:1. Both clear the
+3:1 that WCAG 1.4.11 asks of a control boundary or a graphic; both fail the 4.5:1 that normal
+text needs. So text takes `--gold-deep` (5.97:1) and `--verd-text` (5.28:1, and 4.87:1 on the
+surface, so it passes on both grounds the site paints). The one exception is display type at
+32px and up, where the large-text threshold puts the bar at 3:1 and `--gold` passes as designed —
+the masthead wordmark and the `h1` emphasis spans.
+
+The design handoff's own contrast table asserts that verdigris passes AA and that `#605d5d` is
+7.0:1. Neither is true (4.38:1 and 5.83:1). Measure; do not read.
+
+Two further traps, both of which have cost time here:
+
+- **A localised percentage is not a CSS length.** `es-ES` renders 0.545 as "54,5", and a bar
+  given `width: 54,5%` collapses to nothing rather than erroring. Use `cssPercent()` for layout
+  and `percent()` for display, and never one for the other.
+- **`.eyebrow` and `.label-mono` must stay in `@layer base`.** They set colour and size, which
+  Tailwind utilities routinely override; authored unlayered they beat every utility regardless of
+  specificity, because unlayered styles win over every cascade layer. `:where()` does not fix it —
+  the problem is layer order, not specificity.
+
+## The court record's status is a type, not a string
+
+`lib/court-records.ts` holds the four resolutions that passed the 3-0 panel in
+`research/hate-accountability.md`. The status label is the entire point of the component, so it
+is a union type rather than translated copy, which makes four specific errors unrepresentable:
+
+- an archived case is `archived`, **never** "acquitted" — both *menas* decisions are autos
+  confirming *sobreseimiento* at the instruction stage, a finding of no *indicios*, and never a
+  merits judgment;
+- an open case is `awaiting-trial`, and there is no status that would let an *auto de apertura de
+  juicio oral* read as a verdict;
+- an electoral board's order is `advertising-infringement` and nothing more, because the Junta
+  Electoral de Zona expressly declared itself not competent over the content;
+- a complaint *against* someone is `complaint-archived`, and the record says whose conduct it
+  concerns.
+
+The copy is translated three ways; the tag is not, so no translation can turn an archiving into
+an acquittal. A party with nothing on file gets an explicit card saying so and saying what it
+does not mean — rendering nothing would read as a clean record, and rendering "0" would invite a
+comparison four hand-verified records cannot support.
+
+Publishing a live prosecution by name (the Herrero record) processes a living person's
+criminal-proceedings data and engages art. 10 LOPDGDD and LO 1/1982. It is published because she
+is an elected officeholder, the opening order was reported by five outlets across the spectrum,
+and the label states its procedural stage and nothing beyond it. That is a different thing from
+the per-politician conviction tag this project declined to build, which would have required
+attributing findings from records that are pseudonymised at source.
+
 ## Architecture / where things live
 
 ### Routes (all under `app/[locale]/`)
 
 | Path | Role |
 |------|------|
-| `page.tsx` | The portal: headline figures, how each group voted, rights news, section cards |
-| `financiacion/page.tsx` | The three money channels: foundations, electoral spending, state subsidies |
+| `page.tsx` | The front page: ticker, lead investigation, the organisations' rail, the three registers, three columns |
+| `financiacion/page.tsx` | The three declared money flows: electoral spending (donut + the report's lines), 2020 donations by tranche, subsidies |
+| `fundaciones/page.tsx` | The foundation channel: who pays the party foundations and who governs them |
 | `fundacion/[slug]/page.tsx` | One party-linked entity: money in by source, public money by grantor, findings |
+| `mapa/page.tsx` | The territorial map: which party governs each community, and the recorded hate-crime rate there |
 | `politicos/page.tsx` | Politician directory: featured record-holders + the full register |
 | `politico/[slug]/page.tsx` | One person: pay, party funding, recorded ballots, social, news |
-| `party/[nif]/page.tsx` | Party detail: public + private money, faces, ledger, news |
-| `votaciones/page.tsx` | Tracked votes: result, per-group breakdown, deputy search |
+| `party/[nif]/page.tsx` | Party detail: formation switcher, public + private money, faces, ledger, group stances, court record, news |
+| `votaciones/page.tsx` | Tracked votes: the money→party→vote flow, then result, per-group breakdown, deputy search |
 | `derechos/page.tsx` | The rights section: the LGBTQ+ organisations' own feeds, with images, plus the source directory |
 | `metodologia/page.tsx` | Methodology and legal caveats |
 
@@ -156,7 +215,10 @@ ordinary browser one, so `FEED_HEADERS` in the registry sends the browser string
 | `lib/foundations.ts` | Party-linked foundations 2021–22, per-dossier + the legal mechanism |
 | `lib/foundation-people.ts` | Curated: who governs each foundation, and their outside roles, one dated source per record |
 | `lib/salaries.ts` | Officeholder pay: load, accent-folded search, paging, party facets |
-| `lib/votes.ts` | Roll-call votes: load, `positionsFor`, `tallyByGroup` |
+| `lib/votes.ts` | Roll-call votes: load, `positionsFor`, `tallyByGroup`, `stancesByParty`, `voteDateISO`, `newestFirst` |
+| `lib/regions.ts` | The communities' projected geometry and the per-territory hate-crime figures (file loaders + types) |
+| `lib/governments.ts` | Curated: who holds each community's presidency, and since when. Free of Node imports, so the map's client component can read it |
+| `lib/court-records.ts` | The four verified judicial and electoral-board resolutions, with the status as a **type** |
 | `lib/photos.ts` | Portrait lookup, `portraitKeys` for bulk tests |
 | `lib/politicians.ts` | Curated politicians with verified Bluesky handles |
 | `lib/people.ts` | **The join.** Assembles one profile from every dataset that knows the person |
@@ -173,13 +235,28 @@ silently miss. Do not fork it.
 
 ### Components
 
-`Sidebar` (left rail + mobile menu), `Dashboard` (party funding, client), `StanceByGroup`
-(per-vote group positions), `Avatar` + `PhotoCredit` (portrait with initials fallback and the
-licence credit), `NewsFeed`, `BlueskyFeed`, `CountUp`, `LocaleToggle`.
+`Masthead` (the ink bar, masthead row and tab nav — replaced `Sidebar`), `StatStrip` (the ticker
+and the section stat strips, one component because the anatomy is identical), `SpendDonut`,
+`DonationsTable`, `ElectoralSpending`, `VoteFlow` (the money→party→vote ribbons), `RightsMap`
+(the only client-side chart), `CourtRecords`, `PartySwitcher`, `FoundationChannel` +
+`FoundationGovernance`, `Dashboard` (party funding, client), `StanceByGroup`, `ArticleCard`,
+`Avatar` + `PhotoCredit`, `NewsFeed`, `BlueskyFeed`, `CountUp`, `LocaleToggle`.
 
 Data files in `data/`: `subsidies.json` (live), `salaries.json` (~1.7 MB), `votes.json`,
-`photos.json`, `foundations.json`. Read server-side only — pages render a filtered slice, so the browser never
-receives the large datasets. `data/_*.json` are scraper caches and are gitignored.
+`photos.json`, `foundations.json`, `electoral-spending.json`, `regions.json` (projected SVG
+paths), `hate-territory.json`.
+
+Read server-side only — pages render a filtered slice, so the browser never receives the large
+datasets. `data/_*.json` are scraper caches and are gitignored. `regions.json` is the one file
+whose contents do reach the browser, as props on `RightsMap`; that is why the build script
+rounds the path data to one decimal place.
+
+**A client component may not import a module that reads the filesystem.** `RightsMap` imported
+`lib/regions.ts` for its curated presidency data and pulled `node:fs` into the browser bundle,
+which fails the build outright. The split is by who needs what: `lib/governments.ts` is pure
+data, `lib/regions.ts` owns the loaders. The same boundary bites a second way — `Dict` carries
+functions (`news.hoursAgo`), and a function cannot cross to a client component, so pass the one
+block a component needs (`Dict["map"]`) and never the whole dictionary.
 
 Locale comes from the URL (`/es`, `/en`, `/ca`), which keeps pages statically generated. Pages
 that read query strings (`politicos`, `votaciones`) render per request.
@@ -193,6 +270,8 @@ npm run discover:votes -- XV   # shortlists candidate votes for review; publishe
 npm run build:photos           # Wikimedia portraits; re-run to top up after throttling
 npm run build:foundations -- path/to/I1642.pdf   # needs pypdf: pip install pypdf
 npm run build:spending -- path/to/I1628.pdf      # electoral spending by category
+npm run build:hate-territory -- path/to/INFORME_odio_2024.pdf   # per-community hate-crime figures
+npm run build:regions          # projects the community geometry into data/regions.json
 curl http://localhost:3000/api/refresh   # subsidies (add the CRON_SECRET header if set)
 npm run check:feeds            # health-checks every news feed; non-zero on a dead or stale one
 ```
@@ -217,6 +296,29 @@ Endpoint notes that cost real time to work out:
 - **Wikipedia and Commons** throttle anonymous clients hard (429). The photo script backs off
   exponentially and caches both passes. Commons returns file titles with spaces while
   `pageimage` gives underscores — keys must be normalised or the licence lookup silently misses.
+
+## The map ships two layers because three had no source
+
+The design specified five. An LGBTI rights index, the state of trans-law reform and vote share
+for the parties that voted against the tracked bills arrived with sample values and are not
+published: a plausible-looking number on a map is read as a measurement, and the page says so
+rather than leaving the absence to be noticed.
+
+The hatch overlay marking investitures that depended on Vox is absent for a subtler reason worth
+keeping in mind before anyone adds it. Five PP presidencies were invested with Vox votes in July
+2023, and Vox then left three of those governments in July 2024. One static overlay would
+therefore be false for part of the period it appeared to describe, and at least one arrangement
+has changed again since. Adding it needs each parliament's own investiture record transcribed,
+with dates, which is its own verification pass.
+
+The two layers that did ship are held to the usual standard:
+`scripts/extract-hate-territory.py` aborts unless every row reconciles against its own printed
+total, the table reconciles against the national figure in `lib/hate-context.ts`, **and** both
+published motivation columns reconcile against their own national figures. That last guard is the
+one that proves the columns are aligned: fourteen integers on a line are positional, and a
+one-column shift would leave every row summing correctly while attributing racism figures to
+orientation. It caught the report carrying four tables of identical shape, where a
+whole-document scan kept the last and reconciled to 1,405 against a national 1,955.
 
 ## Run / verify
 
@@ -280,6 +382,16 @@ paying a permanent prefix cost to chase it would be the wrong trade.
 - **Social coverage.** 6 verified Bluesky handles. Bluesky skews left in Spain, so PP and Vox
   leaders have no verifiable account there — a property of the platform, stated on the site.
 - **Donations years.** Only ejercicio 2020 (report 1573). Later reports are 700-page PDFs.
+- **Map layers.** Two of the five designed. The three with no citable per-community source, and
+  the Vox-investiture hatch, are covered above.
+- **Autonomous presidencies.** Curated in `lib/governments.ts` against one secondary source, dated
+  `2026-09-09`. There is no machine-readable national register of them; each community's own
+  official gazette is the primary route and has not been walked.
+- **Small phones.** Not designed for. Every multi-column section is `auto-fit` with a stated
+  minimum so columns drop one at a time, but the flow diagram in particular needs a rethink below
+  ~600px — probably a sorted list rather than ribbons.
+- **Images.** Both slots on the front page are hatched placeholders awaiting licensed imagery. A
+  placeholder that looked like a photograph would be a claim about something never photographed.
 - **News registry.** 15 sources, no Catalan-language feed among them, so `/ca` readers are
   served the Spanish ones. Arcópoli is live but has published nothing in 201 days. Organisation
   feeds mix rights news with their own activity announcements — one COGAM item in the live feed

@@ -79,7 +79,7 @@ export default function FoundationChannel({
         </div>
         <div>
           <p className="label-mono mb-2">{F.publicSubsidies}</p>
-          <p className="mono text-2xl text-[var(--gold)]">
+          <p className="mono text-2xl text-[var(--gold-deep)]">
             {euroCompact(totals.subsidies, bcp47)}
           </p>
           <p className="label-mono mt-1 max-w-xs text-[var(--ink-3)]">{F.publicNote}</p>
@@ -123,7 +123,7 @@ export default function FoundationChannel({
                   {d.counterparties.join(" · ")}
                 </th>
                 <td className="py-3 pr-4 text-[var(--ink-2)]">
-                  <Link className="hover:text-[var(--gold)]" href={`/${locale}/fundacion/${d.slug}`}>
+                  <Link className="hover:text-[var(--gold-deep)]" href={`/${locale}/fundacion/${d.slug}`}>
                     {displayName(d.entity)}
                   </Link>
                 </td>
@@ -196,13 +196,13 @@ export default function FoundationChannel({
               return (
                 <tr key={e.slug} className="border-t border-[var(--line)] align-middle">
                   <th scope="row" className="py-3 pr-4 text-left font-normal text-[var(--ink)]">
-                    <Link className="hover:text-[var(--gold)]" href={`/${locale}/fundacion/${e.slug}`}>
+                    <Link className="hover:text-[var(--gold-deep)]" href={`/${locale}/fundacion/${e.slug}`}>
                       {displayName(e.name)}
                     </Link>
                   </th>
                   <td className="py-3 pr-4 text-[var(--ink-2)]">
                     {e.partyNif ? (
-                      <Link className="hover:text-[var(--gold)]" href={`/${locale}/party/${e.partyNif}`}>
+                      <Link className="hover:text-[var(--gold-deep)]" href={`/${locale}/party/${e.partyNif}`}>
                         {e.party}
                       </Link>
                     ) : (
@@ -236,7 +236,7 @@ export default function FoundationChannel({
                   <td className="mono py-3 pr-3 text-right" style={{ color: "var(--red)" }}>
                     {e.companies > 0 ? euroCompact(e.companies, bcp47) : "—"}
                   </td>
-                  <td className="mono py-3 pr-3 text-right" style={{ color: "var(--gold)" }}>
+                  <td className="mono py-3 pr-3 text-right" style={{ color: "var(--gold-deep)" }}>
                     {e.subsidies > 0 ? euroCompact(e.subsidies, bcp47) : "—"}
                   </td>
                   <td className="mono py-3 text-right text-[var(--ink-2)]">
@@ -251,7 +251,7 @@ export default function FoundationChannel({
 
       <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2">
         <div className="panel p-6">
-          <p className="label-mono mb-3 text-[var(--gold)]">{F.registerTitle}</p>
+          <p className="label-mono mb-3 text-[var(--gold-deep)]">{F.registerTitle}</p>
           <p className="leading-relaxed text-[var(--ink-2)]">{F.registerBody}</p>
           <p className="label-mono mt-4 text-[var(--ink-3)]">
             {integer(reg.registered, bcp47)} / {integer(reg.total, bcp47)} {F.entities} ·{" "}
@@ -259,7 +259,7 @@ export default function FoundationChannel({
           </p>
         </div>
         <div className="panel p-6">
-          <p className="label-mono mb-3 text-[var(--gold)]">{F.repeatedTitle}</p>
+          <p className="label-mono mb-3 text-[var(--gold-deep)]">{F.repeatedTitle}</p>
           <p className="leading-relaxed text-[var(--ink-2)]">{F.repeatedBody}</p>
         </div>
       </div>
@@ -268,7 +268,7 @@ export default function FoundationChannel({
           coverage and sends the reader to a dossier rather than flattening
           forty boards into one list. */}
       <div className="panel mt-6 p-6">
-        <p className="label-mono mb-3 text-[var(--gold)]">{F.peopleCoverageTitle}</p>
+        <p className="label-mono mb-3 text-[var(--gold-deep)]">{F.peopleCoverageTitle}</p>
         <p className="leading-relaxed text-[var(--ink-2)]">
           {F.peopleCoverage
             .replace("{documented}", integer(gov.documented, bcp47))
@@ -283,7 +283,7 @@ export default function FoundationChannel({
       </div>
 
       <div className="panel mt-6 p-6">
-        <p className="label-mono mb-3 text-[var(--gold)]">{F.legalTitle}</p>
+        <p className="label-mono mb-3 text-[var(--gold-deep)]">{F.legalTitle}</p>
         <p className="leading-relaxed text-[var(--ink-2)]">{F.legalBody}</p>
         <p className="label-mono mt-4">
           <a className="src" href={FOUNDATIONS_LAW_URL} target="_blank" rel="noopener noreferrer">
@@ -293,7 +293,7 @@ export default function FoundationChannel({
       </div>
 
       <div className="panel mt-6 p-6">
-        <p className="label-mono mb-3 text-[var(--gold)]">{F.gapTitle}</p>
+        <p className="label-mono mb-3 text-[var(--gold-deep)]">{F.gapTitle}</p>
         <p className="leading-relaxed text-[var(--ink-2)]">{F.gapBody}</p>
       </div>
 

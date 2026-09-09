@@ -45,7 +45,9 @@ export default function ArticleCard({
 
       <div className="flex flex-1 flex-col p-5">
         <p className="label-mono mb-3 flex flex-wrap items-center gap-x-2">
-          <span style={{ color: isOrg ? "var(--verd)" : "var(--gold)" }}>{item.source}</span>
+          <span style={{ color: isOrg ? "var(--verd-text)" : "var(--gold-deep)" }}>
+            {item.source}
+          </span>
           <span className="text-[var(--ink-3)]">·</span>
           <span className="text-[var(--ink-3)]">{isOrg ? orgLabel : mediaLabel}</span>
           {item.lang === "en" && <span className="text-[var(--ink-3)]">· EN</span>}

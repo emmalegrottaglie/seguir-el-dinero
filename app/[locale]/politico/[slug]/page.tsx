@@ -49,7 +49,7 @@ export default async function PoliticoPage({
 
   return (
     <main className="mx-auto max-w-4xl pb-8">
-      <Link href={`/${locale}/politicos`} className="label-mono inline-block py-4 hover:text-[var(--gold)]">
+      <Link href={`/${locale}/politicos`} className="label-mono inline-block py-4 hover:text-[var(--gold-deep)]">
         {P.backToPeople}
       </Link>
 
@@ -64,7 +64,7 @@ export default async function PoliticoPage({
           <h1 className="display mt-2 text-3xl sm:text-4xl">{person.name}</h1>
           <p className="label-mono mt-3 flex flex-wrap gap-x-4 gap-y-1">
             {party ? (
-              <Link href={`/${locale}/party/${party.nif}`} className="text-[var(--gold)] hover:underline">
+              <Link href={`/${locale}/party/${party.nif}`} className="text-[var(--gold-deep)] hover:underline">
                 {party.displayName}
               </Link>
             ) : (
@@ -120,7 +120,7 @@ export default async function PoliticoPage({
           <div className="mt-8 flex flex-col gap-6">
             {[...byTopic.entries()].map(([topic, items]) => (
               <div key={topic}>
-                <p className="label-mono mb-3 text-[var(--gold)]">{topic}</p>
+                <p className="label-mono mb-3 text-[var(--gold-deep)]">{topic}</p>
                 <div className="flex flex-col">
                   {items.map(({ vote, ballot, group }) => {
                     const color = BALLOT_COLOR[ballot] ?? "var(--ink-3)";
@@ -174,7 +174,7 @@ export default async function PoliticoPage({
               href={`https://bsky.app/profile/${social.bluesky}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="label-mono hover:text-[var(--gold)]"
+              className="label-mono hover:text-[var(--gold-deep)]"
             >
               @{social.bluesky} ↗
             </a>

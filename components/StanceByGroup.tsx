@@ -58,13 +58,13 @@ export default function StanceByGroup({ vote, t }: { vote: KeyVote; t: Dict }) {
       </p>
 
       <div className="mt-4 flex h-3 overflow-hidden rounded-sm bg-[var(--track)]">
-        <div style={{ width: width(tot.afavor), backgroundColor: "var(--gold)" }} />
+        <div style={{ width: width(tot.afavor), backgroundColor: "var(--verd)" }} />
         <div style={{ width: width(tot.enContra), backgroundColor: "var(--red)" }} />
-        <div style={{ width: width(tot.abstenciones), backgroundColor: "var(--ink-3)" }} />
+        <div style={{ width: width(tot.abstenciones), backgroundColor: "var(--abst)" }} />
       </div>
 
       <div className="mt-3 flex flex-col gap-1">
-        {row(t.portal.inFavourGroups, bucket.si, "var(--gold)")}
+        {row(t.portal.inFavourGroups, bucket.si, "var(--verd-text)")}
         {row(t.portal.againstGroups, bucket.no, "var(--red)")}
         {row(t.portal.abstainGroups, bucket.abst, "var(--ink-3)")}
       </div>

@@ -75,7 +75,7 @@ export default async function PoliticosPage({
                 <p className="label-mono truncate text-[var(--ink-3)]">{person.role}</p>
                 <div className="mono flex flex-wrap gap-x-4 gap-y-1 text-xs">
                   <span className="text-[var(--ink)]">{euroCompact(person.gross, bcp47)}</span>
-                  <span className="text-[var(--gold)]">
+                  <span className="text-[var(--gold-deep)]">
                     {integer(record.length, bcp47)} {P.hasRecord}
                   </span>
                   {social && <span className="text-[var(--ink-3)]">{P.hasSocial}</span>}
@@ -153,7 +153,7 @@ export default async function PoliticosPage({
                     <p className="truncate text-[var(--ink)] group-hover:text-[var(--gold-deep)]">
                       {p.name}
                       {b?.hasRecord && (
-                        <span className="label-mono ml-2 text-[var(--gold)]">·{P.hasRecord}</span>
+                        <span className="label-mono ml-2 text-[var(--gold-deep)]">·{P.hasRecord}</span>
                       )}
                     </p>
                     <p className="label-mono mt-1 truncate text-[var(--ink-2)]">{p.role}</p>
@@ -181,7 +181,7 @@ export default async function PoliticosPage({
         {pages > 1 && (
           <div className="mt-8 flex items-center justify-between">
             {current > 1 ? (
-              <Link href={href({ page: current - 1 })} className="label-mono inline-flex min-h-11 items-center px-2 hover:text-[var(--gold)]">
+              <Link href={href({ page: current - 1 })} className="label-mono inline-flex min-h-11 items-center px-2 hover:text-[var(--gold-deep)]">
                 ← {S.prev}
               </Link>
             ) : (
@@ -191,7 +191,7 @@ export default async function PoliticosPage({
               {S.page} {integer(current, bcp47)} {S.of} {integer(pages, bcp47)}
             </span>
             {current < pages ? (
-              <Link href={href({ page: current + 1 })} className="label-mono inline-flex min-h-11 items-center px-2 hover:text-[var(--gold)]">
+              <Link href={href({ page: current + 1 })} className="label-mono inline-flex min-h-11 items-center px-2 hover:text-[var(--gold-deep)]">
                 {S.next} →
               </Link>
             ) : (

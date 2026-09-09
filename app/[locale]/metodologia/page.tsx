@@ -27,7 +27,7 @@ export default async function MetodologiaPage({
 
   return (
     <main className="mx-auto max-w-3xl pb-8">
-      <Link href={`/${locale}`} className="label-mono inline-block py-4 hover:text-[var(--gold)]">
+      <Link href={`/${locale}`} className="label-mono inline-block py-4 hover:text-[var(--gold-deep)]">
         {t.common.backToPanel}
       </Link>
 
@@ -212,7 +212,7 @@ export default async function MetodologiaPage({
         {/* The negative finding. Stated as prominently as any figure, because it
             is the answer to the question the site invites. */}
         <div className="panel mt-8 p-6">
-          <p className="label-mono mb-3 text-[var(--gold)]">{m.ctxFindingTitle}</p>
+          <p className="label-mono mb-3 text-[var(--gold-deep)]">{m.ctxFindingTitle}</p>
           <p className="leading-relaxed text-[var(--ink-2)]">{m.ctxFindingBody}</p>
         </div>
 

@@ -45,12 +45,12 @@ export default async function DerechosPage({
 
   return (
     <main className="mx-auto max-w-6xl pb-8">
-      <Link href={`/${locale}`} className="label-mono inline-block py-4 hover:text-[var(--gold)]">
+      <Link href={`/${locale}`} className="label-mono inline-block py-4 hover:text-[var(--gold-deep)]">
         {t.common.backToPanel}
       </Link>
 
       <header className="mt-4 max-w-3xl">
-        <p className="eyebrow" style={{ color: "var(--verd)" }}>
+        <p className="eyebrow" style={{ color: "var(--verd-text)" }}>
           {r.eyebrow}
         </p>
         <h1 className="display mt-4 text-4xl leading-[0.95] sm:text-6xl">
@@ -134,7 +134,7 @@ export default async function DerechosPage({
           </div>
 
           <div className="panel p-6">
-            <p className="label-mono mb-4 text-[var(--gold)]">{r.kindMedia}</p>
+            <p className="label-mono mb-4 text-[var(--gold-deep)]">{r.kindMedia}</p>
             <ul className="flex flex-col gap-3">
               {media.map((s) => (
                 <li key={s.id}>

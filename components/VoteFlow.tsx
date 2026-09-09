@@ -1,11 +1,8 @@
 import { DONATIONS_2020, DONATIONS_SOURCE } from "@/lib/donations";
 import { euroExact, formatDate, integer } from "@/lib/format";
-import { groupInfo } from "@/lib/groups";
-import { tallyByGroup, voteDateISO, type KeyVote } from "@/lib/votes";
+import { stancesByParty, voteDateISO, type Stance, type KeyVote } from "@/lib/votes";
 import { PARTIES } from "@/lib/parties";
 import type { Dict } from "@/lib/i18n";
-
-type Stance = "si" | "no" | "ab";
 
 const STANCE_COLOUR: Record<Stance, string> = {
   si: "var(--verd)",
@@ -56,24 +53,7 @@ export default function VoteFlow({
 }) {
   const V = t.voteFlow;
 
-  // Majority stance per group, from its own members' recorded ballots.
-  const stanceByGroup = new Map<string, Stance>();
-  for (const g of tallyByGroup(vote)) {
-    const best = Math.max(g.si, g.no, g.abst);
-    if (best === 0) continue;
-    // A tie has no majority, so the group gets no stance rather than the first
-    // of the tied options.
-    const tied = [g.si, g.no, g.abst].filter((n) => n === best).length > 1;
-    if (tied) continue;
-    stanceByGroup.set(g.group, g.si === best ? "si" : g.no === best ? "no" : "ab");
-  }
-
-  // Party NIF -> stance, but only where a group represents exactly that party.
-  const stanceByNif = new Map<string, Stance>();
-  for (const [code, stance] of stanceByGroup) {
-    const info = groupInfo(vote.legislature, code);
-    if (info?.party) stanceByNif.set(info.party, stance);
-  }
+  const stanceByNif = stancesByParty(vote);
 
   const included = DONATIONS_2020.filter(
     (d) => d.nif && stanceByNif.has(d.nif) && d.total.amount > 0,

@@ -1,6 +1,7 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import { nameKey } from "./name-key.mjs";
+import { groupInfo } from "./groups";
 
 export type Ballot = "Sí" | "No" | "Abstención" | "No vota" | string;
 
@@ -122,4 +123,36 @@ export function tallyByGroup(vote: KeyVote): GroupTally[] {
   return [...map.values()].sort(
     (a, b) => b.si + b.no + b.abst + b.other - (a.si + a.no + a.abst + a.other),
   );
+}
+
+/** Which way a group came down on a division. */
+export type Stance = "si" | "no" | "ab";
+
+/**
+ * Each party's recorded stance on a division, keyed by NIF.
+ *
+ * Two rules, and both are refusals to guess.
+ *
+ * A group's stance is the majority of its own members' ballots. Where the
+ * largest count is tied the group gets no stance at all, rather than
+ * whichever option happened to be checked first.
+ *
+ * A stance is only attributed to a party where a group represents exactly
+ * that party. A party sitting inside a composite group - Mixto, Plural - has
+ * no stance of its own in the record, and handing it the group's majority
+ * would attribute a position to a party that never cast it as a party. That
+ * is the inference this project declines everywhere else, so it declines it
+ * here too, and callers say which parties they had to leave out.
+ */
+export function stancesByParty(vote: KeyVote): Map<string, Stance> {
+  const out = new Map<string, Stance>();
+  for (const g of tallyByGroup(vote)) {
+    const best = Math.max(g.si, g.no, g.abst);
+    if (best === 0) continue;
+    if ([g.si, g.no, g.abst].filter((n) => n === best).length > 1) continue;
+    const info = groupInfo(vote.legislature, g.group);
+    if (!info?.party) continue;
+    out.set(info.party, g.si === best ? "si" : g.no === best ? "no" : "ab");
+  }
+  return out;
 }

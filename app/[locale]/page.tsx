@@ -1,21 +1,35 @@
 import Link from "next/link";
 import { getAggregation } from "@/lib/data";
 import { getSalaries } from "@/lib/salaries";
-import { getVotes } from "@/lib/votes";
-import { DONATIONS_SOURCE } from "@/lib/donations";
-import { getDict } from "@/lib/i18n";
-import { euro, euroCompact, integer } from "@/lib/format";
+import { getVotes, newestFirst } from "@/lib/votes";
+import { getSpending, spendingTotals, rankedBySpending } from "@/lib/spending";
+import { DONATIONS_2020, DONATIONS_SOURCE } from "@/lib/donations";
+import { fetchTopicNews } from "@/lib/news";
+import { partyMeta } from "@/lib/parties";
+import { getDict, relativeTime } from "@/lib/i18n";
+import { cssPercent, euroExact, euroM, integer, percent } from "@/lib/format";
+import StatStrip, { type StatItem } from "@/components/StatStrip";
 import StanceByGroup from "@/components/StanceByGroup";
-import NewsFeed from "@/components/NewsFeed";
-import type { NewsTopic } from "@/lib/news-sources.mjs";
+import CourtRecords from "@/components/CourtRecords";
 
-export const revalidate = 3600;
+// The opinion rail reads the NGO feeds, on the same cadence as /api/news.
+export const revalidate = 1800;
 
-// Rights and housing news comes from the curated feed registry in
-// lib/news-sources.mjs rather than a search query, so every item's publisher is
-// known and a feed that goes dark is reported instead of silently disappearing.
-const PORTAL_TOPICS: NewsTopic[] = ["lgtbi", "vivienda"];
-
+/**
+ * The front page, as a front page.
+ *
+ * The order is editorial and it is the argument. A ticker of the six figures
+ * the whole site rests on; then the lead, which is the one finding a reader
+ * cannot get anywhere else — that over half of declared electoral spending
+ * sits in a line the audit does not break down; then the organisations' own
+ * voices beside it, because every other page here reports on the state and
+ * they get to speak first about themselves; then the three public registers,
+ * summarised; then the three columns of detail.
+ *
+ * Every figure comes from the data layer, not from the page. The prototype for
+ * this screen hardcoded them, which is fine for a prototype and would rot here
+ * within one refresh.
+ */
 export default async function PortalPage({
   params,
 }: {
@@ -24,130 +38,463 @@ export default async function PortalPage({
   const { locale: localeParam } = await params;
   const { locale, bcp47, t } = getDict(localeParam);
   const P = t.portal;
+  const L = t.lead;
 
-  const [agg, salaries, votes] = await Promise.all([getAggregation(), getSalaries(), getVotes()]);
+  const [agg, salaries, votes, spend, news] = await Promise.all([
+    getAggregation(),
+    getSalaries(),
+    getVotes(),
+    getSpending(),
+    fetchTopicNews(["lgtbi"], 8, locale === "en" ? "en" : "es"),
+  ]);
 
-  // Rights-affecting items lead the stance section; housing follows.
-  const order = ["lgtbi", "aborto", "vivienda"];
-  const tracked = [...votes.votes].sort(
-    (a, b) => order.indexOf(a.topic) - order.indexOf(b.topic) || (b.session ?? 0) - (a.session ?? 0),
+  const totals = spendingTotals(spend);
+  const ranked = rankedBySpending(spend);
+
+  // Donors against money, by the report's own tranches. Computed here rather
+  // than transcribed: the two shapes are the finding, and a hardcoded pair of
+  // percentages could not survive the 2021 report replacing the 2020 one.
+  const tranche = DONATIONS_2020.reduce(
+    (a, d) => ({
+      smallDonors: a.smallDonors + d.small.donors,
+      midDonors: a.midDonors + d.mid.donors,
+      largeDonors: a.largeDonors + d.large.donors,
+      smallMoney: a.smallMoney + d.small.amount,
+      midMoney: a.midMoney + d.mid.amount,
+      largeMoney: a.largeMoney + d.large.amount,
+    }),
+    {
+      smallDonors: 0,
+      midDonors: 0,
+      largeDonors: 0,
+      smallMoney: 0,
+      midMoney: 0,
+      largeMoney: 0,
+    },
   );
+  const donorTotal = tranche.smallDonors + tranche.midDonors + tranche.largeDonors;
+  const moneyTotal = tranche.smallMoney + tranche.midMoney + tranche.largeMoney;
 
-  const cards = [
-    { href: `/${locale}/financiacion`, label: t.nav.funding, note: P.exploreMoney },
-    { href: `/${locale}/politicos`, label: t.nav.people, note: P.explorePeople },
-    { href: `/${locale}/votaciones`, label: t.nav.votes, note: P.exploreVotes },
-    { href: `/${locale}/metodologia`, label: t.nav.methodology, note: P.exploreMethod },
+  const ticker: StatItem[] = [
+    {
+      label: P.tickSubsidies,
+      value: euroM(agg.grandTotal, bcp47, 1),
+      dot: "var(--gold)",
+      note: P.tickSubsidiesNote,
+    },
+    {
+      label: P.tickDonations,
+      value: euroM(DONATIONS_SOURCE.grandTotal, bcp47),
+      dot: "var(--ink)",
+      note: P.tickDonationsNote
+        .replace("{year}", String(DONATIONS_SOURCE.year))
+        .replace("{donors}", integer(DONATIONS_SOURCE.grandDonors, bcp47)),
+    },
+    {
+      label: P.tickSpending,
+      value: euroM(totals.declared, bcp47),
+      dot: "var(--red)",
+      note: P.tickSpendingNote.replace("{n}", integer(spend.formations.length, bcp47)),
+    },
+    {
+      label: P.tickVotes,
+      value: integer(votes.count, bcp47),
+      dot: "var(--verd)",
+      note: P.tickVotesNote,
+    },
+    {
+      label: P.tickPeople,
+      value: integer(salaries.count, bcp47),
+      dot: "var(--ink)",
+      note: P.tickPeopleNote,
+    },
+    {
+      label: P.tickLarge,
+      value: integer(tranche.largeDonors, bcp47),
+      dot: "var(--gold)",
+      note: P.tickLargeNote.replace("{amount}", euroExact(tranche.largeMoney, bcp47)),
+    },
   ];
 
+  // Rights-affecting items lead; the newest of each topic first within that.
+  const order = ["lgtbi", "aborto", "vivienda"];
+  const tracked = newestFirst(votes.votes).sort(
+    (a, b) => order.indexOf(a.topic) - order.indexOf(b.topic),
+  );
+  const orgItems = news.items.filter((i) => i.sourceKind === "org").slice(0, 3);
+
   return (
-    <main className="mx-auto max-w-5xl pb-8">
-      {/* Masthead */}
-      <section className="pt-6 sm:pt-12">
-        <p className="eyebrow">{P.eyebrow}</p>
-        <h1 className="display mt-4 max-w-3xl text-4xl leading-[0.95] sm:text-6xl">
-          {P.titlePre}
-          <span className="italic text-[var(--gold)]">{P.titleEmph}</span>
-          {P.titlePost}
-        </h1>
-        <p className="mt-6 max-w-2xl text-[var(--ink-2)]">{P.lead}</p>
+    <main>
+      <StatStrip items={ticker} className="border-t border-[var(--line)]" />
 
-        <dl className="mt-10 grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-4">
-          <Stat label={P.statPublic} value={euroCompact(agg.grandTotal, bcp47)} accent />
-          <Stat
-            label={P.statPrivate}
-            value={euroCompact(DONATIONS_SOURCE.grandTotal, bcp47)}
-            sub={String(DONATIONS_SOURCE.year)}
-          />
-          <Stat label={P.statPeople} value={integer(salaries.count, bcp47)} />
-          <Stat label={P.statVotes} value={integer(votes.count, bcp47)} />
-        </dl>
+      {/* Lead */}
+      <section
+        className="rule-double grid"
+        style={{ gridTemplateColumns: "minmax(0,2.05fr) minmax(0,1fr)" }}
+      >
+        <article
+          className="relative flex min-h-[376px] flex-col justify-end overflow-hidden px-9 pb-8 pt-8"
+          style={{ background: "var(--surface)", borderTop: "6px solid var(--ink)" }}
+        >
+          {/* The share, as a ghost numeral. Decorative: the same figure is in
+              the standfirst below and in the ticker above.
 
-        <p className="label-mono mt-8 max-w-2xl text-[var(--ink-3)]">{P.linkFraming}</p>
-      </section>
-
-      {/* Stance: how each group voted on the tracked items */}
-      <section className="mt-16">
-        <h2 className="display section-tick text-2xl">{P.stanceTitle}</h2>
-        <p className="label-mono mt-4 max-w-2xl text-[var(--ink-3)]">{P.stanceNote}</p>
-
-        <div className="mt-8 grid grid-cols-1 gap-4 lg:grid-cols-2">
-          {tracked.map((vote) => (
-            <StanceByGroup key={vote.id} vote={vote} t={t} />
-          ))}
-        </div>
-
-        <p className="label-mono mt-6">
-          <Link href={`/${locale}/votaciones`} className="src">
-            {t.nav.votes} →
-          </Link>
-        </p>
-      </section>
-
-      {/* Rights news */}
-      <section className="mt-16">
-        <h2 className="display section-tick text-2xl">{P.newsTitle}</h2>
-        {/* Not label-mono: that class uppercases, and this note is a sentence. */}
-        <p className="mt-4 max-w-2xl text-sm text-[var(--ink-3)]">{P.newsNote}</p>
-        <NewsFeed topics={PORTAL_TOPICS} locale={locale} />
-        <p className="label-mono mt-2 flex flex-wrap gap-x-6 gap-y-2">
-          <Link href={`/${locale}/metodologia`} className="src">
-            {P.newsSourcesLink} →
-          </Link>
-          {/* The portal mixes the three topics; the rights section carries the
-              LGBTQ+ organisations on their own, with images and their own
-              directory. */}
-          <Link
-            href={`/${locale}/derechos`}
-            className="src"
-            style={{ color: "var(--verd-text)" }}
+              Truncated rather than rounded. The share is 54.5 %, and rounding
+              it to 55 would put a numeral on the page that contradicts the
+              54,5 % in the standfirst two inches below it. The integer part is
+              what a display numeral means. */}
+          <span
+            aria-hidden
+            className="display pointer-events-none absolute select-none"
+            style={{
+              right: -14,
+              top: -42,
+              fontSize: 250,
+              fontWeight: 400,
+              lineHeight: 1,
+              color: "rgba(182,130,53,0.22)",
+            }}
           >
-            {t.rights.homeCta} →
-          </Link>
-        </p>
+            {Math.trunc(totals.otherShare * 100)}
+          </span>
+
+          <div className="relative">
+            <p className="eyebrow">{L.kicker}</p>
+            <h1
+              className="display mt-3 font-normal"
+              style={{ fontSize: "clamp(34px,4.4vw,58px)", maxWidth: "19ch" }}
+            >
+              {L.title}
+            </h1>
+            <p
+              className="mt-5"
+              style={{ fontSize: "16px", lineHeight: 1.62, color: "var(--ink-2)", maxWidth: "56ch" }}
+            >
+              {L.standfirst
+                .replace("{declared}", euroExact(totals.declared, bcp47))
+                .replace("{residual}", euroExact(totals.other, bcp47))
+                .replace("{share}", percent(totals.otherShare, bcp47))
+                .replace("{ads}", percent(totals.advertising / totals.declared, bcp47))}
+            </p>
+            <p className="mt-5" style={{ fontSize: "11.5px", color: "var(--ink-3)" }}>
+              {spend.source.body}, {spend.source.report} · {spend.source.approved} ·{" "}
+              <Link href={`/${locale}/financiacion`} className="src">
+                {L.link} →
+              </Link>
+            </p>
+          </div>
+        </article>
+
+        <aside className="border-l border-[var(--line)] px-6 pb-6 pt-6">
+          <p className="eyebrow" style={{ color: "var(--verd-text)" }}>
+            {P.opinionKicker}
+          </p>
+          <h2 className="display mt-2 text-[21px] font-semibold" style={{ lineHeight: 1.12 }}>
+            {P.opinionTitle}
+          </h2>
+
+          {orgItems.length === 0 ? (
+            <p className="mt-4" style={{ fontSize: "12.5px", color: "var(--ink-3)" }}>
+              {t.rights.empty}
+            </p>
+          ) : (
+            <ul className="mt-2 flex flex-col">
+              {orgItems.map((item) => (
+                <li
+                  key={item.link}
+                  className="py-3"
+                  style={{ borderTop: "1px solid var(--line)" }}
+                >
+                  <p
+                    className="label-mono"
+                    style={{ color: "var(--verd-text)", letterSpacing: "0.14em" }}
+                  >
+                    {item.source}
+                  </p>
+                  <a
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="display mt-1 block text-[17px] font-semibold hover:underline"
+                    style={{ lineHeight: 1.2 }}
+                  >
+                    {item.title}
+                  </a>
+                  <p className="mt-1" style={{ fontSize: "11.5px", color: "var(--ink-3)" }}>
+                    {relativeTime(item.date, locale)}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          )}
+
+          <p className="label-mono mt-4">
+            <Link href={`/${locale}/derechos`} className="src-org">
+              {P.opinionCta} →
+            </Link>
+          </p>
+        </aside>
       </section>
 
-      {/* Navigation */}
-      <section className="mt-16">
-        <h2 className="display section-tick text-2xl">{P.exploreTitle}</h2>
-        <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2">
-          {cards.map((c) => (
-            <Link
-              key={c.href}
-              href={c.href}
-              className="panel group p-5 transition-colors hover:border-[var(--line)]"
-            >
-              <p className="text-lg group-hover:text-[var(--gold-deep)]">{c.label}</p>
-              <p className="label-mono mt-2 text-[var(--ink-2)]">{c.note}</p>
-            </Link>
-          ))}
+      {/* The three registers, summarised */}
+      <section className="rule-ink">
+        <div className="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-2 py-6">
+          <h2 className="display text-[26px] font-semibold" style={{ letterSpacing: "-0.02em" }}>
+            {P.bandTitle}
+          </h2>
+          <p style={{ fontSize: "12px", color: "var(--ink-3)" }}>{P.bandNote}</p>
         </div>
+
+        <div
+          className="grid border-t border-[var(--line)]"
+          style={{ gridTemplateColumns: "repeat(auto-fit, minmax(236px, 1fr))" }}
+        >
+          {/* Every tracked division, one row each */}
+          <div className="px-5 py-5" style={{ borderRight: "1px solid var(--line)" }}>
+            <p className="eyebrow">{P.bandVotesTitle}</p>
+            <ul className="mt-4 flex flex-col gap-2.5">
+              {newestFirst(votes.votes).map((vote) => {
+                const cast =
+                  vote.totals.afavor + vote.totals.enContra + vote.totals.abstenciones;
+                const carried = vote.totals.afavor > vote.totals.enContra;
+                return (
+                  <li key={vote.id} className="grid items-center gap-2" style={{ gridTemplateColumns: "minmax(0,1fr) 92px" }}>
+                    <div className="min-w-0">
+                      <p className="truncate" style={{ fontSize: "11.5px" }} title={vote.law}>
+                        {vote.law}
+                      </p>
+                      <span className="bar-track mt-1" aria-hidden style={{ height: 7 }}>
+                        <i
+                          style={{
+                            width: cssPercent(vote.totals.afavor / Math.max(1, cast)),
+                            background: "var(--verd)",
+                          }}
+                        />
+                        <i
+                          style={{
+                            width: cssPercent(vote.totals.enContra / Math.max(1, cast)),
+                            background: "var(--red)",
+                          }}
+                        />
+                        <i
+                          style={{
+                            width: cssPercent(vote.totals.abstenciones / Math.max(1, cast)),
+                            background: "var(--abst)",
+                          }}
+                        />
+                      </span>
+                    </div>
+                    <span
+                      className="label-mono text-right"
+                      style={{ color: carried ? "var(--verd-text)" : "var(--red)" }}
+                    >
+                      {carried ? P.carried : P.rejected}
+                    </span>
+                  </li>
+                );
+              })}
+            </ul>
+            <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-1">
+              {[
+                { c: "var(--verd)", l: t.votes.inFavour },
+                { c: "var(--red)", l: t.votes.against },
+                { c: "var(--abst)", l: t.votes.abstention },
+              ].map((s) => (
+                <li key={s.l} className="flex items-center gap-1.5">
+                  <span aria-hidden style={{ width: 10, height: 10, borderRadius: 1, background: s.c }} />
+                  <span className="label-mono">{s.l}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Many donors, little money */}
+          <div className="px-5 py-5" style={{ borderRight: "1px solid var(--line)" }}>
+            <p className="eyebrow">{P.bandDonorsTitle}</p>
+            {[
+              {
+                caption: P.per100Donors,
+                parts: [
+                  { n: tranche.smallDonors, c: "var(--ink-3)", l: t.donationsTable.trancheSmall },
+                  { n: tranche.midDonors, c: "var(--abst)", l: t.donationsTable.trancheMid },
+                  { n: tranche.largeDonors, c: "var(--ink)", l: t.donationsTable.trancheLarge },
+                ],
+                total: donorTotal,
+              },
+              {
+                caption: P.per100Euros,
+                parts: [
+                  { n: tranche.smallMoney, c: "var(--ink-3)", l: t.donationsTable.trancheSmall },
+                  { n: tranche.midMoney, c: "var(--abst)", l: t.donationsTable.trancheMid },
+                  { n: tranche.largeMoney, c: "var(--ink)", l: t.donationsTable.trancheLarge },
+                ],
+                total: moneyTotal,
+              },
+            ].map((block) => (
+              <div key={block.caption} className="mt-4">
+                <p className="display text-[15px] font-semibold">{block.caption}</p>
+                <span className="bar-track mt-2" aria-hidden style={{ height: 26 }}>
+                  {block.parts.map((p) => (
+                    <i
+                      key={p.l}
+                      style={{ width: cssPercent(p.n / block.total), background: p.c }}
+                    />
+                  ))}
+                </span>
+                <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-1">
+                  {block.parts.map((p) => (
+                    <li key={p.l} className="flex items-center gap-1.5">
+                      <span
+                        aria-hidden
+                        style={{ width: 10, height: 10, borderRadius: 1, background: p.c }}
+                      />
+                      <span className="label-mono">
+                        {p.l} · <span className="mono">{percent(p.n / block.total, bcp47)}</span>
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+            <p className="mt-4" style={{ fontSize: "11.5px", lineHeight: 1.5, color: "var(--ink-3)" }}>
+              {P.bandDonorsNote
+                .replace("{n}", integer(tranche.largeDonors, bcp47))
+                .replace("{donorShare}", percent(tranche.largeDonors / donorTotal, bcp47))
+                .replace("{amount}", euroExact(tranche.largeMoney, bcp47))
+                .replace("{year}", String(DONATIONS_SOURCE.year))
+                .replace("{moneyShare}", percent(tranche.largeMoney / moneyTotal, bcp47))}
+            </p>
+          </div>
+
+          {/* Electoral spending by formation */}
+          <div className="px-5 py-5">
+            <p className="eyebrow">{P.bandSpendTitle}</p>
+            <span className="bar-track mt-4" aria-hidden style={{ height: 30 }}>
+              {ranked.map((f) => (
+                <i
+                  key={f.name}
+                  style={{
+                    width: cssPercent(f.ordinary.declared / totals.declared),
+                    background: partyMeta("", f.name).color,
+                  }}
+                />
+              ))}
+            </span>
+            <ul className="mt-3 flex flex-col gap-1">
+              {ranked.map((f) => (
+                <li key={f.name} className="flex items-center gap-2">
+                  <span
+                    aria-hidden
+                    style={{
+                      width: 10,
+                      height: 10,
+                      borderRadius: 1,
+                      flex: "none",
+                      background: partyMeta("", f.name).color,
+                    }}
+                  />
+                  <span className="min-w-0 flex-1 truncate" style={{ fontSize: "11.5px" }}>
+                    {f.name}
+                  </span>
+                  <span className="mono" style={{ fontSize: "11.5px", color: "var(--ink-3)" }}>
+                    {percent(f.ordinary.declared / totals.declared, bcp47)}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* Three columns */}
+      <section className="rule-ink">
+        <div
+          className="grid"
+          style={{ gridTemplateColumns: "repeat(auto-fit, minmax(268px, 1fr))" }}
+        >
+          <div className="px-6 pb-7 pt-6" style={{ borderRight: "1px solid var(--line)" }}>
+            <p className="eyebrow">{P.colRecordKicker}</p>
+            <h3 className="display mt-2 text-[25px] font-semibold" style={{ lineHeight: 1.1 }}>
+              {P.stanceTitle}
+            </h3>
+            <div className="mt-5 flex flex-col gap-5">
+              {tracked.slice(0, 2).map((vote) => (
+                <StanceByGroup key={vote.id} vote={vote} t={t} />
+              ))}
+            </div>
+            <p className="mt-4" style={{ fontSize: "12px", lineHeight: 1.5, color: "var(--ink-3)" }}>
+              {P.stanceNote}
+            </p>
+            <p className="label-mono mt-3">
+              <Link href={`/${locale}/votaciones`} className="src">
+                {t.nav.votes} →
+              </Link>
+            </p>
+          </div>
+
+          <div className="px-6 pb-7 pt-6" style={{ borderRight: "1px solid var(--line)" }}>
+            <p className="eyebrow">{P.colReportKicker}</p>
+            {/* Awaiting licensed imagery. A hatched plate rather than a stock
+                photograph: a placeholder that looks like a photograph is a
+                claim about something that was never photographed. */}
+            <div className="plate hatch mt-4" style={{ aspectRatio: "4 / 3" }} role="presentation" />
+            <p className="mt-1.5" style={{ fontSize: "10.5px", color: "var(--ink-3)" }}>
+              {P.photoPending}
+            </p>
+            <h3 className="display mt-3 text-[25px] font-semibold" style={{ lineHeight: 1.1 }}>
+              {P.colReportTitle
+                .replace("{donors}", integer(DONATIONS_SOURCE.grandDonors, bcp47))
+                .replace("{largest}", euroExact(tranche.largeMoney > 0 ? largestSingle() : 0, bcp47))}
+            </h3>
+            <p
+              className="justified mt-3"
+              style={{ fontSize: "14px", lineHeight: 1.68, color: "var(--ink-2)" }}
+            >
+              {P.colReportBody}
+            </p>
+            <p className="label-mono mt-3">
+              <Link href={`/${locale}/financiacion`} className="src">
+                {P.colReportLink} →
+              </Link>
+            </p>
+          </div>
+
+          <div className="px-6 pb-7 pt-6">
+            <p className="eyebrow" style={{ color: "var(--red)" }}>
+              {t.court.eyebrow}
+            </p>
+            <h3 className="display mt-2 text-[25px] font-semibold" style={{ lineHeight: 1.1 }}>
+              {t.court.title}
+            </h3>
+            <div className="mt-4">
+              <CourtRecords t={t} bcp47={bcp47} />
+            </div>
+          </div>
+        </div>
+
+        <p
+          className="pb-7 pt-6"
+          style={{ fontSize: "12px", lineHeight: 1.6, color: "var(--ink-3)", maxWidth: "88ch" }}
+        >
+          {P.linkFraming}{" "}
+          <Link href={`/${locale}/metodologia`} className="src">
+            {t.method.title} →
+          </Link>
+        </p>
       </section>
     </main>
   );
 }
 
-function Stat({
-  label,
-  value,
-  sub,
-  accent,
-}: {
-  label: string;
-  value: string;
-  sub?: string;
-  accent?: boolean;
-}) {
-  return (
-    <div>
-      <dt className="label-mono mb-2">{label}</dt>
-      <dd
-        className="mono text-xl sm:text-2xl"
-        style={{ color: accent ? "var(--gold-deep)" : "var(--ink)" }}
-      >
-        {value}
-      </dd>
-      {sub && <p className="label-mono mt-1 text-[var(--ink-3)]">{sub}</p>}
-    </div>
-  );
+/**
+ * The single largest declared donation in the report's top tranche.
+ *
+ * The report publishes tranche totals and donor counts, not individual gifts,
+ * so where one party's >€10,000 tranche holds exactly one donor its total *is*
+ * that gift. Where a tranche holds several, no single figure can be extracted
+ * and it is skipped.
+ */
+function largestSingle(): number {
+  const singles = DONATIONS_2020.filter((d) => d.large.donors === 1).map((d) => d.large.amount);
+  return singles.length > 0 ? Math.max(...singles) : 0;
 }

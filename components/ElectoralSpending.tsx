@@ -53,6 +53,8 @@ export default function ElectoralSpending({
       label: s.lineAdvertising,
       value: totals.advertising,
       share: totals.advertising / totals.declared,
+      // A bar fill, not text: 3.02:1 clears the 3:1 WCAG 1.4.11 asks of a
+      // graphic, and the figure beside it carries the value in ink.
       color: "var(--gold)",
       note: s.lineAdvertisingNote,
     },

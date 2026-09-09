@@ -52,7 +52,7 @@ export default function BlueskyFeed({ actor, locale }: { actor: string; locale: 
           {p.isRepost && <p className="label-mono mb-1 text-[var(--ink-3)]">{f.reposted}</p>}
           <p className="whitespace-pre-wrap text-[var(--ink)]">{p.text}</p>
           <p className="label-mono mt-3 flex gap-4 text-[var(--ink-3)]">
-            <span className="text-[var(--gold)]">{relativeTime(p.createdAt, locale)}</span>
+            <span className="text-[var(--gold-deep)]">{relativeTime(p.createdAt, locale)}</span>
             <span>♡ {p.likes.toLocaleString("es-ES")}</span>
             <span>↻ {p.reposts.toLocaleString("es-ES")}</span>
           </p>

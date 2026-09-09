@@ -6,7 +6,11 @@ import { euro, euroCompact, integer, percent, formatDate } from "@/lib/format";
 import CountUp from "@/components/CountUp";
 import NewsFeed from "@/components/NewsFeed";
 import { politiciansByParty } from "@/lib/politicians";
-import { donationsByNif, DONATIONS_SOURCE } from "@/lib/donations";
+import { donationsByNif, donationsRanked, DONATIONS_SOURCE } from "@/lib/donations";
+import { getVotes, newestFirst, stancesByParty } from "@/lib/votes";
+import { sharedGroupFor } from "@/lib/groups";
+import CourtRecords from "@/components/CourtRecords";
+import PartySwitcher from "@/components/PartySwitcher";
 import type { SubsidyKind } from "@/lib/types";
 
 export const revalidate = 3600;
@@ -22,7 +26,7 @@ export default async function PartyPage({
   params: Promise<{ locale: string; nif: string }>;
 }) {
   const { locale: localeParam, nif } = await params;
-  const agg = await getAggregation();
+  const [agg, votes] = await Promise.all([getAggregation(), getVotes()]);
   const party = agg.parties.find((p) => p.nif === nif);
   if (!party) notFound();
 
@@ -36,28 +40,61 @@ export default async function PartyPage({
   const rank = agg.parties.findIndex((p) => p.nif === nif) + 1;
   const faces = politiciansByParty(nif);
   const donations = donationsByNif(nif);
+  // The parties worth offering in the switcher are those carrying a
+  // declared-donations record, which is the one register that covers
+  // several formations at comparable depth.
+  const switchable = donationsRanked()
+    .map((d) => d.nif)
+    .filter((n): n is string => Boolean(n))
+    .slice(0, 6);
+
+  // How this party's own group voted, where it has a group of its own.
+  // stancesByParty refuses to attribute a composite group's majority to a
+  // party inside it, so a party with no group of its own gets an explicit
+  // gap on each row rather than a stance it never cast.
+  const stances = newestFirst(votes.votes).map((v) => ({
+    vote: v,
+    stance: stancesByParty(v).get(nif) ?? null,
+    // Which kind of gap this is, when there is one.
+    sharedGroup: sharedGroupFor(v.legislature, nif),
+  }));
+
   const years = [...new Set(party.grants.map((g) => g.year))].sort((a, b) => a - b);
   const maxYear = Math.max(...years.map((y) => party.byYear[y] ?? 0), 1);
 
   return (
-    <main className="mx-auto max-w-4xl pb-8">
-      <Link href={`/${locale}`} className="label-mono inline-block py-4 hover:text-[var(--gold)]">
-        {t.common.backToPanel}
-      </Link>
+    <main className="pb-8">
+      <PartySwitcher
+        locale={locale}
+        nifs={switchable}
+        current={nif}
+        label={t.party.switcherLabel}
+      />
 
-      {/* Header */}
-      <div className="mt-4 flex items-start gap-4">
-        <span
-          className="mt-2 inline-block h-8 w-1.5 shrink-0 rounded-full"
-          style={{ backgroundColor: party.color }}
-        />
-        <div>
-          <p className="eyebrow">
-            Nº {String(rank).padStart(2, "0")} · {t.blocs[party.bloc]} · {t.common.nif} {party.nif}
-          </p>
-          <h1 className="display mt-2 text-4xl sm:text-5xl">{party.displayName}</h1>
-        </div>
-      </div>
+      {/* Identity */}
+      <header className="rule-double pb-7 pt-7">
+        <p className="eyebrow flex items-center gap-2">
+          <span
+            className="dot"
+            aria-hidden
+            style={{ width: 11, height: 11, background: party.color }}
+          />
+          {t.party.fichaKicker} · {t.common.nif} {party.nif} · Nº{" "}
+          {String(rank).padStart(2, "0")} · {t.blocs[party.bloc]}
+        </p>
+        <h1
+          className="display mt-3 font-normal"
+          style={{ fontSize: "clamp(38px,5.4vw,64px)", lineHeight: 0.98, letterSpacing: "-0.03em" }}
+        >
+          {party.displayName}
+        </h1>
+        <p
+          className="mt-5"
+          style={{ fontSize: "15px", lineHeight: 1.68, color: "var(--ink-2)", maxWidth: "62ch" }}
+        >
+          {t.party.fichaIntro}
+        </p>
+      </header>
 
       {/* Total */}
       <div className="panel mt-8 flex flex-wrap items-end justify-between gap-6 p-6">
@@ -85,7 +122,7 @@ export default async function PartyPage({
             {faces.map((f) => (
               <Link
                 key={f.slug}
-                href={`/${locale}/politician/${f.slug}`}
+                href={`/${locale}/politico/${f.slug}`}
                 className="panel group px-4 py-3 transition-colors hover:border-[var(--line)]"
               >
                 <span className="group-hover:text-[var(--gold-deep)]">{f.name}</span>
@@ -185,11 +222,32 @@ export default async function PartyPage({
                   ),
               )}
             </div>
-            <div className="label-mono mt-3 flex flex-wrap gap-x-6 gap-y-1">
-              <span><span className="text-[var(--ink-3)]">■</span> &lt;1.000 € · {euroCompact(donations.small.amount, bcp47)} ({donations.small.donors})</span>
-              <span><span className="text-[var(--gold)]">■</span> 1.000–10.000 € · {euroCompact(donations.mid.amount, bcp47)} ({donations.mid.donors})</span>
-              <span><span className="text-[var(--red)]">■</span> &gt;10.000 € · {euroCompact(donations.large.amount, bcp47)} ({donations.large.donors})</span>
-            </div>
+            <ul className="mt-3 flex flex-wrap gap-x-6 gap-y-1.5">
+              {(
+                [
+                  [t.donationsTable.trancheSmall, donations.small, "var(--ink-3)"],
+                  [t.donationsTable.trancheMid, donations.mid, "var(--gold)"],
+                  [t.donationsTable.trancheLarge, donations.large, "var(--red)"],
+                ] as const
+              ).map(([lab, tr, color]) => (
+                <li key={lab} className="flex items-center gap-2">
+                  <span
+                    aria-hidden
+                    style={{
+                      width: 11,
+                      height: 11,
+                      borderRadius: 1,
+                      flex: "none",
+                      background: color,
+                    }}
+                  />
+                  <span className="label-mono">
+                    {lab} · <span className="mono">{euroCompact(tr.amount, bcp47)}</span> (
+                    {integer(tr.donors, bcp47)})
+                  </span>
+                </li>
+              ))}
+            </ul>
           </div>
           <p className="label-mono mt-4 text-[var(--ink-3)]">{t.party.privateCaveat}</p>
         </section>
@@ -210,8 +268,10 @@ export default async function PartyPage({
                   <span
                     className="mr-2 inline-block rounded px-2 py-0.5 text-[0.65rem] uppercase tracking-wider"
                     style={{
-                      color: g.kind === "seguridad" ? "var(--red)" : "var(--gold)",
-                      border: `1px solid ${g.kind === "seguridad" ? "var(--red)" : "var(--gold)"}44`,
+                      color: g.kind === "seguridad" ? "var(--red)" : "var(--gold-deep)",
+                      border: `1px solid ${
+                        g.kind === "seguridad" ? "var(--red)" : "var(--gold)"
+                      }`,
                     }}
                   >
                     {kindLabel[g.kind]}
@@ -222,7 +282,7 @@ export default async function PartyPage({
                       href={g.legalUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="ml-2 text-[var(--ink-3)] underline decoration-dotted hover:text-[var(--gold)]"
+                      className="ml-2 text-[var(--ink-3)] underline decoration-dotted hover:text-[var(--gold-deep)]"
                     >
                       {t.party.legalBasis}
                     </a>
@@ -233,6 +293,62 @@ export default async function PartyPage({
               <hr className="hairline" />
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* The group's own record on the tracked divisions, and what the
+          courts and electoral boards have on file. Side by side, never
+          joined: the money above and the votes here are separate
+          registers. */}
+      <section className="mt-14 grid gap-9" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))" }}>
+        <div>
+          <h2 className="display text-[22px] font-semibold" style={{ letterSpacing: "-0.015em" }}>
+            {t.party.howItVoted}
+          </h2>
+          <ul className="mt-4 flex flex-col">
+            {stances.map(({ vote, stance, sharedGroup }) => {
+              const tone =
+                stance === "si"
+                  ? "var(--verd-text)"
+                  : stance === "no"
+                    ? "var(--red)"
+                    : "var(--ink-3)";
+              const text =
+                stance === "si"
+                  ? t.votes.inFavour
+                  : stance === "no"
+                    ? t.votes.against
+                    : stance === "ab"
+                      ? t.votes.abstention
+                      : sharedGroup
+                        ? t.party.sharedGroup.replace("{group}", sharedGroup.short)
+                        : t.party.noRepresentation;
+              return (
+                <li
+                  key={vote.id}
+                  className="flex items-baseline justify-between gap-4 py-2.5"
+                  style={{ borderBottom: "1px solid var(--line-soft)" }}
+                >
+                  <span style={{ fontSize: "13.5px" }}>{vote.law}</span>
+                  <span className="tag" style={{ color: tone }}>
+                    {text}
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+          <p className="mt-3" style={{ fontSize: "11.5px", lineHeight: 1.5, color: "var(--ink-3)" }}>
+            {t.party.stanceNote}
+          </p>
+        </div>
+
+        <div>
+          <h2 className="display text-[22px] font-semibold" style={{ letterSpacing: "-0.015em" }}>
+            {t.court.title}
+          </h2>
+          <div className="mt-4">
+            <CourtRecords t={t} bcp47={bcp47} partyNif={nif} />
+          </div>
         </div>
       </section>
 

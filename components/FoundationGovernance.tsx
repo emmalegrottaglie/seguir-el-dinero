@@ -51,7 +51,7 @@ export default function FoundationGovernance({
 
       {gov.rename && (
         <div className="panel mt-6 p-5">
-          <p className="label-mono mb-2 text-[var(--gold)]">{F.peopleRenameTitle}</p>
+          <p className="label-mono mb-2 text-[var(--gold-deep)]">{F.peopleRenameTitle}</p>
           <p className="text-sm leading-relaxed text-[var(--ink-2)]">
             {F.peopleRenameBody
               .replace("{report}", gov.rename.reportName)

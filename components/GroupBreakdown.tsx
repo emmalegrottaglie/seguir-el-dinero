@@ -114,7 +114,7 @@ export default function GroupBreakdown({
                   </span>
                 </td>
 
-                <td className="mono py-3 pr-3 text-right" style={{ color: "var(--gold)" }}>
+                <td className="mono py-3 pr-3 text-right" style={{ color: "var(--gold-deep)" }}>
                   {g.si || "—"}
                 </td>
                 <td className="mono py-3 pr-3 text-right" style={{ color: "var(--red)" }}>

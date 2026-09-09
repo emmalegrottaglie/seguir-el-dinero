@@ -91,7 +91,11 @@ export default function NewsFeed({
             {n.title}
           </p>
           <p className="label-mono mt-1.5 flex flex-wrap gap-x-3 gap-y-1 text-[var(--ink-3)]">
-            <span style={{ color: n.sourceKind === "org" ? "var(--verd)" : "var(--gold)" }}>
+            <span
+              style={{
+                color: n.sourceKind === "org" ? "var(--verd-text)" : "var(--gold-deep)",
+              }}
+            >
               {n.source}
             </span>
             <span>{relativeTime(n.date, locale)}</span>

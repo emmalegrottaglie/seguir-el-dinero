@@ -220,7 +220,7 @@ export default async function VotacionesPage({
         </a>
       </p>
       <p className="label-mono mt-6">
-        <Link href={`/${locale}`} className="hover:text-[var(--gold)]">
+        <Link href={`/${locale}`} className="hover:text-[var(--gold-deep)]">
           {t.common.backToPanel}
         </Link>
       </p>

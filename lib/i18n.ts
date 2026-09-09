@@ -151,6 +151,43 @@ const es = {
     missingLayers:
       "El diseño de esta sección preveía tres capas más: un índice de derechos LGTBI, el estado de las reformas de las leyes trans y el voto a las formaciones que votaron en contra de las normas que este portal sigue. No están porque no hay todavía una fuente citable por comunidad para ninguna de las tres. Tampoco está el sombreado que marcaría las investiduras que dependieron de Vox: cinco presidencias del PP se investieron con sus votos en julio de 2023 y Vox salió de tres de esos gobiernos en julio de 2024, así que un sombreado fijo sería falso para parte del periodo que parecería describir.",
   },
+  court: {
+    title: "Lo que consta en el registro judicial",
+    eyebrow: "En los tribunales",
+    sourceLink: "Fuente",
+    statusNone: "Sin resoluciones",
+    noneBody:
+      "No consta en este portal ninguna resolución judicial ni acuerdo de junta electoral referido a cargos de esta formación en las materias que se siguen.",
+    noneNote:
+      "La ausencia de registro no es una declaración sobre la conducta de nadie: sólo significa que no hay una resolución citable.",
+    status: {
+      archived: "Causa archivada",
+      "awaiting-trial": "Pendiente de juicio",
+      "advertising-infringement": "Infracción de publicidad",
+      "complaint-archived": "Querella archivada",
+      "none-on-record": "Sin resoluciones",
+    },
+    records: {
+      "menas-2021": {
+        text: "El cartel de los «menas» de Vox en la campaña de la Asamblea de Madrid de 2021. El juzgado archivó por auto y la Audiencia Provincial lo confirmó: «no existe delito de odio ni delito electoral».",
+        note: "Recurrieron la Fiscalía, PSOE, Podemos, Izquierda Unida y Progresa. Es un archivo en fase de instrucción, no una absolución: ningún tribunal entró en el fondo.",
+      },
+      "herrero-valencia": {
+        text: "La concejala de Vox en València Cecilia Herrero irá a juicio oral por delitos de odio: unas treinta publicaciones en X entre abril de 2020 y abril de 2024. La Fiscalía pide 3 años de prisión, multa de 12 meses a 20 €/día e inhabilitación.",
+        note: "Auto de apertura de juicio oral, no sentencia. La calificación es alternativa: 510.1 a) más 510.3, 510.5 y 510.6, o bien 510.2 a) con los mismos apartados.",
+      },
+      "jez-madrid-2023": {
+        text: "La Junta Electoral de Zona de Madrid ordenó retirar una lona de la calle Alcalá en «plazo de un día», por propaganda contratada fuera del periodo de campaña.",
+        note: "LOREG art. 53 e Instrucción 3/2011 de la JEC. La junta se declaró expresamente no competente sobre el contenido y no abrió expediente sancionador: es una infracción de calendario publicitario, nada más.",
+      },
+      "belarra-querella": {
+        text: "La Sala de lo Penal del Tribunal Supremo archivó la querella de Vox contra Ione Belarra por sus palabras en un mitin de Collado Villalba: el art. 510 CP protege a las minorías sociales, no a los partidos políticos.",
+        note: "Ponente Sánchez Melgar; el recurso de súplica fue rechazado. El registro documenta una querella contra ella, nunca una conducta suya.",
+      },
+    },
+    policy:
+      "Cuatro resoluciones verificadas una a una, no un censo: el número de registros de una formación no es comparable con el de otra. Una causa archivada se etiqueta como archivada y nunca como absolución; una causa abierta, como pendiente de juicio. De esto no se deriva ninguna puntuación ni clasificación.",
+  },
   masthead: {
     edition: "Edición nº 001",
     live: "Datos en directo · BDNS",
@@ -317,7 +354,47 @@ const es = {
     homeTitle: "Derechos LGTBI, en voz de las organizaciones",
     homeCta: "Ver la sección de derechos",
   },
+  lead: {
+    kicker: "Investigación · Gasto electoral",
+    title: "Más de la mitad del gasto electoral no está desglosado",
+    standfirst:
+      "De los {declared} que ocho formaciones declararon como gasto ordinario en las europeas del 9 de junio de 2024, {residual} —el {share}— figuran en una sola línea residual que el informe de fiscalización no desglosa. La publicidad, la única partida con tope legal, es el {ads}.",
+    link: "Leer el desglose completo",
+  },
   portal: {
+    tickSubsidies: "Subvenciones del Estado",
+    tickSubsidiesNote: "BDNS · actualizado a diario",
+    tickDonations: "Donaciones privadas",
+    tickDonationsNote: "Ejercicio {year} · {donors} donantes",
+    tickSpending: "Gasto electoral",
+    tickSpendingNote: "Europeas de 2024 · {n} formaciones",
+    tickVotes: "Votaciones seguidas",
+    tickVotesNote: "Llamamientos nominales del Congreso",
+    tickPeople: "Cargos con retribución",
+    tickPeopleNote: "Registro de Altos Cargos, sólo activos",
+    tickLarge: "Donantes de más de 10.000 €",
+    tickLargeNote: "Entre todos aportaron {amount}",
+    opinionKicker: "Las organizaciones hablan",
+    opinionTitle: "Opinión y análisis",
+    opinionCta: "Directorio de organizaciones",
+    bandTitle: "El pulso de los datos",
+    bandNote: "Tres registros públicos, resumidos",
+    bandVotesTitle: "Los llamamientos, uno a uno",
+    bandDonorsTitle: "Muchos donantes, poco dinero",
+    bandDonorsNote:
+      "{n} personas —el {donorShare} de los donantes— aportaron {amount} en {year}: el {moneyShare} de todo el dinero privado declarado.",
+    bandSpendTitle: "Gasto electoral, europeas de 2024",
+    carried: "Aprobada",
+    rejected: "Rechazada",
+    per100Donors: "De cada 100 donantes",
+    per100Euros: "De cada 100 euros",
+    colRecordKicker: "Registro parlamentario",
+    colReportKicker: "Reportaje",
+    colReportTitle: "{donors} donantes y un solo cheque de {largest}",
+    colReportBody:
+      "El informe no publica donación por donación: agrupa lo declarado en tres tramos y da, por partido, cuántas personas hay en cada uno y cuánto suman. De ahí sale la forma del dinero privado, que es lo que importa. Un partido puede recibir lo mismo de miles de personas que de un puñado, y el total por sí solo no dice cuál de las dos cosas ha pasado. Donde un tramo alto tiene un único donante, su total es esa donación: es el único caso en que una cifra individual se puede leer del informe sin inventar nada.",
+    colReportLink: "Ver el reparto por partido",
+    photoPending: "Fotografía · pendiente de licencia",
     eyebrow: "Portal de transparencia política",
     titlePre: "Quién les paga, y ",
     titleEmph: "cómo votan",
@@ -367,6 +444,15 @@ const es = {
     filterStatus: "{parties} partidos · {grants} concesiones · {total} con los filtros actuales",
   },
   party: {
+    switcherLabel: "Elegir formación",
+    fichaKicker: "Ficha de partido",
+    fichaIntro:
+      "Cuatro registros públicos sobre la misma formación: lo que el Estado le entrega, lo que declaró recibir de particulares, cómo votó su grupo en los llamamientos que este portal sigue y qué consta de sus cargos en el registro judicial. Ninguno explica a los demás.",
+    howItVoted: "Cómo votó el grupo",
+    sharedGroup: "En grupo compartido · {group}",
+    noRepresentation: "Sin representación",
+    stanceNote:
+      "La posición es la mayoría de las papeletas nominales del propio grupo: contada, no atribuida. Donde una formación comparte grupo con otras se dice cuál, en lugar de asignarle la mayoría de ese grupo: en el Grupo Plurinacional SUMAR, por ejemplo, atribuir su voto a Sumar y no a Izquierda Unida sería arbitrario. Y donde no tenía representación en aquella legislatura, se dice también.",
     totalReceived: "Total recibido",
     ofNational: "del total nacional",
     facesTitle: "Caras del partido",
@@ -689,6 +775,43 @@ const en: Dict = {
     missingLayers:
       "This section was designed with three further layers: an LGBTI rights index, the state of trans-law reform, and vote share for the formations that voted against the measures this site tracks. They are absent because there is no citable per-community source for any of the three yet. So is the hatching that would mark investitures dependent on Vox: five PP presidencies were invested with its votes in July 2023 and Vox then left three of those governments in July 2024, so one fixed overlay would be false for part of the period it appeared to describe.",
   },
+  court: {
+    title: "What the judicial record says",
+    eyebrow: "In the courts",
+    sourceLink: "Source",
+    statusNone: "Nothing on record",
+    noneBody:
+      "This site holds no court resolution and no electoral-board order concerning officeholders of this formation in the matters it tracks.",
+    noneNote:
+      "An absence of records is not a statement about anyone's conduct: it means only that there is no citable resolution.",
+    status: {
+      archived: "Case archived",
+      "awaiting-trial": "Awaiting trial",
+      "advertising-infringement": "Advertising infringement",
+      "complaint-archived": "Complaint archived",
+      "none-on-record": "Nothing on record",
+    },
+    records: {
+      "menas-2021": {
+        text: "Vox’s “menas” poster in the 2021 Madrid Assembly campaign. The investigating court archived the case by order and the Audiencia Provincial confirmed it: “there is no hate offence and no electoral offence”.",
+        note: "The prosecution service, PSOE, Podemos, Izquierda Unida and Progresa all appealed. This is an archiving at the instruction stage, not an acquittal: no court reached the merits.",
+      },
+      "herrero-valencia": {
+        text: "Vox’s València city councillor Cecilia Herrero has been committed to oral trial for hate offences over roughly thirty posts on X between April 2020 and April 2024. The prosecution seeks 3 years’ imprisonment, a 12-month fine at €20/day, and disqualification.",
+        note: "An order opening oral trial, not a verdict. The charge is pleaded in the alternative: 510.1 a) with 510.3, 510.5 and 510.6, or else 510.2 a) with the same subsections.",
+      },
+      "jez-madrid-2023": {
+        text: "The Junta Electoral de Zona de Madrid ordered a banner on calle Alcalá taken down “within one day”, as propaganda contracted outside the campaign period.",
+        note: "LOREG art. 53 and JEC Instrucción 3/2011. The board expressly declared itself not competent over the content and opened no sanctioning file: this is a breach of advertising timing and nothing more.",
+      },
+      "belarra-querella": {
+        text: "The Supreme Court’s criminal chamber archived Vox’s complaint against Ione Belarra over remarks at a Collado Villalba rally, holding that art. 510 CP protects social minorities and not political parties.",
+        note: "Ponente Sánchez Melgar; the appeal was rejected. The record documents a complaint against her, never conduct by her.",
+      },
+    },
+    policy:
+      "Four resolutions verified one by one, not a census: the number of records against one formation is not comparable with another’s. An archived case is labelled archived and never as an acquittal; an open case, as awaiting trial. No score or ranking is derived from any of it.",
+  },
   masthead: {
     edition: "Edition no. 001",
     live: "Live data · BDNS",
@@ -855,7 +978,47 @@ const en: Dict = {
     homeTitle: "LGBTQ+ rights, in the organisations' own voices",
     homeCta: "Open the rights section",
   },
+  lead: {
+    kicker: "Investigation · Electoral spending",
+    title: "More than half of electoral spending is never broken down",
+    standfirst:
+      "Of the {declared} that eight formations declared as ordinary spending for the European elections of 9 June 2024, {residual} — {share} — sits in a single residual line the audit report does not break down. Advertising, the only item with a legal cap, is {ads}.",
+    link: "Read the full breakdown",
+  },
   portal: {
+    tickSubsidies: "State subsidies",
+    tickSubsidiesNote: "BDNS · updated daily",
+    tickDonations: "Private donations",
+    tickDonationsNote: "{year} financial year · {donors} donors",
+    tickSpending: "Electoral spending",
+    tickSpendingNote: "2024 European elections · {n} formations",
+    tickVotes: "Divisions tracked",
+    tickVotesNote: "Recorded divisions of the Congreso",
+    tickPeople: "Paid officeholders",
+    tickPeopleNote: "Senior Appointments Register, active only",
+    tickLarge: "Donors above €10,000",
+    tickLargeNote: "Between them they gave {amount}",
+    opinionKicker: "The organisations speak",
+    opinionTitle: "Opinion and analysis",
+    opinionCta: "Directory of organisations",
+    bandTitle: "The pulse of the data",
+    bandNote: "Three public registers, summarised",
+    bandVotesTitle: "The divisions, one by one",
+    bandDonorsTitle: "Many donors, little money",
+    bandDonorsNote:
+      "{n} people — {donorShare} of all donors — gave {amount} in {year}: {moneyShare} of every private euro declared.",
+    bandSpendTitle: "Electoral spending, 2024 European elections",
+    carried: "Carried",
+    rejected: "Rejected",
+    per100Donors: "Of every 100 donors",
+    per100Euros: "Of every 100 euros",
+    colRecordKicker: "Parliamentary record",
+    colReportKicker: "Report",
+    colReportTitle: "{donors} donors and a single cheque for {largest}",
+    colReportBody:
+      "The report does not publish donations one by one: it groups what was declared into three tranches and gives, per party, how many people are in each and what they add up to. That is where the shape of private money comes from, and the shape is what matters. A party can receive the same sum from thousands of people or from a handful, and the total alone does not say which happened. Where a top tranche holds a single donor, its total is that donation: the one case in which an individual figure can be read from the report without inventing anything.",
+    colReportLink: "See the split by party",
+    photoPending: "Photograph · awaiting licence",
     eyebrow: "Political transparency portal",
     titlePre: "Who pays them, and ",
     titleEmph: "how they vote",
@@ -905,6 +1068,15 @@ const en: Dict = {
     filterStatus: "{parties} parties · {grants} grants · {total} under the current filters",
   },
   party: {
+    switcherLabel: "Choose a formation",
+    fichaKicker: "Party record",
+    fichaIntro:
+      "Four public registers on the same formation: what the state hands it, what it declared receiving from individuals, how its group voted in the divisions this site tracks, and what is on file about its officeholders in the judicial record. None of them explains the others.",
+    howItVoted: "How the group voted",
+    sharedGroup: "In a shared group · {group}",
+    noRepresentation: "Not in the chamber",
+    stanceNote:
+      "A position is the majority of the group's own recorded ballots: counted, not attributed. Where a formation shares a group with others, this names it rather than handing it that group's majority: in the Grupo Plurinacional SUMAR, attributing the vote to Sumar and not to Izquierda Unida would be arbitrary. And where it had no seats in that legislature, this says that too.",
     totalReceived: "Total received",
     ofNational: "of the national total",
     facesTitle: "Faces of the party",
@@ -1225,6 +1397,43 @@ const ca: Dict = {
     missingLayers:
       "El disseny d'aquesta secció preveia tres capes més: un índex de drets LGTBI, l'estat de les reformes de les lleis trans i el vot a les formacions que van votar en contra de les normes que aquest portal segueix. No hi són perquè encara no hi ha una font citable per comunitat per a cap de les tres. Tampoc no hi és l'ombrejat que marcaria les investidures que van dependre de Vox: cinc presidències del PP es van investir amb els seus vots el juliol del 2023 i Vox va sortir de tres d'aquells governs el juliol del 2024, així que un ombrejat fix seria fals per a part del període que semblaria descriure.",
   },
+  court: {
+    title: "Què consta al registre judicial",
+    eyebrow: "Als tribunals",
+    sourceLink: "Font",
+    statusNone: "Sense resolucions",
+    noneBody:
+      "En aquest portal no consta cap resolució judicial ni acord de junta electoral referit a càrrecs d’aquesta formació en les matèries que se segueixen.",
+    noneNote:
+      "L’absència de registre no és una declaració sobre la conducta de ningú: només vol dir que no hi ha una resolució citable.",
+    status: {
+      archived: "Causa arxivada",
+      "awaiting-trial": "Pendent de judici",
+      "advertising-infringement": "Infracció de publicitat",
+      "complaint-archived": "Querella arxivada",
+      "none-on-record": "Sense resolucions",
+    },
+    records: {
+      "menas-2021": {
+        text: "El cartell dels «menas» de Vox a la campanya de l’Assemblea de Madrid del 2021. El jutjat va arxivar la causa per acte i l’Audiència Provincial ho va confirmar: «no existeix delicte d’odi ni delicte electoral».",
+        note: "Hi van recórrer la Fiscalia, el PSOE, Podem, Esquerra Unida i Progresa. És un arxivament en fase d’instrucció, no una absolució: cap tribunal no va entrar en el fons.",
+      },
+      "herrero-valencia": {
+        text: "La regidora de Vox a València Cecilia Herrero anirà a judici oral per delictes d’odi: una trentena de publicacions a X entre l’abril del 2020 i l’abril del 2024. La Fiscalia demana 3 anys de presó, multa de 12 mesos a 20 €/dia i inhabilitació.",
+        note: "Acte d’obertura de judici oral, no sentència. La qualificació és alternativa: 510.1 a) amb 510.3, 510.5 i 510.6, o bé 510.2 a) amb els mateixos apartats.",
+      },
+      "jez-madrid-2023": {
+        text: "La Junta Electoral de Zona de Madrid va ordenar retirar una lona del carrer Alcalá en «termini d’un dia», per propaganda contractada fora del període de campanya.",
+        note: "LOREG art. 53 i Instrucció 3/2011 de la JEC. La junta es va declarar expressament no competent sobre el contingut i no va obrir expedient sancionador: és una infracció de calendari publicitari, i res més.",
+      },
+      "belarra-querella": {
+        text: "La Sala Penal del Tribunal Suprem va arxivar la querella de Vox contra Ione Belarra per les seves paraules en un míting de Collado Villalba: l’art. 510 CP protegeix les minories socials, no els partits polítics.",
+        note: "Ponent Sánchez Melgar; el recurs de súplica va ser rebutjat. El registre documenta una querella contra ella, mai una conducta seva.",
+      },
+    },
+    policy:
+      "Quatre resolucions verificades una a una, no un cens: el nombre de registres d’una formació no és comparable amb el d’una altra. Una causa arxivada s’etiqueta com a arxivada i mai com a absolució; una causa oberta, com a pendent de judici. D’això no se’n deriva cap puntuació ni classificació.",
+  },
   masthead: {
     edition: "Edició nº 001",
     live: "Dades en directe · BDNS",
@@ -1391,7 +1600,47 @@ const ca: Dict = {
     homeTitle: "Drets LGTBI, amb la veu de les organitzacions",
     homeCta: "Veure la secci\u00f3 de drets",
   },
+  lead: {
+    kicker: "Investigació · Despesa electoral",
+    title: "Més de la meitat de la despesa electoral no està desglossada",
+    standfirst:
+      "Dels {declared} que vuit formacions van declarar com a despesa ordinària a les europees del 9 de juny del 2024, {residual} —el {share}— figuren en una sola línia residual que l'informe de fiscalització no desglossa. La publicitat, l'única partida amb límit legal, és el {ads}.",
+    link: "Llegir el desglossament complet",
+  },
   portal: {
+    tickSubsidies: "Subvencions de l'Estat",
+    tickSubsidiesNote: "BDNS · actualitzat diàriament",
+    tickDonations: "Donacions privades",
+    tickDonationsNote: "Exercici {year} · {donors} donants",
+    tickSpending: "Despesa electoral",
+    tickSpendingNote: "Europees del 2024 · {n} formacions",
+    tickVotes: "Votacions seguides",
+    tickVotesNote: "Votacions nominals del Congrés",
+    tickPeople: "Càrrecs amb retribució",
+    tickPeopleNote: "Registre d'Alts Càrrecs, només actius",
+    tickLarge: "Donants de més de 10.000 €",
+    tickLargeNote: "Entre tots van aportar {amount}",
+    opinionKicker: "Les organitzacions parlen",
+    opinionTitle: "Opinió i anàlisi",
+    opinionCta: "Directori d'organitzacions",
+    bandTitle: "El pols de les dades",
+    bandNote: "Tres registres públics, resumits",
+    bandVotesTitle: "Les votacions, una a una",
+    bandDonorsTitle: "Molts donants, pocs diners",
+    bandDonorsNote:
+      "{n} persones —el {donorShare} dels donants— van aportar {amount} el {year}: el {moneyShare} de tot el diner privat declarat.",
+    bandSpendTitle: "Despesa electoral, europees del 2024",
+    carried: "Aprovada",
+    rejected: "Rebutjada",
+    per100Donors: "De cada 100 donants",
+    per100Euros: "De cada 100 euros",
+    colRecordKicker: "Registre parlamentari",
+    colReportKicker: "Reportatge",
+    colReportTitle: "{donors} donants i un sol xec de {largest}",
+    colReportBody:
+      "L'informe no publica donació per donació: agrupa el que es va declarar en tres trams i dóna, per partit, quantes persones hi ha en cada un i quant sumen. D'aquí surt la forma del diner privat, que és el que importa. Un partit pot rebre el mateix de milers de persones que d'un grapat, i el total tot sol no diu quina de les dues coses ha passat. Quan un tram alt té un únic donant, el seu total és aquella donació: l'únic cas en què una xifra individual es pot llegir de l'informe sense inventar res.",
+    colReportLink: "Veure el repartiment per partit",
+    photoPending: "Fotografia · pendent de llicència",
     eyebrow: "Portal de transparència política",
     titlePre: "Qui els paga, i ",
     titleEmph: "com voten",
@@ -1441,6 +1690,15 @@ const ca: Dict = {
     filterStatus: "{parties} partits · {grants} concessions · {total} amb els filtres actuals",
   },
   party: {
+    switcherLabel: "Triar formació",
+    fichaKicker: "Fitxa de partit",
+    fichaIntro:
+      "Quatre registres públics sobre la mateixa formació: el que l'Estat li lliura, el que va declarar rebre de particulars, com va votar el seu grup en les votacions que aquest portal segueix i què consta dels seus càrrecs al registre judicial. Cap no explica els altres.",
+    howItVoted: "Com va votar el grup",
+    sharedGroup: "En grup compartit · {group}",
+    noRepresentation: "Sense representació",
+    stanceNote:
+      "La posició és la majoria de les paperetes nominals del mateix grup: comptada, no atribuïda. Quan una formació comparteix grup amb altres es diu quin, en lloc d'assignar-li la majoria d'aquell grup: al Grup Plurinacional SUMAR, per exemple, atribuir-ne el vot a Sumar i no a Esquerra Unida seria arbitrari. I quan no tenia representació en aquella legislatura, també es diu.",
     totalReceived: "Total rebut",
     ofNational: "del total nacional",
     facesTitle: "Cares del partit",
