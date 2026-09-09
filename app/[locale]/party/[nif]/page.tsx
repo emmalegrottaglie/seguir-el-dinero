@@ -40,7 +40,7 @@ export default async function PartyPage({
   const maxYear = Math.max(...years.map((y) => party.byYear[y] ?? 0), 1);
 
   return (
-    <main className="mx-auto max-w-4xl px-5 pb-8">
+    <main className="mx-auto max-w-4xl pb-8">
       <Link href={`/${locale}`} className="label-mono inline-block py-4 hover:text-[var(--gold)]">
         {t.common.backToPanel}
       </Link>
@@ -69,10 +69,10 @@ export default async function PartyPage({
             value={party.total}
             as="euro"
             bcp47={bcp47}
-            className="mono block text-4xl text-[var(--gold-bright)] sm:text-5xl"
+            className="mono block text-4xl text-[var(--gold-deep)] sm:text-5xl"
           />
         </div>
-        <p className="mono text-sm text-[var(--paper-dim)]">
+        <p className="mono text-sm text-[var(--ink-2)]">
           {percent(party.share, bcp47)} {t.party.ofNational}
         </p>
       </div>
@@ -86,10 +86,10 @@ export default async function PartyPage({
               <Link
                 key={f.slug}
                 href={`/${locale}/politician/${f.slug}`}
-                className="panel group px-4 py-3 transition-colors hover:border-[var(--line-strong)]"
+                className="panel group px-4 py-3 transition-colors hover:border-[var(--line)]"
               >
-                <span className="group-hover:text-[var(--gold-bright)]">{f.name}</span>
-                <span className="label-mono ml-2 text-[var(--paper-faint)]">{f.role}</span>
+                <span className="group-hover:text-[var(--gold-deep)]">{f.name}</span>
+                <span className="label-mono ml-2 text-[var(--ink-3)]">{f.role}</span>
               </Link>
             ))}
           </div>
@@ -105,8 +105,8 @@ export default async function PartyPage({
             .map((k) => (
               <div key={k} className="panel p-5">
                 <p className="label-mono mb-3">{kindLabel[k]}</p>
-                <p className="mono text-2xl text-[var(--paper)]">{euroCompact(party.byKind[k], bcp47)}</p>
-                <p className="mono mt-1 text-xs text-[var(--paper-faint)]">
+                <p className="mono text-2xl text-[var(--ink)]">{euroCompact(party.byKind[k], bcp47)}</p>
+                <p className="mono mt-1 text-xs text-[var(--ink-3)]">
                   {percent(party.byKind[k] / party.total, bcp47)} {t.party.ofItsFunds}
                 </p>
               </div>
@@ -123,7 +123,7 @@ export default async function PartyPage({
             const h = Math.max((v / maxYear) * 160, 3);
             return (
               <div key={y} className="flex flex-1 flex-col items-center gap-2">
-                <span className="mono text-xs text-[var(--paper-dim)]">{euroCompact(v, bcp47)}</span>
+                <span className="mono text-xs text-[var(--ink-2)]">{euroCompact(v, bcp47)}</span>
                 <div
                   className="w-full rounded-t-sm"
                   style={{
@@ -131,7 +131,7 @@ export default async function PartyPage({
                     background: `linear-gradient(180deg, ${party.color}, ${party.color}55)`,
                   }}
                 />
-                <span className="mono text-xs text-[var(--paper-faint)]">{y}</span>
+                <span className="mono text-xs text-[var(--ink-3)]">{y}</span>
               </div>
             );
           })}
@@ -153,21 +153,21 @@ export default async function PartyPage({
           <div className="panel mt-8 flex flex-wrap items-end justify-between gap-6 p-6">
             <div>
               <p className="label-mono mb-2">{t.party.donationsDeclared}</p>
-              <p className="mono text-3xl text-[var(--gold-bright)] sm:text-4xl">
+              <p className="mono text-3xl text-[var(--gold-deep)] sm:text-4xl">
                 {euro(donations.total.amount, bcp47)}
               </p>
             </div>
-            <p className="mono text-sm text-[var(--paper-dim)]">
+            <p className="mono text-sm text-[var(--ink-2)]">
               {integer(donations.total.donors, bcp47)} {t.party.donors}
             </p>
           </div>
 
           {/* tranche split by amount */}
           <div className="mt-6">
-            <div className="flex h-6 overflow-hidden rounded-sm bg-[var(--ink-3)]">
+            <div className="flex h-6 overflow-hidden rounded-sm bg-[var(--track)]">
               {(
                 [
-                  ["< 1.000 €", donations.small, "var(--paper-faint)"],
+                  ["< 1.000 €", donations.small, "var(--ink-3)"],
                   ["1.000–10.000 €", donations.mid, "var(--gold)"],
                   ["> 10.000 €", donations.large, "var(--red)"],
                 ] as const
@@ -186,12 +186,12 @@ export default async function PartyPage({
               )}
             </div>
             <div className="label-mono mt-3 flex flex-wrap gap-x-6 gap-y-1">
-              <span><span className="text-[var(--paper-faint)]">■</span> &lt;1.000 € · {euroCompact(donations.small.amount, bcp47)} ({donations.small.donors})</span>
+              <span><span className="text-[var(--ink-3)]">■</span> &lt;1.000 € · {euroCompact(donations.small.amount, bcp47)} ({donations.small.donors})</span>
               <span><span className="text-[var(--gold)]">■</span> 1.000–10.000 € · {euroCompact(donations.mid.amount, bcp47)} ({donations.mid.donors})</span>
               <span><span className="text-[var(--red)]">■</span> &gt;10.000 € · {euroCompact(donations.large.amount, bcp47)} ({donations.large.donors})</span>
             </div>
           </div>
-          <p className="label-mono mt-4 text-[var(--paper-faint)]">{t.party.privateCaveat}</p>
+          <p className="label-mono mt-4 text-[var(--ink-3)]">{t.party.privateCaveat}</p>
         </section>
       )}
 
@@ -205,7 +205,7 @@ export default async function PartyPage({
           {party.grants.map((g) => (
             <div key={g.id}>
               <div className="grid grid-cols-[5.5rem_1fr_auto] items-baseline gap-4 py-4">
-                <span className="mono text-xs text-[var(--paper-dim)]">{formatDate(g.date, bcp47)}</span>
+                <span className="mono text-xs text-[var(--ink-2)]">{formatDate(g.date, bcp47)}</span>
                 <span className="text-sm">
                   <span
                     className="mr-2 inline-block rounded px-2 py-0.5 text-[0.65rem] uppercase tracking-wider"
@@ -216,19 +216,19 @@ export default async function PartyPage({
                   >
                     {kindLabel[g.kind]}
                   </span>
-                  <span className="text-[var(--paper-dim)]">{t.party.exercise} {g.year}</span>
+                  <span className="text-[var(--ink-2)]">{t.party.exercise} {g.year}</span>
                   {g.legalUrl && (
                     <a
                       href={g.legalUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="ml-2 text-[var(--paper-faint)] underline decoration-dotted hover:text-[var(--gold)]"
+                      className="ml-2 text-[var(--ink-3)] underline decoration-dotted hover:text-[var(--gold)]"
                     >
                       {t.party.legalBasis}
                     </a>
                   )}
                 </span>
-                <span className="mono text-right text-sm text-[var(--paper)]">{euro(g.amount, bcp47)}</span>
+                <span className="mono text-right text-sm text-[var(--ink)]">{euro(g.amount, bcp47)}</span>
               </div>
               <hr className="hairline" />
             </div>
@@ -239,7 +239,7 @@ export default async function PartyPage({
       {/* News feed */}
       <section className="mt-14">
         <h2 className="display section-tick text-xl">{t.party.inNews}</h2>
-        <p className="label-mono mt-3 text-[var(--paper-faint)]">{t.party.recentHeadlines}</p>
+        <p className="label-mono mt-3 text-[var(--ink-3)]">{t.party.recentHeadlines}</p>
         <NewsFeed query={party.displayName} locale={locale} />
       </section>
     </main>

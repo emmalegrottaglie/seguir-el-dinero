@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { getVotes, nameKey, type Ballot } from "@/lib/votes";
+import { getVotes, nameKey, newestFirst, type Ballot } from "@/lib/votes";
 import GroupBreakdown from "@/components/GroupBreakdown";
+import VoteFlow from "@/components/VoteFlow";
 import { getDict } from "@/lib/i18n";
 import { integer } from "@/lib/format";
 
@@ -8,9 +9,9 @@ import { integer } from "@/lib/format";
 export const dynamic = "force-dynamic";
 
 const BALLOT_COLOR: Record<string, string> = {
-  Sí: "var(--gold)",
+  Sí: "var(--verd-text)",
   No: "var(--red)",
-  Abstención: "var(--paper-faint)",
+  Abstención: "var(--ink-3)",
 };
 
 type Dict = ReturnType<typeof getDict>["t"];
@@ -58,9 +59,22 @@ export default async function VotacionesPage({
   }
 
   return (
-    <main className="mx-auto max-w-4xl px-5 pb-8">
-      <h1 className="display mt-6 text-4xl sm:text-5xl">{v.title}</h1>
-      <p className="mt-5 max-w-2xl text-[var(--paper-dim)]">{v.intro}</p>
+    <main className="pb-8">
+      <header className="pb-7 pt-8">
+        <p className="eyebrow">{v.eyebrow}</p>
+        <h1
+          className="display mt-3 font-normal"
+          style={{ fontSize: "clamp(32px,4.6vw,54px)", maxWidth: "22ch" }}
+        >
+          {v.title}
+        </h1>
+        <p
+          className="mt-5"
+          style={{ fontSize: "15px", lineHeight: 1.68, color: "var(--ink-2)", maxWidth: "70ch" }}
+        >
+          {v.intro}
+        </p>
+      </header>
 
       {/* Deputy search */}
       <form action={`/${locale}/votaciones`} method="get" className="panel mt-8 flex flex-wrap gap-3 p-4">
@@ -70,7 +84,7 @@ export default async function VotacionesPage({
           defaultValue={q ?? ""}
           placeholder={v.searchPlaceholder}
           aria-label={v.searchLabel}
-          className="mono min-h-11 min-w-0 flex-1 rounded border border-[var(--line-control)] bg-[var(--ink-3)] px-3 text-sm text-[var(--paper)] outline-none focus:border-[var(--gold)]"
+          className="mono min-h-11 min-w-0 flex-1 rounded border border-[var(--line)] bg-[var(--track)] px-3 text-sm text-[var(--ink)] outline-none focus:border-[var(--gold)]"
         />
         <button
           type="submit"
@@ -83,22 +97,22 @@ export default async function VotacionesPage({
       {q?.trim() && (
         <section className="mt-6">
           {found.length === 0 ? (
-            <p className="label-mono py-4 text-[var(--paper-faint)]">{v.noMatch}</p>
+            <p className="label-mono py-4 text-[var(--ink-3)]">{v.noMatch}</p>
           ) : (
             <>
-              <p className="label-mono mb-3 text-[var(--paper-faint)]">
+              <p className="label-mono mb-3 text-[var(--ink-3)]">
                 {integer(found.length, bcp47)} {v.results}
               </p>
               <div className="flex flex-col">
                 {found.map((p) => (
                   <div key={p.name}>
                     <div className="py-4">
-                      <p className="text-[var(--paper)]">{p.name}</p>
+                      <p className="text-[var(--ink)]">{p.name}</p>
                       <div className="mt-2 flex flex-wrap gap-2">
                         {data.votes.map((vote) => {
                           const cast = p.ballots[vote.id];
                           if (!cast) return null;
-                          const color = BALLOT_COLOR[cast.ballot] ?? "var(--paper-faint)";
+                          const color = BALLOT_COLOR[cast.ballot] ?? "var(--ink-3)";
                           return (
                             <span
                               key={vote.id}
@@ -107,7 +121,7 @@ export default async function VotacionesPage({
                               title={vote.law}
                             >
                               {vote.law}: {ballotLabel(cast.ballot, t)}
-                              <span className="ml-1.5 text-[var(--paper-faint)]">({cast.group})</span>
+                              <span className="ml-1.5 text-[var(--ink-3)]">({cast.group})</span>
                             </span>
                           );
                         })}
@@ -120,6 +134,13 @@ export default async function VotacionesPage({
             </>
           )}
         </section>
+      )}
+
+      {/* The money and the vote, side by side. Uses the most recent tracked
+          division: it is the one whose group stances the site has most
+          confidence in, and a flow of every nine would be nine charts. */}
+      {data.votes.length > 0 && (
+        <VoteFlow vote={newestFirst(data.votes)[0]} t={t} bcp47={bcp47} />
       )}
 
       {/* One block per tracked law */}
@@ -135,16 +156,16 @@ export default async function VotacionesPage({
               <span
                 className="rounded border px-2 py-1"
                 style={{
-                  color: vote.binding ? "var(--gold)" : "var(--paper-faint)",
-                  borderColor: vote.binding ? "var(--gold)55" : "var(--line-strong)",
+                  color: vote.binding ? "var(--gold-deep)" : "var(--ink-3)",
+                  borderColor: vote.binding ? "var(--gold)" : "var(--line)",
                 }}
               >
                 {v.kinds[vote.kind as keyof typeof v.kinds] ?? vote.kindLabel}
               </span>
               {!vote.binding && (
-                <span className="text-[var(--paper-faint)]">· {v.nonBinding}</span>
+                <span className="text-[var(--ink-3)]">· {v.nonBinding}</span>
               )}
-              <span className="text-[var(--paper-faint)]">
+              <span className="text-[var(--ink-3)]">
                 · {v.legislature} {vote.legislature}
               </span>
             </p>
@@ -158,28 +179,28 @@ export default async function VotacionesPage({
               <a className="src" href={vote.sourceUrl} target="_blank" rel="noopener noreferrer">
                 {v.officialRecord}
               </a>
-              <span className="text-[var(--paper-faint)]">
+              <span className="text-[var(--ink-3)]">
                 {v.session} {vote.session} · {vote.date}
               </span>
             </p>
 
             {/* Overall result */}
-            <div className="mt-6 flex h-6 overflow-hidden rounded-sm bg-[var(--ink-3)]">
-              <div style={{ width: width(tot.afavor), backgroundColor: "var(--gold)" }} />
+            <div className="mt-6 flex h-6 overflow-hidden rounded-sm bg-[var(--track)]">
+              <div style={{ width: width(tot.afavor), backgroundColor: "var(--verd)" }} />
               <div style={{ width: width(tot.enContra), backgroundColor: "var(--red)" }} />
-              <div style={{ width: width(tot.abstenciones), backgroundColor: "var(--paper-faint)" }} />
+              <div style={{ width: width(tot.abstenciones), backgroundColor: "var(--abst)" }} />
             </div>
             <div className="label-mono mt-3 flex flex-wrap gap-x-6 gap-y-1">
-              <span style={{ color: "var(--gold)" }}>
+              <span style={{ color: "var(--verd-text)" }}>
                 {v.inFavour} {integer(tot.afavor, bcp47)}
               </span>
               <span style={{ color: "var(--red)" }}>
                 {v.against} {integer(tot.enContra, bcp47)}
               </span>
-              <span className="text-[var(--paper-faint)]">
+              <span className="text-[var(--ink-3)]">
                 {v.abstention} {integer(tot.abstenciones, bcp47)}
               </span>
-              <span className="text-[var(--paper-faint)]">
+              <span className="text-[var(--ink-3)]">
                 {v.present} {integer(tot.presentes, bcp47)}
               </span>
             </div>
@@ -191,8 +212,8 @@ export default async function VotacionesPage({
         );
       })}
 
-      <p className="label-mono mt-12 text-[var(--paper-faint)]">{v.caveat}</p>
-      <p className="label-mono mt-2 text-[var(--paper-faint)]">
+      <p className="label-mono mt-12 text-[var(--ink-3)]">{v.caveat}</p>
+      <p className="label-mono mt-2 text-[var(--ink-3)]">
         {data.source.name} ·{" "}
         <a className="src" href={data.source.url} target="_blank" rel="noopener noreferrer">
           congreso.es

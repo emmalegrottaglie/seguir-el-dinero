@@ -46,14 +46,14 @@ export default function ArticleCard({
       <div className="flex flex-1 flex-col p-5">
         <p className="label-mono mb-3 flex flex-wrap items-center gap-x-2">
           <span style={{ color: isOrg ? "var(--verd)" : "var(--gold)" }}>{item.source}</span>
-          <span className="text-[var(--paper-faint)]">·</span>
-          <span className="text-[var(--paper-faint)]">{isOrg ? orgLabel : mediaLabel}</span>
-          {item.lang === "en" && <span className="text-[var(--paper-faint)]">· EN</span>}
+          <span className="text-[var(--ink-3)]">·</span>
+          <span className="text-[var(--ink-3)]">{isOrg ? orgLabel : mediaLabel}</span>
+          {item.lang === "en" && <span className="text-[var(--ink-3)]">· EN</span>}
         </p>
 
         <h3 className="display text-lg leading-snug">
           <a
-            className="hover:text-[var(--gold-bright)] focus-visible:text-[var(--gold-bright)]"
+            className="hover:text-[var(--gold-deep)] focus-visible:text-[var(--gold-deep)]"
             href={item.link}
             target="_blank"
             rel="noopener noreferrer"
@@ -62,7 +62,7 @@ export default function ArticleCard({
           </a>
         </h3>
 
-        <p className="label-mono mt-auto pt-4 text-[var(--paper-faint)]">{ago}</p>
+        <p className="label-mono mt-auto pt-4 text-[var(--ink-3)]">{ago}</p>
       </div>
     </article>
   );

@@ -43,16 +43,16 @@ export default function FoundationGovernance({
       : `${kindLabel(source.kind)} · ${source.date}`;
 
   return (
-    <section className="mt-14 border-t border-[var(--line-strong)] pt-8">
+    <section className="mt-14 border-t border-[var(--line)] pt-8">
       <h2 className="display section-tick text-xl">{F.peopleTitle}</h2>
-      <p className="mt-4 max-w-3xl text-sm leading-relaxed text-[var(--paper-dim)]">
+      <p className="mt-4 max-w-3xl text-sm leading-relaxed text-[var(--ink-2)]">
         {F.peopleNote}
       </p>
 
       {gov.rename && (
         <div className="panel mt-6 p-5">
           <p className="label-mono mb-2 text-[var(--gold)]">{F.peopleRenameTitle}</p>
-          <p className="text-sm leading-relaxed text-[var(--paper-dim)]">
+          <p className="text-sm leading-relaxed text-[var(--ink-2)]">
             {F.peopleRenameBody
               .replace("{report}", gov.rename.reportName)
               .replace("{when}", gov.rename.when)
@@ -74,7 +74,7 @@ export default function FoundationGovernance({
       {gov.gap && (
         <div className="panel mt-6 p-5">
           <p className="label-mono mb-2 text-[var(--red)]">{F.peopleGapTitle}</p>
-          <p className="text-sm leading-relaxed text-[var(--paper-dim)]">{gov.gap.reason}</p>
+          <p className="text-sm leading-relaxed text-[var(--ink-2)]">{gov.gap.reason}</p>
         </div>
       )}
 
@@ -82,14 +82,14 @@ export default function FoundationGovernance({
         <ul className="mt-6 flex flex-col divide-y divide-[var(--line)]">
           {gov.people.map((p) => (
             <li key={p.person} className="py-4">
-              <p className="text-[var(--paper)]">{p.person}</p>
+              <p className="text-[var(--ink)]">{p.person}</p>
 
               {p.roles.map((role, i) => (
-                <p key={i} className="label-mono mt-1 text-[var(--paper-dim)]">
+                <p key={i} className="label-mono mt-1 text-[var(--ink-2)]">
                   {role.role}
                   {role.since && ` · ${F.peopleSince} ${role.since}`}
                   {" · "}
-                  <span className="text-[var(--paper-faint)]">
+                  <span className="text-[var(--ink-3)]">
                     <a
                       className="src"
                       href={role.source.url}
@@ -104,7 +104,7 @@ export default function FoundationGovernance({
 
               {p.ties.length > 0 && (
                 <>
-                  <p className="label-mono mt-3 text-[var(--paper-faint)]">{F.peopleAlso}</p>
+                  <p className="label-mono mt-3 text-[var(--ink-3)]">{F.peopleAlso}</p>
                   <ul className="mt-1 flex flex-col gap-1">
                     {p.ties.map((tie, i) => (
                       <TieLine key={i} tie={tie} F={F} attribution={attribution} />
@@ -137,18 +137,18 @@ function TieLine({
       ? "var(--red)"
       : tie.kind === "government" || tie.kind === "public-body"
         ? "var(--gold)"
-        : "var(--paper-dim)";
+        : "var(--ink-2)";
   return (
     <li className="text-sm leading-relaxed">
       <span style={{ color: colour }}>{tie.organisation}</span>
-      <span className="text-[var(--paper-dim)]"> — {tie.role}</span>
+      <span className="text-[var(--ink-2)]"> — {tie.role}</span>
       {tie.former && (
-        <span className="label-mono ml-2 text-[var(--paper-faint)]"> ({F.peopleFormer})</span>
+        <span className="label-mono ml-2 text-[var(--ink-3)]"> ({F.peopleFormer})</span>
       )}
-      <span className="label-mono text-[var(--paper-faint)]">
+      <span className="label-mono text-[var(--ink-3)]">
         {" · "}
       </span>
-      <span className="label-mono text-[var(--paper-faint)]">
+      <span className="label-mono text-[var(--ink-3)]">
         <a className="src" href={tie.source.url} target="_blank" rel="noopener noreferrer">
           {attribution(tie.source)} ↗
         </a>

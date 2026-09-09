@@ -33,22 +33,22 @@ export default function StanceByGroup({ vote, t }: { vote: KeyVote; t: Dict }) {
     names.length > 0 && (
       <p className="label-mono flex flex-wrap items-baseline gap-x-2 gap-y-1">
         <span style={{ color }}>{label}</span>
-        <span className="text-[var(--paper-dim)]">{names.join(" · ")}</span>
+        <span className="text-[var(--ink-2)]">{names.join(" · ")}</span>
       </p>
     );
 
   return (
     <div className="panel p-5">
       <p className="eyebrow">{vote.topicLabel}</p>
-      <p className="mt-2 text-[var(--paper)]">{vote.law}</p>
+      <p className="mt-2 text-[var(--ink)]">{vote.law}</p>
 
       {(vote.expediente || vote.title) && (
-        <p className="label-mono mt-2 line-clamp-2 text-[var(--paper-dim)]">
+        <p className="label-mono mt-2 line-clamp-2 text-[var(--ink-2)]">
           {vote.expediente || vote.title}
         </p>
       )}
 
-      <p className="label-mono mt-2 flex flex-wrap gap-x-3 text-[var(--paper-faint)]">
+      <p className="label-mono mt-2 flex flex-wrap gap-x-3 text-[var(--ink-3)]">
         <span>{t.votes.kinds[vote.kind as keyof typeof t.votes.kinds] ?? vote.kindLabel}</span>
         {!vote.binding && <span>· {t.votes.nonBinding}</span>}
         <span>· {vote.date}</span>
@@ -57,16 +57,16 @@ export default function StanceByGroup({ vote, t }: { vote: KeyVote; t: Dict }) {
         </a>
       </p>
 
-      <div className="mt-4 flex h-3 overflow-hidden rounded-sm bg-[var(--ink-3)]">
+      <div className="mt-4 flex h-3 overflow-hidden rounded-sm bg-[var(--track)]">
         <div style={{ width: width(tot.afavor), backgroundColor: "var(--gold)" }} />
         <div style={{ width: width(tot.enContra), backgroundColor: "var(--red)" }} />
-        <div style={{ width: width(tot.abstenciones), backgroundColor: "var(--paper-faint)" }} />
+        <div style={{ width: width(tot.abstenciones), backgroundColor: "var(--ink-3)" }} />
       </div>
 
       <div className="mt-3 flex flex-col gap-1">
         {row(t.portal.inFavourGroups, bucket.si, "var(--gold)")}
         {row(t.portal.againstGroups, bucket.no, "var(--red)")}
-        {row(t.portal.abstainGroups, bucket.abst, "var(--paper-faint)")}
+        {row(t.portal.abstainGroups, bucket.abst, "var(--ink-3)")}
       </div>
     </div>
   );

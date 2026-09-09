@@ -17,6 +17,48 @@ export function euroCompact(n: number, locale = "es-ES"): string {
   return `${Math.round(n)} €`;
 }
 
+/** The exact figure to the cent, as the audit reports print it. */
+export function euroExact(n: number, locale = "es-ES"): string {
+  return `${n.toLocaleString(locale, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })} €`;
+}
+
+/** Millions, for headline figures: "18,43 M€". */
+export function euroM(n: number, locale = "es-ES", digits = 2): string {
+  return `${(n / 1_000_000).toLocaleString(locale, {
+    minimumFractionDigits: digits,
+    maximumFractionDigits: digits,
+  })} M€`;
+}
+
+/**
+ * A fraction as a CSS length.
+ *
+ * Kept separate from `percent()` on purpose. A localised percentage is not a
+ * parseable CSS length — `es-ES` renders 0.545 as "54,5", and a bar given
+ * `width: 54,5%` silently collapses to nothing rather than erroring. Display
+ * formatting and layout formatting therefore never share a helper.
+ */
+export function cssPercent(fraction: number, digits = 3): string {
+  const clamped = Math.max(0, Math.min(1, fraction));
+  return `${(clamped * 100).toFixed(digits)}%`;
+}
+
+/**
+ * A rate per 100 000, to the two decimals the source publishes.
+ *
+ * `toLocaleString` alone drops a trailing zero, so a published 14,00 came out
+ * as 14 and 10,80 as 10,8 - a quiet loss of the precision the report states.
+ */
+export function rate(n: number, locale = "es-ES"): string {
+  return n.toLocaleString(locale, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+}
+
 export function integer(n: number, locale = "es-ES"): string {
   return new Intl.NumberFormat(locale, { maximumFractionDigits: 0 }).format(n);
 }

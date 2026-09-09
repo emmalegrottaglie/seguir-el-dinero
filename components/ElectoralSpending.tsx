@@ -5,8 +5,10 @@ import {
   spendingTotals,
   type SpendingFile,
 } from "@/lib/spending";
-import { euroCompact, integer, percent } from "@/lib/format";
+import { cssPercent, euroExact, integer, percent } from "@/lib/format";
+import { partyMeta } from "@/lib/parties";
 import type { Dict } from "@/lib/i18n";
+import SpendDonut, { type DonutSlice } from "./SpendDonut";
 
 /**
  * What an election's money was declared to have bought.
@@ -16,64 +18,152 @@ import type { Dict } from "@/lib/i18n";
  * does not say: over half of declared ordinary spending sits in a single
  * residual line the report does not break down. The layout gives that residual
  * the same weight as the categories that are itemised, rather than burying it.
+ *
+ * The three spending lines partition declared ordinary spending exactly —
+ * advertising plus financial plus residual reconciles to the declared total —
+ * so their percentages add to 100 %. Mailings do not belong to that total at
+ * all; they are accounted separately, outside the general spending limit, which
+ * is why the fourth row runs full width against a note rather than taking a
+ * share of a denominator it is not part of.
  */
-export default function ElectoralSpending({ data, t, bcp47 }: { data: SpendingFile; t: Dict; bcp47: string }) {
+export default function ElectoralSpending({
+  data,
+  t,
+  bcp47,
+}: {
+  data: SpendingFile;
+  t: Dict;
+  bcp47: string;
+}) {
   const s = t.spending;
   const totals = spendingTotals(data);
   const ranked = rankedBySpending(data);
-  const max = ranked[0]?.ordinary.declared || 1;
+
+  const slices: DonutSlice[] = ranked.map((f) => ({
+    name: f.name,
+    value: f.ordinary.declared,
+    // The formation names in the report are coalition labels, not the party
+    // registry's names, so the colour is resolved by name with the registry's
+    // graceful fallback rather than by NIF.
+    color: partyMeta("", f.name).color,
+  }));
+
+  const lines = [
+    {
+      label: s.lineAdvertising,
+      value: totals.advertising,
+      share: totals.advertising / totals.declared,
+      color: "var(--gold)",
+      note: s.lineAdvertisingNote,
+    },
+    {
+      label: s.lineResidual,
+      value: totals.other,
+      share: totals.otherShare,
+      color: "var(--red)",
+      note: s.lineResidualNote,
+    },
+    {
+      label: s.lineFinancial,
+      value: totals.financial,
+      share: totals.financial / totals.declared,
+      color: "var(--grey-500)",
+      note: s.lineFinancialNote,
+    },
+  ];
 
   return (
-    <section className="mx-auto mt-20 max-w-6xl px-5">
-      <h2 className="display section-tick text-2xl">{s.title}</h2>
-      <p className="mt-6 max-w-2xl text-[var(--paper-dim)]">{s.intro}</p>
+    <section className="pt-10">
+      <p className="eyebrow">{s.eyebrow}</p>
+      <h2
+        className="display mt-3 font-normal"
+        style={{ fontSize: "clamp(32px,4.6vw,54px)", maxWidth: "22ch" }}
+      >
+        {s.title}
+      </h2>
+      <p
+        className="mt-5"
+        style={{ fontSize: "15px", lineHeight: 1.68, color: "var(--ink-2)", maxWidth: "70ch" }}
+      >
+        {s.intro}
+      </p>
 
-      {/* The three shares of declared ordinary spending. The residual leads,
-          because it is the largest and the least accountable. */}
-      <div className="mt-8 flex flex-wrap gap-x-10 gap-y-6">
-        <div>
-          <p className="label-mono mb-2">{s.unexplained}</p>
-          <p className="mono text-2xl text-[var(--red)]">{euroCompact(totals.other, bcp47)}</p>
-          <p className="label-mono mt-1 text-[var(--paper-faint)]">
-            {percent(totals.otherShare, bcp47)} {s.ofDeclared}
-          </p>
-        </div>
-        <div>
-          <p className="label-mono mb-2">{s.advertising}</p>
-          <p className="mono text-2xl text-[var(--gold-bright)]">
-            {euroCompact(totals.advertising, bcp47)}
-          </p>
-          <p className="label-mono mt-1 max-w-xs text-[var(--paper-faint)]">{s.cappedOnly}</p>
-        </div>
-        <div>
-          <p className="label-mono mb-2">{s.mailings}</p>
-          <p className="mono text-2xl text-[var(--paper)]">{euroCompact(totals.mailings, bcp47)}</p>
-          <p className="label-mono mt-1 text-[var(--paper-faint)]">
-            {integer(totals.mailingCount, bcp47)} {s.mailingItems}
-          </p>
-        </div>
+      <div className="mt-9 border-t border-[var(--line)] pt-8">
+        <SpendDonut
+          slices={slices}
+          total={totals.declared}
+          centreLabel={s.donutCentre}
+          caption={s.donutCaption}
+          bcp47={bcp47}
+        />
       </div>
 
-      <div className="mt-10 overflow-x-auto">
+      {/* Where the money went, as the report's own categories */}
+      <div className="mt-10 border-t border-[var(--line)] pt-7">
+        <h3 className="display text-[22px] font-semibold" style={{ letterSpacing: "-0.015em" }}>
+          {s.linesTitle}
+        </h3>
+        <ul className="mt-5 flex flex-col gap-5">
+          {lines.map((l) => (
+            <li key={l.label}>
+              <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+                <span style={{ fontSize: "14px" }}>{l.label}</span>
+                <span className="mono whitespace-nowrap" style={{ fontSize: "13px" }}>
+                  {euroExact(l.value, bcp47)} ·{" "}
+                  <span style={{ color: "var(--ink-3)" }}>{percent(l.share, bcp47)}</span>
+                </span>
+              </div>
+              <span className="bar-track mt-1.5" aria-hidden style={{ height: 8 }}>
+                <i style={{ width: cssPercent(l.share), background: l.color }} />
+              </span>
+              <p className="mt-1.5" style={{ fontSize: "11.5px", color: "var(--ink-3)" }}>
+                {l.note}
+              </p>
+            </li>
+          ))}
+
+          {/* A different denominator, shown full width on purpose. */}
+          <li>
+            <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+              <span style={{ fontSize: "14px" }}>{s.lineMailings}</span>
+              <span className="mono whitespace-nowrap" style={{ fontSize: "13px" }}>
+                {euroExact(totals.mailings, bcp47)} · <span style={{ color: "var(--ink-3)" }}>—</span>
+              </span>
+            </div>
+            <span className="bar-track mt-1.5" aria-hidden style={{ height: 8 }}>
+              <i style={{ width: "100%", background: "var(--grey-300)" }} />
+            </span>
+            <p className="mt-1.5" style={{ fontSize: "11.5px", color: "var(--ink-3)" }}>
+              {s.lineMailingsNote.replace("{count}", integer(totals.mailingCount, bcp47))}
+            </p>
+          </li>
+        </ul>
+      </div>
+
+      {/* Per formation */}
+      <div className="mt-10 overflow-x-auto border-t border-[var(--line)] pt-7">
         <table className="w-full min-w-[44rem] border-collapse text-sm">
-          <caption className="max-w-3xl pb-4 text-left text-xs leading-relaxed text-[var(--paper-dim)]">
+          <caption
+            className="pb-4 text-left"
+            style={{ fontSize: "12px", lineHeight: 1.55, color: "var(--ink-2)", maxWidth: "88ch" }}
+          >
             {s.caption}
           </caption>
           <thead>
-            <tr className="label-mono text-left text-[var(--paper-faint)]">
-              <th scope="col" className="py-2 pr-4 font-normal">
+            <tr style={{ borderBottom: "1px solid var(--line)" }}>
+              <th scope="col" className="label-mono py-2 pr-4 text-left">
                 {s.formation}
               </th>
-              <th scope="col" className="w-1/4 py-2 pr-4 font-normal">
+              <th scope="col" className="label-mono w-1/4 py-2 pr-4 text-left">
                 {s.split}
               </th>
-              <th scope="col" className="whitespace-nowrap py-2 pr-3 text-right font-normal">
+              <th scope="col" className="label-mono whitespace-nowrap py-2 pr-3 text-right">
                 {s.advertising}
               </th>
-              <th scope="col" className="whitespace-nowrap py-2 pr-3 text-right font-normal">
+              <th scope="col" className="label-mono whitespace-nowrap py-2 pr-3 text-right">
                 {s.unexplained}
               </th>
-              <th scope="col" className="whitespace-nowrap py-2 text-right font-normal">
+              <th scope="col" className="label-mono whitespace-nowrap py-2 text-right">
                 {s.declared}
               </th>
             </tr>
@@ -83,45 +173,37 @@ export default function ElectoralSpending({ data, t, bcp47 }: { data: SpendingFi
               const ads = advertising(f);
               const fin = financial(f);
               const declared = f.ordinary.declared || 1;
-              const pct = (n: number) => `${(n / declared) * 100}%`;
+              const seg = (n: number) =>
+                cssPercent((n / declared) * (f.ordinary.declared / (ranked[0]?.ordinary.declared || 1)));
               return (
-                <tr key={f.name} className="border-t border-[var(--line)] align-middle">
-                  <th scope="row" className="py-3 pr-4 text-left font-normal text-[var(--paper)]">
+                <tr key={f.name} style={{ borderBottom: "1px solid var(--line-soft)" }}>
+                  <th scope="row" className="py-3 pr-4 text-left font-normal">
                     {f.name}
                   </th>
                   <td className="py-3 pr-4">
                     {/* Decoration: every figure in it is in the columns beside it. */}
-                    <span
-                      aria-hidden="true"
-                      className="flex h-3 overflow-hidden rounded-sm bg-[var(--ink-3)]"
-                      style={{ width: `${(f.ordinary.declared / max) * 100}%` }}
-                    >
-                      {ads > 0 && (
-                        <span style={{ width: pct(ads), backgroundColor: "var(--gold)" }} />
-                      )}
-                      {fin > 0 && (
-                        <span style={{ width: pct(fin), backgroundColor: "var(--paper-dim)" }} />
-                      )}
+                    <span className="bar-track" aria-hidden style={{ height: 12 }}>
+                      {ads > 0 && <i style={{ width: seg(ads), background: "var(--gold)" }} />}
+                      {fin > 0 && <i style={{ width: seg(fin), background: "var(--grey-500)" }} />}
                       {f.ordinary.otherOrdinary > 0 && (
-                        <span
-                          style={{
-                            width: pct(f.ordinary.otherOrdinary),
-                            backgroundColor: "var(--red)",
-                          }}
-                        />
+                        <i style={{ width: seg(f.ordinary.otherOrdinary), background: "var(--red)" }} />
                       )}
                     </span>
                   </td>
-                  <td className="mono py-3 pr-3 text-right" style={{ color: "var(--gold)" }}>
-                    {ads > 0 ? euroCompact(ads, bcp47) : "—"}
+                  <td
+                    className="mono whitespace-nowrap py-3 pr-3 text-right"
+                    style={{ color: "var(--gold-deep)" }}
+                  >
+                    {ads > 0 ? euroExact(ads, bcp47) : "—"}
                   </td>
-                  <td className="mono py-3 pr-3 text-right" style={{ color: "var(--red)" }}>
-                    {f.ordinary.otherOrdinary > 0
-                      ? euroCompact(f.ordinary.otherOrdinary, bcp47)
-                      : "—"}
+                  <td
+                    className="mono whitespace-nowrap py-3 pr-3 text-right"
+                    style={{ color: "var(--red)" }}
+                  >
+                    {f.ordinary.otherOrdinary > 0 ? euroExact(f.ordinary.otherOrdinary, bcp47) : "—"}
                   </td>
-                  <td className="mono py-3 text-right text-[var(--paper)]">
-                    {euroCompact(f.ordinary.declared, bcp47)}
+                  <td className="mono whitespace-nowrap py-3 text-right">
+                    {euroExact(f.ordinary.declared, bcp47)}
                   </td>
                 </tr>
               );
@@ -130,12 +212,12 @@ export default function ElectoralSpending({ data, t, bcp47 }: { data: SpendingFi
         </table>
       </div>
 
-      <div className="panel mt-10 p-6">
-        <p className="label-mono mb-3 text-[var(--gold)]">{s.gapTitle}</p>
-        <p className="leading-relaxed text-[var(--paper-dim)]">{s.gapBody}</p>
+      <div className="panel mt-8 p-5">
+        <p className="eyebrow mb-2.5">{s.gapTitle}</p>
+        <p style={{ fontSize: "14px", lineHeight: 1.65, color: "var(--ink-2)" }}>{s.gapBody}</p>
       </div>
 
-      <p className="label-mono mt-8">
+      <p className="label-mono mt-6">
         <a className="src" href={data.source.url} target="_blank" rel="noopener noreferrer">
           {data.source.body} · {data.source.report} ↗
         </a>

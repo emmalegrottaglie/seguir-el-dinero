@@ -1,0 +1,308 @@
+import { DONATIONS_2020, DONATIONS_SOURCE } from "@/lib/donations";
+import { euroExact, formatDate, integer } from "@/lib/format";
+import { groupInfo } from "@/lib/groups";
+import { tallyByGroup, voteDateISO, type KeyVote } from "@/lib/votes";
+import { PARTIES } from "@/lib/parties";
+import type { Dict } from "@/lib/i18n";
+
+type Stance = "si" | "no" | "ab";
+
+const STANCE_COLOUR: Record<Stance, string> = {
+  si: "var(--verd)",
+  no: "var(--red)",
+  ab: "var(--abst)",
+};
+
+const W = 980;
+const H = 530;
+const TOP = 48;
+const BOT = H - 18;
+const GAP = 13;
+const MIN_NODE = 6;
+const SOURCE_X = 24;
+const SOURCE_W = 13;
+const PARTY_X = 470;
+const OUT_X = 900;
+const NODE_W = 13;
+
+/**
+ * Declared private donations on the left, the parties in the middle, the
+ * group's vote on the right.
+ *
+ * The two registers are independent and public, and the chart puts them side by
+ * side without joining them causally: the ribbon's thickness is the amount
+ * declared in 2020, and the column it lands in is how that party's group voted
+ * in 2026. A reader can see both at once, which is the point; nothing here
+ * asserts that one produced the other, and the caveat saying so is part of the
+ * chart rather than a footnote under it.
+ *
+ * Only parties whose group maps to them one-to-one appear. A party sitting
+ * inside a composite group — Mixto, Plural — has no group stance of its own,
+ * and attributing the group's majority to it would be exactly the inference
+ * this site refuses to make elsewhere. Those parties are named as excluded
+ * rather than silently dropped.
+ *
+ * Each outcome node is exactly as tall as the ribbons it receives, so the two
+ * columns reconcile without a second scale.
+ */
+export default function VoteFlow({
+  vote,
+  t,
+  bcp47,
+}: {
+  vote: KeyVote;
+  t: Dict;
+  bcp47: string;
+}) {
+  const V = t.voteFlow;
+
+  // Majority stance per group, from its own members' recorded ballots.
+  const stanceByGroup = new Map<string, Stance>();
+  for (const g of tallyByGroup(vote)) {
+    const best = Math.max(g.si, g.no, g.abst);
+    if (best === 0) continue;
+    // A tie has no majority, so the group gets no stance rather than the first
+    // of the tied options.
+    const tied = [g.si, g.no, g.abst].filter((n) => n === best).length > 1;
+    if (tied) continue;
+    stanceByGroup.set(g.group, g.si === best ? "si" : g.no === best ? "no" : "ab");
+  }
+
+  // Party NIF -> stance, but only where a group represents exactly that party.
+  const stanceByNif = new Map<string, Stance>();
+  for (const [code, stance] of stanceByGroup) {
+    const info = groupInfo(vote.legislature, code);
+    if (info?.party) stanceByNif.set(info.party, stance);
+  }
+
+  const included = DONATIONS_2020.filter(
+    (d) => d.nif && stanceByNif.has(d.nif) && d.total.amount > 0,
+  ).sort((a, b) => b.total.amount - a.total.amount);
+  const excluded = DONATIONS_2020.filter((d) => !d.nif || !stanceByNif.has(d.nif));
+
+  const sum = included.reduce((n, d) => n + d.total.amount, 0);
+  if (included.length === 0 || sum === 0) return null;
+
+  // Lay the party column out first: the available height less the gaps, shared
+  // by amount, with a floor so the smallest party is still a visible node.
+  const band = BOT - TOP;
+  const gaps = GAP * (included.length - 1);
+  const usable = band - gaps;
+  const raw = included.map((d) => (d.total.amount / sum) * usable);
+  const lifted = raw.map((h) => Math.max(h, MIN_NODE));
+  // Lifting the small nodes to the floor overshoots the band, so the surplus is
+  // taken back from the nodes that are above it, in proportion.
+  const overshoot = lifted.reduce((n, h) => n + h, 0) - usable;
+  const spare = lifted.reduce((n, h, i) => n + (h > MIN_NODE ? raw[i] : 0), 0);
+  const heights = lifted.map((h, i) =>
+    overshoot > 0 && h > MIN_NODE && spare > 0 ? h - (raw[i] / spare) * overshoot : h,
+  );
+
+  let y = TOP;
+  const nodes = included.map((d, i) => {
+    const node = { d, y, h: heights[i], stance: stanceByNif.get(d.nif!)! };
+    y += heights[i] + GAP;
+    return node;
+  });
+
+  // Outcome column: each node is the sum of the ribbons arriving at it.
+  const order: Stance[] = ["si", "no", "ab"];
+  const present = order.filter((s) => nodes.some((n) => n.stance === s));
+  const outTotal = present.reduce(
+    (n, s) => n + nodes.filter((x) => x.stance === s).reduce((m, x) => m + x.h, 0),
+    0,
+  );
+  const outGaps = GAP * Math.max(0, present.length - 1);
+  let oy = TOP + Math.max(0, (band - outTotal - outGaps) / 2);
+  const outs = present.map((s) => {
+    const h = nodes.filter((x) => x.stance === s).reduce((m, x) => m + x.h, 0);
+    const node = { s, y: oy, h, cursor: oy };
+    oy += h + GAP;
+    return node;
+  });
+  const outBy = new Map(outs.map((o) => [o.s, o]));
+
+  const label: Record<Stance, string> = {
+    si: t.votes.inFavour,
+    no: t.votes.against,
+    ab: t.votes.abstention,
+  };
+
+  const mid = (PARTY_X + NODE_W + OUT_X) / 2;
+  const srcMid = (SOURCE_X + SOURCE_W + PARTY_X) / 2;
+
+  return (
+    <section className="pt-9">
+      <div className="flex flex-wrap items-start justify-between gap-x-10 gap-y-3">
+        <div>
+          <h3 className="display text-[22px] font-semibold" style={{ letterSpacing: "-0.015em" }}>
+            {V.title}
+          </h3>
+          <p className="mono mt-1" style={{ fontSize: "11.5px", color: "var(--ink-3)" }}>
+            {vote.law} · {formatDate(voteDateISO(vote), bcp47)}
+          </p>
+        </div>
+        {/* Ships with the chart, not under it. */}
+        <p
+          className="max-w-[46ch] pl-3.5"
+          style={{
+            borderLeft: "2px solid var(--red)",
+            fontSize: "12px",
+            lineHeight: 1.55,
+            color: "var(--ink-2)",
+          }}
+        >
+          {V.caveat}
+        </p>
+      </div>
+
+      <div className="mt-5 overflow-x-auto">
+        <div className="relative min-w-[62rem]">
+          <svg viewBox={`0 0 ${W} ${H}`} className="block h-auto w-full" aria-hidden>
+            {/* Source: all declared donations, as one bar */}
+            <rect x={SOURCE_X} y={TOP} width={SOURCE_W} height={band} fill="var(--ink)" />
+
+            {nodes.map((n) => {
+              const colour = PARTIES[n.d.nif!]?.color ?? "var(--grey-500)";
+              // Source to party. Both edges of the ribbon are cubics with
+              // control points at the horizontal midpoint, which is what keeps
+              // the band an even thickness through the turn.
+              // The source bar spans the same band the party column is laid
+              // out over, so a ribbon leaves it at its party's own y.
+              const sy0 = n.y;
+              const ribbonIn = [
+                `M ${SOURCE_X + SOURCE_W} ${sy0}`,
+                `C ${srcMid} ${sy0} ${srcMid} ${n.y} ${PARTY_X} ${n.y}`,
+                `L ${PARTY_X} ${n.y + n.h}`,
+                `C ${srcMid} ${n.y + n.h} ${srcMid} ${sy0 + n.h} ${SOURCE_X + SOURCE_W} ${sy0 + n.h}`,
+                "Z",
+              ].join(" ");
+
+              const out = outBy.get(n.stance)!;
+              const oy0 = out.cursor;
+              out.cursor += n.h;
+              const ribbonOut = [
+                `M ${PARTY_X + NODE_W} ${n.y}`,
+                `C ${mid} ${n.y} ${mid} ${oy0} ${OUT_X} ${oy0}`,
+                `L ${OUT_X} ${oy0 + n.h}`,
+                `C ${mid} ${oy0 + n.h} ${mid} ${n.y + n.h} ${PARTY_X + NODE_W} ${n.y + n.h}`,
+                "Z",
+              ].join(" ");
+
+              return (
+                <g key={n.d.nif}>
+                  <path d={ribbonIn} fill={colour} opacity={0.42} />
+                  <path d={ribbonOut} fill={colour} opacity={0.42} />
+                  <rect x={PARTY_X} y={n.y} width={NODE_W} height={n.h} fill={colour} />
+                </g>
+              );
+            })}
+
+            {outs.map((o) => (
+              <rect
+                key={o.s}
+                x={OUT_X}
+                y={o.y}
+                width={NODE_W}
+                height={o.h}
+                fill={STANCE_COLOUR[o.s]}
+              />
+            ))}
+          </svg>
+
+          {/* Labels are HTML over the SVG rather than <text>, so they inherit
+              the page's body face and stay selectable and translatable. */}
+          <div className="pointer-events-none absolute inset-0">
+            <span
+              className="label-mono absolute"
+              style={{ left: `${(SOURCE_X / W) * 100}%`, top: `${(14 / H) * 100}%` }}
+            >
+              {V.sourceHead}
+            </span>
+            <span
+              className="mono absolute"
+              style={{
+                left: `${(SOURCE_X / W) * 100}%`,
+                top: `${(28 / H) * 100}%`,
+                fontSize: "12.5px",
+              }}
+            >
+              {euroExact(sum, bcp47)}
+            </span>
+
+            <span
+              className="label-mono absolute"
+              style={{
+                left: `${(OUT_X / W) * 100}%`,
+                top: `${(14 / H) * 100}%`,
+                transform: "translateX(-100%)",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {V.outcomeHead}
+            </span>
+
+            {nodes.map((n) => (
+              <span key={n.d.nif} className="absolute" style={{ top: `${(n.y / H) * 100}%` }}>
+                <span
+                  className="absolute text-right"
+                  style={{
+                    left: `${(463 / W) * 100 - 20}%`,
+                    width: "20%",
+                    fontSize: "12px",
+                    lineHeight: 1.1,
+                  }}
+                >
+                  {n.d.label}
+                </span>
+                <span
+                  className="mono absolute whitespace-nowrap"
+                  style={{
+                    left: `${(492 / W) * 100}%`,
+                    fontSize: "11.5px",
+                    color: "var(--ink-3)",
+                    lineHeight: 1.1,
+                  }}
+                >
+                  {euroExact(n.d.total.amount, bcp47)}
+                </span>
+              </span>
+            ))}
+
+            {outs.map((o) => (
+              <span
+                key={o.s}
+                className="absolute text-right"
+                style={{
+                  left: `${(892 / W) * 100 - 14}%`,
+                  width: "14%",
+                  top: `${(o.y / H) * 100}%`,
+                  fontSize: "12.5px",
+                  lineHeight: 1.1,
+                  color: "var(--ink)",
+                }}
+              >
+                {label[o.s]}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <p
+        className="mt-4"
+        style={{ fontSize: "12px", lineHeight: 1.55, color: "var(--ink-3)", maxWidth: "88ch" }}
+      >
+        {V.scope
+          .replace("{included}", integer(included.length, bcp47))
+          .replace("{report}", DONATIONS_SOURCE.report.split("—")[0].trim())}
+        {excluded.length > 0 && (
+          <>
+            {" "}
+            {V.excluded} {excluded.map((d) => d.label).join(" · ")}.
+          </>
+        )}
+      </p>
+    </section>
+  );
+}

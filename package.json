@@ -12,7 +12,9 @@
     "discover:votes": "node scripts/discover-votes.mjs",
     "build:foundations": "python scripts/extract-foundations.py",
     "check:feeds": "node scripts/check-feeds.mjs",
-    "build:spending": "python scripts/extract-electoral-spending.py"
+    "build:spending": "python scripts/extract-electoral-spending.py",
+    "build:regions": "node scripts/build-regions.mjs",
+    "build:hate-territory": "python scripts/extract-hate-territory.py"
   },
   "engines": {
     "node": "22.x"
@@ -25,10 +27,14 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.13",
+    "@types/d3-geo": "^3.1.1",
     "@types/node": "^22.15.3",
     "@types/react": "^19.1.9",
     "@types/react-dom": "^19.1.7",
+    "@types/topojson-client": "^3.1.5",
+    "d3-geo": "^3.1.1",
     "tailwindcss": "^4.1.13",
+    "topojson-client": "^3.1.0",
     "typescript": "^5.8.3"
   },
   "overrides": {

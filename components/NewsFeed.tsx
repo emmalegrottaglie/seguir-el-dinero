@@ -53,14 +53,14 @@ export default function NewsFeed({
         Array.from({ length: 4 }).map((_, i) => (
           <div key={i} className="py-4">
             <div
-              className={`h-3 w-2/3 rounded bg-[var(--ink-3)] ${reduce ? "" : "animate-pulse"}`}
+              className={`h-3 w-2/3 rounded bg-[var(--track)] ${reduce ? "" : "animate-pulse"}`}
             />
             <hr className="hairline mt-4" />
           </div>
         ))}
 
       {items?.length === 0 && (
-        <p className="label-mono py-6 text-[var(--paper-faint)]">{f.noRecent}</p>
+        <p className="label-mono py-6 text-[var(--ink-3)]">{f.noRecent}</p>
       )}
 
       {items?.map((n, i) => (
@@ -87,10 +87,10 @@ export default function NewsFeed({
             </span>
           )}
           <span className="min-w-0 flex-1">
-          <p className="text-[var(--paper)] transition-colors group-hover:text-[var(--gold-bright)]">
+          <p className="text-[var(--ink)] transition-colors group-hover:text-[var(--gold-deep)]">
             {n.title}
           </p>
-          <p className="label-mono mt-1.5 flex flex-wrap gap-x-3 gap-y-1 text-[var(--paper-faint)]">
+          <p className="label-mono mt-1.5 flex flex-wrap gap-x-3 gap-y-1 text-[var(--ink-3)]">
             <span style={{ color: n.sourceKind === "org" ? "var(--verd)" : "var(--gold)" }}>
               {n.source}
             </span>

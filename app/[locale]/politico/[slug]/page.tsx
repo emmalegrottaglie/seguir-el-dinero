@@ -14,7 +14,7 @@ export const dynamic = "force-dynamic";
 const BALLOT_COLOR: Record<string, string> = {
   Sí: "var(--gold)",
   No: "var(--red)",
-  Abstención: "var(--paper-faint)",
+  Abstención: "var(--ink-3)",
 };
 
 export default async function PoliticoPage({
@@ -48,7 +48,7 @@ export default async function PoliticoPage({
   }
 
   return (
-    <main className="mx-auto max-w-4xl px-5 pb-8">
+    <main className="mx-auto max-w-4xl pb-8">
       <Link href={`/${locale}/politicos`} className="label-mono inline-block py-4 hover:text-[var(--gold)]">
         {P.backToPeople}
       </Link>
@@ -68,10 +68,10 @@ export default async function PoliticoPage({
                 {party.displayName}
               </Link>
             ) : (
-              <span className="text-[var(--paper-dim)]">{person.partyShort}</span>
+              <span className="text-[var(--ink-2)]">{person.partyShort}</span>
             )}
             {(person.municipality || person.region) && (
-              <span className="text-[var(--paper-faint)]">
+              <span className="text-[var(--ink-3)]">
                 {person.municipality ?? person.region}
               </span>
             )}
@@ -84,37 +84,37 @@ export default async function PoliticoPage({
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div className="panel p-5">
             <p className="label-mono mb-2">{P.pay}</p>
-            <p className="mono text-2xl text-[var(--paper)]">{euro(person.gross, bcp47)}</p>
-            <p className="label-mono mt-1 text-[var(--paper-faint)]">{t.salaries.annual}</p>
+            <p className="mono text-2xl text-[var(--ink)]">{euro(person.gross, bcp47)}</p>
+            <p className="label-mono mt-1 text-[var(--ink-3)]">{t.salaries.annual}</p>
           </div>
           {party && (
             <Link
               href={`/${locale}/party/${party.nif}`}
-              className="panel group p-5 transition-colors hover:border-[var(--line-strong)]"
+              className="panel group p-5 transition-colors hover:border-[var(--line)]"
             >
               <p className="label-mono mb-2">{P.partyFunding}</p>
-              <p className="mono text-2xl text-[var(--gold-bright)]">
+              <p className="mono text-2xl text-[var(--gold-deep)]">
                 {euroCompact(party.total, bcp47)}
               </p>
-              <p className="label-mono mt-1 text-[var(--paper-faint)]">
+              <p className="label-mono mt-1 text-[var(--ink-3)]">
                 {percent(party.share, bcp47)} {t.party.ofNational}
                 {donations && ` · ${euroCompact(donations.total.amount, bcp47)} ${t.party.privateTitle.toLowerCase()}`}
               </p>
             </Link>
           )}
         </div>
-        <p className="label-mono mt-4 text-[var(--paper-faint)]">{P.juxtaposition}</p>
+        <p className="label-mono mt-4 text-[var(--ink-3)]">{P.juxtaposition}</p>
       </section>
 
       {/* Recorded votes on rights legislation */}
       <section className="mt-12">
         <h2 className="display section-tick text-xl">{P.affects}</h2>
-        <p className="label-mono mt-4 text-[var(--paper-faint)]">{P.affectsNote}</p>
+        <p className="label-mono mt-4 text-[var(--ink-3)]">{P.affectsNote}</p>
 
         {record.length === 0 ? (
           <div className="panel mt-8 p-5">
-            <p className="text-[var(--paper-dim)]">{P.noRecord}</p>
-            <p className="label-mono mt-2 text-[var(--paper-faint)]">{P.noRecordExplain}</p>
+            <p className="text-[var(--ink-2)]">{P.noRecord}</p>
+            <p className="label-mono mt-2 text-[var(--ink-3)]">{P.noRecordExplain}</p>
           </div>
         ) : (
           <div className="mt-8 flex flex-col gap-6">
@@ -123,13 +123,13 @@ export default async function PoliticoPage({
                 <p className="label-mono mb-3 text-[var(--gold)]">{topic}</p>
                 <div className="flex flex-col">
                   {items.map(({ vote, ballot, group }) => {
-                    const color = BALLOT_COLOR[ballot] ?? "var(--paper-faint)";
+                    const color = BALLOT_COLOR[ballot] ?? "var(--ink-3)";
                     return (
                       <div key={vote.id}>
                         <div className="grid grid-cols-[1fr_auto] items-baseline gap-4 py-3">
                           <div className="min-w-0">
-                            <p className="text-sm text-[var(--paper)]">{vote.law}</p>
-                            <p className="label-mono mt-1 flex flex-wrap gap-x-3 text-[var(--paper-faint)]">
+                            <p className="text-sm text-[var(--ink)]">{vote.law}</p>
+                            <p className="label-mono mt-1 flex flex-wrap gap-x-3 text-[var(--ink-3)]">
                               <span>
                                 {t.votes.kinds[vote.kind as keyof typeof t.votes.kinds] ??
                                   vote.kindLabel}
@@ -186,7 +186,7 @@ export default async function PoliticoPage({
       {/* News */}
       <section className="mt-14">
         <h2 className="display section-tick text-xl">{t.party.inNews}</h2>
-        <p className="label-mono mt-3 text-[var(--paper-faint)]">{t.party.recentHeadlines}</p>
+        <p className="label-mono mt-3 text-[var(--ink-3)]">{t.party.recentHeadlines}</p>
         <NewsFeed query={person.name} locale={locale} />
       </section>
     </main>

@@ -23,6 +23,8 @@ const es = {
     methodology: "Metodología",
     funding: "Financiación",
     rights: "Derechos",
+    map: "Mapa",
+    foundations: "Fundaciones",
     sectionData: "Datos",
     sectionAbout: "Sobre",
     menu: "Menú",
@@ -53,6 +55,7 @@ const es = {
       "Leyes y mociones sobre derechos trans y LGTBI, salud sexual y reproductiva, y vivienda. Cada posición enlaza al acta oficial.",
   },
   votes: {
+    eyebrow: "Votaciones nominales",
     title: "Votaciones clave",
     intro:
       "Posiciones registradas en votaciones nominales del Congreso sobre asuntos concretos. Cada posición es un voto realmente emitido y verificable, no una opinión atribuida.",
@@ -112,9 +115,53 @@ const es = {
     caveat:
       "Retribución del cargo, no patrimonio ni ingresos privados. Solo cargos marcados como activos en la fuente.",
   },
+  map: {
+    eyebrow: "Mapa territorial",
+    title: "Dónde manda cada partido, y qué consta registrado allí",
+    standfirst:
+      "Pase el cursor para ver la comunidad. Pulse para fijarla en el panel. Las dos capas se muestran por separado y ninguna explica a la otra.",
+    svgLabel: "Mapa de las comunidades autónomas",
+    layerGov: "Gobierno autonómico",
+    layerGovNote:
+      "El partido de quien presidía cada comunidad en la fecha de comprobación, con la fecha en que tomó posesión. No es el resultado de las elecciones ni la composición del gobierno: es quién ocupa la presidencia.",
+    layerHate: "Delitos de odio registrados",
+    layerHateNote:
+      "Tasa de delitos, infracciones administrativas y otros incidentes de odio por cada 100.000 habitantes, 2024. Son hechos conocidos por las fuerzas de seguridad, no condenas: la cifra depende de cuánto se denuncia y de cómo registra cada policía lo que se denuncia.",
+    perHundredThousand: "por 100.000 hab.",
+    panelKicker: "Ficha territorial",
+    rowPresident: "Presidencia",
+    rowParty: "Partido",
+    rowSince: "Desde",
+    rowRecorded: "Hechos conocidos 2024",
+    rowRate: "Tasa por 100.000 hab.",
+    barSogi: "Orientación sexual e identidad de género",
+    barRacism: "Racismo y xenofobia",
+    barsNote:
+      "Dos de las doce motivaciones que distingue el informe, como proporción de los hechos conocidos de esa comunidad.",
+    noData: "No consta",
+    tableCaption:
+      "Un territorio por fila, con las dos capas del mapa como cifras. El orden sigue a la capa activa: por partido en la de gobierno, por tasa en la de delitos de odio.",
+    colTerritory: "Territorio",
+    colRate: "Tasa / 100.000",
+    sourcesTitle: "Fuentes",
+    tablesLabel: "tablas",
+    checkedLabel: "comprobado el",
+    limits:
+      "Los hechos conocidos incluyen infracciones administrativas y otros incidentes, no sólo delitos, y no son condenas. Las dos comunidades con policía autonómica propia —la Policía Foral de Navarra y la Ertzaintza— encabezan la tabla de tasas, lo que dice algo sobre cómo se registra y no necesariamente sobre dónde ocurre más. Un incidente del informe no consta en ningún territorio y por eso las columnas de aquí suman uno menos que la cifra nacional.",
+    missingLayers:
+      "El diseño de esta sección preveía tres capas más: un índice de derechos LGTBI, el estado de las reformas de las leyes trans y el voto a las formaciones que votaron en contra de las normas que este portal sigue. No están porque no hay todavía una fuente citable por comunidad para ninguna de las tres. Tampoco está el sombreado que marcaría las investiduras que dependieron de Vox: cinco presidencias del PP se investieron con sus votos en julio de 2023 y Vox salió de tres de esos gobiernos en julio de 2024, así que un sombreado fijo sería falso para parte del periodo que parecería describir.",
+  },
+  masthead: {
+    edition: "Edición nº 001",
+    live: "Datos en directo · BDNS",
+    place: "Madrid",
+    sources: "Fuentes: BDNS · Tribunal de Cuentas · Congreso",
+    navLabel: "Secciones",
+  },
   footer: {
-    source: "Fuente · BDNS / SNPSAP — infosubvenciones.es",
-    caveat: "Muestra financiación PÚBLICA. Donaciones privadas: ver metodología.",
+    source:
+      "Seguir el Dinero · Datos abiertos BDNS, Tribunal de Cuentas y Congreso de los Diputados",
+    caveat: "Los hechos van uno junto a otro; ninguna causa se afirma",
   },
   common: {
     backToPanel: "← Volver al panel",
@@ -133,6 +180,27 @@ const es = {
     seguridad: "Gastos de seguridad",
     otra: "Otra",
     all: "Todas",
+  },
+  fundingStats: {
+    eyebrow: "Los tres cauces del dinero",
+    subsidies: "Subvenciones del Estado",
+    subsidiesNote: "Total acumulado en la BDNS · actualizado a diario",
+    donations: "Donaciones privadas 2020",
+    donationsNote: "{donors} donantes declarados",
+    electoral: "Gasto electoral 2024",
+    electoralNote: "Gasto ordinario declarado en las europeas",
+    capped: "Publicidad con tope legal",
+    cappedNote: "{amount} · LOREG arts. 55 y 58",
+    residual: "Línea residual sin desglosar",
+    residualNote: "{amount} en una sola partida",
+  },
+  foundationsPage: {
+    eyebrow: "El cauce que corre al revés",
+    titlePre: "Quién paga a las ",
+    titleEmph: "fundaciones",
+    titlePost: " de los partidos, y quién las gobierna",
+    standfirst:
+      "A los partidos les está prohibido aceptar dinero de empresas; a sus fundaciones vinculadas no. Pero en las cifras auditadas el dinero de empresas es la parte pequeña, y casi nueve de cada diez euros que entran los pone el propio partido. Aquí están las entidades, sus cuentas y los patronatos que las dirigen.",
   },
   foundations: {
     title: "Quién paga a las fundaciones de los partidos",
@@ -285,7 +353,7 @@ const es = {
     titlePost: ", canal por canal",
     channelTitle: "Subvenciones estatales a los partidos",
     subtitle:
-      "Tres canales, cada uno con su fuente oficial: lo que el Estado les entrega, lo que declararon haber gastado en una campaña y lo que reciben sus fundaciones vinculadas. Las donaciones privadas a los propios partidos están en la ficha de cada partido.",
+      "Tres canales, cada uno con su fuente oficial: lo que el Estado les entrega, lo que declararon haber gastado en una campaña y lo que declararon recibir de particulares. El dinero de las fundaciones vinculadas tiene su propia sección.",
     intro:
       "El dinero público que el Estado entrega a cada partido, tomado en directo de la Base de Datos Nacional de Subvenciones. Filtra por año y por tipo de ayuda para ver el reparto.",
     totalLabel: "Total concedido (selección)",
@@ -338,7 +406,52 @@ const es = {
     reposted: "↻ Republicado",
     fromOrg: "publicación de la entidad",
   },
+  voteFlow: {
+    title: "Dinero declarado y voto registrado, uno junto a otro",
+    sourceHead: "Donaciones privadas declaradas · 2020",
+    outcomeHead: "Voto del grupo",
+    caveat:
+      "El grosor del trazo es la cuantía declarada, no una relación causal. Los dos registros son públicos, independientes y de años distintos: nada aquí afirma que el uno explique al otro.",
+    scope:
+      "{included} formaciones, las que tienen a la vez donaciones declaradas en el informe y un grupo propio con voto registrado en este llamamiento. Fuente del dinero: {report}.",
+    excluded:
+      "Quedan fuera, por no tener grupo propio en esta legislatura o no constar en el informe:",
+  },
+  donationsTable: {
+    title: "Donaciones privadas declaradas, 2020",
+    caption:
+      "Una formación por fila, ordenadas por importe declarado. La barra reparte el total de cada partido entre los tres tramos del informe y está escalada contra el mayor total, no contra el total nacional.",
+    rank: "Nº",
+    party: "Formación",
+    byTranche: "Reparto por tramos",
+    total: "Total",
+    donors: "Donantes",
+    donorsWord: "donantes",
+    tranchesNote:
+      "Tramos del informe: menos de 1.000 €, de 1.000 a 10.000 €, más de 10.000 €.",
+    trancheSmall: "Menos de 1.000 €",
+    trancheMid: "De 1.000 a 10.000 €",
+    trancheLarge: "Más de 10.000 €",
+    legalNote:
+      "Las empresas no pueden donar a los partidos desde la reforma de 2015 de la LO 8/2007: sólo personas físicas, con un máximo de 50.000 € al año y sin donaciones anónimas. No existe una cifra de financiación por político, y esta web no la calcula.",
+  },
   spending: {
+    eyebrow: "Gasto electoral · europeas de 2024",
+    donutCentre: "DECLARADO",
+    donutCaption:
+      "Gasto ordinario declarado por cada formación en las elecciones europeas del 9 de junio de 2024.",
+    linesTitle: "En qué se declaró gastado",
+    lineAdvertising: "Publicidad exterior y en prensa y radio",
+    lineAdvertisingNote:
+      "Los dos únicos gastos con límite legal propio: arts. 55 y 58 de la LOREG.",
+    lineResidual: "Línea residual, sin desglose en el informe",
+    lineResidualNote:
+      "«Otros gastos ordinarios». Es la mayor parte del gasto y el informe no dice en qué se fue.",
+    lineFinancial: "Costes financieros y otros conceptos",
+    lineFinancialNote: "Intereses liquidados y estimados de las operaciones de crédito.",
+    lineMailings: "Envíos postales, aparte del gasto ordinario",
+    lineMailingsNote:
+      "{count} envíos con derecho a subvención. No entran en el gasto ordinario ni en el límite general, así que no tienen porcentaje de esa cifra: la barra va completa para decir que el denominador es otro.",
     title: "En qué se declaró gastado el dinero electoral",
     intro:
       "El Tribunal de Cuentas fiscaliza las cuentas de cada elección y desglosa el gasto declarado. Sólo dos tipos de publicidad tienen límite legal y aparecen detallados; el resto del gasto ordinario se agrupa en una única línea que el informe no desglosa.",
@@ -448,6 +561,8 @@ const en: Dict = {
     methodology: "Methodology",
     funding: "Funding",
     rights: "Rights",
+    map: "Map",
+    foundations: "Foundations",
     sectionData: "Data",
     sectionAbout: "About",
     menu: "Menu",
@@ -478,6 +593,7 @@ const en: Dict = {
       "Laws and motions on trans and LGBTI rights, sexual and reproductive health, and housing. Every position links to the official record.",
   },
   votes: {
+    eyebrow: "Recorded divisions",
     title: "Key votes",
     intro:
       "Positions recorded in roll-call votes of the Congress on specific items. Each position is a ballot actually cast and verifiable, not an opinion attributed to anyone.",
@@ -537,9 +653,53 @@ const en: Dict = {
     caveat:
       "Pay for the post — not personal wealth or private income. Only posts marked active in the source.",
   },
+  map: {
+    eyebrow: "Territorial map",
+    title: "Where each party governs, and what is on record there",
+    standfirst:
+      "Hover to read a community. Click to pin it to the panel. The two layers are shown separately and neither explains the other.",
+    svgLabel: "Map of the autonomous communities",
+    layerGov: "Regional government",
+    layerGovNote:
+      "The party of whoever held each community's presidency on the date checked, with the date they took office. It is not the election result and not the composition of the government: it is who holds the presidency.",
+    layerHate: "Recorded hate crime",
+    layerHateNote:
+      "Rate of hate offences, administrative infractions and other incidents per 100,000 inhabitants, 2024. These are facts recorded by the security forces, not convictions: the figure depends on how much is reported and on how each police force records what is reported.",
+    perHundredThousand: "per 100,000",
+    panelKicker: "Territorial record",
+    rowPresident: "President",
+    rowParty: "Party",
+    rowSince: "In office since",
+    rowRecorded: "Recorded, 2024",
+    rowRate: "Rate per 100,000",
+    barSogi: "Sexual orientation and gender identity",
+    barRacism: "Racism and xenophobia",
+    barsNote:
+      "Two of the twelve motivations the report distinguishes, as a proportion of that community's recorded facts.",
+    noData: "Not on record",
+    tableCaption:
+      "One territory per row, with both map layers as figures. The order follows the active layer: by party on the government layer, by rate on the hate-crime one.",
+    colTerritory: "Territory",
+    colRate: "Rate / 100,000",
+    sourcesTitle: "Sources",
+    tablesLabel: "tables",
+    checkedLabel: "checked",
+    limits:
+      "Recorded facts include administrative infractions and other incidents, not only offences, and they are not convictions. The two communities with their own regional police forces — the Policía Foral de Navarra and the Ertzaintza — head the rate table, which says something about how incidents are recorded and not necessarily about where more of them happen. One incident in the report is recorded in no territory at all, which is why the columns here sum to one less than the national figure.",
+    missingLayers:
+      "This section was designed with three further layers: an LGBTI rights index, the state of trans-law reform, and vote share for the formations that voted against the measures this site tracks. They are absent because there is no citable per-community source for any of the three yet. So is the hatching that would mark investitures dependent on Vox: five PP presidencies were invested with its votes in July 2023 and Vox then left three of those governments in July 2024, so one fixed overlay would be false for part of the period it appeared to describe.",
+  },
+  masthead: {
+    edition: "Edition no. 001",
+    live: "Live data · BDNS",
+    place: "Madrid",
+    sources: "Sources: BDNS · Court of Auditors · Congress",
+    navLabel: "Sections",
+  },
   footer: {
-    source: "Source · BDNS / SNPSAP — infosubvenciones.es",
-    caveat: "Shows PUBLIC funding. Private donations: see methodology.",
+    source:
+      "Seguir el Dinero · Open data from the BDNS, the Court of Auditors and the Congress of Deputies",
+    caveat: "Facts are placed side by side; no cause is asserted",
   },
   common: {
     backToPanel: "← Back to dashboard",
@@ -558,6 +718,27 @@ const en: Dict = {
     seguridad: "Security costs",
     otra: "Other",
     all: "All",
+  },
+  fundingStats: {
+    eyebrow: "The three channels the money runs through",
+    subsidies: "State subsidies",
+    subsidiesNote: "Running total in the BDNS · updated daily",
+    donations: "Private donations, 2020",
+    donationsNote: "{donors} declared donors",
+    electoral: "Electoral spending, 2024",
+    electoralNote: "Ordinary spending declared for the European elections",
+    capped: "Advertising under a legal cap",
+    cappedNote: "{amount} · LOREG arts. 55 and 58",
+    residual: "Residual line, not broken down",
+    residualNote: "{amount} in a single item",
+  },
+  foundationsPage: {
+    eyebrow: "The channel that runs the other way",
+    titlePre: "Who pays the parties’ ",
+    titleEmph: "foundations",
+    titlePost: ", and who governs them",
+    standfirst:
+      "Parties may accept no corporate money at all; their linked foundations may. But in the audited figures corporate money is the small part, and nearly nine in every ten euros coming in are put there by the party itself. Here are the entities, their accounts, and the boards that run them.",
   },
   foundations: {
     title: "Who pays the parties' foundations",
@@ -710,7 +891,7 @@ const en: Dict = {
     titlePost: " by channel",
     channelTitle: "State subsidies to the parties",
     subtitle:
-      "Three channels, each with its own official source: what the state hands them, what they declared spending on a campaign, and what their linked foundations receive. Private donations to the parties themselves are on each party’s own page.",
+      "Three channels, each with its own official source: what the state hands them, what they declared spending on a campaign, and what they declared receiving from individuals. The money reaching their linked foundations has a section of its own.",
     intro:
       "The public money the State hands each party, pulled live from the National Subsidies Database. Filter by year and aid type to see the split.",
     totalLabel: "Total awarded (selection)",
@@ -763,7 +944,52 @@ const en: Dict = {
     reposted: "↻ Reposted",
     fromOrg: "organisation's own post",
   },
+  voteFlow: {
+    title: "Declared money and recorded vote, side by side",
+    sourceHead: "Declared private donations · 2020",
+    outcomeHead: "Group’s vote",
+    caveat:
+      "The thickness of a ribbon is the amount declared, not a causal relation. The two registers are public, independent and from different years: nothing here asserts that one explains the other.",
+    scope:
+      "{included} formations — those with both declared donations in the report and a group of their own with a recorded vote in this division. Money source: {report}.",
+    excluded:
+      "Left out, for having no group of their own in this legislature or not appearing in the report:",
+  },
+  donationsTable: {
+    title: "Declared private donations, 2020",
+    caption:
+      "One formation per row, ordered by declared amount. The bar splits each party's total across the report's three tranches and is scaled against the largest total, not against the national one.",
+    rank: "No.",
+    party: "Formation",
+    byTranche: "Split by tranche",
+    total: "Total",
+    donors: "Donors",
+    donorsWord: "donors",
+    tranchesNote:
+      "The report's tranches: under €1,000, €1,000–10,000, over €10,000.",
+    trancheSmall: "Under €1,000",
+    trancheMid: "€1,000–10,000",
+    trancheLarge: "Over €10,000",
+    legalNote:
+      "Companies have not been able to donate to parties since the 2015 reform of LO 8/2007: natural persons only, capped at €50,000 a year, with no anonymous gifts. There is no per-politician funding figure, and this site does not compute one.",
+  },
   spending: {
+    eyebrow: "Electoral spending · 2024 European elections",
+    donutCentre: "DECLARED",
+    donutCaption:
+      "Ordinary spending declared by each formation for the European elections of 9 June 2024.",
+    linesTitle: "What it was declared to have bought",
+    lineAdvertising: "Outdoor, press and radio advertising",
+    lineAdvertisingNote:
+      "The only two kinds of spending with a cap of their own: LOREG arts. 55 and 58.",
+    lineResidual: "Residual line, not broken down in the report",
+    lineResidualNote:
+      "“Otros gastos ordinarios”. It is most of the spending, and the report does not say where it went.",
+    lineFinancial: "Financial costs and other items",
+    lineFinancialNote: "Settled and estimated interest on credit facilities.",
+    lineMailings: "Mailings, accounted separately from ordinary spending",
+    lineMailingsNote:
+      "{count} mailings carrying a subsidy entitlement. They are outside ordinary spending and outside the general cap, so they have no share of that figure: the bar runs full width to say the denominator is a different one.",
     title: "What the electoral money was declared to have bought",
     intro:
       "The Tribunal de Cuentas audits each election's accounts and itemises the declared spending. Only two kinds of advertising carry a legal cap and appear broken out; the rest of ordinary spending is grouped into a single line the report does not break down.",
@@ -871,6 +1097,8 @@ const ca: Dict = {
     methodology: "Metodologia",
     funding: "Finançament",
     rights: "Drets",
+    map: "Mapa",
+    foundations: "Fundacions",
     sectionData: "Dades",
     sectionAbout: "Sobre",
     menu: "Menú",
@@ -901,6 +1129,7 @@ const ca: Dict = {
       "Lleis i mocions sobre drets trans i LGBTI, salut sexual i reproductiva, i habitatge. Cada posició enllaça a l'acta oficial.",
   },
   votes: {
+    eyebrow: "Votacions nominals",
     title: "Votacions clau",
     intro:
       "Posicions registrades en votacions nominals del Congrés sobre assumptes concrets. Cada posició és un vot realment emès i verificable, no una opinió atribuïda.",
@@ -960,9 +1189,53 @@ const ca: Dict = {
     caveat:
       "Retribució del càrrec, no patrimoni ni ingressos privats. Només càrrecs marcats com a actius a la font.",
   },
+  map: {
+    eyebrow: "Mapa territorial",
+    title: "On manà cada partit, i què hi consta registrat",
+    standfirst:
+      "Passeu el cursor per veure la comunitat. Premeu per fixar-la al panell. Les dues capes es mostren per separat i cap no explica l'altra.",
+    svgLabel: "Mapa de les comunitats autònomes",
+    layerGov: "Govern autonòmic",
+    layerGovNote:
+      "El partit de qui presidia cada comunitat a la data de comprovació, amb la data en què va prendre possessió. No és el resultat de les eleccions ni la composició del govern: és qui ocupa la presidència.",
+    layerHate: "Delictes d'odi registrats",
+    layerHateNote:
+      "Taxa de delictes, infraccions administratives i altres incidents d'odi per cada 100.000 habitants, 2024. Són fets coneguts per les forces de seguretat, no condemnes: la xifra depèn de quant es denuncia i de com registra cada policia el que es denuncia.",
+    perHundredThousand: "per 100.000 hab.",
+    panelKicker: "Fitxa territorial",
+    rowPresident: "Presidència",
+    rowParty: "Partit",
+    rowSince: "Des de",
+    rowRecorded: "Fets coneguts 2024",
+    rowRate: "Taxa per 100.000 hab.",
+    barSogi: "Orientació sexual i identitat de gènere",
+    barRacism: "Racisme i xenofòbia",
+    barsNote:
+      "Dues de les dotze motivacions que distingeix l'informe, com a proporció dels fets coneguts d'aquella comunitat.",
+    noData: "No consta",
+    tableCaption:
+      "Un territori per fila, amb les dues capes del mapa com a xifres. L'ordre segueix la capa activa: per partit a la de govern, per taxa a la de delictes d'odi.",
+    colTerritory: "Territori",
+    colRate: "Taxa / 100.000",
+    sourcesTitle: "Fonts",
+    tablesLabel: "taules",
+    checkedLabel: "comprovat el",
+    limits:
+      "Els fets coneguts inclouen infraccions administratives i altres incidents, no només delictes, i no són condemnes. Les dues comunitats amb policia autonòmica pròpia —la Policia Foral de Navarra i l'Ertzaintza— encapçalen la taula de taxes, cosa que diu alguna cosa sobre com es registra i no necessàriament sobre on passa més. Un incident de l'informe no consta en cap territori, i per això les columnes d'aquí sumen un menys que la xifra estatal.",
+    missingLayers:
+      "El disseny d'aquesta secció preveia tres capes més: un índex de drets LGTBI, l'estat de les reformes de les lleis trans i el vot a les formacions que van votar en contra de les normes que aquest portal segueix. No hi són perquè encara no hi ha una font citable per comunitat per a cap de les tres. Tampoc no hi és l'ombrejat que marcaria les investidures que van dependre de Vox: cinc presidències del PP es van investir amb els seus vots el juliol del 2023 i Vox va sortir de tres d'aquells governs el juliol del 2024, així que un ombrejat fix seria fals per a part del període que semblaria descriure.",
+  },
+  masthead: {
+    edition: "Edició nº 001",
+    live: "Dades en directe · BDNS",
+    place: "Madrid",
+    sources: "Fonts: BDNS · Tribunal de Comptes · Congrés",
+    navLabel: "Seccions",
+  },
   footer: {
-    source: "Font · BDNS / SNPSAP — infosubvenciones.es",
-    caveat: "Mostra finançament PÚBLIC. Donacions privades: vegeu metodologia.",
+    source:
+      "Seguir el Dinero · Dades obertes de la BDNS, el Tribunal de Comptes i el Congrés dels Diputats",
+    caveat: "Els fets van un al costat de l’altre; no s’afirma cap causa",
   },
   common: {
     backToPanel: "← Tornar al tauler",
@@ -981,6 +1254,27 @@ const ca: Dict = {
     seguridad: "Despeses de seguretat",
     otra: "Altra",
     all: "Totes",
+  },
+  fundingStats: {
+    eyebrow: "Els tres canals del diner",
+    subsidies: "Subvencions de l'Estat",
+    subsidiesNote: "Total acumulat a la BDNS · actualitzat diàriament",
+    donations: "Donacions privades 2020",
+    donationsNote: "{donors} donants declarats",
+    electoral: "Despesa electoral 2024",
+    electoralNote: "Despesa ordinària declarada a les europees",
+    capped: "Publicitat amb límit legal",
+    cappedNote: "{amount} · LOREG arts. 55 i 58",
+    residual: "Línia residual sense desglossar",
+    residualNote: "{amount} en una sola partida",
+  },
+  foundationsPage: {
+    eyebrow: "El canal que corre a l'inrevés",
+    titlePre: "Qui paga les ",
+    titleEmph: "fundacions",
+    titlePost: " dels partits, i qui les governa",
+    standfirst:
+      "Als partits els està prohibit acceptar diners d'empreses; a les seves fundacions vinculades no. Però en les xifres auditades el diner d'empreses és la part petita, i gairebé nou de cada deu euros que entren els posa el mateix partit. Aquí hi ha les entitats, els seus comptes i els patronats que les dirigeixen.",
   },
   foundations: {
     title: "Qui paga les fundacions dels partits",
@@ -1133,7 +1427,7 @@ const ca: Dict = {
     titlePost: ", canal per canal",
     channelTitle: "Subvencions estatals als partits",
     subtitle:
-      "Tres canals, cada un amb la seva font oficial: el que l’Estat els lliura, el que van declarar haver gastat en una campanya i el que reben les seves fundacions vinculades. Les donacions privades als mateixos partits són a la fitxa de cada partit.",
+      "Tres canals, cada un amb la seva font oficial: el que l’Estat els lliura, el que van declarar haver gastat en una campanya i el que van declarar rebre de particulars. El diner de les fundacions vinculades té la seva pròpia secció.",
     intro:
       "Els diners públics que l'Estat lliura a cada partit, extrets en directe de la Base de Dades Nacional de Subvencions. Filtra per any i per tipus d'ajut per veure el repartiment.",
     totalLabel: "Total concedit (selecció)",
@@ -1186,7 +1480,52 @@ const ca: Dict = {
     reposted: "↻ Republicat",
     fromOrg: "publicació de l'entitat",
   },
+  voteFlow: {
+    title: "Diner declarat i vot registrat, un al costat de l’altre",
+    sourceHead: "Donacions privades declarades · 2020",
+    outcomeHead: "Vot del grup",
+    caveat:
+      "El gruix del traç és la quantia declarada, no una relació causal. Els dos registres són públics, independents i d’anys diferents: res d’això afirma que l’un expliqui l’altre.",
+    scope:
+      "{included} formacions, les que tenen alhora donacions declarades a l’informe i un grup propi amb vot registrat en aquesta votació. Font del diner: {report}.",
+    excluded:
+      "En queden fora, per no tenir grup propi en aquesta legislatura o no constar a l’informe:",
+  },
+  donationsTable: {
+    title: "Donacions privades declarades, 2020",
+    caption:
+      "Una formació per fila, ordenades per import declarat. La barra reparteix el total de cada partit entre els tres trams de l'informe i està escalada contra el total més alt, no contra el total estatal.",
+    rank: "Núm.",
+    party: "Formació",
+    byTranche: "Repartiment per trams",
+    total: "Total",
+    donors: "Donants",
+    donorsWord: "donants",
+    tranchesNote:
+      "Trams de l'informe: menys de 1.000 €, de 1.000 a 10.000 €, més de 10.000 €.",
+    trancheSmall: "Menys de 1.000 €",
+    trancheMid: "De 1.000 a 10.000 €",
+    trancheLarge: "Més de 10.000 €",
+    legalNote:
+      "Les empreses no poden donar als partits des de la reforma del 2015 de la LO 8/2007: només persones físiques, amb un màxim de 50.000 € l'any i sense donacions anònimes. No existeix una xifra de finançament per polític, i aquesta web no la calcula.",
+  },
   spending: {
+    eyebrow: "Despesa electoral · europees del 2024",
+    donutCentre: "DECLARAT",
+    donutCaption:
+      "Despesa ordinària declarada per cada formació a les eleccions europees del 9 de juny de 2024.",
+    linesTitle: "En què es va declarar gastat",
+    lineAdvertising: "Publicitat exterior i a premsa i ràdio",
+    lineAdvertisingNote:
+      "Les dues úniques despeses amb límit legal propi: arts. 55 i 58 de la LOREG.",
+    lineResidual: "Línia residual, sense desglossament a l'informe",
+    lineResidualNote:
+      "«Otros gastos ordinarios». És la major part de la despesa i l'informe no diu on va anar.",
+    lineFinancial: "Costos financers i altres conceptes",
+    lineFinancialNote: "Interessos liquidats i estimats de les operacions de crèdit.",
+    lineMailings: "Enviaments postals, a part de la despesa ordinària",
+    lineMailingsNote:
+      "{count} enviaments amb dret a subvenció. No entren en la despesa ordinària ni en el límit general, així que no tenen percentatge d'aquella xifra: la barra va completa per dir que el denominador és un altre.",
     title: "En què es va declarar gastat el diner electoral",
     intro:
       "El Tribunal de Comptes fiscalitza els comptes de cada elecció i desglossa la despesa declarada. Només dos tipus de publicitat tenen límit legal i apareixen detallats; la resta de la despesa ordinària s'agrupa en una única línia que l'informe no desglossa.",

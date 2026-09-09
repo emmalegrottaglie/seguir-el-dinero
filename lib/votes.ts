@@ -79,6 +79,27 @@ export async function positionsFor(name: string): Promise<RecordedPosition[]> {
   return out;
 }
 
+/**
+ * The date of a division as an ISO day, from the D/M/YYYY the Congreso's own
+ * record publishes.
+ *
+ * Two things go wrong without this. `new Date("25/6/2026")` is invalid, so
+ * anything formatting the raw string throws; and sorting the raw strings is
+ * lexicographic, which puts 25/6/2026 before 27/11/2025 and quietly picks the
+ * wrong division as the most recent.
+ */
+export function voteDateISO(vote: Pick<KeyVote, "date">): string {
+  const [d, m, y] = vote.date.split("/").map(Number);
+  if (!d || !m || !y) throw new Error(`unparseable vote date: ${vote.date}`);
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return `${y}-${pad(m)}-${pad(d)}`;
+}
+
+/** Divisions newest first, by their actual date rather than by string order. */
+export function newestFirst(votes: KeyVote[]): KeyVote[] {
+  return [...votes].sort((a, b) => voteDateISO(b).localeCompare(voteDateISO(a)));
+}
+
 export interface GroupTally {
   group: string;
   si: number;

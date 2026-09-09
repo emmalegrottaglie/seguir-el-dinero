@@ -46,3 +46,8 @@ data/_*.json
 # Python bytecode from the extractor scripts.
 __pycache__/
 *.pyc
+
+# Design handoff bundles: inputs, not product. They carry a third-party
+# streaming-template runtime the handoff itself says not to port, and the
+# decisions that matter are recorded in the code and CHANGELOG.md.
+/Spain LGBT Rights Dashboard/

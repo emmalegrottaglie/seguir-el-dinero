@@ -42,9 +42,9 @@ export default function FoundationChannel({
   const gov = governanceCoverage(ranked.map((e) => e.name));
 
   return (
-    <section className="mx-auto mt-20 max-w-6xl px-5">
+    <section className="mx-auto mt-20 max-w-6xl">
       <h2 className="display section-tick text-2xl">{F.title}</h2>
-      <p className="mt-6 max-w-3xl text-[var(--paper-dim)]">{F.intro}</p>
+      <p className="mt-6 max-w-3xl text-[var(--ink-2)]">{F.intro}</p>
 
       {/* Party money first: it is nine tenths of the total and the least
           expected, so putting the corporate figure here would mislead by
@@ -52,10 +52,10 @@ export default function FoundationChannel({
       <div className="mt-8 flex flex-wrap gap-x-10 gap-y-6">
         <div>
           <p className="label-mono mb-2">{F.fromParty}</p>
-          <p className="mono text-2xl text-[var(--gold-bright)]">
+          <p className="mono text-2xl text-[var(--gold-deep)]">
             {euroCompact(totals.party, bcp47)}
           </p>
-          <p className="label-mono mt-1 text-[var(--paper-faint)]">
+          <p className="label-mono mt-1 text-[var(--ink-3)]">
             {percent(totals.partyShare, bcp47)} {F.ofContributions}
           </p>
         </div>
@@ -64,16 +64,16 @@ export default function FoundationChannel({
           <p className="mono text-2xl text-[var(--red)]">
             {euroCompact(totals.companies, bcp47)}
           </p>
-          <p className="label-mono mt-1 text-[var(--paper-faint)]">
+          <p className="label-mono mt-1 text-[var(--ink-3)]">
             {percent(totals.companiesShare, bcp47)} {F.ofContributions}
           </p>
         </div>
         <div>
           <p className="label-mono mb-2">{F.fromIndividuals}</p>
-          <p className="mono text-2xl text-[var(--paper)]">
+          <p className="mono text-2xl text-[var(--ink)]">
             {euroCompact(totals.individuals, bcp47)}
           </p>
-          <p className="label-mono mt-1 text-[var(--paper-faint)]">
+          <p className="label-mono mt-1 text-[var(--ink-3)]">
             {percent(totals.individualsShare, bcp47)} {F.ofContributions}
           </p>
         </div>
@@ -82,20 +82,20 @@ export default function FoundationChannel({
           <p className="mono text-2xl text-[var(--gold)]">
             {euroCompact(totals.subsidies, bcp47)}
           </p>
-          <p className="label-mono mt-1 max-w-xs text-[var(--paper-faint)]">{F.publicNote}</p>
+          <p className="label-mono mt-1 max-w-xs text-[var(--ink-3)]">{F.publicNote}</p>
         </div>
       </div>
 
       {/* The only companies the report names, with the disclosure verdict. */}
       <h3 className="display mt-14 text-xl">{F.counterpartyTitle}</h3>
-      <p className="mt-3 max-w-3xl text-sm leading-relaxed text-[var(--paper-dim)]">
+      <p className="mt-3 max-w-3xl text-sm leading-relaxed text-[var(--ink-2)]">
         {F.counterpartyNote}
       </p>
       <div className="mt-6 overflow-x-auto">
         <table className="w-full min-w-[46rem] border-collapse text-sm">
           <caption className="sr-only">{F.counterpartyTitle}</caption>
           <thead>
-            <tr className="label-mono text-left text-[var(--paper-faint)]">
+            <tr className="label-mono text-left text-[var(--ink-3)]">
               <th scope="col" className="py-2 pr-4 font-normal">
                 {F.counterparty}
               </th>
@@ -119,17 +119,17 @@ export default function FoundationChannel({
           <tbody>
             {deals.map((d, i) => (
               <tr key={`${d.slug}-${d.exercise}-${i}`} className="border-t border-[var(--line)]">
-                <th scope="row" className="py-3 pr-4 text-left font-normal text-[var(--paper)]">
+                <th scope="row" className="py-3 pr-4 text-left font-normal text-[var(--ink)]">
                   {d.counterparties.join(" · ")}
                 </th>
-                <td className="py-3 pr-4 text-[var(--paper-dim)]">
+                <td className="py-3 pr-4 text-[var(--ink-2)]">
                   <Link className="hover:text-[var(--gold)]" href={`/${locale}/fundacion/${d.slug}`}>
                     {displayName(d.entity)}
                   </Link>
                 </td>
-                <td className="mono py-3 pr-4 text-[var(--paper-faint)]">{d.exercise}</td>
-                <td className="py-3 pr-4 text-[var(--paper-faint)]">{d.consideration ?? "—"}</td>
-                <td className="mono py-3 pr-4 text-right text-[var(--paper)]">
+                <td className="mono py-3 pr-4 text-[var(--ink-3)]">{d.exercise}</td>
+                <td className="py-3 pr-4 text-[var(--ink-3)]">{d.consideration ?? "—"}</td>
+                <td className="mono py-3 pr-4 text-right text-[var(--ink)]">
                   {d.amount === null ? "—" : euro(d.amount, bcp47)}
                 </td>
                 <td
@@ -139,8 +139,8 @@ export default function FoundationChannel({
                       d.compliant === false
                         ? "var(--red)"
                         : d.compliant === true
-                          ? "var(--paper-dim)"
-                          : "var(--paper-faint)",
+                          ? "var(--ink-2)"
+                          : "var(--ink-3)",
                   }}
                 >
                   {d.compliant === false
@@ -158,14 +158,14 @@ export default function FoundationChannel({
       {/* Every audited entity, so the named deals above are not mistaken for
           the whole channel. */}
       <h3 className="display mt-14 text-xl">{F.tableTitle}</h3>
-      <p className="mt-3 max-w-3xl text-sm leading-relaxed text-[var(--paper-dim)]">
+      <p className="mt-3 max-w-3xl text-sm leading-relaxed text-[var(--ink-2)]">
         {F.tableNote}
       </p>
       <div className="mt-6 overflow-x-auto">
         <table className="w-full min-w-[48rem] border-collapse text-sm">
           <caption className="sr-only">{F.tableTitle}</caption>
           <thead>
-            <tr className="label-mono text-left text-[var(--paper-faint)]">
+            <tr className="label-mono text-left text-[var(--ink-3)]">
               <th scope="col" className="py-2 pr-4 font-normal">
                 {F.entity}
               </th>
@@ -195,42 +195,42 @@ export default function FoundationChannel({
               const pct = (n: number) => `${all > 0 ? (n / all) * 100 : 0}%`;
               return (
                 <tr key={e.slug} className="border-t border-[var(--line)] align-middle">
-                  <th scope="row" className="py-3 pr-4 text-left font-normal text-[var(--paper)]">
+                  <th scope="row" className="py-3 pr-4 text-left font-normal text-[var(--ink)]">
                     <Link className="hover:text-[var(--gold)]" href={`/${locale}/fundacion/${e.slug}`}>
                       {displayName(e.name)}
                     </Link>
                   </th>
-                  <td className="py-3 pr-4 text-[var(--paper-dim)]">
+                  <td className="py-3 pr-4 text-[var(--ink-2)]">
                     {e.partyNif ? (
                       <Link className="hover:text-[var(--gold)]" href={`/${locale}/party/${e.partyNif}`}>
                         {e.party}
                       </Link>
                     ) : (
-                      (e.party ?? <span className="text-[var(--paper-faint)]">{F.noPartyStated}</span>)
+                      (e.party ?? <span className="text-[var(--ink-3)]">{F.noPartyStated}</span>)
                     )}
                   </td>
                   <td className="py-3 pr-4">
                     {/* Decoration: every figure in it is in the columns beside it. */}
                     <span
                       aria-hidden="true"
-                      className="flex h-3 overflow-hidden rounded-sm bg-[var(--ink-3)]"
+                      className="flex h-3 overflow-hidden rounded-sm bg-[var(--track)]"
                       style={{ width: `${(all / max) * 100}%` }}
                     >
                       {e.party_ > 0 && (
-                        <span style={{ width: pct(e.party_), backgroundColor: "var(--gold-bright)" }} />
+                        <span style={{ width: pct(e.party_), backgroundColor: "var(--gold-deep)" }} />
                       )}
                       {e.companies > 0 && (
                         <span style={{ width: pct(e.companies), backgroundColor: "var(--red)" }} />
                       )}
                       {e.individuals > 0 && (
-                        <span style={{ width: pct(e.individuals), backgroundColor: "var(--paper-dim)" }} />
+                        <span style={{ width: pct(e.individuals), backgroundColor: "var(--ink-2)" }} />
                       )}
                       {e.subsidies > 0 && (
                         <span style={{ width: pct(e.subsidies), backgroundColor: "var(--gold)" }} />
                       )}
                     </span>
                   </td>
-                  <td className="mono py-3 pr-3 text-right" style={{ color: "var(--gold-bright)" }}>
+                  <td className="mono py-3 pr-3 text-right" style={{ color: "var(--gold-deep)" }}>
                     {e.party_ > 0 ? euroCompact(e.party_, bcp47) : "—"}
                   </td>
                   <td className="mono py-3 pr-3 text-right" style={{ color: "var(--red)" }}>
@@ -239,7 +239,7 @@ export default function FoundationChannel({
                   <td className="mono py-3 pr-3 text-right" style={{ color: "var(--gold)" }}>
                     {e.subsidies > 0 ? euroCompact(e.subsidies, bcp47) : "—"}
                   </td>
-                  <td className="mono py-3 text-right text-[var(--paper-dim)]">
+                  <td className="mono py-3 text-right text-[var(--ink-2)]">
                     {e.findingCount > 0 ? integer(e.findingCount, bcp47) : "—"}
                   </td>
                 </tr>
@@ -252,15 +252,15 @@ export default function FoundationChannel({
       <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2">
         <div className="panel p-6">
           <p className="label-mono mb-3 text-[var(--gold)]">{F.registerTitle}</p>
-          <p className="leading-relaxed text-[var(--paper-dim)]">{F.registerBody}</p>
-          <p className="label-mono mt-4 text-[var(--paper-faint)]">
+          <p className="leading-relaxed text-[var(--ink-2)]">{F.registerBody}</p>
+          <p className="label-mono mt-4 text-[var(--ink-3)]">
             {integer(reg.registered, bcp47)} / {integer(reg.total, bcp47)} {F.entities} ·{" "}
             {reg.exercise}
           </p>
         </div>
         <div className="panel p-6">
           <p className="label-mono mb-3 text-[var(--gold)]">{F.repeatedTitle}</p>
-          <p className="leading-relaxed text-[var(--paper-dim)]">{F.repeatedBody}</p>
+          <p className="leading-relaxed text-[var(--ink-2)]">{F.repeatedBody}</p>
         </div>
       </div>
 
@@ -269,7 +269,7 @@ export default function FoundationChannel({
           forty boards into one list. */}
       <div className="panel mt-6 p-6">
         <p className="label-mono mb-3 text-[var(--gold)]">{F.peopleCoverageTitle}</p>
-        <p className="leading-relaxed text-[var(--paper-dim)]">
+        <p className="leading-relaxed text-[var(--ink-2)]">
           {F.peopleCoverage
             .replace("{documented}", integer(gov.documented, bcp47))
             .replace("{entities}", integer(gov.entities, bcp47))
@@ -284,7 +284,7 @@ export default function FoundationChannel({
 
       <div className="panel mt-6 p-6">
         <p className="label-mono mb-3 text-[var(--gold)]">{F.legalTitle}</p>
-        <p className="leading-relaxed text-[var(--paper-dim)]">{F.legalBody}</p>
+        <p className="leading-relaxed text-[var(--ink-2)]">{F.legalBody}</p>
         <p className="label-mono mt-4">
           <a className="src" href={FOUNDATIONS_LAW_URL} target="_blank" rel="noopener noreferrer">
             {F.lawLink}
@@ -294,7 +294,7 @@ export default function FoundationChannel({
 
       <div className="panel mt-6 p-6">
         <p className="label-mono mb-3 text-[var(--gold)]">{F.gapTitle}</p>
-        <p className="leading-relaxed text-[var(--paper-dim)]">{F.gapBody}</p>
+        <p className="leading-relaxed text-[var(--ink-2)]">{F.gapBody}</p>
       </div>
 
       <p className="label-mono mt-8">

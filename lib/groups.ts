@@ -128,7 +128,7 @@ export function groupParty(info: GroupInfo | null) {
 /** Colour for the group's swatch: its party's, or a neutral tone when composite. */
 export function groupColor(info: GroupInfo | null): string {
   const p = groupParty(info);
-  return p ? p.color : "var(--paper-faint)";
+  return p ? p.color : "var(--grey-500)";
 }
 
 /** Short display label, falling back to the raw code. */

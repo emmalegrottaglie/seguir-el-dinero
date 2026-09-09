@@ -28,16 +28,16 @@ export default function BlueskyFeed({ actor, locale }: { actor: string; locale: 
         Array.from({ length: 3 }).map((_, i) => (
           <div key={i} className="panel p-4">
             <div
-              className={`h-3 w-full rounded bg-[var(--ink-3)] ${reduce ? "" : "animate-pulse"}`}
+              className={`h-3 w-full rounded bg-[var(--track)] ${reduce ? "" : "animate-pulse"}`}
             />
             <div
-              className={`mt-2 h-3 w-3/5 rounded bg-[var(--ink-3)] ${reduce ? "" : "animate-pulse"}`}
+              className={`mt-2 h-3 w-3/5 rounded bg-[var(--track)] ${reduce ? "" : "animate-pulse"}`}
             />
           </div>
         ))}
 
       {posts?.length === 0 && (
-        <p className="label-mono py-4 text-[var(--paper-faint)]">{f.cannotLoad}</p>
+        <p className="label-mono py-4 text-[var(--ink-3)]">{f.cannotLoad}</p>
       )}
 
       {posts?.map((p, i) => (
@@ -46,12 +46,12 @@ export default function BlueskyFeed({ actor, locale }: { actor: string; locale: 
           href={p.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="panel group block p-4 transition-colors hover:border-[var(--line-strong)]"
+          className="panel group block p-4 transition-colors hover:border-[var(--line)]"
           {...rise({ y: 6 }, { duration: 0.4, index: i })}
         >
-          {p.isRepost && <p className="label-mono mb-1 text-[var(--paper-faint)]">{f.reposted}</p>}
-          <p className="whitespace-pre-wrap text-[var(--paper)]">{p.text}</p>
-          <p className="label-mono mt-3 flex gap-4 text-[var(--paper-faint)]">
+          {p.isRepost && <p className="label-mono mb-1 text-[var(--ink-3)]">{f.reposted}</p>}
+          <p className="whitespace-pre-wrap text-[var(--ink)]">{p.text}</p>
+          <p className="label-mono mt-3 flex gap-4 text-[var(--ink-3)]">
             <span className="text-[var(--gold)]">{relativeTime(p.createdAt, locale)}</span>
             <span>♡ {p.likes.toLocaleString("es-ES")}</span>
             <span>↻ {p.reposts.toLocaleString("es-ES")}</span>

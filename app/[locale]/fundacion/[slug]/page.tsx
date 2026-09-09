@@ -43,7 +43,7 @@ export default async function FundacionPage({
   const party = entity.partyNif ? PARTIES[entity.partyNif] : undefined;
 
   return (
-    <main className="mx-auto max-w-4xl px-5 pb-8">
+    <main className="mx-auto max-w-4xl pb-8">
       <Link
         href={`/${locale}/financiacion`}
         className="label-mono inline-block py-4 hover:text-[var(--gold)]"
@@ -62,47 +62,47 @@ export default async function FundacionPage({
         <h2 className="display section-tick text-xl">{F.identityTitle}</h2>
         <dl className="mt-5 grid grid-cols-1 gap-x-10 gap-y-5 sm:grid-cols-2">
           <div>
-            <dt className="label-mono text-[var(--paper-faint)]">{F.party}</dt>
+            <dt className="label-mono text-[var(--ink-3)]">{F.party}</dt>
             <dd className="mt-1">
               {entity.partyNif ? (
                 <Link className="hover:text-[var(--gold)]" href={`/${locale}/party/${entity.partyNif}`}>
                   {entity.party}
                 </Link>
               ) : (
-                (entity.party ?? <span className="text-[var(--paper-faint)]">{F.noPartyStated}</span>)
+                (entity.party ?? <span className="text-[var(--ink-3)]">{F.noPartyStated}</span>)
               )}
             </dd>
           </div>
           <div>
-            <dt className="label-mono text-[var(--paper-faint)]">{F.supervisor}</dt>
+            <dt className="label-mono text-[var(--ink-3)]">{F.supervisor}</dt>
             <dd className="mt-1">
               {entity.years[0].supervisor ?? (
-                <span className="text-[var(--paper-faint)]">{F.notStated}</span>
+                <span className="text-[var(--ink-3)]">{F.notStated}</span>
               )}
             </dd>
           </div>
           <div>
-            <dt className="label-mono text-[var(--paper-faint)]">{F.constituted}</dt>
+            <dt className="label-mono text-[var(--ink-3)]">{F.constituted}</dt>
             <dd className="mono mt-1">
               {entity.years[0].yearConstituted ?? (
-                <span className="text-[var(--paper-faint)]">{F.notStated}</span>
+                <span className="text-[var(--ink-3)]">{F.notStated}</span>
               )}
             </dd>
           </div>
           <div>
-            <dt className="label-mono text-[var(--paper-faint)]">{F.registryLabel}</dt>
+            <dt className="label-mono text-[var(--ink-3)]">{F.registryLabel}</dt>
             <dd className="mt-1">
               {entity.years[0].registered === true ? (
                 <>
                   {F.registryYes}{" "}
-                  <span className="mono text-[var(--paper-faint)]">
+                  <span className="mono text-[var(--ink-3)]">
                     · {entity.years[0].registryDate}
                   </span>
                 </>
               ) : entity.years[0].registered === false ? (
                 <span className="text-[var(--red)]">{F.registryNo}</span>
               ) : (
-                <span className="text-[var(--paper-faint)]">{F.registryUnstated}</span>
+                <span className="text-[var(--ink-3)]">{F.registryUnstated}</span>
               )}
             </dd>
           </div>
@@ -135,9 +135,9 @@ function Exercise({
 }) {
   const c = year.contributions;
   const rows: [string, number, string][] = [
-    [F.fromParty, c.party.amount, "var(--gold-bright)"],
+    [F.fromParty, c.party.amount, "var(--gold-deep)"],
     [F.fromCompanies, c.companies.amount, "var(--red)"],
-    [F.fromIndividuals, c.individuals.amount, "var(--paper-dim)"],
+    [F.fromIndividuals, c.individuals.amount, "var(--ink-2)"],
   ];
   const counts: Record<string, number | null> = {
     [F.fromParty]: c.party.count,
@@ -146,7 +146,7 @@ function Exercise({
   };
 
   return (
-    <section className="mt-14 border-t border-[var(--line-strong)] pt-8">
+    <section className="mt-14 border-t border-[var(--line)] pt-8">
       <p className="eyebrow">
         {F.exercise} {year.exercise}
       </p>
@@ -158,7 +158,7 @@ function Exercise({
             {F.moneyInTitle} · {year.exercise}
           </caption>
           <thead>
-            <tr className="label-mono text-left text-[var(--paper-faint)]">
+            <tr className="label-mono text-left text-[var(--ink-3)]">
               <th scope="col" className="py-2 pr-4 font-normal">
                 {F.origin}
               </th>
@@ -173,10 +173,10 @@ function Exercise({
           <tbody>
             {rows.map(([label, amount, color]) => (
               <tr key={label} className="border-t border-[var(--line)]">
-                <th scope="row" className="py-2.5 pr-4 text-left font-normal text-[var(--paper)]">
+                <th scope="row" className="py-2.5 pr-4 text-left font-normal text-[var(--ink)]">
                   {label}
                 </th>
-                <td className="mono py-2.5 pr-4 text-right text-[var(--paper-faint)]">
+                <td className="mono py-2.5 pr-4 text-right text-[var(--ink-3)]">
                   {counts[label] === null ? "—" : integer(counts[label] as number, bcp47)}
                 </td>
                 <td className="mono py-2.5 text-right" style={{ color }}>
@@ -184,12 +184,12 @@ function Exercise({
                 </td>
               </tr>
             ))}
-            <tr className="border-t border-[var(--line-strong)]">
-              <th scope="row" className="py-2.5 pr-4 text-left font-normal text-[var(--paper)]">
+            <tr className="border-t border-[var(--line)]">
+              <th scope="row" className="py-2.5 pr-4 text-left font-normal text-[var(--ink)]">
                 {F.total}
               </th>
               <td />
-              <td className="mono py-2.5 text-right text-[var(--paper)]">
+              <td className="mono py-2.5 text-right text-[var(--ink)]">
                 {euro(c.total.amount, bcp47)}
               </td>
             </tr>
@@ -199,7 +199,7 @@ function Exercise({
 
       <h2 className="display section-tick mt-10 text-xl">{F.publicByTitle}</h2>
       {year.subsidies.items.length === 0 ? (
-        <p className="mt-4 text-sm text-[var(--paper-faint)]">{F.notStated}</p>
+        <p className="mt-4 text-sm text-[var(--ink-3)]">{F.notStated}</p>
       ) : (
         <div className="mt-5 overflow-x-auto">
           <table className="w-full min-w-[26rem] border-collapse text-sm">
@@ -207,7 +207,7 @@ function Exercise({
               {F.publicByTitle} · {year.exercise}
             </caption>
             <thead>
-              <tr className="label-mono text-left text-[var(--paper-faint)]">
+              <tr className="label-mono text-left text-[var(--ink-3)]">
                 <th scope="col" className="py-2 pr-4 font-normal">
                   {F.grantingBody}
                 </th>
@@ -219,7 +219,7 @@ function Exercise({
             <tbody>
               {year.subsidies.items.map((item) => (
                 <tr key={item.body} className="border-t border-[var(--line)]">
-                  <th scope="row" className="py-2.5 pr-4 text-left font-normal text-[var(--paper)]">
+                  <th scope="row" className="py-2.5 pr-4 text-left font-normal text-[var(--ink)]">
                     {item.body}
                   </th>
                   <td className="mono py-2.5 text-right text-[var(--gold)]">
@@ -227,11 +227,11 @@ function Exercise({
                   </td>
                 </tr>
               ))}
-              <tr className="border-t border-[var(--line-strong)]">
-                <th scope="row" className="py-2.5 pr-4 text-left font-normal text-[var(--paper)]">
+              <tr className="border-t border-[var(--line)]">
+                <th scope="row" className="py-2.5 pr-4 text-left font-normal text-[var(--ink)]">
                   {F.total}
                 </th>
-                <td className="mono py-2.5 text-right text-[var(--paper)]">
+                <td className="mono py-2.5 text-right text-[var(--ink)]">
                   {euro(year.subsidies.total, bcp47)}
                 </td>
               </tr>
@@ -246,7 +246,7 @@ function Exercise({
       {year.sourceDiscrepancies?.map((d) => (
         <div key={d.field} className="panel mt-6 p-5">
           <p className="label-mono mb-2 text-[var(--red)]">{F.discrepancyTitle}</p>
-          <p className="text-sm leading-relaxed text-[var(--paper-dim)]">
+          <p className="text-sm leading-relaxed text-[var(--ink-2)]">
             {F.discrepancyBody
               .replace("{stated}", euro(d.stated, bcp47))
               .replace("{itemised}", euro(d.itemised, bcp47))
@@ -261,16 +261,16 @@ function Exercise({
           <ul className="mt-5 flex flex-col gap-5">
             {year.deals.map((deal, i) => (
               <li key={i} className="panel p-5">
-                <p className="label-mono mb-2 text-[var(--paper)]">
+                <p className="label-mono mb-2 text-[var(--ink)]">
                   {deal.counterparties.length > 0 ? deal.counterparties.join(" · ") : F.notStated}
                   {deal.amount !== null && (
-                    <span className="mono ml-3 text-[var(--gold-bright)]">
+                    <span className="mono ml-3 text-[var(--gold-deep)]">
                       {euro(deal.amount, bcp47)}
                     </span>
                   )}
                 </p>
                 {deal.consideration && (
-                  <p className="mb-2 text-sm text-[var(--paper-dim)]">
+                  <p className="mb-2 text-sm text-[var(--ink-2)]">
                     {F.consideration}: {deal.consideration}
                   </p>
                 )}
@@ -281,8 +281,8 @@ function Exercise({
                       deal.compliant === false
                         ? "var(--red)"
                         : deal.compliant === true
-                          ? "var(--paper-dim)"
-                          : "var(--paper-faint)",
+                          ? "var(--ink-2)"
+                          : "var(--ink-3)",
                   }}
                 >
                   {F.duties}:{" "}
@@ -293,7 +293,7 @@ function Exercise({
                       : F.dutiesUnclear}
                   {deal.rule && ` · ${deal.rule}`}
                 </p>
-                <p className="text-sm leading-relaxed text-[var(--paper-faint)]">“{deal.text}”</p>
+                <p className="text-sm leading-relaxed text-[var(--ink-3)]">“{deal.text}”</p>
               </li>
             ))}
           </ul>
@@ -302,13 +302,13 @@ function Exercise({
 
       <h2 className="display section-tick mt-10 text-xl">{F.findingsTitle}</h2>
       {year.findings.length === 0 ? (
-        <p className="mt-4 text-sm text-[var(--paper-faint)]">{F.noFindings}</p>
+        <p className="mt-4 text-sm text-[var(--ink-3)]">{F.noFindings}</p>
       ) : (
         <ul className="mt-5 flex flex-col gap-4">
           {year.findings.map((f, i) => (
             <li key={i} className="border-l-2 border-[var(--red)] pl-4">
-              {f.rule && <p className="label-mono mb-1 text-[var(--paper-faint)]">{f.rule}</p>}
-              <p className="text-sm leading-relaxed text-[var(--paper-dim)]">“{f.text}”</p>
+              {f.rule && <p className="label-mono mb-1 text-[var(--ink-3)]">{f.rule}</p>}
+              <p className="text-sm leading-relaxed text-[var(--ink-2)]">“{f.text}”</p>
             </li>
           ))}
         </ul>
@@ -325,10 +325,10 @@ function Exercise({
           ] as [string, number | null][]
         ).map(([label, value]) => (
           <div key={label}>
-            <dt className="label-mono text-[var(--paper-faint)]">{label}</dt>
+            <dt className="label-mono text-[var(--ink-3)]">{label}</dt>
             <dd
               className="mono mt-1"
-              style={{ color: value !== null && value < 0 ? "var(--red)" : "var(--paper)" }}
+              style={{ color: value !== null && value < 0 ? "var(--red)" : "var(--ink)" }}
             >
               {value === null ? "—" : euro(value, bcp47)}
             </dd>

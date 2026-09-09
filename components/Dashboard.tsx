@@ -51,10 +51,10 @@ export default function Dashboard({
           This section used to carry the page's <h1>, which bound the title to
           the least surprising of the three money channels. The page owns the
           title now; this is a section heading like the other two. */}
-      <section className="mx-auto mt-20 max-w-6xl px-5 pb-10">
+      <section className="mx-auto mt-20 max-w-6xl pb-10">
         <h2 className="display section-tick text-2xl">{home.channelTitle}</h2>
 
-        <p className="mt-6 max-w-xl text-[var(--paper-dim)]">{home.intro}</p>
+        <p className="mt-6 max-w-xl text-[var(--ink-2)]">{home.intro}</p>
 
         {/* Grand total */}
         <div
@@ -67,7 +67,7 @@ export default function Dashboard({
               value={agg.grandTotal}
               as="euro"
               bcp47={bcp47}
-              className="mono block text-4xl text-[var(--gold-bright)] sm:text-6xl"
+              className="mono block text-4xl text-[var(--gold-deep)] sm:text-6xl"
             />
           </div>
           <dl className="flex gap-8">
@@ -79,7 +79,7 @@ export default function Dashboard({
       </section>
 
       {/* ---------- Controls ---------- */}
-      <section className="mx-auto max-w-6xl px-5">
+      <section className="mx-auto max-w-6xl">
         <div className="panel flex flex-col gap-5 p-5 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex flex-wrap gap-2">
             {kindTabs.map((tab) => (
@@ -90,7 +90,7 @@ export default function Dashboard({
                 className={`label-mono inline-flex min-h-11 items-center rounded-full border px-4 transition-all ${
                   kind === tab.key
                     ? "border-[var(--gold)] bg-[var(--gold)] text-[var(--ink)]"
-                    : "border-[var(--line-control)] text-[var(--paper-dim)] hover:border-[var(--gold)] hover:text-[var(--paper)]"
+                    : "border-[var(--line)] text-[var(--ink-2)] hover:border-[var(--gold)] hover:text-[var(--ink)]"
                 }`}
               >
                 {tab.label}
@@ -98,7 +98,7 @@ export default function Dashboard({
             ))}
           </div>
           <div className="flex flex-wrap items-center gap-2">
-            <span className="label-mono mr-1 text-[var(--paper-faint)]">{home.year}</span>
+            <span className="label-mono mr-1 text-[var(--ink-3)]">{home.year}</span>
             {base.years.map((y) => {
               const active = years.length === 0 || years.includes(y);
               return (
@@ -108,10 +108,10 @@ export default function Dashboard({
                   aria-pressed={years.includes(y)}
                   className={`mono inline-flex min-h-11 items-center rounded border px-3 text-sm transition-all ${
                     years.includes(y)
-                      ? "border-[var(--gold)] text-[var(--gold-bright)]"
+                      ? "border-[var(--gold)] text-[var(--gold-deep)]"
                       : active
-                        ? "border-[var(--line-control)] text-[var(--paper-dim)] hover:text-[var(--paper)]"
-                        : "border-transparent text-[var(--paper-faint)] opacity-40 hover:opacity-100"
+                        ? "border-[var(--line)] text-[var(--ink-2)] hover:text-[var(--ink)]"
+                        : "border-transparent text-[var(--ink-3)] opacity-40 hover:opacity-100"
                   }`}
                 >
                   {y}
@@ -131,7 +131,7 @@ export default function Dashboard({
       </section>
 
       {/* ---------- Ranked bars ---------- */}
-      <section className="mx-auto max-w-6xl px-5 pt-14">
+      <section className="mx-auto max-w-6xl pt-14">
         <div className="mb-8 flex items-end justify-between">
           <h2 className="display section-tick text-2xl">{home.distribution}</h2>
           <div className="label-mono hidden items-center gap-4 sm:flex">
@@ -144,7 +144,7 @@ export default function Dashboard({
             a status region a screen reader user gets no confirmation that
             anything happened. The search forms elsewhere on the site navigate,
             which announces itself, and so need no equivalent. */}
-        <p role="status" className="label-mono mb-4 text-[var(--paper-dim)]">
+        <p role="status" className="label-mono mb-4 text-[var(--ink-2)]">
           {home.filterStatus
             .replace("{parties}", integer(agg.parties.length, bcp47))
             .replace("{grants}", integer(totalGrants, bcp47))
@@ -162,12 +162,12 @@ export default function Dashboard({
               <motion.li key={p.nif} layout initial={false}>
                 <Link
                   href={`/${locale}/party/${p.nif}`}
-                  className="group enter grid grid-cols-[2rem_1fr] items-center gap-x-4 gap-y-2 rounded-md px-2 py-4 transition-colors hover:bg-[var(--ink-2)] sm:grid-cols-[2rem_11rem_1fr_9rem]"
+                  className="group enter grid grid-cols-[2rem_1fr] items-center gap-x-4 gap-y-2 rounded-md px-2 py-4 transition-colors hover:bg-[var(--surface)] sm:grid-cols-[2rem_11rem_1fr_9rem]"
                   style={
                     { "--enter-y": "0", "--enter-delay": `${stagger(i)}s` } as CSSProperties
                   }
                 >
-                  <span className="mono text-sm text-[var(--paper-faint)]">
+                  <span className="mono text-sm text-[var(--ink-3)]">
                     {String(i + 1).padStart(2, "0")}
                   </span>
 
@@ -176,21 +176,21 @@ export default function Dashboard({
                       className="inline-block h-2.5 w-2.5 shrink-0 rounded-full"
                       style={{ backgroundColor: p.color }}
                     />
-                    <span className="truncate group-hover:text-[var(--gold-bright)]">
+                    <span className="truncate group-hover:text-[var(--gold-deep)]">
                       {p.shortName}
                     </span>
                   </span>
 
                   {/* bar track */}
-                  <span className="col-span-2 flex h-6 items-center overflow-hidden rounded-sm bg-[var(--ink-3)] sm:col-span-1">
+                  <span className="col-span-2 flex h-6 items-center overflow-hidden rounded-sm bg-[var(--track)] sm:col-span-1">
                     <Bar width={wOrd} color={p.color} index={i} />
                     <Bar width={wSeg} color="var(--red)" index={i} step={1} striped />
-                    <Bar width={wOtra} color="var(--paper-faint)" index={i} step={2} />
+                    <Bar width={wOtra} color="var(--ink-3)" index={i} step={2} />
                   </span>
 
                   <span className="col-start-2 flex items-baseline justify-between gap-3 sm:col-start-4 sm:justify-end">
-                    <span className="mono text-sm text-[var(--paper)]">{euroCompact(p.total, bcp47)}</span>
-                    <span className="mono text-xs text-[var(--paper-faint)]">{percent(p.share, bcp47)}</span>
+                    <span className="mono text-sm text-[var(--ink)]">{euroCompact(p.total, bcp47)}</span>
+                    <span className="mono text-xs text-[var(--ink-3)]">{percent(p.share, bcp47)}</span>
                   </span>
                 </Link>
                 <hr className="hairline" />
@@ -199,7 +199,7 @@ export default function Dashboard({
           })}
         </ol>
         {agg.parties.length === 0 && (
-          <p className="label-mono py-10 text-center text-[var(--paper-faint)]">
+          <p className="label-mono py-10 text-center text-[var(--ink-3)]">
             {home.noResults}
           </p>
         )}
@@ -248,7 +248,7 @@ function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div>
       <dt className="label-mono mb-1">{label}</dt>
-      <dd className="mono text-lg text-[var(--paper)]">{value}</dd>
+      <dd className="mono text-lg text-[var(--ink)]">{value}</dd>
     </div>
   );
 }

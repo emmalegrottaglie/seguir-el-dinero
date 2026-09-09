@@ -41,7 +41,7 @@ export default async function PortalPage({
   ];
 
   return (
-    <main className="mx-auto max-w-5xl px-5 pb-8">
+    <main className="mx-auto max-w-5xl pb-8">
       {/* Masthead */}
       <section className="pt-6 sm:pt-12">
         <p className="eyebrow">{P.eyebrow}</p>
@@ -50,7 +50,7 @@ export default async function PortalPage({
           <span className="italic text-[var(--gold)]">{P.titleEmph}</span>
           {P.titlePost}
         </h1>
-        <p className="mt-6 max-w-2xl text-[var(--paper-dim)]">{P.lead}</p>
+        <p className="mt-6 max-w-2xl text-[var(--ink-2)]">{P.lead}</p>
 
         <dl className="mt-10 grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-4">
           <Stat label={P.statPublic} value={euroCompact(agg.grandTotal, bcp47)} accent />
@@ -63,13 +63,13 @@ export default async function PortalPage({
           <Stat label={P.statVotes} value={integer(votes.count, bcp47)} />
         </dl>
 
-        <p className="label-mono mt-8 max-w-2xl text-[var(--paper-faint)]">{P.linkFraming}</p>
+        <p className="label-mono mt-8 max-w-2xl text-[var(--ink-3)]">{P.linkFraming}</p>
       </section>
 
       {/* Stance: how each group voted on the tracked items */}
       <section className="mt-16">
         <h2 className="display section-tick text-2xl">{P.stanceTitle}</h2>
-        <p className="label-mono mt-4 max-w-2xl text-[var(--paper-faint)]">{P.stanceNote}</p>
+        <p className="label-mono mt-4 max-w-2xl text-[var(--ink-3)]">{P.stanceNote}</p>
 
         <div className="mt-8 grid grid-cols-1 gap-4 lg:grid-cols-2">
           {tracked.map((vote) => (
@@ -88,7 +88,7 @@ export default async function PortalPage({
       <section className="mt-16">
         <h2 className="display section-tick text-2xl">{P.newsTitle}</h2>
         {/* Not label-mono: that class uppercases, and this note is a sentence. */}
-        <p className="mt-4 max-w-2xl text-sm text-[var(--paper-faint)]">{P.newsNote}</p>
+        <p className="mt-4 max-w-2xl text-sm text-[var(--ink-3)]">{P.newsNote}</p>
         <NewsFeed topics={PORTAL_TOPICS} locale={locale} />
         <p className="label-mono mt-2 flex flex-wrap gap-x-6 gap-y-2">
           <Link href={`/${locale}/metodologia`} className="src">
@@ -100,7 +100,7 @@ export default async function PortalPage({
           <Link
             href={`/${locale}/derechos`}
             className="src"
-            style={{ color: "var(--verd-bright)" }}
+            style={{ color: "var(--verd-text)" }}
           >
             {t.rights.homeCta} →
           </Link>
@@ -115,10 +115,10 @@ export default async function PortalPage({
             <Link
               key={c.href}
               href={c.href}
-              className="panel group p-5 transition-colors hover:border-[var(--line-strong)]"
+              className="panel group p-5 transition-colors hover:border-[var(--line)]"
             >
-              <p className="text-lg group-hover:text-[var(--gold-bright)]">{c.label}</p>
-              <p className="label-mono mt-2 text-[var(--paper-dim)]">{c.note}</p>
+              <p className="text-lg group-hover:text-[var(--gold-deep)]">{c.label}</p>
+              <p className="label-mono mt-2 text-[var(--ink-2)]">{c.note}</p>
             </Link>
           ))}
         </div>
@@ -143,11 +143,11 @@ function Stat({
       <dt className="label-mono mb-2">{label}</dt>
       <dd
         className="mono text-xl sm:text-2xl"
-        style={{ color: accent ? "var(--gold-bright)" : "var(--paper)" }}
+        style={{ color: accent ? "var(--gold-deep)" : "var(--ink)" }}
       >
         {value}
       </dd>
-      {sub && <p className="label-mono mt-1 text-[var(--paper-faint)]">{sub}</p>}
+      {sub && <p className="label-mono mt-1 text-[var(--ink-3)]">{sub}</p>}
     </div>
   );
 }
