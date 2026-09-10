@@ -184,6 +184,35 @@ register writes "PSOE" — and a second copy of a rule drifts from the first. Th
 first draft tried it with substring matching and failed all ten PSOE and PNV matches, which is
 the drift in miniature.
 
+## Every bar goes through one primitive, and its scale is a required prop
+
+`components/chart/Bar.tsx` is the only bar on this site. Before it there were thirteen
+hand-rolled ones at six different heights, with two incompatible scale conventions and the same
+three donation tranches drawn in three palettes on pages two clicks apart. A chart that looks
+consistent and is not misleads by implication, which is worse than having no chart.
+
+- **`scale` is required.** `"share"` = the segments are parts of a whole and fill the track.
+  `"compare"` = the bar's own length is its share of the largest row in the set, and the segments
+  divide that length. It is required precisely because the old bars each had a convention and none
+  of them stated it.
+- **Four named heights** — `sm` 8, `md` 12, `lg` 20, `xl` 28.
+- **`BarLegend` takes the bar's own segments array.** A hand-written legend drifts from its bar;
+  that happened here when a swatch was darkened for contrast and stopped matching its segment.
+- **A 2px floor per segment.** Linearly scaled, thirteen of the seventeen donation rows fell under
+  four pixels and a real figure rendered as nothing. The floor is a small acknowledged distortion,
+  defensible only because every one of these charts prints the exact figure beside it — so any new
+  chart using `Bar` must do the same, and must carry the note saying what it is scaled against.
+
+`lib/chart-colors.ts` decides each category's colour once. Bar fills are graphics, so 3:1 applies
+rather than 4.5:1 — but a legend *label* is text, which is why `BarLegend` colours the swatch and
+never the label.
+
+Two traps this replaced, both worth knowing: `partyMeta` picked its fallback colour with
+`nif.charCodeAt(1)`, which is `NaN` for an empty NIF, and `FALLBACK_COLORS[NaN]` is `undefined` —
+which an SVG `fill` paints **black**, silently, so the donut was monochrome and looked deliberate.
+And a label wrapper that is `absolute` with no width collapses to 0×0, so absolutely-positioned
+children resolve their percentages against nothing and stack at one point.
+
 ## Architecture / where things live
 
 ### Routes (all under `app/[locale]/`)
@@ -252,6 +281,8 @@ ordinary browser one, so `FEED_HEADERS` in the registry sends the browser string
 | `lib/governments.ts` | Curated: who holds each community's presidency, and since when. Free of Node imports, so the map's client component can read it |
 | `lib/court-records.ts` | The four verified judicial and electoral-board resolutions, with the status as a **type** |
 | `lib/officeholder-ties.ts` | The board-member → public-office join, gated on one-post-per-name **and** party agreement |
+| `lib/chart-colors.ts` | Each chart category's colour, decided once |
+| `lib/spending.ts` | Electoral spending, plus `formationNif`/`formationColor` for the report's coalition labels |
 | `lib/photos.ts` | Portrait lookup, `portraitKeys` for bulk tests |
 | `lib/politicians.ts` | Curated politicians with verified Bluesky handles |
 | `lib/people.ts` | **The join.** Assembles one profile from every dataset that knows the person |

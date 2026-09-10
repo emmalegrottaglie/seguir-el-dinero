@@ -2,6 +2,8 @@ import Link from "next/link";
 import type { KeyVote } from "@/lib/votes";
 import { tallyByGroup } from "@/lib/votes";
 import { groupInfo, groupParty, GROUPS_SOURCE } from "@/lib/groups";
+import { STANCE_COLORS } from "@/lib/chart-colors";
+import Bar from "./chart/Bar";
 import type { Dict, Locale } from "@/lib/i18n";
 
 /**
@@ -96,22 +98,24 @@ export default function GroupBreakdown({
                   </span>
                 </th>
 
-                {/* Decoration only: every number in it is in the columns to the right. */}
+                {/* Decoration only: every number in it is in the columns to the
+                    right. `si` was gold here and verdigris in StanceByGroup, two
+                    widgets apart on the same page. */}
                 <td className="py-3 pr-4">
-                  <span
-                    aria-hidden="true"
-                    className="flex h-3 overflow-hidden rounded-sm bg-[var(--track)]"
-                  >
-                    {g.si > 0 && (
-                      <span style={{ width: seg(g.si), backgroundColor: "var(--gold)" }} />
-                    )}
-                    {g.no > 0 && (
-                      <span style={{ width: seg(g.no), backgroundColor: "var(--red)" }} />
-                    )}
-                    {g.abst > 0 && (
-                      <span style={{ width: seg(g.abst), backgroundColor: "var(--ink-2)" }} />
-                    )}
-                  </span>
+                  <Bar
+                    segments={[
+                      { value: g.si, color: STANCE_COLORS.si, label: t.votes.inFavour },
+                      { value: g.no, color: STANCE_COLORS.no, label: t.votes.against },
+                      {
+                        value: g.abst,
+                        color: STANCE_COLORS.abstention,
+                        label: t.votes.abstention,
+                      },
+                    ]}
+                    total={Math.max(1, g.si + g.no + g.abst)}
+                    scale="share"
+                    size="sm"
+                  />
                 </td>
 
                 <td className="mono py-3 pr-3 text-right" style={{ color: "var(--gold-deep)" }}>

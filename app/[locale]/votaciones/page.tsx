@@ -4,6 +4,8 @@ import GroupBreakdown from "@/components/GroupBreakdown";
 import VoteFlow from "@/components/VoteFlow";
 import { getDict } from "@/lib/i18n";
 import { integer } from "@/lib/format";
+import { STANCE_COLORS } from "@/lib/chart-colors";
+import Bar from "@/components/chart/Bar";
 
 // The deputy search reads the query string.
 export const dynamic = "force-dynamic";
@@ -185,11 +187,21 @@ export default async function VotacionesPage({
             </p>
 
             {/* Overall result */}
-            <div className="mt-6 flex h-6 overflow-hidden rounded-sm bg-[var(--track)]">
-              <div style={{ width: width(tot.afavor), backgroundColor: "var(--verd)" }} />
-              <div style={{ width: width(tot.enContra), backgroundColor: "var(--red)" }} />
-              <div style={{ width: width(tot.abstenciones), backgroundColor: "var(--abst)" }} />
-            </div>
+            <Bar
+              className="mt-6"
+              segments={[
+                { value: tot.afavor, color: STANCE_COLORS.si, label: v.inFavour },
+                { value: tot.enContra, color: STANCE_COLORS.no, label: v.against },
+                {
+                  value: tot.abstenciones,
+                  color: STANCE_COLORS.abstention,
+                  label: v.abstention,
+                },
+              ]}
+              total={Math.max(1, tot.presentes)}
+              scale="share"
+              size="lg"
+            />
             <div className="label-mono mt-3 flex flex-wrap gap-x-6 gap-y-1">
               <span style={{ color: "var(--verd-text)" }}>
                 {v.inFavour} {integer(tot.afavor, bcp47)}

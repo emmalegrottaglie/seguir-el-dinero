@@ -1,5 +1,6 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
+import { PARTIES } from "./parties";
 
 // What the electoral money was declared to have bought.
 //
@@ -63,6 +64,48 @@ export async function getSpending(): Promise<SpendingFile> {
   if (cache) return cache;
   cache = JSON.parse(await fs.readFile(FILE, "utf-8")) as SpendingFile;
   return cache;
+}
+
+/**
+ * The party each audited formation belongs to, by the name the report uses.
+ *
+ * Explicit rather than resolved by token matching, because five of these are
+ * coalition labels that no rule resolves honestly — "AHORA REPÚBLICAS" shares
+ * no word with any party's registered name, and "COALICIÓN POR UNA EUROPA
+ * SOLIDARIA" shares none either. Where a coalition has several members the
+ * NIF is the formation that led the list, which is what makes the colour
+ * recognisable; the report's own full name is still what the chart labels it
+ * with, so nothing here shortens a coalition to one of its parties in text.
+ *
+ * A name that is not here yields no NIF and the caller falls back to a neutral
+ * fill, which is the honest outcome for a formation nobody has checked.
+ */
+const FORMATION_NIF: Record<string, string> = {
+  "PARTIDO POPULAR": "G28570927",
+  "PARTIDO SOCIALISTA OBRERO ESPAÑOL": "G28477727",
+  VOX: "G86867108",
+  PODEMOS: "G86976941",
+  SUMAR: "G13855663",
+  // ERC led the list; EH Bildu, BNG and Ara Més also stood on it.
+  "AHORA REPÚBLICAS (ERC-EH BILDU-BNG-ARA MÉS)": "G08678120",
+  "JUNTS I LLIURES PER EUROPA": "V13942677",
+  // CEUS, led by the PNV.
+  "COALICIÓN POR UNA EUROPA SOLIDARIA": "G48103956",
+};
+
+/** The NIF of the party a formation belongs to, or null if unmapped. */
+export function formationNif(name: string): string | null {
+  return FORMATION_NIF[name.trim().toUpperCase()] ?? null;
+}
+
+/**
+ * The colour for a formation's segment: its party's, or a neutral grey where
+ * the formation is not in the map. Never `undefined`, which an SVG paints
+ * black.
+ */
+export function formationColor(name: string): string {
+  const nif = formationNif(name);
+  return (nif && PARTIES[nif]?.color) || "var(--grey-500)";
 }
 
 /** The two advertising lines are the only expenditure the law caps. */

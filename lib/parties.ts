@@ -48,10 +48,18 @@ export function partyMeta(nif: string, rawName: string): PartyMeta {
   if (known) return known;
   // Unknown NIF (new party appears in a future refresh): degrade gracefully.
   const clean = rawName.replace(/\s+/g, " ").trim();
+  //
+  // The index came from `nif.charCodeAt(1)`, which is NaN for a NIF shorter
+  // than two characters — and `FALLBACK_COLORS[NaN]` is `undefined`, which
+  // an SVG `fill` renders as black. Callers passing an empty NIF to colour by
+  // name therefore got a solid black chart with no error anywhere. Hashing the
+  // name instead always yields a colour, and the name is what those callers
+  // actually have.
+  const hash = [...clean].reduce((n, c) => (n * 31 + c.charCodeAt(0)) % 9973, 7);
   return {
     shortName: clean.length > 22 ? clean.slice(0, 20) + "…" : clean,
     displayName: clean,
-    color: FALLBACK_COLORS[nif.charCodeAt(1) % FALLBACK_COLORS.length],
+    color: FALLBACK_COLORS[hash % FALLBACK_COLORS.length],
     bloc: "otro",
   };
 }

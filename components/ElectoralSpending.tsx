@@ -5,8 +5,10 @@ import {
   spendingTotals,
   type SpendingFile,
 } from "@/lib/spending";
-import { cssPercent, euroExact, integer, percent } from "@/lib/format";
-import { partyMeta } from "@/lib/parties";
+import { euroExact, integer, percent } from "@/lib/format";
+import { formationColor } from "@/lib/spending";
+import { SPEND_COLORS } from "@/lib/chart-colors";
+import Bar, { BarLegend, type Segment } from "./chart/Bar";
 import type { Dict } from "@/lib/i18n";
 import SpendDonut, { type DonutSlice } from "./SpendDonut";
 
@@ -42,10 +44,10 @@ export default function ElectoralSpending({
   const slices: DonutSlice[] = ranked.map((f) => ({
     name: f.name,
     value: f.ordinary.declared,
-    // The formation names in the report are coalition labels, not the party
-    // registry's names, so the colour is resolved by name with the registry's
-    // graceful fallback rather than by NIF.
-    color: partyMeta("", f.name).color,
+    // The report's formation names are coalition labels, so they resolve
+    // through the explicit map in lib/spending.ts rather than by token
+    // matching, and fall back to a neutral grey rather than to nothing.
+    color: formationColor(f.name),
   }));
 
   const lines = [
@@ -55,21 +57,21 @@ export default function ElectoralSpending({
       share: totals.advertising / totals.declared,
       // A bar fill, not text: 3.02:1 clears the 3:1 WCAG 1.4.11 asks of a
       // graphic, and the figure beside it carries the value in ink.
-      color: "var(--gold)",
+      color: SPEND_COLORS.advertising,
       note: s.lineAdvertisingNote,
     },
     {
       label: s.lineResidual,
       value: totals.other,
       share: totals.otherShare,
-      color: "var(--red)",
+      color: SPEND_COLORS.residual,
       note: s.lineResidualNote,
     },
     {
       label: s.lineFinancial,
       value: totals.financial,
       share: totals.financial / totals.declared,
-      color: "var(--grey-500)",
+      color: SPEND_COLORS.financial,
       note: s.lineFinancialNote,
     },
   ];
@@ -115,9 +117,13 @@ export default function ElectoralSpending({
                   <span style={{ color: "var(--ink-3)" }}>{percent(l.share, bcp47)}</span>
                 </span>
               </div>
-              <span className="bar-track mt-1.5" aria-hidden style={{ height: 8 }}>
-                <i style={{ width: cssPercent(l.share), background: l.color }} />
-              </span>
+              <Bar
+                className="mt-1.5"
+                segments={[{ value: l.value, color: l.color, label: l.label }]}
+                total={totals.declared}
+                scale="share"
+                size="sm"
+              />
               <p className="mt-1.5" style={{ fontSize: "11.5px", color: "var(--ink-3)" }}>
                 {l.note}
               </p>
@@ -132,9 +138,20 @@ export default function ElectoralSpending({
                 {euroExact(totals.mailings, bcp47)} · <span style={{ color: "var(--ink-3)" }}>—</span>
               </span>
             </div>
-            <span className="bar-track mt-1.5" aria-hidden style={{ height: 8 }}>
-              <i style={{ width: "100%", background: "var(--grey-300)" }} />
-            </span>
+            {/* A different denominator, so the bar is its own whole. */}
+            <Bar
+              className="mt-1.5"
+              segments={[
+                {
+                  value: totals.mailings,
+                  color: SPEND_COLORS.mailings,
+                  label: s.lineMailings,
+                },
+              ]}
+              total={totals.mailings}
+              scale="share"
+              size="sm"
+            />
             <p className="mt-1.5" style={{ fontSize: "11.5px", color: "var(--ink-3)" }}>
               {s.lineMailingsNote.replace("{count}", integer(totals.mailingCount, bcp47))}
             </p>
@@ -174,23 +191,27 @@ export default function ElectoralSpending({
             {ranked.map((f) => {
               const ads = advertising(f);
               const fin = financial(f);
-              const declared = f.ordinary.declared || 1;
-              const seg = (n: number) =>
-                cssPercent((n / declared) * (f.ordinary.declared / (ranked[0]?.ordinary.declared || 1)));
+              const segments: Segment[] = [
+                { value: ads, color: SPEND_COLORS.advertising, label: s.advertising },
+                { value: fin, color: SPEND_COLORS.financial, label: s.lineFinancial },
+                {
+                  value: f.ordinary.otherOrdinary,
+                  color: SPEND_COLORS.residual,
+                  label: s.unexplained,
+                },
+              ];
               return (
                 <tr key={f.name} style={{ borderBottom: "1px solid var(--line-soft)" }}>
                   <th scope="row" className="py-3 pr-4 text-left font-normal">
                     {f.name}
                   </th>
                   <td className="py-3 pr-4">
-                    {/* Decoration: every figure in it is in the columns beside it. */}
-                    <span className="bar-track" aria-hidden style={{ height: 12 }}>
-                      {ads > 0 && <i style={{ width: seg(ads), background: "var(--gold)" }} />}
-                      {fin > 0 && <i style={{ width: seg(fin), background: "var(--grey-500)" }} />}
-                      {f.ordinary.otherOrdinary > 0 && (
-                        <i style={{ width: seg(f.ordinary.otherOrdinary), background: "var(--red)" }} />
-                      )}
-                    </span>
+                    <Bar
+                      segments={segments}
+                      total={ranked[0]?.ordinary.declared || 1}
+                      scale="compare"
+                      size="md"
+                    />
                   </td>
                   <td
                     className="mono whitespace-nowrap py-3 pr-3 text-right"
@@ -213,6 +234,18 @@ export default function ElectoralSpending({
           </tbody>
         </table>
       </div>
+
+      <BarLegend
+        className="mt-4"
+        segments={[
+          { value: 1, color: SPEND_COLORS.advertising, label: s.advertising },
+          { value: 1, color: SPEND_COLORS.financial, label: s.lineFinancial },
+          { value: 1, color: SPEND_COLORS.residual, label: s.unexplained },
+        ]}
+      />
+      <p className="mt-2" style={{ fontSize: "11.5px", color: "var(--ink-3)" }}>
+        {s.barNote}
+      </p>
 
       <div className="panel mt-8 p-5">
         <p className="eyebrow mb-2.5">{s.gapTitle}</p>
