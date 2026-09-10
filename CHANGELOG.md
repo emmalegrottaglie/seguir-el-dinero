@@ -5,6 +5,110 @@ figures name their source; corrections and gaps are recorded alongside the work,
 
 ---
 
+## 2026-09-10 — The officeholder join, matched on two conditions rather than on a name
+
+The foundation people layer and the officeholder register were both already
+ingested, and stage 3 deliberately left them unjoined. This joins them: the public
+offices held by the people who govern the party foundations, on each entity's
+dossier.
+
+It is the only join in this project that attaches a **named living private
+individual** to a record neither they nor the foundation published, so it was
+measured before it was built rather than after.
+
+### What the measurement said
+
+- The register holds **6,670 officeholders resolving to 6,663 folded names**, and
+  only **three** of those keys cover genuinely different posts — a collision rate
+  of **0.045 %**. Low, and not zero.
+- Of the **53** curated board members, **14 match exactly one post**, **39 have no
+  row at all** (the ordinary case for a trustee who holds no public office), and
+  **0 are ambiguous**.
+
+### Two conditions, both required
+
+**One distinct post per folded name.** `nameKey` is order-independent and
+accent-folded, which is what lets "Apellidos, Nombre" meet "Nombre Apellidos". It
+is not an identity. A key covering more than one post therefore yields nothing
+rather than the first of them.
+
+**The party must agree.** The officeholder's party must be the party the audit
+report links the foundation to, or the officeholder must be recorded as
+unaffiliated — which is how the register carries government delegates and senior
+appointees. This is what turns a name match into evidence: two different people
+who happen to share a folded name have no reason at all to share a party with a
+foundation neither was matched on.
+
+All fourteen agree, and the agreement is the corroboration: every Fundación Pablo
+Iglesias match is PSOE or a PSOE-appointed independent, both Sabino Arana matches
+are PNV, and the Concordia y Libertad match is PP. Each pairing was also read by
+eye against the board it came from.
+
+### What is not claimed
+
+The office is the office **as the register stated it on its own last-updated
+date**, which every tie carries and renders. The register has no per-person date
+and no active flag, so a title that has since changed hands is the register's
+staleness, presented as such and never as a current fact this site asserts.
+
+And nothing says a person's office and their board seat have anything to do with
+each other. They are two public records about one person placed side by side — the
+same rule the money and the votes are published under, and the page says so in
+those words.
+
+`/fundaciones` states the join's coverage and, more importantly, its refusals: how
+many people were not in the register, how many were dropped as ambiguous, and how
+many were dropped for party disagreement. A match rate alone would read as a
+quality score; the drop conditions are what make the rate mean anything.
+
+### A label that was inventing something
+
+The tie's organisation slot was first filled from the register's
+`region`/`municipality` columns, falling back to "Administración General del
+Estado" where both were null. That was wrong twice over: the fallback is a label
+the register never states, and where the columns *are* populated their meaning
+changes with the row type — where a government delegate operates, the constituency
+a deputy was elected in, the administration a regional consejera serves. Folding
+all of that into one "organisation" meant inventing a fact.
+
+The office title now carries the fact, and the region is a qualifier shown only
+when the register gives one. So it reads "Ministro de la Presidencia, Justicia y
+Relaciones con las Cortes" and, for the Basque consejera, "CONSEJERA DE DESARROLLO
+ECONÓMICO… — País Vasco".
+
+### A latent contrast bug the join would have exposed
+
+`TieLine` set government and public-body ties in raw `--gold`, which is 3.02:1 on
+the ground — a fill colour, below AA as 14px text. The contrast audit had passed
+`/es/fundacion/fundacion-disenso` only because Disenso has no government tie. This
+join creates fourteen of them, so it would have shipped fourteen failures. Fixed to
+`--gold-deep`, and the audit now covers the three dossiers that carry them.
+
+### The guard
+
+`npm run check:office-join` fails rather than warns. It checks the assumption the
+whole join rests on — that a folded name is nearly always unique in this register,
+against a 0.5 % ceiling — plus the things a refreshed export could silently break:
+that the `ROLES` literal is still parseable (otherwise the party condition would be
+checked against nothing), that no published match links to a slug the register does
+not carry, and that the join has not silently stopped matching anything.
+
+It deliberately does **not** re-check the party condition. Doing so would mean
+reimplementing `partyNifFor` in JavaScript, because the audit report writes
+"Partido Socialista Obrero Español" where the register writes "PSOE" — and a second
+copy of that rule would drift from the first. A drifted check is worse than no
+check. The first draft of this script did attempt it, compared the two naming
+styles by substring, and failed all ten PSOE and PNV matches; that is exactly the
+drift the rule now avoids.
+
+**Verified.** Typecheck clean, build clean at 231 pages, the guard passes, all three
+tie links resolve to a real person page, all three locales render the dossiers, and
+**0 contrast failures across 18 routes** — the thirteen from the redesign plus the
+three foundation dossiers that now carry government ties and the two other locales
+of the index.
+
+---
+
 ## 2026-09-09 — The light newsprint redesign, a sourced territorial map, and a typed court record
 
 The design handoff replaces the dark "dossier" system with a light newsprint one. The route

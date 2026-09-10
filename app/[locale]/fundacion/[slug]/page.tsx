@@ -9,8 +9,10 @@ import {
   entityBySlug,
   entities,
   getFoundations,
+  partyNifByFoundation,
   type Dossier,
 } from "@/lib/foundations";
+import { officeTies } from "@/lib/officeholder-ties";
 
 export const revalidate = 3600;
 
@@ -41,6 +43,11 @@ export default async function FundacionPage({
   const { locale, bcp47, t } = getDict(localeParam);
   const F = t.foundations;
   const party = entity.partyNif ? PARTIES[entity.partyNif] : undefined;
+
+  // Public offices held by this entity's board members, matched against the
+  // Registro de Altos Cargos. The join needs the report's own party link for
+  // every entity, not just this one, because a person can sit on two boards.
+  const offices = await officeTies(partyNifByFoundation(data));
 
   return (
     <main className="mx-auto max-w-4xl pb-8">
@@ -109,7 +116,12 @@ export default async function FundacionPage({
         </dl>
       </section>
 
-      <FoundationGovernance foundation={entity.name} t={t} />
+      <FoundationGovernance
+        foundation={entity.name}
+        t={t}
+        locale={locale}
+        offices={offices.byPerson}
+      />
 
       {entity.years.map((year) => (
         <Exercise key={year.exercise} year={year} F={F} bcp47={bcp47} />
