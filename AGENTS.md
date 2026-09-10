@@ -282,6 +282,7 @@ ordinary browser one, so `FEED_HEADERS` in the registry sends the browser string
 | `lib/court-records.ts` | The four verified judicial and electoral-board resolutions, with the status as a **type** |
 | `lib/officeholder-ties.ts` | The board-member → public-office join, gated on one-post-per-name **and** party agreement |
 | `lib/chart-colors.ts` | Each chart category's colour, decided once |
+| `lib/investitures.ts` | Per community: the investiture arithmetic, and the recorded tally where verified |
 | `lib/spending.ts` | Electoral spending, plus `formationNif`/`formationColor` for the report's coalition labels |
 | `lib/photos.ts` | Portrait lookup, `portraitKeys` for bulk tests |
 | `lib/politicians.ts` | Curated politicians with verified Bluesky handles |
@@ -339,6 +340,7 @@ npm run build:regions          # projects the community geometry into data/regio
 curl http://localhost:3000/api/refresh   # subsidies (add the CRON_SECRET header if set)
 npm run check:feeds            # health-checks every news feed; non-zero on a dead or stale one
 npm run check:office-join      # guards the board-member → public-office join; non-zero on a break
+npm run check:investitures     # guards the investiture arithmetic; non-zero on a sum that does not close
 ```
 
 Endpoint notes that cost real time to work out:
@@ -362,19 +364,40 @@ Endpoint notes that cost real time to work out:
   exponentially and caches both passes. Commons returns file titles with spaces while
   `pageimage` gives underscores — keys must be normalised or the licence lookup silently misses.
 
-## The map ships two layers because three had no source
+## The map ships two data layers plus the investiture overlay; three layers had no source
 
 The design specified five. An LGBTI rights index, the state of trans-law reform and vote share
 for the parties that voted against the tracked bills arrived with sample values and are not
 published: a plausible-looking number on a map is read as a measurement, and the page says so
 rather than leaving the absence to be noticed.
 
-The hatch overlay marking investitures that depended on Vox is absent for a subtler reason worth
-keeping in mind before anyone adds it. Five PP presidencies were invested with Vox votes in July
-2023, and Vox then left three of those governments in July 2024. One static overlay would
-therefore be false for part of the period it appeared to describe, and at least one arrangement
-has changed again since. Adding it needs each parliament's own investiture record transcribed,
-with dates, which is its own verification pass.
+The investiture overlay **is** now drawn, and how it is drawn is the point. A hatch meaning "Vox
+is in this government" would have been false for part of the period it described — Vox left three
+of those governments in July 2024 — so what is marked instead is a **dated vote**, which cannot go
+stale.
+
+`lib/investitures.ts` keeps two claims apart. The **arithmetic** (chamber size, PP and Vox seats)
+says whether the PP could reach an absolute majority alone. The **recorded tally**, where verified,
+says who actually supplied the winning votes. They can disagree, because a failed absolute-majority
+round is retried on a **simple majority** where abstentions suffice — so "PP was short alone" does
+not establish that Vox invested anyone. The overlay therefore has two hatch densities, and drawing
+them the same would present the weaker claim as the stronger one.
+
+Eight communities qualify, not the five the press reported, because "a PP–Vox pact" and "PP could
+not reach a majority alone" are different questions. Four have a verified tally.
+
+`npm run check:investitures` fails rather than warns, and it exists because the research was
+unreliable in ways that would have shipped: a source reported Aragón at 65 seats while stating a
+majority of 34 (implying the real 67), and four chamber sizes in that table were wrong — correcting
+them **removed La Rioja from the layer entirely**, since PP's 17 of 33 is a majority. Another
+reversed Vox's and Més's seat counts. So a votes-in-favour breakdown must sum to its own total, a
+round must fit inside its chamber, no party may vote beyond its seats, and a community must not be
+listed if the PP already held a majority there. Only the for-column must close; the against column
+is not load-bearing and the sources disagree on its detail.
+
+The overlay draws only on the government layer, because an overlay on the hate-crime ramp would
+imply a link between the two that nothing here supports, and it carries `pointer-events: none` so
+the region beneath stays clickable.
 
 The two layers that did ship are held to the usual standard:
 `scripts/extract-hate-territory.py` aborts unless every row reconciles against its own printed
@@ -447,8 +470,10 @@ paying a permanent prefix cost to chase it would be the wrong trade.
 - **Social coverage.** 6 verified Bluesky handles. Bluesky skews left in Spain, so PP and Vox
   leaders have no verifiable account there — a property of the platform, stated on the site.
 - **Donations years.** Only ejercicio 2020 (report 1573). Later reports are 700-page PDFs.
-- **Map layers.** Two of the five designed. The three with no citable per-community source, and
-  the Vox-investiture hatch, are covered above.
+- **Map layers.** Two of the five designed, plus the investiture overlay. The three with no citable
+  per-community source are covered above.
+- **Vox in government now.** Deliberately not drawn: that is a standing arrangement, and three of
+  those governments changed in July 2024. It needs its own dated record of entries and departures.
 - **The officeholder join publishes 14 of 53 board members.** The other 39 have no row in the
   register, which is the ordinary case for a trustee holding no public office — not a failure to
   find them. Nothing is inferred for the rest.

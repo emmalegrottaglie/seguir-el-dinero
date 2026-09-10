@@ -3,6 +3,7 @@
 import { useCallback, useMemo, useRef, useState } from "react";
 import { PARTIES } from "@/lib/parties";
 import { GOVERNMENTS, GOVERNMENTS_SOURCE, shortName } from "@/lib/governments";
+import { investitureFor, type InvestitureStatus } from "@/lib/investitures";
 import type { HateTerritoryFile, RegionsFile } from "@/lib/regions";
 import { formatDate, integer, rate } from "@/lib/format";
 import Bar from "./chart/Bar";
@@ -102,6 +103,7 @@ export default function RightsMap({
   };
 
   const sel = regions.regions.find((r) => r.id === selected);
+  const selInv = investitureFor(selected);
   const selGov = GOVERNMENTS.find((g) => g.id === selected);
   const selHate = hate.territories[selected];
 
@@ -153,6 +155,41 @@ export default function RightsMap({
         {activeNote}
       </p>
 
+      {/* The overlay's own legend. Two densities, two different strengths
+          of claim, so the difference is stated rather than left to be
+          inferred from how dark a shape looks. */}
+      {layer === "gov" && (
+        <ul className="mt-2.5 flex flex-wrap gap-x-5 gap-y-1.5">
+          {[
+            {
+              label: M.hatchDecisive,
+              bg:
+                "repeating-linear-gradient(45deg, rgba(32,31,29,0.34) 0 2px, transparent 2px 6px)",
+            },
+            {
+              label: M.hatchShort,
+              bg:
+                "repeating-linear-gradient(45deg, rgba(32,31,29,0.22) 0 1.5px, transparent 1.5px 10px)",
+            },
+          ].map((h) => (
+            <li key={h.label} className="flex items-center gap-2">
+              <span
+                aria-hidden
+                style={{
+                  width: 14,
+                  height: 14,
+                  borderRadius: 1,
+                  flex: "none",
+                  border: "1px solid var(--line)",
+                  backgroundImage: h.bg,
+                }}
+              />
+              <span className="label-mono">{h.label}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+
       <div
         className="mt-3 grid border border-[var(--line)]"
         style={{ gridTemplateColumns: "minmax(0,1fr) minmax(0, 306px)" }}
@@ -165,6 +202,21 @@ export default function RightsMap({
             role="group"
             aria-label={M.svgLabel}
           >
+            <defs>
+              {/* Two densities on purpose. The solid hatch marks an
+                  investiture whose recorded tally shows Vox supplied votes
+                  the winning total needed; the sparse one marks a community
+                  where only the seat arithmetic is verified here. Drawing
+                  both the same would present the weaker claim as the
+                  stronger one. */}
+              <pattern id="hatch-decisive" width="6" height="6" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+                <rect width="2" height="6" fill="var(--ink)" opacity="0.34" />
+              </pattern>
+              <pattern id="hatch-short" width="10" height="10" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+                <rect width="1.5" height="10" fill="var(--ink)" opacity="0.22" />
+              </pattern>
+            </defs>
+
             {/* The Canaries are drawn to their own scale, so the box says so
                 rather than letting them read as part of the same projection. */}
             <rect
@@ -252,6 +304,45 @@ export default function RightsMap({
 
               return <path key={r.id} d={r.d} {...shared} />;
             })}
+
+            {/* Drawn after every region so it sits above their fills, and
+                only on the government layer — the hate-crime ramp is a
+                different question and an overlay there would imply a link
+                between the two that nothing here supports.
+
+                pointerEvents none so the region underneath stays hoverable
+                and clickable: the overlay is a mark, not a target. */}
+            {layer === "gov" &&
+              regions.regions.map((r) => {
+                const f = investitureFor(r.id);
+                if (f.status !== "vox-decisive" && f.status !== "pp-short-alone") {
+                  return null;
+                }
+                const fill =
+                  f.status === "vox-decisive"
+                    ? "url(#hatch-decisive)"
+                    : "url(#hatch-short)";
+                const [cx, cy] = r.centroid;
+                const S = 11;
+                return r.tiny ? (
+                  <rect
+                    key={`ov-${r.id}`}
+                    x={cx - S / 2}
+                    y={cy - S / 2}
+                    width={S}
+                    height={S}
+                    fill={fill}
+                    pointerEvents="none"
+                  />
+                ) : (
+                  <path
+                    key={`ov-${r.id}`}
+                    d={r.d}
+                    fill={fill}
+                    pointerEvents="none"
+                  />
+                );
+              })}
           </svg>
 
           {hover && (
@@ -328,6 +419,76 @@ export default function RightsMap({
               </div>
             ))}
           </dl>
+
+          {/* The investiture, where this layer has a finding. Placed with
+              the government rows because that is the layer it marks, and
+              stated as a fact about a dated vote rather than about who sits
+              in a cabinet now. */}
+          {selInv.investiture && selInv.status !== "pp-majority" && (
+            <div className="mt-4 border-t border-[var(--line)] pt-3">
+              <p className="label-mono">{M.investitureTitle}</p>
+              <p className="mt-2" style={{ fontSize: "12.5px", lineHeight: 1.55 }}>
+                {(selInv.status === "vox-decisive"
+                  ? M.investitureDecisive
+                  : M.investitureShort
+                )
+                  .replace("{pp}", integer(selInv.investiture.seatsPP, bcp47))
+                  .replace("{seats}", integer(selInv.investiture.chamberSeats, bcp47))
+                  .replace("{majority}", integer(selInv.majority, bcp47))
+                  .replace("{vox}", integer(selInv.investiture.seatsVox, bcp47))
+                  .replace(
+                    "{voxVotes}",
+                    integer(selInv.voxVotesFor, bcp47),
+                  )
+                  .replace(
+                    "{date}",
+                    selInv.decidingRound
+                      ? formatDate(selInv.decidingRound.date, bcp47)
+                      : "",
+                  )
+                  .replace(
+                    "{for}",
+                    selInv.decidingRound
+                      ? integer(selInv.decidingRound.votesFor, bcp47)
+                      : "",
+                  )
+                  .replace(
+                    "{against}",
+                    selInv.decidingRound
+                      ? integer(selInv.decidingRound.votesAgainst, bcp47)
+                      : "",
+                  )}
+              </p>
+              {/* Every failed round too, because Murcia's two rejections
+                  are the substance of its record. */}
+              {selInv.investiture.rounds.length > 1 && (
+                <ul className="mt-2 flex flex-col gap-0.5">
+                  {selInv.investiture.rounds.map((r) => (
+                    <li
+                      key={r.date}
+                      style={{ fontSize: "11px", color: "var(--ink-3)" }}
+                    >
+                      <span className="mono">{formatDate(r.date, bcp47)}</span> ·{" "}
+                      <span className="mono">
+                        {integer(r.votesFor, bcp47)}–{integer(r.votesAgainst, bcp47)}
+                      </span>{" "}
+                      · {r.succeeded ? M.investitureCarried : M.investitureFailed}
+                    </li>
+                  ))}
+                </ul>
+              )}
+              <p className="mt-2" style={{ fontSize: "10.5px", lineHeight: 1.45, color: "var(--ink-3)" }}>
+                <a
+                  className="src"
+                  href={selInv.investiture.source.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {selInv.investiture.source.title} ↗
+                </a>
+              </p>
+            </div>
+          )}
 
           {selHate && (
             <div className="mt-4">

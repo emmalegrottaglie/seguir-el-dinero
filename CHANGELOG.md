@@ -5,6 +5,115 @@ figures name their source; corrections and gaps are recorded alongside the work,
 
 ---
 
+## 2026-09-10 — The investiture overlay, as a dated vote rather than a standing arrangement
+
+The map's missing layer. It was held back because the obvious version of it — a
+hatch meaning "Vox is in this government" — was already false for part of the
+period it would have described: five PP presidencies were invested with Vox
+votes in July 2023 and Vox left three of those governments in July 2024.
+
+The fix is to change what is drawn. An investiture happened on a day, in a
+chamber of a known size, with a tally. That cannot go stale. Whether Vox sits in
+a cabinet today is a different question and is not on this map.
+
+### Two claims, kept separate
+
+`lib/investitures.ts` records two things per community, and they are not the
+same claim:
+
+1. **The arithmetic** — the chamber's size and the seats the PP and Vox each
+   won. From those, whether the PP could reach an absolute majority alone. Two
+   published numbers and a division; anyone can redo it.
+2. **The recorded vote**, where verified — date, round, tally, and how many
+   votes in favour each party supplied.
+
+They can disagree, which is the whole reason for the distinction. A Spanish
+regional investiture that fails on an absolute majority is retried on a **simple
+majority**, where abstentions suffice — so "the PP was short of a majority
+alone" does **not** establish that Vox's votes invested anyone. Only the tally
+does.
+
+So the overlay has two densities: a solid hatch where a verified tally shows Vox
+supplied votes the winning total needed, and a sparse one where only the
+arithmetic is verified. Drawing both the same would present the weaker claim as
+the stronger one.
+
+**Eight communities, not the five the press reported** — because "a PP–Vox pact"
+and "PP could not reach a majority alone" are different questions. Four of the
+eight have a verified tally: Castilla y León, Comunitat Valenciana, Extremadura,
+Murcia. Four ship on arithmetic alone: Aragón, Illes Balears, Cantabria,
+Melilla.
+
+### Murcia is why the tally was worth chasing
+
+The arithmetic says only that the PP was two seats short. The record says
+López Miras was **rejected twice** — 21–24 on 7 July 2023 and again on 10 July,
+with Vox voting against him — and invested 30–15 on 7 September, after a
+coalition agreement. The panel lists all three rounds. That is a considerably
+stronger and more specific fact than the arithmetic, and it is not derivable
+from it.
+
+Comunitat Valenciana is the case that vindicates dating the claim: **two**
+investitures in one legislature, Mazón on 13 July 2023 and Pérez Llorca on
+27 November 2025, both 53 votes with PP 40 + Vox 13. A single undated overlay
+would have described one of them and silently mis-described the other.
+
+### The research was unreliable, and the guard is why that is survivable
+
+Three sources gave figures that did not close, and two of them would have put a
+wrong hatch on a public map:
+
+- one table reported Aragón's Cortes at **65 seats** while stating a majority of
+  **34**, which implies 67 — the real figure. Four chamber sizes in that table
+  were wrong (Aragón, Illes Balears, Madrid, La Rioja), and correcting them
+  **flipped La Rioja out of the layer entirely**: PP holds 17 of 33, which *is*
+  an absolute majority;
+- the Illes Balears tally put Vox at 4 votes and Més at 8 — the exact reverse of
+  the 8 and 4 they hold;
+- Castilla y León's against-column breakdown summed to one less than its own
+  total.
+
+`npm run check:investitures` therefore fails rather than warns, on: a
+votes-in-favour breakdown that does not sum to its own total; a round with more
+votes cast than the chamber has seats; a party contributing more votes than it
+holds seats; a round marked successful that did not reach its stated bar; and a
+community listed at all when the PP already held a majority there. Only the
+**for**-column breakdown is required to close, because that is what establishes
+Vox's contribution — the against column is not load-bearing for anything
+published, and the sources disagree on its detail.
+
+The guard was tested by injecting two faults and confirming both were caught: a
+breakdown summing to 32 against a stated 33, and Vox voting 90 with 9 seats.
+
+### What the map does
+
+The overlay draws only on the government layer — an overlay on the hate-crime
+ramp would imply a link between the two that nothing here supports, and it
+clears when the layer switches (verified: 8 overlays and a legend on one layer,
+0 and 0 on the other). It carries `pointer-events: none`, so the region beneath
+stays hoverable and clickable: the hatch is a mark, not a target. The two tiny
+territories get the same overlay on their markers rather than on their
+unclickable outlines.
+
+The drill-down panel states the arithmetic, then the deciding vote where one is
+verified, then every round with its date and tally, then the source. A community
+where the PP held a majority alone gets no investiture block at all — Madrid, at
+70 of 135, correctly shows none.
+
+**Verified.** Typecheck clean, build clean at 231 pages, both guards pass, 8
+overlays in the two intended densities with both legended, the overlay and its
+legend absent on the other layer, Murcia's three rounds rendering in order, and
+**0 contrast failures across 20 routes**.
+
+### Still not on this map
+
+Whether Vox currently holds cabinet posts, and where. That is the standing
+arrangement this layer deliberately does not draw, and it needs its own dated
+record of entries and departures — three governments changed in July 2024
+alone.
+
+---
+
 ## 2026-09-10 — One bar, one convention, and a chart that was rendering black
 
 Emma sent five screenshots of visual bugs and of the bar charts disagreeing with
