@@ -5,6 +5,7 @@ import { PARTIES } from "@/lib/parties";
 import { GOVERNMENTS, GOVERNMENTS_SOURCE, shortName } from "@/lib/governments";
 import type { HateTerritoryFile, RegionsFile } from "@/lib/regions";
 import { formatDate, integer, rate } from "@/lib/format";
+import Bar from "./chart/Bar";
 import type { Dict } from "@/lib/i18n";
 
 type LayerId = "gov" | "hate";
@@ -345,14 +346,13 @@ export default function RightsMap({
                       {integer(b.n, bcp47)}
                     </span>
                   </div>
-                  <span className="bar-track mt-1" aria-hidden style={{ height: 7 }}>
-                    <i
-                      style={{
-                        width: `${((b.n / Math.max(1, selHate.total)) * 100).toFixed(2)}%`,
-                        background: b.colour,
-                      }}
-                    />
-                  </span>
+                  <Bar
+                    className="mt-1"
+                    segments={[{ value: b.n, color: b.colour, label: b.label }]}
+                    total={Math.max(1, selHate.total)}
+                    scale="share"
+                    size="sm"
+                  />
                 </div>
               ))}
               <p className="mt-2" style={{ fontSize: "10.5px", lineHeight: 1.45, color: "var(--ink-3)" }}>

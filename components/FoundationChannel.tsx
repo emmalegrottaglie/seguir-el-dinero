@@ -10,6 +10,8 @@ import {
 } from "@/lib/foundations";
 import { governanceCoverage } from "@/lib/foundation-people";
 import type { OfficeJoin } from "@/lib/officeholder-ties";
+import { CHANNEL_COLORS } from "@/lib/chart-colors";
+import Bar, { BarLegend, type Segment } from "./chart/Bar";
 import { euro, euroCompact, formatDate, integer, percent } from "@/lib/format";
 import type { Dict } from "@/lib/i18n";
 
@@ -195,8 +197,16 @@ export default function FoundationChannel({
           </thead>
           <tbody>
             {ranked.map((e) => {
-              const all = e.contributions + e.subsidies;
-              const pct = (n: number) => `${all > 0 ? (n / all) * 100 : 0}%`;
+              const segments: Segment[] = [
+                { value: e.party_, color: CHANNEL_COLORS.party, label: F.fromParty },
+                { value: e.companies, color: CHANNEL_COLORS.companies, label: F.fromCompanies },
+                {
+                  value: e.individuals,
+                  color: CHANNEL_COLORS.individuals,
+                  label: F.fromIndividuals,
+                },
+                { value: e.subsidies, color: CHANNEL_COLORS.subsidies, label: F.publicSubsidies },
+              ];
               return (
                 <tr key={e.slug} className="border-t border-[var(--line)] align-middle">
                   <th scope="row" className="py-3 pr-4 text-left font-normal text-[var(--ink)]">
@@ -214,25 +224,7 @@ export default function FoundationChannel({
                     )}
                   </td>
                   <td className="py-3 pr-4">
-                    {/* Decoration: every figure in it is in the columns beside it. */}
-                    <span
-                      aria-hidden="true"
-                      className="flex h-3 overflow-hidden rounded-sm bg-[var(--track)]"
-                      style={{ width: `${(all / max) * 100}%` }}
-                    >
-                      {e.party_ > 0 && (
-                        <span style={{ width: pct(e.party_), backgroundColor: "var(--gold-deep)" }} />
-                      )}
-                      {e.companies > 0 && (
-                        <span style={{ width: pct(e.companies), backgroundColor: "var(--red)" }} />
-                      )}
-                      {e.individuals > 0 && (
-                        <span style={{ width: pct(e.individuals), backgroundColor: "var(--ink-2)" }} />
-                      )}
-                      {e.subsidies > 0 && (
-                        <span style={{ width: pct(e.subsidies), backgroundColor: "var(--gold)" }} />
-                      )}
-                    </span>
+                    <Bar segments={segments} total={max} scale="compare" size="sm" />
                   </td>
                   <td className="mono py-3 pr-3 text-right" style={{ color: "var(--gold-deep)" }}>
                     {e.party_ > 0 ? euroCompact(e.party_, bcp47) : "—"}

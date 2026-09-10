@@ -5,6 +5,125 @@ figures name their source; corrections and gaps are recorded alongside the work,
 
 ---
 
+## 2026-09-10 — One bar, one convention, and a chart that was rendering black
+
+Emma sent five screenshots of visual bugs and of the bar charts disagreeing with
+each other. Three were defects; the fourth was the real problem.
+
+### The donut was rendering solid black
+
+`partyMeta(nif, rawName)` picked its fallback colour with
+`FALLBACK_COLORS[nif.charCodeAt(1) % FALLBACK_COLORS.length]`. Three call sites
+colour by *name* and pass an empty NIF, so `charCodeAt(1)` returned `NaN`,
+`FALLBACK_COLORS[NaN]` returned `undefined`, and an SVG `fill` of `undefined`
+paints **black**. No error anywhere: the electoral-spending donut and the front
+page's spending bar were monochrome, and the only symptom was that they looked
+like a design choice.
+
+Two fixes, because there were two faults. `partyMeta` now hashes the cleaned
+name, so it always yields a colour and uses the thing those callers actually
+have. And the report's formation names — five of which are coalition labels that
+no token rule resolves, since "AHORA REPÚBLICAS" and "COALICIÓN POR UNA EUROPA
+SOLIDARIA" share no word with any registered party name — are mapped explicitly
+in `lib/spending.ts` via `formationNif()` / `formationColor()`, falling back to a
+neutral grey rather than to nothing. Where a coalition has several members the
+NIF is the formation that led the list, and the report's own full name is still
+what the chart labels it with, so nothing shortens a coalition to one party in
+text.
+
+### The vote-flow labels were all stacked at one point
+
+Every party label in the flow diagram was wrapped in an `absolute` span carrying
+only `top`. With no width that wrapper collapses to 0×0, so both of its
+absolutely-positioned children resolved their `left` percentages against a
+zero-width box and the whole column piled up at the same coordinate — party
+name printed over amount, which is what the screenshot showed. Measured before
+the fix: **15 labels at `w:0 h:0`, all at `x:45`**. After: 18 labels, **0 of
+zero size, 0 overlapping pairs**.
+
+### The masthead's wordmark struck through its own edition line
+
+`EDICIÓN Nº 001` appeared to have a line through it. The boxes were not
+overlapping — they measured a 4px gap — but the wordmark runs at 72px on a 0.9
+line height, so its box is 65px and the descender of the "g" in "Seguir" paints
+about 7px below it, straight through the "Nº". The gap is 12px now.
+
+### The real problem: nine bars, six heights, two conventions
+
+This is what Emma actually flagged, and it was worse than the screenshots
+showed. Across the site there were **thirteen** hand-rolled bars — the first
+sweep found nine, and four more were on older inline classes that the
+`bar-track` grep missed. Between them:
+
+- **six different heights** (6, 7, 8, 12, 15, 26, 30 px), none of them chosen
+  against the others;
+- **two incompatible scale conventions**, share-of-total and share-of-max, with
+  nothing on the page saying which a given bar used;
+- **the same three donation tranches in three different palettes** — party
+  colour / party at 62 % / ink on the donations table, ink-3 / gold / red on a
+  party page, ink-3 / abstention / ink on the front page, all reachable from
+  each other in two clicks;
+- **"sí" in gold in `GroupBreakdown` and in verdigris in `StanceByGroup`**, two
+  widgets apart on the same page.
+
+A chart that looks consistent and is not misleads by implication, which is worse
+than having no chart.
+
+So: `components/chart/Bar.tsx`, which is what `PLAN-VISUAL.md` step 1 already
+asked for — a primitive, not a library. All thirteen bars now go through it.
+
+**`scale` is a required prop, not a default.** `"share"` means the segments are
+parts of a whole and fill the track; `"compare"` means the bar's own length is
+its share of the largest row in the set, and the segments divide that length.
+Making it required is the point: the previous bars each had a convention and
+none of them said so.
+
+**Heights are four named sizes** (`sm` 8, `md` 12, `lg` 20, `xl` 28), so a bar's
+weight is a decision rather than an accident.
+
+**`BarLegend` reads the same segments array as the bar.** A legend written out
+by hand beside a bar drifts from it — that already happened here once, when a
+swatch was darkened for contrast and stopped matching the segment it labelled.
+Taking one array makes that unrepresentable.
+
+**`lib/chart-colors.ts` decides each category's colour once**: `TRANCHE_COLORS`,
+`SPEND_COLORS`, `STANCE_COLORS`, `SUBSIDY_COLORS`, `CHANNEL_COLORS`.
+
+### A minimum width, and why it is defensible
+
+Scaled linearly against the largest party, thirteen of the seventeen rows in the
+donations table came out under four pixels and several under one — a real
+declared figure rendering as literally nothing. Segments now have a **2px
+floor**, so a non-zero value reads as non-zero without pretending to be readable
+as a magnitude.
+
+That is a small distortion and it is acknowledged rather than hidden: every one
+of these charts prints the exact figure in an adjacent column, and both affected
+tables now carry a note saying the floor exists and what the bar is scaled
+against. The bottom rows (PP €3,120, PSC €1,800) sit at the floor and are
+identical in width; their figures are two columns away.
+
+### The unexplained hatch
+
+The subsidy dashboard drew `seguridad` as `--red` with a 45° diagonal hatch, on
+all 28 rows, with no legend anywhere on the page. Red is the alert colour this
+site uses for "against" and for the unaccounted residual, so an ordinary
+category of state subsidy read as a warning. It keeps the hatch — a fourth hue
+in a chart already carrying 28 party colours would not be distinguishable — but
+takes a neutral ink and is now named in a legend.
+
+Also removed: `Dashboard`'s own local `Bar` component, which the primitive
+replaced.
+
+**Verified.** Typecheck clean; build clean at 231 pages; the donut renders eight
+distinct party colours (was eight blacks); bar heights on `/financiacion` reduced
+to the three named sizes in use; smallest rendered segment 2px, none invisible;
+the flow diagram has 0 zero-size and 0 overlapping labels; legend swatches match
+their segments' computed colours exactly; **0 contrast failures across 18
+routes**; and the officeholder-join guard still passes.
+
+---
+
 ## 2026-09-10 — The officeholder join, matched on two conditions rather than on a name
 
 The foundation people layer and the officeholder register were both already

@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { DONATIONS_SOURCE, donationsRanked } from "@/lib/donations";
-import { cssPercent, euroExact, integer } from "@/lib/format";
+import { euroExact, integer } from "@/lib/format";
 import { PARTIES } from "@/lib/parties";
+import { TRANCHE_COLORS } from "@/lib/chart-colors";
+import Bar, { BarLegend, type Segment } from "./chart/Bar";
 import type { Dict, Locale } from "@/lib/i18n";
 
 /**
@@ -76,10 +78,12 @@ export default function DonationsTable({
           <tbody>
             {rows.map((d, i) => {
               const meta = d.nif ? PARTIES[d.nif] : undefined;
-              const color = meta?.color ?? "var(--grey-500)";
-              const scale = d.total.amount / max;
-              const seg = (amount: number) =>
-                cssPercent(d.total.amount > 0 ? (amount / d.total.amount) * scale : 0);
+              const dotColor = meta?.color ?? "var(--grey-500)";
+              const segments: Segment[] = [
+                { value: d.small.amount, color: TRANCHE_COLORS.small, label: F.trancheSmall },
+                { value: d.mid.amount, color: TRANCHE_COLORS.mid, label: F.trancheMid },
+                { value: d.large.amount, color: TRANCHE_COLORS.large, label: F.trancheLarge },
+              ];
               return (
                 <tr key={d.label} style={{ borderBottom: "1px solid var(--line-soft)" }}>
                   <td className="mono py-[9px]" style={{ color: "var(--ink-3)" }}>
@@ -90,7 +94,7 @@ export default function DonationsTable({
                       <span
                         className="dot"
                         aria-hidden
-                        style={{ width: 9, height: 9, background: color }}
+                        style={{ width: 9, height: 9, background: dotColor }}
                       />
                       {d.nif ? (
                         <Link href={`/${locale}/party/${d.nif}`} className="truncate hover:underline">
@@ -102,13 +106,7 @@ export default function DonationsTable({
                     </span>
                   </th>
                   <td className="py-[9px] pr-4">
-                    {/* aria-hidden: every segment's value is already in the
-                        row's own cells and in the legend below. */}
-                    <span className="bar-track" aria-hidden style={{ height: 15 }}>
-                      <i style={{ width: seg(d.small.amount), background: color }} />
-                      <i style={{ width: seg(d.mid.amount), background: color, opacity: 0.62 }} />
-                      <i style={{ width: seg(d.large.amount), background: "var(--ink)" }} />
-                    </span>
+                    <Bar segments={segments} total={max} scale="compare" size="md" />
                   </td>
                   <td className="mono whitespace-nowrap py-[9px] text-right">
                     {euroExact(d.total.amount, bcp47)}
@@ -126,21 +124,17 @@ export default function DonationsTable({
         </table>
       </div>
 
-      <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
-        {[
-          { label: F.trancheSmall, style: { background: "var(--ink-3)" } },
-          { label: F.trancheMid, style: { background: "var(--ink-3)", opacity: 0.62 } },
-          { label: F.trancheLarge, style: { background: "var(--ink)" } },
-        ].map((s) => (
-          <li key={s.label} className="flex items-center gap-2">
-            <span
-              aria-hidden
-              style={{ width: 11, height: 11, borderRadius: 1, flex: "none", ...s.style }}
-            />
-            <span className="label-mono">{s.label}</span>
-          </li>
-        ))}
-      </ul>
+      <BarLegend
+        className="mt-4"
+        segments={[
+          { value: 1, color: TRANCHE_COLORS.small, label: F.trancheSmall },
+          { value: 1, color: TRANCHE_COLORS.mid, label: F.trancheMid },
+          { value: 1, color: TRANCHE_COLORS.large, label: F.trancheLarge },
+        ]}
+      />
+      <p className="mt-2" style={{ fontSize: "11.5px", color: "var(--ink-3)" }}>
+        {F.barNote}
+      </p>
 
       <p
         className="mt-4"

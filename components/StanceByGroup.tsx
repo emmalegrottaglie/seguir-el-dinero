@@ -1,6 +1,8 @@
 import type { KeyVote } from "@/lib/votes";
 import { tallyByGroup } from "@/lib/votes";
 import { groupLabel } from "@/lib/groups";
+import { STANCE_COLORS } from "@/lib/chart-colors";
+import Bar from "./chart/Bar";
 import type { Dict } from "@/lib/i18n";
 
 /**
@@ -57,11 +59,21 @@ export default function StanceByGroup({ vote, t }: { vote: KeyVote; t: Dict }) {
         </a>
       </p>
 
-      <div className="mt-4 flex h-3 overflow-hidden rounded-sm bg-[var(--track)]">
-        <div style={{ width: width(tot.afavor), backgroundColor: "var(--verd)" }} />
-        <div style={{ width: width(tot.enContra), backgroundColor: "var(--red)" }} />
-        <div style={{ width: width(tot.abstenciones), backgroundColor: "var(--abst)" }} />
-      </div>
+      <Bar
+        className="mt-4"
+        segments={[
+          { value: tot.afavor, color: STANCE_COLORS.si, label: t.votes.inFavour },
+          { value: tot.enContra, color: STANCE_COLORS.no, label: t.votes.against },
+          {
+            value: tot.abstenciones,
+            color: STANCE_COLORS.abstention,
+            label: t.votes.abstention,
+          },
+        ]}
+        total={Math.max(1, tot.presentes)}
+        scale="share"
+        size="sm"
+      />
 
       <div className="mt-3 flex flex-col gap-1">
         {row(t.portal.inFavourGroups, bucket.si, "var(--verd-text)")}

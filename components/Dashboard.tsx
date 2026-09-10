@@ -7,6 +7,8 @@ import type { Aggregation, SubsidyKind } from "@/lib/types";
 import { BCP47, type Dict, type Locale } from "@/lib/i18n";
 import { filterAggregation } from "@/lib/normalize";
 import { euroCompact, integer, percent, formatDate } from "@/lib/format";
+import { SUBSIDY_COLORS } from "@/lib/chart-colors";
+import Bar, { BarLegend, type Segment } from "./chart/Bar";
 import { stagger } from "@/lib/motion";
 import CountUp from "./CountUp";
 
@@ -153,9 +155,16 @@ export default function Dashboard({
 
         <ol className="flex flex-col">
           {agg.parties.map((p, i) => {
-            const wOrd = (p.byKind.ordinaria / maxTotal) * 100;
-            const wSeg = (p.byKind.seguridad / maxTotal) * 100;
-            const wOtra = (p.byKind.otra / maxTotal) * 100;
+            const segments: Segment[] = [
+              { value: p.byKind.ordinaria, color: p.color, label: kinds.ordinaria },
+              {
+                value: p.byKind.seguridad,
+                color: SUBSIDY_COLORS.seguridad,
+                label: kinds.seguridad,
+                striped: true,
+              },
+              { value: p.byKind.otra, color: SUBSIDY_COLORS.otra, label: kinds.otra },
+            ];
             return (
               // initial={false} so the row is visible in the server-rendered HTML;
               // `layout` still animates reordering when a filter changes.
@@ -181,11 +190,13 @@ export default function Dashboard({
                     </span>
                   </span>
 
-                  {/* bar track */}
-                  <span className="col-span-2 flex h-6 items-center overflow-hidden rounded-sm bg-[var(--track)] sm:col-span-1">
-                    <Bar width={wOrd} color={p.color} index={i} />
-                    <Bar width={wSeg} color="var(--red)" index={i} step={1} striped />
-                    <Bar width={wOtra} color="var(--ink-3)" index={i} step={2} />
+                  <span className="col-span-2 sm:col-span-1">
+                    <Bar
+                      segments={segments}
+                      total={maxTotal}
+                      scale="compare"
+                      size="lg"
+                    />
                   </span>
 
                   <span className="col-start-2 flex items-baseline justify-between gap-3 sm:col-start-4 sm:justify-end">
@@ -203,44 +214,28 @@ export default function Dashboard({
             {home.noResults}
           </p>
         )}
+
+        {/* The hatched segment had no legend anywhere, and it was drawn in the
+            alert red this site uses for `against` and for the unaccounted
+            residual — so an ordinary category of subsidy read as a warning on
+            every row. It is a neutral ink now, and named here. */}
+        {agg.parties.length > 0 && (
+          <BarLegend
+            className="mt-5"
+            segments={[
+              { value: 1, color: "var(--grey-500)", label: home.perPartyColour },
+              {
+                value: 1,
+                color: SUBSIDY_COLORS.seguridad,
+                label: kinds.seguridad,
+                striped: true,
+              },
+              { value: 1, color: SUBSIDY_COLORS.otra, label: kinds.otra },
+            ]}
+          />
+        )}
       </section>
     </div>
-  );
-}
-
-function Bar({
-  width,
-  color,
-  index,
-  step = 0,
-  striped,
-}: {
-  width: number;
-  color: string;
-  /** Row position; the delay is the capped stagger for that row. */
-  index: number;
-  /** Which segment of the row this is, so the three grow in sequence. */
-  step?: 0 | 1 | 2;
-  striped?: boolean;
-}) {
-  if (width <= 0) return null;
-  // The real width is in the HTML and the growth is a CSS transform, so the bar
-  // is the right size without JavaScript. Animating `width` from 0 the old way
-  // shipped `width: 0px` inline and left every bar invisible until hydration.
-  return (
-    <span
-      className="enter-bar h-full"
-      style={
-        {
-          width: `${width}%`,
-          backgroundColor: color,
-          backgroundImage: striped
-            ? "repeating-linear-gradient(45deg, rgba(0,0,0,0.25) 0 3px, transparent 3px 6px)"
-            : undefined,
-          "--enter-delay": `${stagger(index) + step * 0.05}s`,
-        } as CSSProperties
-      }
-    />
   );
 }
 

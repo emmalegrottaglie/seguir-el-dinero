@@ -428,6 +428,7 @@ const es = {
       "El dinero y los votos se publican juntos para poder consultarlos, no porque uno explique al otro. Una subvención pública no determina un voto concreto.",
   },
   home: {
+    perPartyColour: "Financiación ordinaria, en el color del partido",
     eyebrow: "Subvenciones estatales",
     titlePre: "El dinero de los ",
     titleEmph: "partidos",
@@ -508,6 +509,8 @@ const es = {
       "Quedan fuera, por no tener grupo propio en esta legislatura o no constar en el informe:",
   },
   donationsTable: {
+    barNote:
+      "Cada barra se compara con la del partido que más declaró —el PSOE—, no con el total nacional: a escala nacional trece de las diecisiete filas medirían menos de dos píxeles. Un importe muy pequeño se dibuja con un ancho mínimo para que se vea que no es cero.",
     title: "Donaciones privadas declaradas, 2020",
     caption:
       "Una formación por fila, ordenadas por importe declarado. La barra reparte el total de cada partido entre los tres tramos del informe y está escalada contra el mayor total, no contra el total nacional.",
@@ -526,6 +529,8 @@ const es = {
       "Las empresas no pueden donar a los partidos desde la reforma de 2015 de la LO 8/2007: sólo personas físicas, con un máximo de 50.000 € al año y sin donaciones anónimas. No existe una cifra de financiación por político, y esta web no la calcula.",
   },
   spending: {
+    barNote:
+      "Cada barra se compara con la de la formación que más declaró, así que su longitud dice cuánto gastó y sus tramos en qué. Un importe muy pequeño se dibuja con un ancho mínimo para que se vea que no es cero; la cifra exacta está en las columnas.",
     eyebrow: "Gasto electoral · europeas de 2024",
     donutCentre: "DECLARADO",
     donutCaption:
@@ -1056,6 +1061,7 @@ const en: Dict = {
       "Money and votes are published together so they can be looked up, not because one explains the other. A public subsidy does not determine any particular vote.",
   },
   home: {
+    perPartyColour: "Ordinary funding, in the party’s own colour",
     eyebrow: "State subsidies",
     titlePre: "Party money, ",
     titleEmph: "channel",
@@ -1136,6 +1142,8 @@ const en: Dict = {
       "Left out, for having no group of their own in this legislature or not appearing in the report:",
   },
   donationsTable: {
+    barNote:
+      "Each bar is scaled against the party that declared most — the PSOE — and not against the national total: at national scale thirteen of the seventeen rows would be under two pixels. A very small amount is drawn at a minimum width so it reads as non-zero.",
     title: "Declared private donations, 2020",
     caption:
       "One formation per row, ordered by declared amount. The bar splits each party's total across the report's three tranches and is scaled against the largest total, not against the national one.",
@@ -1154,6 +1162,8 @@ const en: Dict = {
       "Companies have not been able to donate to parties since the 2015 reform of LO 8/2007: natural persons only, capped at €50,000 a year, with no anonymous gifts. There is no per-politician funding figure, and this site does not compute one.",
   },
   spending: {
+    barNote:
+      "Each bar is scaled against the formation that declared most, so its length says how much was spent and its segments say on what. A very small amount is drawn at a minimum width so it reads as non-zero; the exact figure is in the columns.",
     eyebrow: "Electoral spending · 2024 European elections",
     donutCentre: "DECLARED",
     donutCaption:
@@ -1682,6 +1692,7 @@ const ca: Dict = {
       "Els diners i els vots es publiquen junts per poder consultar-los, no perquè l'un expliqui l'altre. Una subvenció pública no determina un vot concret.",
   },
   home: {
+    perPartyColour: "Finançament ordinari, en el color del partit",
     eyebrow: "Subvencions estatals",
     titlePre: "El diner dels ",
     titleEmph: "partits",
@@ -1762,6 +1773,8 @@ const ca: Dict = {
       "En queden fora, per no tenir grup propi en aquesta legislatura o no constar a l’informe:",
   },
   donationsTable: {
+    barNote:
+      "Cada barra es compara amb la del partit que més va declarar —el PSOE—, no amb el total estatal: a escala estatal tretze de les disset files mesurarien menys de dos píxels. Un import molt petit es dibuixa amb una amplada mínima perquè es vegi que no és zero.",
     title: "Donacions privades declarades, 2020",
     caption:
       "Una formació per fila, ordenades per import declarat. La barra reparteix el total de cada partit entre els tres trams de l'informe i està escalada contra el total més alt, no contra el total estatal.",
@@ -1780,6 +1793,8 @@ const ca: Dict = {
       "Les empreses no poden donar als partits des de la reforma del 2015 de la LO 8/2007: només persones físiques, amb un màxim de 50.000 € l'any i sense donacions anònimes. No existeix una xifra de finançament per polític, i aquesta web no la calcula.",
   },
   spending: {
+    barNote:
+      "Cada barra es compara amb la de la formació que més va declarar, així que la seva llargada diu quant va gastar i els seus trams en què. Un import molt petit es dibuixa amb una amplada mínima perquè es vegi que no és zero; la xifra exacta és a les columnes.",
     eyebrow: "Despesa electoral · europees del 2024",
     donutCentre: "DECLARAT",
     donutCaption:

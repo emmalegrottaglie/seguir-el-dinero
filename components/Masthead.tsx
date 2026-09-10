@@ -80,8 +80,12 @@ export default function Masthead({
               Seguir <span className="italic text-[var(--gold)]">el</span> Dinero
             </span>
           </Link>
+          {/* mt-3, not mt-1. The wordmark runs at 72px on a 0.9 line height,
+              so its box is 65px and the descender of the "g" in "Seguir"
+              paints about 7px below it — over the "Nº" of this line, which
+              measured as a 4px box gap and read as a strikethrough. */}
           <p
-            className="label-mono mt-1"
+            className="label-mono mt-3"
             style={{ fontSize: "13px", letterSpacing: "0.2em" }}
           >
             {masthead.edition}

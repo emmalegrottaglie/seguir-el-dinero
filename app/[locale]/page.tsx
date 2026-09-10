@@ -5,9 +5,11 @@ import { getVotes, newestFirst } from "@/lib/votes";
 import { getSpending, spendingTotals, rankedBySpending } from "@/lib/spending";
 import { DONATIONS_2020, DONATIONS_SOURCE } from "@/lib/donations";
 import { fetchTopicNews } from "@/lib/news";
-import { partyMeta } from "@/lib/parties";
+import { formationColor } from "@/lib/spending";
+import { STANCE_COLORS, TRANCHE_COLORS } from "@/lib/chart-colors";
 import { getDict, relativeTime } from "@/lib/i18n";
-import { cssPercent, euroExact, euroM, integer, percent } from "@/lib/format";
+import { euroExact, euroM, integer, percent } from "@/lib/format";
+import Bar, { BarLegend, type Segment } from "@/components/chart/Bar";
 import StatStrip, { type StatItem } from "@/components/StatStrip";
 import StanceByGroup from "@/components/StanceByGroup";
 import CourtRecords from "@/components/CourtRecords";
@@ -263,26 +265,29 @@ export default async function PortalPage({
                       <p className="truncate" style={{ fontSize: "11.5px" }} title={vote.law}>
                         {vote.law}
                       </p>
-                      <span className="bar-track mt-1" aria-hidden style={{ height: 7 }}>
-                        <i
-                          style={{
-                            width: cssPercent(vote.totals.afavor / Math.max(1, cast)),
-                            background: "var(--verd)",
-                          }}
-                        />
-                        <i
-                          style={{
-                            width: cssPercent(vote.totals.enContra / Math.max(1, cast)),
-                            background: "var(--red)",
-                          }}
-                        />
-                        <i
-                          style={{
-                            width: cssPercent(vote.totals.abstenciones / Math.max(1, cast)),
-                            background: "var(--abst)",
-                          }}
-                        />
-                      </span>
+                      <Bar
+                        className="mt-1"
+                        segments={[
+                          {
+                            value: vote.totals.afavor,
+                            color: STANCE_COLORS.si,
+                            label: t.votes.inFavour,
+                          },
+                          {
+                            value: vote.totals.enContra,
+                            color: STANCE_COLORS.no,
+                            label: t.votes.against,
+                          },
+                          {
+                            value: vote.totals.abstenciones,
+                            color: STANCE_COLORS.abstention,
+                            label: t.votes.abstention,
+                          },
+                        ]}
+                        total={Math.max(1, cast)}
+                        scale="share"
+                        size="sm"
+                      />
                     </div>
                     <span
                       className="label-mono text-right"
@@ -294,18 +299,14 @@ export default async function PortalPage({
                 );
               })}
             </ul>
-            <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-1">
-              {[
-                { c: "var(--verd)", l: t.votes.inFavour },
-                { c: "var(--red)", l: t.votes.against },
-                { c: "var(--abst)", l: t.votes.abstention },
-              ].map((s) => (
-                <li key={s.l} className="flex items-center gap-1.5">
-                  <span aria-hidden style={{ width: 10, height: 10, borderRadius: 1, background: s.c }} />
-                  <span className="label-mono">{s.l}</span>
-                </li>
-              ))}
-            </ul>
+            <BarLegend
+              className="mt-4"
+              segments={[
+                { value: 1, color: STANCE_COLORS.si, label: t.votes.inFavour },
+                { value: 1, color: STANCE_COLORS.no, label: t.votes.against },
+                { value: 1, color: STANCE_COLORS.abstention, label: t.votes.abstention },
+              ]}
+            />
           </div>
 
           {/* Many donors, little money */}
@@ -315,32 +316,47 @@ export default async function PortalPage({
               {
                 caption: P.per100Donors,
                 parts: [
-                  { n: tranche.smallDonors, c: "var(--ink-3)", l: t.donationsTable.trancheSmall },
-                  { n: tranche.midDonors, c: "var(--abst)", l: t.donationsTable.trancheMid },
-                  { n: tranche.largeDonors, c: "var(--ink)", l: t.donationsTable.trancheLarge },
+  {
+                    n: tranche.smallDonors,
+                    c: TRANCHE_COLORS.small,
+                    l: t.donationsTable.trancheSmall,
+                  },
+                  { n: tranche.midDonors, c: TRANCHE_COLORS.mid, l: t.donationsTable.trancheMid },
+                  {
+                    n: tranche.largeDonors,
+                    c: TRANCHE_COLORS.large,
+                    l: t.donationsTable.trancheLarge,
+                  },
                 ],
                 total: donorTotal,
               },
               {
                 caption: P.per100Euros,
                 parts: [
-                  { n: tranche.smallMoney, c: "var(--ink-3)", l: t.donationsTable.trancheSmall },
-                  { n: tranche.midMoney, c: "var(--abst)", l: t.donationsTable.trancheMid },
-                  { n: tranche.largeMoney, c: "var(--ink)", l: t.donationsTable.trancheLarge },
+{
+                    n: tranche.smallMoney,
+                    c: TRANCHE_COLORS.small,
+                    l: t.donationsTable.trancheSmall,
+                  },
+                  { n: tranche.midMoney, c: TRANCHE_COLORS.mid, l: t.donationsTable.trancheMid },
+                  {
+                    n: tranche.largeMoney,
+                    c: TRANCHE_COLORS.large,
+                    l: t.donationsTable.trancheLarge,
+                  },
                 ],
                 total: moneyTotal,
               },
             ].map((block) => (
               <div key={block.caption} className="mt-4">
                 <p className="display text-[15px] font-semibold">{block.caption}</p>
-                <span className="bar-track mt-2" aria-hidden style={{ height: 26 }}>
-                  {block.parts.map((p) => (
-                    <i
-                      key={p.l}
-                      style={{ width: cssPercent(p.n / block.total), background: p.c }}
-                    />
-                  ))}
-                </span>
+                <Bar
+                  className="mt-2"
+                  segments={block.parts.map((p) => ({ value: p.n, color: p.c, label: p.l }))}
+                  total={block.total}
+                  scale="share"
+                  size="xl"
+                />
                 <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-1">
                   {block.parts.map((p) => (
                     <li key={p.l} className="flex items-center gap-1.5">
@@ -369,17 +385,19 @@ export default async function PortalPage({
           {/* Electoral spending by formation */}
           <div className="px-5 py-5">
             <p className="eyebrow">{P.bandSpendTitle}</p>
-            <span className="bar-track mt-4" aria-hidden style={{ height: 30 }}>
-              {ranked.map((f) => (
-                <i
-                  key={f.name}
-                  style={{
-                    width: cssPercent(f.ordinary.declared / totals.declared),
-                    background: partyMeta("", f.name).color,
-                  }}
-                />
-              ))}
-            </span>
+            <Bar
+              className="mt-4"
+              segments={ranked.map(
+                (f): Segment => ({
+                  value: f.ordinary.declared,
+                  color: formationColor(f.name),
+                  label: f.name,
+                }),
+              )}
+              total={totals.declared}
+              scale="share"
+              size="xl"
+            />
             <ul className="mt-3 flex flex-col gap-1">
               {ranked.map((f) => (
                 <li key={f.name} className="flex items-center gap-2">
@@ -390,7 +408,7 @@ export default async function PortalPage({
                       height: 10,
                       borderRadius: 1,
                       flex: "none",
-                      background: partyMeta("", f.name).color,
+                      background: formationColor(f.name),
                     }}
                   />
                   <span className="min-w-0 flex-1 truncate" style={{ fontSize: "11.5px" }}>

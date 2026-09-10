@@ -11,6 +11,8 @@ import { getVotes, newestFirst, stancesByParty } from "@/lib/votes";
 import { sharedGroupFor } from "@/lib/groups";
 import CourtRecords from "@/components/CourtRecords";
 import PartySwitcher from "@/components/PartySwitcher";
+import { TRANCHE_COLORS } from "@/lib/chart-colors";
+import Bar, { type Segment } from "@/components/chart/Bar";
 import type { SubsidyKind } from "@/lib/types";
 
 export const revalidate = 3600;
@@ -58,6 +60,25 @@ export default async function PartyPage({
     // Which kind of gap this is, when there is one.
     sharedGroup: sharedGroupFor(v.legislature, nif),
   }));
+
+  // The three tranches, in the colours every other tranche chart on the site
+  // uses. This page drew them in ink-3 / gold / red, which made the same three
+  // categories look like three different things across two clicks.
+  const trancheSegments: Segment[] = donations
+    ? [
+        {
+          value: donations.small.amount,
+          color: TRANCHE_COLORS.small,
+          label: t.donationsTable.trancheSmall,
+        },
+        { value: donations.mid.amount, color: TRANCHE_COLORS.mid, label: t.donationsTable.trancheMid },
+        {
+          value: donations.large.amount,
+          color: TRANCHE_COLORS.large,
+          label: t.donationsTable.trancheLarge,
+        },
+      ]
+    : [];
 
   const years = [...new Set(party.grants.map((g) => g.year))].sort((a, b) => a - b);
   const maxYear = Math.max(...years.map((y) => party.byYear[y] ?? 0), 1);
@@ -201,33 +222,18 @@ export default async function PartyPage({
 
           {/* tranche split by amount */}
           <div className="mt-6">
-            <div className="flex h-6 overflow-hidden rounded-sm bg-[var(--track)]">
-              {(
-                [
-                  ["< 1.000 €", donations.small, "var(--ink-3)"],
-                  ["1.000–10.000 €", donations.mid, "var(--gold)"],
-                  ["> 10.000 €", donations.large, "var(--red)"],
-                ] as const
-              ).map(
-                ([lab, tr, color]) =>
-                  tr.amount > 0 && (
-                    <div
-                      key={lab}
-                      style={{
-                        width: `${(tr.amount / donations.total.amount) * 100}%`,
-                        backgroundColor: color,
-                      }}
-                      title={`${lab}: ${euro(tr.amount, bcp47)} · ${tr.donors} ${t.party.donors}`}
-                    />
-                  ),
-              )}
-            </div>
+            <Bar
+              segments={trancheSegments}
+              total={donations.total.amount}
+              scale="share"
+              size="lg"
+            />
             <ul className="mt-3 flex flex-wrap gap-x-6 gap-y-1.5">
               {(
                 [
-                  [t.donationsTable.trancheSmall, donations.small, "var(--ink-3)"],
-                  [t.donationsTable.trancheMid, donations.mid, "var(--gold)"],
-                  [t.donationsTable.trancheLarge, donations.large, "var(--red)"],
+                  [t.donationsTable.trancheSmall, donations.small, TRANCHE_COLORS.small],
+                  [t.donationsTable.trancheMid, donations.mid, TRANCHE_COLORS.mid],
+                  [t.donationsTable.trancheLarge, donations.large, TRANCHE_COLORS.large],
                 ] as const
               ).map(([lab, tr, color]) => (
                 <li key={lab} className="flex items-center gap-2">

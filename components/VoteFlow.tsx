@@ -195,7 +195,11 @@ export default function VoteFlow({
           <div className="pointer-events-none absolute inset-0">
             <span
               className="label-mono absolute"
-              style={{ left: `${(SOURCE_X / W) * 100}%`, top: `${(14 / H) * 100}%` }}
+              style={{
+                left: `${(SOURCE_X / W) * 100}%`,
+                top: 0,
+                maxWidth: "34%",
+              }}
             >
               {V.sourceHead}
             </span>
@@ -203,7 +207,7 @@ export default function VoteFlow({
               className="mono absolute"
               style={{
                 left: `${(SOURCE_X / W) * 100}%`,
-                top: `${(28 / H) * 100}%`,
+                top: `${(20 / H) * 100}%`,
                 fontSize: "12.5px",
               }}
             >
@@ -214,7 +218,7 @@ export default function VoteFlow({
               className="label-mono absolute"
               style={{
                 left: `${(OUT_X / W) * 100}%`,
-                top: `${(14 / H) * 100}%`,
+                top: 0,
                 transform: "translateX(-100%)",
                 whiteSpace: "nowrap",
               }}
@@ -222,13 +226,21 @@ export default function VoteFlow({
               {V.outcomeHead}
             </span>
 
+            {/* Each label positions against the overlay directly.
+
+                They used to be wrapped in one `absolute` span per node that
+                carried only `top`. With no width that wrapper collapsed to
+                0×0, so both children resolved their `left` percentages
+                against a zero-width box and every label in the column piled
+                up at the same point, party name overprinting amount. */}
             {nodes.map((n) => (
-              <span key={n.d.nif} className="absolute" style={{ top: `${(n.y / H) * 100}%` }}>
+              <span key={n.d.nif}>
                 <span
                   className="absolute text-right"
                   style={{
-                    left: `${(463 / W) * 100 - 20}%`,
-                    width: "20%",
+                    top: `${(n.y / H) * 100}%`,
+                    left: 0,
+                    width: `${(463 / W) * 100}%`,
                     fontSize: "12px",
                     lineHeight: 1.1,
                   }}
@@ -238,6 +250,7 @@ export default function VoteFlow({
                 <span
                   className="mono absolute whitespace-nowrap"
                   style={{
+                    top: `${(n.y / H) * 100}%`,
                     left: `${(492 / W) * 100}%`,
                     fontSize: "11.5px",
                     color: "var(--ink-3)",
