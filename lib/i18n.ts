@@ -116,6 +116,15 @@ const es = {
       "Retribución del cargo, no patrimonio ni ingresos privados. Solo cargos marcados como activos en la fuente.",
   },
   map: {
+    investitureTitle: "Investidura",
+    investitureDecisive:
+      "El PP tenía {pp} de {seats} escaños y la mayoría absoluta era {majority}. En la votación del {date} la investidura salió por {for} votos frente a {against}, y {voxVotes} de esos votos los puso Vox: sin ellos no había mayoría.",
+    investitureShort:
+      "El PP tenía {pp} de {seats} escaños y la mayoría absoluta era {majority}, así que no la alcanzaba solo; los {vox} escaños de Vox habrían bastado para cubrir la diferencia. El acta de la votación no está verificada aquí, y en segunda vuelta basta la mayoría simple, así que no se afirma quién invistió a nadie.",
+    investitureCarried: "aprobada",
+    investitureFailed: "rechazada",
+    hatchDecisive: "Investidura con votos de Vox, según el acta",
+    hatchShort: "El PP no llegaba solo a la mayoría absoluta",
     eyebrow: "Mapa territorial",
     title: "Dónde manda cada partido, y qué consta registrado allí",
     standfirst:
@@ -149,7 +158,7 @@ const es = {
     limits:
       "Los hechos conocidos incluyen infracciones administrativas y otros incidentes, no sólo delitos, y no son condenas. Las dos comunidades con policía autonómica propia —la Policía Foral de Navarra y la Ertzaintza— encabezan la tabla de tasas, lo que dice algo sobre cómo se registra y no necesariamente sobre dónde ocurre más. Un incidente del informe no consta en ningún territorio y por eso las columnas de aquí suman uno menos que la cifra nacional.",
     missingLayers:
-      "El diseño de esta sección preveía tres capas más: un índice de derechos LGTBI, el estado de las reformas de las leyes trans y el voto a las formaciones que votaron en contra de las normas que este portal sigue. No están porque no hay todavía una fuente citable por comunidad para ninguna de las tres. Tampoco está el sombreado que marcaría las investiduras que dependieron de Vox: cinco presidencias del PP se investieron con sus votos en julio de 2023 y Vox salió de tres de esos gobiernos en julio de 2024, así que un sombreado fijo sería falso para parte del periodo que parecería describir.",
+      "El diseño de esta sección preveía tres capas más: un índice de derechos LGTBI, el estado de las reformas de las leyes trans y el voto a las formaciones que votaron en contra de las normas que este portal sigue. No están porque no hay todavía una fuente citable por comunidad para ninguna de las tres. El sombreado de las investiduras sí está, pero marca un hecho con fecha —cómo salió una votación concreta— y no quién se sienta hoy en un gobierno, que es lo que habría quedado desfasado: Vox salió de tres de esos gobiernos en julio de 2024.",
   },
   court: {
     title: "Lo que consta en el registro judicial",
@@ -749,6 +758,15 @@ const en: Dict = {
       "Pay for the post — not personal wealth or private income. Only posts marked active in the source.",
   },
   map: {
+    investitureTitle: "Investiture",
+    investitureDecisive:
+      "The PP held {pp} of {seats} seats and an absolute majority was {majority}. In the vote of {date} the investiture carried {for} to {against}, and {voxVotes} of those votes came from Vox: without them there was no majority.",
+    investitureShort:
+      "The PP held {pp} of {seats} seats and an absolute majority was {majority}, so it could not reach one alone; Vox’s {vox} seats would have closed the gap. The vote record is not verified here, and a second round needs only a simple majority, so nothing is claimed about who invested whom.",
+    investitureCarried: "carried",
+    investitureFailed: "rejected",
+    hatchDecisive: "Invested with Vox votes, per the record",
+    hatchShort: "PP could not reach an absolute majority alone",
     eyebrow: "Territorial map",
     title: "Where each party governs, and what is on record there",
     standfirst:
@@ -782,7 +800,7 @@ const en: Dict = {
     limits:
       "Recorded facts include administrative infractions and other incidents, not only offences, and they are not convictions. The two communities with their own regional police forces — the Policía Foral de Navarra and the Ertzaintza — head the rate table, which says something about how incidents are recorded and not necessarily about where more of them happen. One incident in the report is recorded in no territory at all, which is why the columns here sum to one less than the national figure.",
     missingLayers:
-      "This section was designed with three further layers: an LGBTI rights index, the state of trans-law reform, and vote share for the formations that voted against the measures this site tracks. They are absent because there is no citable per-community source for any of the three yet. So is the hatching that would mark investitures dependent on Vox: five PP presidencies were invested with its votes in July 2023 and Vox then left three of those governments in July 2024, so one fixed overlay would be false for part of the period it appeared to describe.",
+      "This section was designed with three further layers: an LGBTI rights index, the state of trans-law reform, and vote share for the formations that voted against the measures this site tracks. They are absent because there is no citable per-community source for any of the three yet. The investiture hatching is present, but it marks a dated fact — how one particular vote went — rather than who sits in a government today, which is the part that would have gone stale: Vox left three of those governments in July 2024.",
   },
   court: {
     title: "What the judicial record says",
@@ -1380,6 +1398,15 @@ const ca: Dict = {
       "Retribució del càrrec, no patrimoni ni ingressos privats. Només càrrecs marcats com a actius a la font.",
   },
   map: {
+    investitureTitle: "Investidura",
+    investitureDecisive:
+      "El PP tenia {pp} de {seats} escons i la majoria absoluta era {majority}. A la votació del {date} la investidura va sortir per {for} vots contra {against}, i {voxVotes} d’aquells vots els va posar Vox: sense ells no hi havia majoria.",
+    investitureShort:
+      "El PP tenia {pp} de {seats} escons i la majoria absoluta era {majority}, així que no hi arribava sol; els {vox} escons de Vox haurien bastat per cobrir la diferència. L’acta de la votació no està verificada aquí, i en segona volta n’hi ha prou amb la majoria simple, així que no s’afirma qui va investir ningú.",
+    investitureCarried: "aprovada",
+    investitureFailed: "rebutjada",
+    hatchDecisive: "Investidura amb vots de Vox, segons l’acta",
+    hatchShort: "El PP no arribava sol a la majoria absoluta",
     eyebrow: "Mapa territorial",
     title: "On manà cada partit, i què hi consta registrat",
     standfirst:
