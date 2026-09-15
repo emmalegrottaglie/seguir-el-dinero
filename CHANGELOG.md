@@ -5,6 +5,115 @@ figures name their source; corrections and gaps are recorded alongside the work,
 
 ---
 
+## 2026-09-15 — The context layer: what the country earns, next to what the parties are paid
+
+Every page on this site reports a figure about parties or officeholders, and none of those figures
+means anything without a scale. €48,650 is the median public salary in the register; whether that is
+a lot depends on what Spain earns, which is not this project's number to invent. `/contexto` is that
+scale, taken from the statistical office that produces it.
+
+This is step 2 of `PLAN-CONTEXT-LAYER.md`'s build order, plus most of step 3.
+
+### What is on the page
+
+**What Spain earns.** All nineteen CNAE sections as a ladder, rather than a sector selector — a
+selector shows the reader the figure they picked and hides the eighteen they did not, and the
+finding here is the spread. Energy supply pays €57,931.81; hostelería pays €17,653.42, a factor of
+3.28.
+
+The mean never appears alone. EAES's headline mean is €29,540.26 and the median is €24,497.17 —
+€5,043 below it, because of a long upper tail. A page printing only the average would tell most
+readers their own wage is unusually low, so the tenth and ninetieth percentiles are printed with it
+(€12,018.46 and €52,515.27). The caveat that changes how all of it reads is stated under the chart:
+EAES counts part-time and full-time workers in the same mean, so none of these is "what a job pays".
+Full-time averaged €33,826.92; part-time €14,076.75.
+
+**The whole payroll in multiples of the minimum wage.** The strongest chart of the set, and it turned
+out to need no work at all beyond finding it: EAES table `28182` publishes the workforce split by SMI
+multiples directly. 18.32 % of Spanish employees earn less than one minimum wage and 48.69 % between
+one and two — two thirds inside two minimum wages. This is the axis every salary on this site can be
+read against, because the SMI is a single legally fixed number the whole country argues about once a
+year.
+
+The tranches are drawn as separate rows rather than one stacked bar. They do partition the workforce
+and a stack would be legitimate, but the top tranche is 0.12 % and would be two pixels of a hundred.
+
+**How many people it reaches.** Four ECV indicators as shares of their populations: AROPE 25.7 %,
+AROPE among under-16s 33.9 %, at risk of poverty 19.5 %, severe material and social deprivation
+8.1 %. The national figure describes no particular community, so the regional spread is stated
+alongside it: 43.7 % in Melilla against 14.7 % in the País Vasco.
+
+### The framing rule, enforced in code rather than in prose
+
+Nothing on this page is joined to anything else on the site. No line from a poverty rate to a vote,
+no correlation, no ordering of parties by anything computed from these numbers. The figures sit near
+each other and the reader does the joining. `lib/indicators.ts` contains no function that takes both
+an indicator and a party.
+
+Two rules that would be easy to get wrong are enforced in the module rather than left to each page:
+
+- **A poverty series is always selected by its base.** The same ECV table can carry the Base 2013
+  AROPE definition and the objetivo Europa 2030 one. They are different measurements sharing a name,
+  so `povertyRate()` takes the base as a required argument, the page prints which base it is showing,
+  and if a second base ever arrives in the data the note says so instead of the page silently picking
+  one.
+- **An ambiguous match is dropped.** A filter that matches two series no longer identifies one, and
+  returning the first would publish an arbitrary row. Same rule as the officeholder join.
+
+### Three traps in the INE API, all of which would have published wrong numbers
+
+1. **A leading minus sign is a reliability flag, not a negative number.** INE marks a cell whose
+   sample holds 100–500 observations by negating it. `Mujeres. Industrias extractivas` comes back as
+   `-51101.45`, meaning €51,101.45 with high variability. Stripping the sign publishes a shaky figure
+   as a firm one; taking it at face value publishes a negative salary. The ingest takes the absolute
+   value and carries the flag through to the page as a visible marker, and a guard fails the build if
+   no flag survives — because a refactor that strips the sign early would silently stop publishing
+   the warning while the numbers stayed right.
+
+2. **A table listed in `TABLAS_OPERACION` may hold no series.** Table `80181` answers
+   `{"status": "No existen series para la tabla"}` — an object where an array is expected. The shape
+   is checked rather than assumed.
+
+3. **A `null` value is a third thing again.** ECV table `67240` has exactly three: "low work
+   intensity (0–64)" cannot have a value for the 65-and-over age group, and INE returns null rather
+   than zero. Null is carried through as null so the page can state the absence; writing zero would
+   put a real-looking 0 % on a chart. The guard expects those three and fails on a null anywhere
+   else, because elsewhere a null means a table changed shape.
+
+### Guards
+
+`scripts/fetch-ine.mjs` aborts rather than warns, following the two extractors that caught real
+defects that way. Beyond the three traps above it checks the parse against figures published in
+INE's own press note — mean €29,540.26, hostelería €17,653.42, median €24,497.17, AROPE 25.7 %,
+under-16 AROPE 33.9 % — because a parser that drifts by one column still produces plausible-looking
+euros, and the only useful test is against numbers known from outside the parser. It also requires
+the SMI tranches to sum to 100 % (they come to 100.01) and every series in a table to share one
+period.
+
+### Two findings recorded in NEXT-STEPS.md
+
+- **The AEAT discovery step may no longer be needed.** Build-order item 5 budgeted for a file hunt of
+  the same class as the Tribunal de Cuentas one, to get the SMI-multiples distribution. INE publishes
+  it. AEAT would still add a census basis and a series back to 2001, which is a real gain, but it is
+  no longer the only route to that chart.
+- **EAES publishes no modal wage through the API.** The plan's €16,520.18 mode comes from INE's press
+  note, not from a table, so the page states mean, median and percentiles rather than the
+  mean-versus-mode gap. Adding the mode means transcribing it with its own source block.
+
+### Files
+
+- `scripts/fetch-ine.mjs` (new), `data/indicators.json` (new), `lib/indicators.ts` (new).
+- `components/WageLadder.tsx`, `components/SmiLadder.tsx`, `components/PovertyPanel.tsx` (new).
+- `components/chart/SourceLine.tsx` (new) — the source line takes the ingested source record, so a
+  chart's period and table number are what the ingest recorded rather than what someone typed.
+- `app/[locale]/contexto/page.tsx` (new), `components/Masthead.tsx` (nav entry), `lib/i18n.ts`
+  (`contexto` block in all three locales), `package.json` (`npm run build:ine`).
+
+Verified: `npx tsc --noEmit` and `npm run build` clean, 234 static pages; all three locales render;
+the contrast audit passes 27 pages with 0 inline-colour failures; no horizontal overflow at 375 px.
+
+---
+
 ## 2026-09-15 — The coverage chart: the site's own gaps, as figures
 
 `/metodologia` has always stated what is missing, in prose. A reader had to take

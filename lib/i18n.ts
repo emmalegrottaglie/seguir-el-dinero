@@ -21,6 +21,7 @@ const es = {
     people: "Políticos",
     votes: "Votaciones",
     methodology: "Metodología",
+    context: "Contexto",
     funding: "Financiación",
     rights: "Derechos",
     map: "Mapa",
@@ -617,6 +618,51 @@ const es = {
     note:
       "Las cuatro proporciones miden cosas distintas contra registros distintos —un retrato depende de que exista una licencia libre, un voto registrado de que la persona se siente en el Congreso—, así que no están ordenadas por porcentaje ni comparadas entre sí. Van en el orden en que se encuentran en la web.",
   },
+  contexto: {
+    eyebrow: "El país",
+    title: "Contexto",
+    lead:
+      "Esta web publica lo que cobran los partidos y lo que cobran los cargos públicos. Ninguna de esas cifras significa nada sin una escala. Ésta es la escala, tomada del INE, que es quien la produce.",
+    framing:
+      "Aquí no se une nada. No hay línea que vaya de una tasa de pobreza a un voto, ni correlación, ni ordenación de partidos por nada calculado a partir de estos datos. Las cifras se ponen unas al lado de otras y quien lee saca sus conclusiones: una línea trazada aquí afirmaría algo que los datos no sostienen.",
+    wages: {
+      title: "Lo que se cobra en España",
+      intro:
+        "El salario bruto medio anual fue de {mean}. La mediana —la cifra que deja a la mitad de los asalariados por debajo— fue de {median}. La diferencia es la cola alta: el 10 % peor pagado no llegó a {p10} y el 10 % mejor pagado superó {p90}.",
+      lowSample: "muestra reducida",
+      sourceNote:
+        "El INE marca con un signo menos las celdas cuya muestra tiene entre 100 y 500 observaciones: no son cifras negativas, son cifras con alta variabilidad. Se conservan y se señalan; ninguna de las mostradas aquí lleva esa marca.",
+      jornada:
+        "Una advertencia que cambia cómo leer todo lo anterior: la EAES cuenta a tiempo parcial y a tiempo completo en la misma media, así que ninguna de estas cifras es «lo que paga un puesto». A jornada completa la media fue de {full}; a jornada parcial, de {part}.",
+      spread:
+        "Entre el sector mejor y el peor pagado hay un factor de {ratio}: {high} con {highValue} frente a {low} con {lowValue}.",
+    },
+    smi: {
+      title: "Toda la masa salarial, en múltiplos del SMI",
+      intro:
+        "El mismo eje para cualquier sueldo de esta web. El {underTwo} de los asalariados españoles cobra menos de dos salarios mínimos. Los tramos son los del INE, calculados sobre el SMI del propio año.",
+      sourceNote:
+        "Los tramos suman el total de asalariados. Se dibujan en filas separadas y no apilados porque el tramo superior es el 0,12 % y apilado no se vería; cada fila lleva su porcentaje exacto.",
+    },
+    poverty: {
+      title: "A cuánta gente afecta",
+      intro:
+        "Cuatro indicadores de la Encuesta de Condiciones de Vida. Cada uno es una proporción de una población, así que la parte vacía de la barra es el resto del país.",
+      rows: {
+        arope: "En riesgo de pobreza o exclusión social (AROPE)",
+        aropeChildren: "AROPE, menores de 16 años",
+        atRisk: "En riesgo de pobreza (renta del año anterior)",
+        deprivation: "Con carencia material y social severa",
+      },
+      spread:
+        "La cifra nacional no describe a ninguna comunidad en concreto: va de {high} en {highRegion} a {low} en {lowRegion}.",
+      base: "Serie {base}, indicada porque la misma tabla puede contener definiciones distintas del mismo indicador.",
+      multipleBases:
+        "La tabla contiene más de una definición ({bases}). Aquí se muestra {shown}; no se mezclan, porque miden cosas distintas con el mismo nombre.",
+      note:
+        "Estas cifras no se cruzan con ningún voto ni con ninguna financiación de esta web. Están aquí para que quien lea tenga delante las dos cosas, no para afirmar que una explica la otra.",
+    },
+  },
   method: {
     title: "Metodología y límites",
     lead: "Esta herramienta es honesta sobre lo que puede y no puede mostrar. Léelo antes de sacar conclusiones.",
@@ -705,6 +751,7 @@ const en: Dict = {
     people: "Politicians",
     votes: "Votes",
     methodology: "Methodology",
+    context: "Context",
     funding: "Funding",
     rights: "Rights",
     map: "Map",
@@ -1301,6 +1348,51 @@ const en: Dict = {
     note:
       "The four ratios measure different things against different registers — a portrait depends on a free licence existing, a recorded vote on the person sitting in the Congreso — so they are neither ordered by percentage nor compared with one another. They run in the order a reader meets them on the site.",
   },
+  contexto: {
+    eyebrow: "The country",
+    title: "Context",
+    lead:
+      "This site publishes what parties are paid and what officeholders earn. Neither figure means anything without a scale. This is that scale, taken from INE, which produces it.",
+    framing:
+      "Nothing here is joined up. There is no line from a poverty rate to a vote, no correlation, no ordering of parties by anything computed from these numbers. The figures sit next to each other and the reader does the joining: a line drawn here would assert something the data cannot carry.",
+    wages: {
+      title: "What Spain earns",
+      intro:
+        "Mean gross annual earnings were {mean}. The median — the figure with half of all employees below it — was {median}. The difference is the upper tail: the lowest-paid tenth did not reach {p10}, and the highest-paid tenth cleared {p90}.",
+      lowSample: "small sample",
+      sourceNote:
+        "INE marks cells whose sample holds between 100 and 500 observations with a leading minus sign: those are not negative figures, they are figures with high variability. They are kept and marked; none shown here carries the mark.",
+      jornada:
+        "One caveat that changes how everything above should be read: EAES counts part-time and full-time workers in the same mean, so none of these figures is \u201cwhat a job pays\u201d. Full-time work averaged {full}; part-time work averaged {part}.",
+      spread:
+        "The best- and worst-paid sectors are a factor of {ratio} apart: {high} at {highValue} against {low} at {lowValue}.",
+    },
+    smi: {
+      title: "The whole payroll, in multiples of the minimum wage",
+      intro:
+        "One axis for every salary on this site. {underTwo} of Spanish employees earn less than two minimum wages. The tranches are INE's own, computed against the minimum wage of the same year.",
+      sourceNote:
+        "The tranches account for all employees. They are drawn as separate rows rather than stacked because the top tranche is 0.12 % and would be invisible in a stack; every row prints its exact percentage.",
+    },
+    poverty: {
+      title: "How many people it reaches",
+      intro:
+        "Four indicators from the Living Conditions Survey. Each is a share of a population, so the unfilled part of the bar is the rest of the country.",
+      rows: {
+        arope: "At risk of poverty or social exclusion (AROPE)",
+        aropeChildren: "AROPE, under 16s",
+        atRisk: "At risk of poverty (prior year's income)",
+        deprivation: "In severe material and social deprivation",
+      },
+      spread:
+        "The national figure describes no particular community: it runs from {high} in {highRegion} to {low} in {lowRegion}.",
+      base: "{base} series, stated because the same table can hold more than one definition of the same indicator.",
+      multipleBases:
+        "The table holds more than one definition ({bases}). {shown} is shown here; they are not merged, because they measure different things under the same name.",
+      note:
+        "None of these figures is crossed with any vote or any funding figure on this site. They are here so a reader has both in front of them, not to claim that one explains the other.",
+    },
+  },
   method: {
     title: "Methodology and limits",
     lead: "This tool is honest about what it can and cannot show. Read this before drawing conclusions.",
@@ -1387,6 +1479,7 @@ const ca: Dict = {
     people: "Polítics",
     votes: "Votacions",
     methodology: "Metodologia",
+    context: "Context",
     funding: "Finançament",
     rights: "Drets",
     map: "Mapa",
@@ -1982,6 +2075,51 @@ const ca: Dict = {
       "Hi ha també {n} retrats de persones que no consten al registre d’alts càrrecs. No es descarten: el registre només recull càrrecs en actiu, així que un retrat sense fila és el normal per a qui ja no ho és.",
     note:
       "Les quatre proporcions mesuren coses diferents contra registres diferents —un retrat depèn que existeixi una llicència lliure, un vot registrat que la persona segui al Congrés—, així que no estan ordenades per percentatge ni comparades entre si. Van en l’ordre en què es troben a la web.",
+  },
+  contexto: {
+    eyebrow: "El país",
+    title: "Context",
+    lead:
+      "Aquest web publica el que cobren els partits i el que cobren els càrrecs públics. Cap d’aquestes xifres no significa res sense una escala. Aquesta és l’escala, presa de l’INE, que és qui la produeix.",
+    framing:
+      "Aquí no s’uneix res. No hi ha cap línia que vagi d’una taxa de pobresa a un vot, ni correlació, ni ordenació de partits per res calculat a partir d’aquestes dades. Les xifres es posen les unes al costat de les altres i qui llegeix en treu les conclusions: una línia traçada aquí afirmaria una cosa que les dades no sostenen.",
+    wages: {
+      title: "El que es cobra a Espanya",
+      intro:
+        "El salari brut mitjà anual va ser de {mean}. La mediana —la xifra que deixa la meitat dels assalariats per sota— va ser de {median}. La diferència és la cua alta: el 10 % pitjor pagat no va arribar a {p10} i el 10 % millor pagat va superar {p90}.",
+      lowSample: "mostra reduïda",
+      sourceNote:
+        "L’INE marca amb un signe menys les cel·les la mostra de les quals té entre 100 i 500 observacions: no són xifres negatives, són xifres amb alta variabilitat. Es conserven i s’assenyalen; cap de les mostrades aquí no porta aquesta marca.",
+      jornada:
+        "Un advertiment que canvia com llegir tot l’anterior: l’EAES compta la jornada parcial i la completa en la mateixa mitjana, així que cap d’aquestes xifres no és «el que paga un lloc de treball». A jornada completa la mitjana va ser de {full}; a jornada parcial, de {part}.",
+      spread:
+        "Entre el sector més ben pagat i el pitjor pagat hi ha un factor de {ratio}: {high} amb {highValue} davant de {low} amb {lowValue}.",
+    },
+    smi: {
+      title: "Tota la massa salarial, en múltiples del SMI",
+      intro:
+        "El mateix eix per a qualsevol sou d’aquest web. El {underTwo} dels assalariats espanyols cobra menys de dos salaris mínims. Els trams són els de l’INE, calculats sobre el SMI del mateix any.",
+      sourceNote:
+        "Els trams sumen el total d’assalariats. Es dibuixen en files separades i no apilats perquè el tram superior és el 0,12 % i apilat no es veuria; cada fila porta el seu percentatge exacte.",
+    },
+    poverty: {
+      title: "A quanta gent afecta",
+      intro:
+        "Quatre indicadors de l’Enquesta de Condicions de Vida. Cadascun és una proporció d’una població, així que la part buida de la barra és la resta del país.",
+      rows: {
+        arope: "En risc de pobresa o exclusió social (AROPE)",
+        aropeChildren: "AROPE, menors de 16 anys",
+        atRisk: "En risc de pobresa (renda de l’any anterior)",
+        deprivation: "Amb privació material i social severa",
+      },
+      spread:
+        "La xifra estatal no descriu cap comunitat en concret: va de {high} a {highRegion} fins a {low} a {lowRegion}.",
+      base: "Sèrie {base}, indicada perquè la mateixa taula pot contenir definicions diferents del mateix indicador.",
+      multipleBases:
+        "La taula conté més d’una definició ({bases}). Aquí es mostra {shown}; no es barregen, perquè mesuren coses diferents amb el mateix nom.",
+      note:
+        "Aquestes xifres no es creuen amb cap vot ni amb cap finançament d’aquest web. Són aquí perquè qui llegeix tingui les dues coses al davant, no per afirmar que l’una explica l’altra.",
+    },
   },
   method: {
     title: "Metodologia i límits",

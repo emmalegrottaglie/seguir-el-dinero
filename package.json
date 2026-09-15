@@ -12,6 +12,7 @@
     "discover:votes": "node scripts/discover-votes.mjs",
     "build:foundations": "python scripts/extract-foundations.py",
     "check:feeds": "node scripts/check-feeds.mjs",
+  "build:ine": "node scripts/fetch-ine.mjs",
     "build:spending": "python scripts/extract-electoral-spending.py",
     "build:regions": "node scripts/build-regions.mjs",
     "build:hate-territory": "python scripts/extract-hate-territory.py",
