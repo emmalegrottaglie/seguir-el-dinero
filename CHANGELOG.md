@@ -5,6 +5,85 @@ figures name their source; corrections and gaps are recorded alongside the work,
 
 ---
 
+## 2026-09-15 — A focus ring that followed a bounding box, and a sortable territory table
+
+### The stray lines across the map
+
+Keyboard-focusing a community drew a few black straight segments across northern
+Spain — one over Asturias, one down the west of Castilla y León, a bracket near
+Extremadura — that followed no border at all.
+
+They were one rectangle. `:focus-visible` in `app/globals.css` applies
+`outline: 2px solid var(--gold)` site-wide, and on an SVG shape `outline` is
+drawn around the element's **bounding box**, not its shape. So focusing Castilla
+y León put a gold rectangle across half the map, and because the regions painted
+after it in document order covered parts of that rectangle, what survived was a
+handful of disconnected straight lines rather than anything recognisable as a
+box. That is also why it read as a rendering fault rather than as a focus ring.
+
+The fix is a focus indicator that follows the border it belongs to:
+
+```css
+.region:focus-visible {
+  outline: none;
+  stroke: var(--ink);
+  stroke-width: 2.4;
+}
+```
+
+It lives in CSS rather than on the element for two reasons. CSS wins over the
+`stroke` presentation attribute the map sets per region, so it does not have to
+be threaded through the component's per-region style object. And it does not
+depend on focus also selecting the region — focus does select, and the selected
+region already gets an ink stroke, but relying on that coupling would mean a
+later change to the selection behaviour silently removed the focus indicator.
+
+`.region` is the only focusable SVG shape on the site, so no other chart is
+affected. The tiny Ceuta and Melilla markers are `<rect>`s, where an outline
+would have matched the shape anyway; they get the same stroke for consistency.
+
+### The territory table sorts by any column
+
+Nineteen rows with five columns, previously in one fixed order. Any column now
+sorts, with the direction a reader wants first from each: text columns open
+ascending, numeric ones descending.
+
+Three things worth stating about how it behaves:
+
+- **The layer's own order is still the default.** Without a chosen column the
+  table follows the active map layer — by party on the government layer, by rate
+  on the hate-crime layer — which is the order each layer is read in. A chosen
+  sort then overrides it and survives a layer switch, because it is an explicit
+  instruction. The caption changes to say which order is in force, since the
+  original wording ("the order follows the active layer") stops being true.
+- **A missing value sorts last in both directions.** A territory the report
+  carries no record for has no value in three of these columns, and null is not
+  zero: sorting it as zero would put an absence below every real figure
+  descending and above every one ascending, which in both cases makes it look
+  like a measurement. Same rule as the INE ingest.
+- **The heading is a button inside the `<th>`, and the `<th>` carries
+  `aria-sort`.** A `<th>` with a click handler is operable by neither keyboard
+  nor screen reader. The caret is `aria-hidden`, because `aria-sort` already
+  carries the same fact in the form assistive technology reads.
+
+Header cells also gained the padding the body cells already had — the carets were
+sitting flush against the next column's label.
+
+### Files
+
+- `app/globals.css` — `.region:focus-visible`.
+- `components/RightsMap.tsx` — sort state, the ranking split into layer-default
+  and user-chosen, and a `SortHeader` component.
+- `lib/i18n.ts` — `tableCaptionSorted` and `sortHint` in all three locales.
+
+Verified: `npx tsc --noEmit` and `npm run build` clean, 234 static pages; the
+focused path now computes `outline-style: none` with a 2.4px `--ink` stroke, and
+no bounding-box rectangle appears; sorting checked on a numeric column in both
+directions and on a text column, 19 rows each time; the contrast audit passes 27
+pages with 0 inline-colour failures.
+
+---
+
 ## 2026-09-15 — The context layer: what the country earns, next to what the parties are paid
 
 Every page on this site reports a figure about parties or officeholders, and none of those figures

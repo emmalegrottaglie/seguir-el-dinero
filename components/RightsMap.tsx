@@ -11,6 +11,22 @@ import type { Dict } from "@/lib/i18n";
 
 type LayerId = "gov" | "hate";
 
+/** The table's sortable columns, keyed to what each one actually orders by. */
+type SortKey = "name" | "president" | "recorded" | "rate" | "sogi";
+
+/**
+ * Numeric columns open descending and text columns ascending, because that is
+ * the order a reader wants first from each: the largest figure, or the top of
+ * the alphabet.
+ */
+const FIRST_DIRECTION: Record<SortKey, "asc" | "desc"> = {
+  name: "asc",
+  president: "asc",
+  recorded: "desc",
+  rate: "desc",
+  sogi: "desc",
+};
+
 interface Cell {
   id: string;
   /** The fill for the active layer. */
@@ -102,6 +118,18 @@ export default function RightsMap({
     setHover({ id, x: e.clientX - box.left, y: e.clientY - box.top });
   };
 
+  // Null until the reader picks a column, and the layer's own order applies
+  // until then. A chosen sort survives a layer switch: it is an explicit
+  // instruction, and the caption says which order is in force.
+  const [sort, setSort] = useState<{ key: SortKey; dir: "asc" | "desc" } | null>(null);
+
+  const toggleSort = (key: SortKey) =>
+    setSort((prev) =>
+      prev?.key === key
+        ? { key, dir: prev.dir === "asc" ? "desc" : "asc" }
+        : { key, dir: FIRST_DIRECTION[key] },
+    );
+
   const sel = regions.regions.find((r) => r.id === selected);
   const selInv = investitureFor(selected);
   const selGov = GOVERNMENTS.find((g) => g.id === selected);
@@ -113,8 +141,9 @@ export default function RightsMap({
   ];
   const activeNote = layers.find((l) => l.id === layer)!.note;
 
-  // Ranked for the table: by party name on the government layer, by rate on the
-  // hate-crime layer, which is the order each layer is actually read in.
+  // Ranked for the table. Without a chosen sort this follows the active layer —
+  // by party on the government layer, by rate on the hate-crime layer — which is
+  // the order each layer is actually read in. A chosen column overrides that.
   const ranked = useMemo(() => {
     const rows = regions.regions.map((r) => ({
       id: r.id,
@@ -123,14 +152,47 @@ export default function RightsMap({
       hate: hate.territories[r.id],
       gov: GOVERNMENTS.find((g) => g.id === r.id),
     }));
-    return layer === "hate"
-      ? rows.sort((a, b) => (b.hate?.ratePer100k ?? 0) - (a.hate?.ratePer100k ?? 0))
-      : rows.sort(
-          (a, b) =>
-            (a.gov?.partyLabel ?? "").localeCompare(b.gov?.partyLabel ?? "") ||
-            a.name.localeCompare(b.name),
-        );
-  }, [regions, cells, hate, layer]);
+
+    if (!sort) {
+      return layer === "hate"
+        ? rows.sort((a, b) => (b.hate?.ratePer100k ?? 0) - (a.hate?.ratePer100k ?? 0))
+        : rows.sort(
+            (a, b) =>
+              (a.gov?.partyLabel ?? "").localeCompare(b.gov?.partyLabel ?? "") ||
+              a.name.localeCompare(b.name),
+          );
+    }
+
+    type Row = (typeof rows)[number];
+    // A territory with no record in the report has no value in three of these
+    // columns, and `null` is not zero: sorting it as zero would place it below
+    // every real figure descending and above every one ascending, in both cases
+    // making an absence look like a measurement. It sorts last either way.
+    const numeric: Record<string, (r: Row) => number | null> = {
+      recorded: (r) => r.hate?.total ?? null,
+      rate: (r) => r.hate?.ratePer100k ?? null,
+      sogi: (r) => r.hate?.sexualOrientationGenderIdentity ?? null,
+    };
+    const text: Record<string, (r: Row) => string> = {
+      name: (r) => r.name,
+      president: (r) => r.gov?.president ?? "",
+    };
+
+    const flip = sort.dir === "asc" ? 1 : -1;
+    return rows.sort((a, b) => {
+      const num = numeric[sort.key];
+      if (num) {
+        const x = num(a);
+        const y = num(b);
+        if (x === null && y === null) return a.name.localeCompare(b.name);
+        if (x === null) return 1;
+        if (y === null) return -1;
+        return (x - y) * flip || a.name.localeCompare(b.name);
+      }
+      const get = text[sort.key];
+      return get(a).localeCompare(get(b), bcp47) * flip || a.name.localeCompare(b.name);
+    });
+  }, [regions, cells, hate, layer, sort, bcp47]);
 
   return (
     <div>
@@ -533,25 +595,55 @@ export default function RightsMap({
             className="pb-3 text-left"
             style={{ fontSize: "12px", lineHeight: 1.55, color: "var(--ink-2)", maxWidth: "88ch" }}
           >
-            {M.tableCaption}
+            {sort ? M.tableCaptionSorted : M.tableCaption}
           </caption>
           <thead>
             <tr style={{ borderBottom: "1px solid var(--line)" }}>
-              <th scope="col" className="label-mono py-2 text-left">
-                {M.colTerritory}
-              </th>
-              <th scope="col" className="label-mono py-2 text-left">
-                {M.rowPresident}
-              </th>
-              <th scope="col" className="label-mono whitespace-nowrap py-2 text-right">
-                {M.rowRecorded}
-              </th>
-              <th scope="col" className="label-mono whitespace-nowrap py-2 text-right">
-                {M.colRate}
-              </th>
-              <th scope="col" className="label-mono whitespace-nowrap py-2 text-right">
-                {M.barSogi}
-              </th>
+              <SortHeader
+                sortKey="name"
+                label={M.colTerritory}
+                sort={sort}
+                onSort={toggleSort}
+                className="py-2 pr-3 text-left"
+                align="left"
+                hint={M.sortHint}
+              />
+              <SortHeader
+                sortKey="president"
+                label={M.rowPresident}
+                sort={sort}
+                onSort={toggleSort}
+                className="py-2 pr-3 text-left"
+                align="left"
+                hint={M.sortHint}
+              />
+              <SortHeader
+                sortKey="recorded"
+                label={M.rowRecorded}
+                sort={sort}
+                onSort={toggleSort}
+                className="whitespace-nowrap py-2 pl-4 text-right"
+                align="right"
+                hint={M.sortHint}
+              />
+              <SortHeader
+                sortKey="rate"
+                label={M.colRate}
+                sort={sort}
+                onSort={toggleSort}
+                className="whitespace-nowrap py-2 pl-4 text-right"
+                align="right"
+                hint={M.sortHint}
+              />
+              <SortHeader
+                sortKey="sogi"
+                label={M.barSogi}
+                sort={sort}
+                onSort={toggleSort}
+                className="whitespace-nowrap py-2 pl-4 text-right"
+                align="right"
+                hint={M.sortHint}
+              />
             </tr>
           </thead>
           <tbody>
@@ -637,5 +729,56 @@ export default function RightsMap({
         </p>
       </div>
     </div>
+  );
+}
+
+/**
+ * One sortable column heading.
+ *
+ * `aria-sort` on the cell is what a screen reader announces, and the button
+ * inside it is what makes the heading operable by keyboard — a `<th>` with a
+ * click handler is neither. The caret is `aria-hidden` because `aria-sort`
+ * already carries the same fact in a form assistive technology understands.
+ */
+function SortHeader({
+  sortKey,
+  label,
+  sort,
+  onSort,
+  className,
+  align,
+  hint,
+}: {
+  sortKey: SortKey;
+  label: string;
+  sort: { key: SortKey; dir: "asc" | "desc" } | null;
+  onSort: (key: SortKey) => void;
+  className: string;
+  align: "left" | "right";
+  /** Names the action for a mouse user, who gets no `aria-sort`. */
+  hint: string;
+}) {
+  const active = sort?.key === sortKey;
+  return (
+    <th
+      scope="col"
+      className={`label-mono ${className}`}
+      aria-sort={active ? (sort!.dir === "asc" ? "ascending" : "descending") : "none"}
+    >
+      <button
+        type="button"
+        onClick={() => onSort(sortKey)}
+        title={hint.replace("{column}", label)}
+        className={`label-mono flex w-full items-center gap-1.5 hover:text-[var(--gold-deep)] ${
+          align === "right" ? "justify-end" : ""
+        }`}
+        style={{ color: active ? "var(--gold-deep)" : undefined }}
+      >
+        {label}
+        <span aria-hidden style={{ opacity: active ? 1 : 0.55, fontSize: "10px" }}>
+          {active && sort!.dir === "asc" ? "\u25b2" : "\u25bc"}
+        </span>
+      </button>
+    </th>
   );
 }

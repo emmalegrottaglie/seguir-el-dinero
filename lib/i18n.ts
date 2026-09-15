@@ -175,6 +175,9 @@ const es = {
     noData: "No consta",
     tableCaption:
       "Un territorio por fila, con las dos capas del mapa como cifras. El orden sigue a la capa activa: por partido en la de gobierno, por tasa en la de delitos de odio.",
+    tableCaptionSorted:
+      "Un territorio por fila, con las dos capas del mapa como cifras. Ordenado por la columna que ha elegido; pulse otra cabecera para cambiarlo.",
+    sortHint: "Ordenar por {column}",
     colTerritory: "Territorio",
     colRate: "Tasa / 100.000",
     sourcesTitle: "Fuentes",
@@ -905,6 +908,9 @@ const en: Dict = {
     noData: "Not on record",
     tableCaption:
       "One territory per row, with both map layers as figures. The order follows the active layer: by party on the government layer, by rate on the hate-crime one.",
+    tableCaptionSorted:
+      "One territory per row, with both map layers as figures. Sorted by the column you chose; click another heading to change it.",
+    sortHint: "Sort by {column}",
     colTerritory: "Territory",
     colRate: "Rate / 100,000",
     sourcesTitle: "Sources",
@@ -1633,6 +1639,9 @@ const ca: Dict = {
     noData: "No consta",
     tableCaption:
       "Un territori per fila, amb les dues capes del mapa com a xifres. L'ordre segueix la capa activa: per partit a la de govern, per taxa a la de delictes d'odi.",
+    tableCaptionSorted:
+      "Un territori per fila, amb les dues capes del mapa com a xifres. Ordenat per la columna que heu triat; premeu una altra capçalera per canviar-ho.",
+    sortHint: "Ordenar per {column}",
     colTerritory: "Territori",
     colRate: "Taxa / 100.000",
     sourcesTitle: "Fonts",

@@ -357,6 +357,22 @@ body {
   opacity: 0.72;
 }
 
+/* A focusable SVG shape cannot use the global focus ring. `outline` is drawn
+   around an element's bounding box rather than its shape, so focusing a
+   community drew a gold rectangle across half of Spain — and the regions
+   painted after it covered parts of that rectangle, which is why it read as a
+   few stray straight lines rather than as a box.
+
+   The indicator is a stroke instead, which follows the border it belongs to.
+   It is set in CSS rather than on the element so that it wins over the `stroke`
+   presentation attribute the map sets per region, and so it does not depend on
+   focus also selecting the region. */
+.region:focus-visible {
+  outline: none;
+  stroke: var(--ink);
+  stroke-width: 2.4;
+}
+
 /* Never the browser default. */
 :focus-visible {
   outline: 2px solid var(--gold);
