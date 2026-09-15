@@ -5,6 +5,73 @@ figures name their source; corrections and gaps are recorded alongside the work,
 
 ---
 
+## 2026-09-15 — The coverage chart: the site's own gaps, as figures
+
+`/metodologia` has always stated what is missing, in prose. A reader had to take
+the sentence's word for it. This adds the same claim as four bars, computed over
+the data itself on every build, so the page cannot claim a coverage it does not
+have.
+
+### Measured, never transcribed
+
+`lib/coverage.ts` derives every figure at build time. This is not a style
+preference: the plan that specified this chart quoted 133 portraits, taken from a
+count made before three later ingests. Measured against the register it is 130,
+because three of the portraits in `data/photos.json` belong to people the
+register does not carry. A hardcoded figure would have shipped the wrong number
+and gone on being wrong.
+
+What it found, over the register of senior appointments (6,670 rows):
+
+| | |
+|---|---|
+| With a published salary | 4,964 — 74.4 % |
+| With a recorded roll-call vote | 268 — 4.0 % |
+| With a freely licensed portrait | 130 — 1.9 % |
+| Audited entities with a documented board | 5 of 39 — 12.8 % |
+
+### What is not drawn as a bar, and why
+
+Nine tracked divisions, with 580 distinct deputies voting in them, and a single
+financial year of private donations (2020). These are true and useful numbers
+with no denominator at all — the Congreso holds thousands of divisions — so
+drawing nine as a proportion of anything would invent a whole they are not part
+of. They are reported as a sentence instead.
+
+The four ratios are not ranked or scored. They measure different things against
+different registers: a portrait depends on a free licence existing, a recorded
+vote on the person sitting in the Congreso. Ordering them by percentage would
+invite a comparison that means nothing, so they run in the order a reader meets
+them on the site. The page says so.
+
+Three portraits match nobody in the register. They are reported rather than
+discarded, with the reason: the register carries only serving officeholders, so a
+portrait without a row is ordinary for someone who has left.
+
+### A discrepancy resolved in the page's favour
+
+A scratch probe written to sanity-check the numbers reported 10 documented boards
+of 40; the page reported 5 of 39. The probe was wrong on both counts. Its regex
+`/foundation:\s*"([^"]+)"/` also matched the `BOARD_GAPS` entries, which carry a
+`foundation` field of their own and are by definition the boards that are *not*
+documented. The 40-vs-39 difference is `entitySlug` correctly merging
+`SOCIEDAD BATZOKIA S.L.U` with `S. L. U`. The page's figures stood.
+
+### Files
+
+- `lib/coverage.ts` (new) — derives ratios, counts and orphan portraits.
+- `components/CoverageChart.tsx` (new) — four `share` bars on the `Bar` primitive,
+  plus the prose for the counts that have no denominator.
+- `app/[locale]/metodologia/page.tsx` — renders it directly after the lead.
+- `lib/i18n.ts` — a `coverage` block in all three locales.
+
+Verified: `npx tsc --noEmit` and `npm run build` clean; all three locales render
+the block; the contrast audit passes on 20 pages with 0 inline-colour failures.
+Spanish prints `4964` without a grouping separator, which is CLDR
+`minimumGroupingDigits` for es, not a formatting fault.
+
+---
+
 ## 2026-09-10 — The investiture overlay, as a dated vote rather than a standing arrangement
 
 The map's missing layer. It was held back because the obvious version of it — a
