@@ -5,6 +5,94 @@ figures name their source; corrections and gaps are recorded alongside the work,
 
 ---
 
+## 2026-09-15 — Two visuals on the profile page: where the pay sits, and the record at a glance
+
+`/politico/[slug]` is the page with the most words on this site and, until now,
+no pictures at all. It printed a salary and a list of ballots and left the
+reader to judge both.
+
+### Where this pay sits
+
+Printing "€172,322 a year" asks a question most readers cannot answer: is that a
+lot for a public post in Spain? `lib/salary-distribution.ts` derives the answer
+from the register itself and `components/SalaryDistribution.tsx` draws it — the
+4,964 published figures as a histogram, with this person's figure marked on it.
+
+The axis is logarithmic, because the register runs from €40 a year to €424,237
+and both ends are real. The bottom is thousands of mayors of villages of a few
+hundred people, paid a few euros a month for a post that is genuinely part time;
+the top is a handful of European and state posts. On a linear axis 93 % of the
+register falls in the first eighth of the width and the chart shows nothing.
+Every decade is ticked and labelled, and the marker prints the exact figure, so
+the reader is never asked to read distance as difference.
+
+### A percentile that would have been false at both ends
+
+The first version printed "higher than 100 % of the 4,964 officeholders" for the
+fourth-highest salary in the register. It is above 99.94 % of them, which rounds
+to 100 % — a sentence that includes the person in the group they are being
+compared against, and is simply untrue.
+
+So the ends report a count instead of a percentage. Within the middle 99 % the
+sentence is a percentile; outside it, "only 18 of the 4,964 published figures are
+higher than €172,322 a year", and at the exact extremes "the highest of the
+4,964". Counts are strict, because the register holds many exact ties and a tied
+pair must not each be described as above the other.
+
+Verified across all five cases: highest (Teresa Ribera, €424,237), near the top
+(€172,322, 18 above), the ordinary middle (99 %), near the bottom (€50, 2 below),
+and a row with no published figure at all, which reports the absence rather than
+a position.
+
+### The record at a glance
+
+`components/BallotGrid.tsx` puts the whole voting record above the list that
+sources each ballot: one cell per tracked division, grouped by topic, oldest
+first, in the same order as the list beneath.
+
+It makes one claim per cell — sí, no, abstención, or no ballot recorded — and
+deliberately does not split the last into its two real causes. A deputy on the
+roll who did not vote and a division their name never appears in are different
+facts, but a grid has no room to say which, and drawing the distinction in two
+barely distinguishable greys would assert a precision the picture does not have.
+The list directly below does say which: a "No vota" ballot carries its own tag
+there, and a division the person was not part of has no row.
+
+### A contrast problem the text audit could not see
+
+The repeated audit checks inline text colours and passed this page at 0 failures
+while two new *graphics* failed WCAG 1.4.11, which asks 3:1 of a graphical object
+against what is adjacent to it:
+
+- The histogram bars were `--grey-300`, which is 1.33:1 against the page. They
+  are now `--ink-3` at 5.83:1.
+- An abstention swatch was `--abst`, 1.80:1 against the page — a reader with low
+  vision could not tell a light grey cell from an empty one.
+
+`--abst` was not darkened. It is the right colour where it was chosen for: inside
+a stacked bar an abstention segment's neighbours are the sí and no segments, not
+the page. Darkening it to reach 3:1 against the page would drop its contrast
+against `--verd` to 1.4:1 and break those bars. `lib/chart-colors.ts` therefore
+gains `STANCE_SWATCH`, the same three stances for a swatch that stands alone,
+with abstention at `--ink-3`, and says why. Every grid cell also carries a
+`--ink-3` outline so that an unfilled cell is visible as a cell.
+
+### Files
+
+- `lib/salary-distribution.ts` (new) — cached log-binned histogram, quartiles,
+  and `positionOf`, which returns counts above and below rather than only a
+  fraction.
+- `components/SalaryDistribution.tsx` (new), `components/BallotGrid.tsx` (new).
+- `lib/chart-colors.ts` — `STANCE_SWATCH`.
+- `app/[locale]/politico/[slug]/page.tsx` — both visuals wired in.
+- `lib/i18n.ts` — `salaryShape` and `ballotGrid` blocks in all three locales.
+
+Verified: `npx tsc --noEmit` and `npm run build` clean, 231 static pages; the
+contrast audit passes 24 pages with 0 inline-colour failures; both visuals
+checked in all three locales and against the four edge cases above.
+
+---
+
 ## 2026-09-10 — The investiture overlay, as a dated vote rather than a standing arrangement
 
 The map's missing layer. It was held back because the obvious version of it — a

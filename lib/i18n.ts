@@ -54,6 +54,30 @@ const es = {
     affectsNote:
       "Leyes y mociones sobre derechos trans y LGTBI, salud sexual y reproductiva, y vivienda. Cada posición enlaza al acta oficial.",
   },
+  salaryShape: {
+    title: "Dónde queda esta retribución",
+    position:
+      "{pay} al año está por encima del {rank} de los {published} cargos del registro que publican una cifra.",
+    medianTick: "mediana",
+    highest:
+      "{pay} al año es la retribución más alta de las {published} publicadas en el registro.",
+    lowest:
+      "{pay} al año es la retribución más baja de las {published} publicadas en el registro.",
+    nearTop:
+      "Sólo {above} de las {published} retribuciones publicadas en el registro superan los {pay} al año.",
+    nearBottom:
+      "Sólo {below} de las {published} retribuciones publicadas en el registro quedan por debajo de {pay} al año.",
+    noFigure:
+      "El registro no publica retribución anual para este cargo, así que no hay posición que señalar en el reparto.",
+    median: "La mediana publicada es de {median}.",
+    caveat:
+      "{missing} de las {total} filas del registro no publican cifra y no entran en este reparto. El eje es logarítmico: lo publicado va de {min} a {max}, cuatro órdenes de magnitud, y mezcla una alcaldía de pueblo a tiempo parcial con la Corona y una comisaría europea. Una posición en este eje es una posición en una lista, no un juicio sobre si un cargo vale lo que cobra.",
+  },
+  ballotGrid: {
+    noBallot: "Sin voto registrado",
+    caption:
+      "Voto emitido en {cast} de las {tracked} votaciones nominales que seguimos. El Congreso celebra miles, así que esto es el registro que tenemos, no el historial completo de voto de esta persona.",
+  },
   votes: {
     eyebrow: "Votaciones nominales",
     title: "Votaciones clave",
@@ -696,6 +720,30 @@ const en: Dict = {
     affectsNote:
       "Laws and motions on trans and LGBTI rights, sexual and reproductive health, and housing. Every position links to the official record.",
   },
+  salaryShape: {
+    title: "Where this pay sits",
+    position:
+      "{pay} a year is higher than {rank} of the {published} officeholders in the register who publish a figure.",
+    medianTick: "median",
+    highest:
+      "{pay} a year is the highest of the {published} figures published in the register.",
+    lowest:
+      "{pay} a year is the lowest of the {published} figures published in the register.",
+    nearTop:
+      "Only {above} of the {published} figures published in the register are higher than {pay} a year.",
+    nearBottom:
+      "Only {below} of the {published} figures published in the register are lower than {pay} a year.",
+    noFigure:
+      "The register publishes no annual figure for this post, so there is no position to mark on the distribution.",
+    median: "The median published figure is {median}.",
+    caveat:
+      "{missing} of the register's {total} rows publish no figure and are not in this distribution. The axis is logarithmic: published pay runs from {min} to {max}, four orders of magnitude, and it mixes a part-time village mayoralty with the Crown and a European commissionership. A position on this axis is a position in a list, not a judgement about whether a post is worth its pay.",
+  },
+  ballotGrid: {
+    noBallot: "No ballot recorded",
+    caption:
+      "A ballot cast in {cast} of the {tracked} recorded divisions this site tracks. The Congreso holds thousands, so this is the record we hold, not this person's complete voting history.",
+  },
   votes: {
     eyebrow: "Recorded divisions",
     title: "Key votes",
@@ -1335,6 +1383,30 @@ const ca: Dict = {
     affects: "Assumptes que afecten minories",
     affectsNote:
       "Lleis i mocions sobre drets trans i LGBTI, salut sexual i reproductiva, i habitatge. Cada posició enllaça a l'acta oficial.",
+  },
+  salaryShape: {
+    title: "On queda aquesta retribució",
+    position:
+      "{pay} l’any està per damunt del {rank} dels {published} càrrecs del registre que publiquen una xifra.",
+    medianTick: "mediana",
+    highest:
+      "{pay} l’any és la retribució més alta de les {published} publicades al registre.",
+    lowest:
+      "{pay} l’any és la retribució més baixa de les {published} publicades al registre.",
+    nearTop:
+      "Només {above} de les {published} retribucions publicades al registre superen els {pay} l’any.",
+    nearBottom:
+      "Només {below} de les {published} retribucions publicades al registre queden per sota de {pay} l’any.",
+    noFigure:
+      "El registre no publica retribució anual per a aquest càrrec, així que no hi ha cap posició a assenyalar al repartiment.",
+    median: "La mediana publicada és de {median}.",
+    caveat:
+      "{missing} de les {total} files del registre no publiquen xifra i no entren en aquest repartiment. L’eix és logarítmic: el que es publica va de {min} a {max}, quatre ordres de magnitud, i barreja una alcaldia de poble a temps parcial amb la Corona i una comissaria europea. Una posició en aquest eix és una posició en una llista, no un judici sobre si un càrrec val el que cobra.",
+  },
+  ballotGrid: {
+    noBallot: "Sense vot registrat",
+    caption:
+      "Vot emès en {cast} de les {tracked} votacions nominals que seguim. El Congrés en celebra milers, així que això és el registre que tenim, no l’historial complet de vot d’aquesta persona.",
   },
   votes: {
     eyebrow: "Votacions nominals",

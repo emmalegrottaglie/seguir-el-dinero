@@ -44,6 +44,27 @@ export const STANCE_COLORS = {
 } as const;
 
 /**
+ * The same three stances, for a swatch that stands alone on the page.
+ *
+ * `--abst` is a light grey, which works where an abstention segment sits
+ * between two saturated segments of the same bar: WCAG 1.4.11 asks a graphical
+ * object to contrast with what is *adjacent* to it, and there its neighbours
+ * are the sí and no segments. A standalone swatch's neighbour is the page,
+ * where `--abst` reaches only 1.8:1 and a reader cannot tell a light grey cell
+ * from an empty one.
+ *
+ * So abstention darkens to `--ink-3` (5.8:1) when the swatch is on its own.
+ * This is a second variant rather than a change to `--abst`, because darkening
+ * the token itself would drop its contrast against `--verd` to 1.4:1 and break
+ * the stacked bars it was chosen for.
+ */
+export const STANCE_SWATCH = {
+  si: "var(--verd)",
+  no: "var(--red)",
+  abstention: "var(--ink-3)",
+} as const;
+
+/**
  * State subsidy kinds. `seguridad` is hatched rather than given a colour of its
  * own: it is a small share on most rows, and a fourth hue in a chart that
  * already carries 28 party colours would not be distinguishable. The hatch is
