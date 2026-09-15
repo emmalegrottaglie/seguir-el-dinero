@@ -11,6 +11,8 @@ import {
   CHARGES_CHANGE_PCT,
 } from "@/lib/hate-context";
 import { ITEM_MAX_AGE_DAYS, SOURCE_STALE_DAYS } from "@/lib/news";
+import { getCoverage } from "@/lib/coverage";
+import CoverageChart from "@/components/CoverageChart";
 
 export const revalidate = 3600;
 
@@ -20,7 +22,7 @@ export default async function MetodologiaPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale: localeParam } = await params;
-  const agg = await getAggregation();
+  const [agg, coverage] = await Promise.all([getAggregation(), getCoverage()]);
   const { locale, bcp47, t } = getDict(localeParam);
   const m = t.method;
   const updated = formatDate(agg.generatedAt.slice(0, 10), bcp47);
@@ -33,6 +35,8 @@ export default async function MetodologiaPage({
 
       <h1 className="display mt-4 text-4xl sm:text-5xl">{m.title}</h1>
       <p className="mt-6 text-lg text-[var(--ink-2)]">{m.lead}</p>
+
+      <CoverageChart coverage={coverage} t={t} bcp47={bcp47} />
 
       <Block title={m.showTitle}>
         <p>

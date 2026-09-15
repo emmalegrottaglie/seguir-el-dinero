@@ -599,6 +599,24 @@ const es = {
     gapBody:
       "«Otros gastos ordinarios» es una sola línea sin desglose y es la mayor parte del gasto declarado. El informe no dice en qué se gastó, y la ley no obliga a detallarlo: la publicidad digital no es una categoría con límite propio, y el propio Tribunal de Cuentas ha recomendado al Gobierno que legisle para que lo sea. Estas cifras son gasto declarado y fiscalizado, no una imputación de nada a nadie.",
   },
+  coverage: {
+    title: "Cuánto hay de cada cosa",
+    intro:
+      "Esta página dice en prosa lo que falta. Aquí está en cifras, calculadas sobre los propios datos en cada compilación, para que se pueda comprobar la frase contra la barra.",
+    of: "de",
+    rows: {
+      salary: "Cargos con retribución publicada",
+      vote: "Cargos con voto nominal registrado",
+      portrait: "Cargos con retrato de licencia libre",
+      board: "Entidades fiscalizadas con patronato documentado",
+    },
+    counts:
+      "Además: {divisions} llamamientos nominales seguidos, con {deputies} diputados distintos votando en ellos, y un único ejercicio de donaciones privadas, el de {donationYear}. Son cifras ciertas sin denominador: el Congreso celebra miles de votaciones, y dibujar nueve como proporción de algo inventaría un total del que no forman parte.",
+    orphans:
+      "Hay además {n} retratos de personas que no figuran en el registro de altos cargos. No se descartan: el registro sólo recoge cargos en activo, así que un retrato sin fila es lo normal para quien ya no lo es.",
+    note:
+      "Las cuatro proporciones miden cosas distintas contra registros distintos —un retrato depende de que exista una licencia libre, un voto registrado de que la persona se siente en el Congreso—, así que no están ordenadas por porcentaje ni comparadas entre sí. Van en el orden en que se encuentran en la web.",
+  },
   method: {
     title: "Metodología y límites",
     lead: "Esta herramienta es honesta sobre lo que puede y no puede mostrar. Léelo antes de sacar conclusiones.",
@@ -1265,6 +1283,24 @@ const en: Dict = {
     gapBody:
       "“Otros gastos ordinarios” is a single line with no breakdown, and it is most of the declared spending. The report does not say what it bought, and the law does not require it to: digital advertising is not a category with its own cap, and the Tribunal de Cuentas has itself recommended that the Government legislate to make it one. These are declared and audited figures, not an imputation of anything to anyone.",
   },
+  coverage: {
+    title: "How much of each there is",
+    intro:
+      "This page states its gaps in prose. Here they are as figures, computed over the data itself on every build, so the sentence can be checked against the bar.",
+    of: "of",
+    rows: {
+      salary: "Officeholders with a published salary",
+      vote: "Officeholders with a recorded roll-call vote",
+      portrait: "Officeholders with a freely licensed portrait",
+      board: "Audited entities with a documented board",
+    },
+    counts:
+      "Also: {divisions} recorded divisions tracked, with {deputies} distinct deputies voting in them, and a single financial year of private donations, {donationYear}. These are true figures with no denominator: the Congreso holds thousands of divisions, and drawing nine as a proportion of something would invent a whole they are not part of.",
+    orphans:
+      "There are also {n} portraits of people who do not appear in the senior appointments register. They are not discarded: the register carries only serving officeholders, so a portrait without a row is ordinary for someone who has left.",
+    note:
+      "The four ratios measure different things against different registers — a portrait depends on a free licence existing, a recorded vote on the person sitting in the Congreso — so they are neither ordered by percentage nor compared with one another. They run in the order a reader meets them on the site.",
+  },
   method: {
     title: "Methodology and limits",
     lead: "This tool is honest about what it can and cannot show. Read this before drawing conclusions.",
@@ -1928,6 +1964,24 @@ const ca: Dict = {
     gapTitle: "Què no diu el registre",
     gapBody:
       "«Otros gastos ordinarios» és una sola línia sense desglossament i és la major part de la despesa declarada. L'informe no diu en què es va gastar, i la llei no obliga a detallar-ho: la publicitat digital no és una categoria amb límit propi, i el mateix Tribunal de Comptes ha recomanat al Govern que legisli perquè ho sigui. Aquestes xifres són despesa declarada i fiscalitzada, no una imputació de res a ningú.",
+  },
+  coverage: {
+    title: "Quant n’hi ha de cada cosa",
+    intro:
+      "Aquesta pàgina diu en prosa què hi falta. Aquí està en xifres, calculades sobre les mateixes dades a cada compilació, perquè es pugui comprovar la frase contra la barra.",
+    of: "de",
+    rows: {
+      salary: "Càrrecs amb retribució publicada",
+      vote: "Càrrecs amb vot nominal registrat",
+      portrait: "Càrrecs amb retrat de llicència lliure",
+      board: "Entitats fiscalitzades amb patronat documentat",
+    },
+    counts:
+      "A més: {divisions} votacions nominals seguides, amb {deputies} diputats diferents votant-hi, i un únic exercici de donacions privades, el de {donationYear}. Són xifres certes sense denominador: el Congrés celebra milers de votacions, i dibuixar-ne nou com a proporció d’alguna cosa inventaria un total del qual no formen part.",
+    orphans:
+      "Hi ha també {n} retrats de persones que no consten al registre d’alts càrrecs. No es descarten: el registre només recull càrrecs en actiu, així que un retrat sense fila és el normal per a qui ja no ho és.",
+    note:
+      "Les quatre proporcions mesuren coses diferents contra registres diferents —un retrat depèn que existeixi una llicència lliure, un vot registrat que la persona segui al Congrés—, així que no estan ordenades per percentatge ni comparades entre si. Van en l’ordre en què es troben a la web.",
   },
   method: {
     title: "Metodologia i límits",

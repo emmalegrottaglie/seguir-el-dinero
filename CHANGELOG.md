@@ -5,91 +5,70 @@ figures name their source; corrections and gaps are recorded alongside the work,
 
 ---
 
-## 2026-09-15 — Two visuals on the profile page: where the pay sits, and the record at a glance
+## 2026-09-15 — The coverage chart: the site's own gaps, as figures
 
-`/politico/[slug]` is the page with the most words on this site and, until now,
-no pictures at all. It printed a salary and a list of ballots and left the
-reader to judge both.
+`/metodologia` has always stated what is missing, in prose. A reader had to take
+the sentence's word for it. This adds the same claim as four bars, computed over
+the data itself on every build, so the page cannot claim a coverage it does not
+have.
 
-### Where this pay sits
+### Measured, never transcribed
 
-Printing "€172,322 a year" asks a question most readers cannot answer: is that a
-lot for a public post in Spain? `lib/salary-distribution.ts` derives the answer
-from the register itself and `components/SalaryDistribution.tsx` draws it — the
-4,964 published figures as a histogram, with this person's figure marked on it.
+`lib/coverage.ts` derives every figure at build time. This is not a style
+preference: the plan that specified this chart quoted 133 portraits, taken from a
+count made before three later ingests. Measured against the register it is 130,
+because three of the portraits in `data/photos.json` belong to people the
+register does not carry. A hardcoded figure would have shipped the wrong number
+and gone on being wrong.
 
-The axis is logarithmic, because the register runs from €40 a year to €424,237
-and both ends are real. The bottom is thousands of mayors of villages of a few
-hundred people, paid a few euros a month for a post that is genuinely part time;
-the top is a handful of European and state posts. On a linear axis 93 % of the
-register falls in the first eighth of the width and the chart shows nothing.
-Every decade is ticked and labelled, and the marker prints the exact figure, so
-the reader is never asked to read distance as difference.
+What it found, over the register of senior appointments (6,670 rows):
 
-### A percentile that would have been false at both ends
+| | |
+|---|---|
+| With a published salary | 4,964 — 74.4 % |
+| With a recorded roll-call vote | 268 — 4.0 % |
+| With a freely licensed portrait | 130 — 1.9 % |
+| Audited entities with a documented board | 5 of 39 — 12.8 % |
 
-The first version printed "higher than 100 % of the 4,964 officeholders" for the
-fourth-highest salary in the register. It is above 99.94 % of them, which rounds
-to 100 % — a sentence that includes the person in the group they are being
-compared against, and is simply untrue.
+### What is not drawn as a bar, and why
 
-So the ends report a count instead of a percentage. Within the middle 99 % the
-sentence is a percentile; outside it, "only 18 of the 4,964 published figures are
-higher than €172,322 a year", and at the exact extremes "the highest of the
-4,964". Counts are strict, because the register holds many exact ties and a tied
-pair must not each be described as above the other.
+Nine tracked divisions, with 580 distinct deputies voting in them, and a single
+financial year of private donations (2020). These are true and useful numbers
+with no denominator at all — the Congreso holds thousands of divisions — so
+drawing nine as a proportion of anything would invent a whole they are not part
+of. They are reported as a sentence instead.
 
-Verified across all five cases: highest (Teresa Ribera, €424,237), near the top
-(€172,322, 18 above), the ordinary middle (99 %), near the bottom (€50, 2 below),
-and a row with no published figure at all, which reports the absence rather than
-a position.
+The four ratios are not ranked or scored. They measure different things against
+different registers: a portrait depends on a free licence existing, a recorded
+vote on the person sitting in the Congreso. Ordering them by percentage would
+invite a comparison that means nothing, so they run in the order a reader meets
+them on the site. The page says so.
 
-### The record at a glance
+Three portraits match nobody in the register. They are reported rather than
+discarded, with the reason: the register carries only serving officeholders, so a
+portrait without a row is ordinary for someone who has left.
 
-`components/BallotGrid.tsx` puts the whole voting record above the list that
-sources each ballot: one cell per tracked division, grouped by topic, oldest
-first, in the same order as the list beneath.
+### A discrepancy resolved in the page's favour
 
-It makes one claim per cell — sí, no, abstención, or no ballot recorded — and
-deliberately does not split the last into its two real causes. A deputy on the
-roll who did not vote and a division their name never appears in are different
-facts, but a grid has no room to say which, and drawing the distinction in two
-barely distinguishable greys would assert a precision the picture does not have.
-The list directly below does say which: a "No vota" ballot carries its own tag
-there, and a division the person was not part of has no row.
-
-### A contrast problem the text audit could not see
-
-The repeated audit checks inline text colours and passed this page at 0 failures
-while two new *graphics* failed WCAG 1.4.11, which asks 3:1 of a graphical object
-against what is adjacent to it:
-
-- The histogram bars were `--grey-300`, which is 1.33:1 against the page. They
-  are now `--ink-3` at 5.83:1.
-- An abstention swatch was `--abst`, 1.80:1 against the page — a reader with low
-  vision could not tell a light grey cell from an empty one.
-
-`--abst` was not darkened. It is the right colour where it was chosen for: inside
-a stacked bar an abstention segment's neighbours are the sí and no segments, not
-the page. Darkening it to reach 3:1 against the page would drop its contrast
-against `--verd` to 1.4:1 and break those bars. `lib/chart-colors.ts` therefore
-gains `STANCE_SWATCH`, the same three stances for a swatch that stands alone,
-with abstention at `--ink-3`, and says why. Every grid cell also carries a
-`--ink-3` outline so that an unfilled cell is visible as a cell.
+A scratch probe written to sanity-check the numbers reported 10 documented boards
+of 40; the page reported 5 of 39. The probe was wrong on both counts. Its regex
+`/foundation:\s*"([^"]+)"/` also matched the `BOARD_GAPS` entries, which carry a
+`foundation` field of their own and are by definition the boards that are *not*
+documented. The 40-vs-39 difference is `entitySlug` correctly merging
+`SOCIEDAD BATZOKIA S.L.U` with `S. L. U`. The page's figures stood.
 
 ### Files
 
-- `lib/salary-distribution.ts` (new) — cached log-binned histogram, quartiles,
-  and `positionOf`, which returns counts above and below rather than only a
-  fraction.
-- `components/SalaryDistribution.tsx` (new), `components/BallotGrid.tsx` (new).
-- `lib/chart-colors.ts` — `STANCE_SWATCH`.
-- `app/[locale]/politico/[slug]/page.tsx` — both visuals wired in.
-- `lib/i18n.ts` — `salaryShape` and `ballotGrid` blocks in all three locales.
+- `lib/coverage.ts` (new) — derives ratios, counts and orphan portraits.
+- `components/CoverageChart.tsx` (new) — four `share` bars on the `Bar` primitive,
+  plus the prose for the counts that have no denominator.
+- `app/[locale]/metodologia/page.tsx` — renders it directly after the lead.
+- `lib/i18n.ts` — a `coverage` block in all three locales.
 
-Verified: `npx tsc --noEmit` and `npm run build` clean, 231 static pages; the
-contrast audit passes 24 pages with 0 inline-colour failures; both visuals
-checked in all three locales and against the four edge cases above.
+Verified: `npx tsc --noEmit` and `npm run build` clean; all three locales render
+the block; the contrast audit passes on 20 pages with 0 inline-colour failures.
+Spanish prints `4964` without a grouping separator, which is CLDR
+`minimumGroupingDigits` for es, not a formatting fault.
 
 ---
 
