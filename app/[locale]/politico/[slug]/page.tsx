@@ -7,7 +7,10 @@ import Avatar from "@/components/Avatar";
 import PhotoCredit from "@/components/PhotoCredit";
 import NewsFeed from "@/components/NewsFeed";
 import BlueskyFeed from "@/components/BlueskyFeed";
-import type { Ballot } from "@/lib/votes";
+import { getVotes, type Ballot } from "@/lib/votes";
+import { getSalaryDistribution, positionOf } from "@/lib/salary-distribution";
+import SalaryDistributionChart from "@/components/SalaryDistribution";
+import BallotGrid from "@/components/BallotGrid";
 
 export const dynamic = "force-dynamic";
 
@@ -27,6 +30,11 @@ export default async function PoliticoPage({
   if (!profile) notFound();
 
   const { person, party, donations, portrait, social, record } = profile;
+  const [distribution, position, allVotes] = await Promise.all([
+    getSalaryDistribution(),
+    positionOf(person.gross),
+    getVotes(),
+  ]);
   const { locale, bcp47, t } = getDict(localeParam);
   const P = t.people;
 
@@ -104,12 +112,25 @@ export default async function PoliticoPage({
           )}
         </div>
         <p className="label-mono mt-4 text-[var(--ink-3)]">{P.juxtaposition}</p>
+
+        <h3 className="display mt-10 text-lg">{t.salaryShape.title}</h3>
+        <SalaryDistributionChart
+          gross={person.gross}
+          distribution={distribution}
+          position={position}
+          t={t.salaryShape}
+          bcp47={bcp47}
+        />
       </section>
 
       {/* Recorded votes on rights legislation */}
       <section className="mt-12">
         <h2 className="display section-tick text-xl">{P.affects}</h2>
         <p className="label-mono mt-4 text-[var(--ink-3)]">{P.affectsNote}</p>
+
+        {record.length > 0 && (
+          <BallotGrid record={record} votes={allVotes.votes} t={t} />
+        )}
 
         {record.length === 0 ? (
           <div className="panel mt-8 p-5">
