@@ -103,10 +103,26 @@ table ids, the traps in each dataset, ten visualisation proposals with a recomme
 and the framing rule that governs the lot. Read that file before starting; the sources were probed
 on 2026-09-01 and the document records which ones lie.
 
-**Step 1 of the build order is DONE (2026-09-01).** `lib/news-sources.mjs` holds the 15-source
-registry, `lib/news.ts` parses both RSS and Atom, and both staleness guards are in place along with a
-per-source cap and reader-language preference. `npm run check:feeds` is the health check. The
-methodology page lists the registry and the excluded feeds. Next up is step 2, the INE ingest.
+**Steps 1 and 2 of the build order are DONE.** Step 1 (2026-09-01): `lib/news-sources.mjs` holds the
+15-source registry, `lib/news.ts` parses both RSS and Atom, and both staleness guards are in place
+along with a per-source cap and reader-language preference. `npm run check:feeds` is the health check.
+
+Step 2 (2026-09-15): `scripts/fetch-ine.mjs` ingests EAES `28185`/`28187`/`28191`/`28182` and ECV
+`67240`/`67989` into `data/indicators.json`, and `/contexto` renders the wage ladder, the SMI
+tranches and the poverty indicators. Two findings worth carrying forward:
+
+- **The AEAT discovery step (build-order item 5) may not be needed.** EAES table `28182` publishes
+  the workforce split by multiples of the SMI directly — 18.32 % inside one SMI, 48.69 % between one
+  and two — which is the §6.B chart from an endpoint that already works. AEAT would add the series
+  back to 2001 and a census rather than a survey basis; that is a real gain, but it is no longer the
+  only route to the chart.
+- **EAES publishes no modal wage through the API.** The €16,520.18 mode in §1.2 of the plan comes
+  from INE's press note, not from a table, so `/contexto` states the mean, median and the tenth and
+  ninetieth percentiles instead of the mean-versus-mode gap. Adding the mode means transcribing it
+  with its own source block, the way `lib/donations.ts` handles a figure that only exists in a PDF.
+
+Next up is step 3's remaining half (the register overlay on the wage ladder, which needs the SMI as a
+typed per-year module with BOE references), then step 4, the housing panel.
 
 **Stop conditions.** No correlation measure, no derived score, no ordering of parties by anything
 computed: facts side by side, never joined by an asserted cause. Never divide empty dwellings by

@@ -229,6 +229,7 @@ children resolve their percentages against nothing and stack at one point.
 | `party/[nif]/page.tsx` | Party detail: formation switcher, public + private money, faces, ledger, group stances, court record, news |
 | `votaciones/page.tsx` | Tracked votes: the money→party→vote flow, then result, per-group breakdown, deputy search |
 | `derechos/page.tsx` | The rights section: the LGBTQ+ organisations' own feeds, with images, plus the source directory |
+| `contexto/page.tsx` | The country the money is spent in: wages by sector, the payroll in multiples of the minimum wage, and the poverty indicators — INE figures, never joined to a vote |
 | `metodologia/page.tsx` | Methodology and legal caveats |
 
 `/sueldos`, `/caras` and `/politician/[slug]` are redirects in `next.config.ts` — the salary and
@@ -338,6 +339,7 @@ npm run build:spending -- path/to/I1628.pdf      # electoral spending by categor
 npm run build:hate-territory -- path/to/INFORME_odio_2024.pdf   # per-community hate-crime figures
 npm run build:regions          # projects the community geometry into data/regions.json
 curl http://localhost:3000/api/refresh   # subsidies (add the CRON_SECRET header if set)
+npm run build:ine              # INE wage and poverty series into data/indicators.json
 npm run check:feeds            # health-checks every news feed; non-zero on a dead or stale one
 npm run check:office-join      # guards the board-member → public-office join; non-zero on a break
 npm run check:investitures     # guards the investiture arithmetic; non-zero on a sum that does not close
@@ -360,6 +362,15 @@ Endpoint notes that cost real time to work out:
   `/es/partidos-politicos/Informes/` index lists only 20 reports and does not include 1.642. The
   site-wide POST search at `/es/buscador/` does find it, and it is the only route that worked —
   the press release's own "Informe" and "Resumen" links carry `data-oc-broken-link="true"`.
+- **INE Tempus3** is open JSON with no key: `https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/{id}?nult=1`.
+  Two traps. A **leading minus sign in `Valor` is a reliability flag, not a negative number** — the
+  cell's sample holds 100-500 observations and the figure has high variability; `Mujeres.
+  Industrias extractivas` comes back as `-51101.45`, meaning €51,101.45 with a warning. And a table
+  listed by `TABLAS_OPERACION` may hold no series at all: table `80181` answers
+  `{"status": "No existen series para la tabla"}`, an object rather than an array, so the shape has
+  to be checked before it is iterated. A `null` `Valor` is a third thing again — a cell the
+  indicator does not define, such as low work intensity (0-64) for the 65-and-over age group — and
+  it is neither zero nor an error.
 - **Wikipedia and Commons** throttle anonymous clients hard (429). The photo script backs off
   exponentially and caches both passes. Commons returns file titles with spaces while
   `pageimage` gives underscores — keys must be normalised or the licence lookup silently misses.

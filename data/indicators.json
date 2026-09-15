@@ -1,0 +1,4343 @@
+{
+  "generatedAt": "2026-09-15T13:00:15.541Z",
+  "sources": [
+    {
+      "id": "sector",
+      "operation": "140 EAES",
+      "table": "28185",
+      "name": "Salario medio bruto por sexo y secciones de actividad",
+      "period": "2024",
+      "url": "https://www.ine.es/jaxiT3/Tabla.htm?t=28185"
+    },
+    {
+      "id": "jornada",
+      "operation": "140 EAES",
+      "table": "28187",
+      "name": "Salario medio bruto por sexo y tipo de jornada",
+      "period": "2024",
+      "url": "https://www.ine.es/jaxiT3/Tabla.htm?t=28187"
+    },
+    {
+      "id": "percentiles",
+      "operation": "140 EAES",
+      "table": "28191",
+      "name": "Medias y percentiles por sexo y comunidad autónoma",
+      "period": "2024",
+      "url": "https://www.ine.es/jaxiT3/Tabla.htm?t=28191"
+    },
+    {
+      "id": "smiTranches",
+      "operation": "140 EAES",
+      "table": "28182",
+      "name": "Porcentaje de trabajadores en función de su ganancia con respecto al SMI",
+      "period": "2024",
+      "url": "https://www.ine.es/jaxiT3/Tabla.htm?t=28182"
+    },
+    {
+      "id": "povertyNational",
+      "operation": "155 ECV",
+      "table": "67240",
+      "name": "Riesgo de pobreza o exclusión social por edad y sexo",
+      "period": "2025",
+      "url": "https://www.ine.es/jaxiT3/Tabla.htm?t=67240"
+    },
+    {
+      "id": "povertyRegional",
+      "operation": "155 ECV",
+      "table": "67989",
+      "name": "Riesgo de pobreza o exclusión social por comunidad autónoma",
+      "period": "2025",
+      "url": "https://www.ine.es/jaxiT3/Tabla.htm?t=67989"
+    }
+  ],
+  "wages": {
+    "sector": [
+      {
+        "sector": "Todas las secciones",
+        "sex": "Ambos sexos",
+        "value": 29540.26,
+        "lowSample": false
+      },
+      {
+        "sector": "Todas las secciones",
+        "sex": "Mujeres",
+        "value": 26904.9,
+        "lowSample": false
+      },
+      {
+        "sector": "Todas las secciones",
+        "sex": "Hombres",
+        "value": 32057.55,
+        "lowSample": false
+      },
+      {
+        "sector": "Industrias extractivas",
+        "sex": "Ambos sexos",
+        "value": 41951.74,
+        "lowSample": false
+      },
+      {
+        "sector": "Industrias extractivas",
+        "sex": "Mujeres",
+        "value": 51101.45,
+        "lowSample": true
+      },
+      {
+        "sector": "Industrias extractivas",
+        "sex": "Hombres",
+        "value": 40224.17,
+        "lowSample": false
+      },
+      {
+        "sector": "Industria manufacturera",
+        "sex": "Ambos sexos",
+        "value": 32881.61,
+        "lowSample": false
+      },
+      {
+        "sector": "Industria manufacturera",
+        "sex": "Mujeres",
+        "value": 29118.1,
+        "lowSample": false
+      },
+      {
+        "sector": "Industria manufacturera",
+        "sex": "Hombres",
+        "value": 34336.38,
+        "lowSample": false
+      },
+      {
+        "sector": "Suministro de energía eléctrica, gas, vapor y aire acondicionado",
+        "sex": "Ambos sexos",
+        "value": 57931.81,
+        "lowSample": false
+      },
+      {
+        "sector": "Suministro de energía eléctrica, gas, vapor y aire acondicionado",
+        "sex": "Mujeres",
+        "value": 50357.48,
+        "lowSample": false
+      },
+      {
+        "sector": "Suministro de energía eléctrica, gas, vapor y aire acondicionado",
+        "sex": "Hombres",
+        "value": 61154.83,
+        "lowSample": false
+      },
+      {
+        "sector": "Suministro de agua, actividades de saneamiento, gestión de residuos y descontaminación",
+        "sex": "Ambos sexos",
+        "value": 32362.61,
+        "lowSample": false
+      },
+      {
+        "sector": "Suministro de agua, actividades de saneamiento, gestión de residuos y descontaminación",
+        "sex": "Mujeres",
+        "value": 30047.33,
+        "lowSample": false
+      },
+      {
+        "sector": "Suministro de agua, actividades de saneamiento, gestión de residuos y descontaminación",
+        "sex": "Hombres",
+        "value": 32944.02,
+        "lowSample": false
+      },
+      {
+        "sector": "Construcción",
+        "sex": "Ambos sexos",
+        "value": 26965.09,
+        "lowSample": false
+      },
+      {
+        "sector": "Construcción",
+        "sex": "Mujeres",
+        "value": 25817.08,
+        "lowSample": false
+      },
+      {
+        "sector": "Construcción",
+        "sex": "Hombres",
+        "value": 27131.83,
+        "lowSample": false
+      },
+      {
+        "sector": "Comercio al por mayor y al por menor; reparación de vehículos de motor y motocicletas",
+        "sex": "Ambos sexos",
+        "value": 25778.97,
+        "lowSample": false
+      },
+      {
+        "sector": "Comercio al por mayor y al por menor; reparación de vehículos de motor y motocicletas",
+        "sex": "Mujeres",
+        "value": 22673.6,
+        "lowSample": false
+      },
+      {
+        "sector": "Comercio al por mayor y al por menor; reparación de vehículos de motor y motocicletas",
+        "sex": "Hombres",
+        "value": 28938.65,
+        "lowSample": false
+      },
+      {
+        "sector": "Transporte y almacenamiento",
+        "sex": "Ambos sexos",
+        "value": 28910.3,
+        "lowSample": false
+      },
+      {
+        "sector": "Transporte y almacenamiento",
+        "sex": "Mujeres",
+        "value": 28972.27,
+        "lowSample": false
+      },
+      {
+        "sector": "Transporte y almacenamiento",
+        "sex": "Hombres",
+        "value": 28889.39,
+        "lowSample": false
+      },
+      {
+        "sector": "Hostelería",
+        "sex": "Ambos sexos",
+        "value": 17653.42,
+        "lowSample": false
+      },
+      {
+        "sector": "Hostelería",
+        "sex": "Mujeres",
+        "value": 16222.08,
+        "lowSample": false
+      },
+      {
+        "sector": "Hostelería",
+        "sex": "Hombres",
+        "value": 19526.77,
+        "lowSample": false
+      },
+      {
+        "sector": "Información y comunicaciones",
+        "sex": "Ambos sexos",
+        "value": 42741.94,
+        "lowSample": false
+      },
+      {
+        "sector": "Información y comunicaciones",
+        "sex": "Mujeres",
+        "value": 38807.08,
+        "lowSample": false
+      },
+      {
+        "sector": "Información y comunicaciones",
+        "sex": "Hombres",
+        "value": 45054.3,
+        "lowSample": false
+      },
+      {
+        "sector": "Actividades financieras y de seguros",
+        "sex": "Ambos sexos",
+        "value": 51862.9,
+        "lowSample": false
+      },
+      {
+        "sector": "Actividades financieras y de seguros",
+        "sex": "Mujeres",
+        "value": 46725.49,
+        "lowSample": false
+      },
+      {
+        "sector": "Actividades financieras y de seguros",
+        "sex": "Hombres",
+        "value": 58783.66,
+        "lowSample": false
+      },
+      {
+        "sector": "Actividades inmobiliarias",
+        "sex": "Ambos sexos",
+        "value": 28854.03,
+        "lowSample": false
+      },
+      {
+        "sector": "Actividades inmobiliarias",
+        "sex": "Mujeres",
+        "value": 26324.26,
+        "lowSample": false
+      },
+      {
+        "sector": "Actividades inmobiliarias",
+        "sex": "Hombres",
+        "value": 32499.74,
+        "lowSample": false
+      },
+      {
+        "sector": "Actividades profesionales, científicas y técnicas",
+        "sex": "Ambos sexos",
+        "value": 35165.11,
+        "lowSample": false
+      },
+      {
+        "sector": "Actividades profesionales, científicas y técnicas",
+        "sex": "Mujeres",
+        "value": 31047.52,
+        "lowSample": false
+      },
+      {
+        "sector": "Actividades profesionales, científicas y técnicas",
+        "sex": "Hombres",
+        "value": 40070.08,
+        "lowSample": false
+      },
+      {
+        "sector": "Actividades administrativas y servicios auxiliares",
+        "sex": "Ambos sexos",
+        "value": 21096.87,
+        "lowSample": false
+      },
+      {
+        "sector": "Actividades administrativas y servicios auxiliares",
+        "sex": "Mujeres",
+        "value": 17611.54,
+        "lowSample": false
+      },
+      {
+        "sector": "Actividades administrativas y servicios auxiliares",
+        "sex": "Hombres",
+        "value": 25450.66,
+        "lowSample": false
+      },
+      {
+        "sector": "Administración pública y defensa; seguridad social obligatoria",
+        "sex": "Ambos sexos",
+        "value": 37517.88,
+        "lowSample": false
+      },
+      {
+        "sector": "Administración pública y defensa; seguridad social obligatoria",
+        "sex": "Mujeres",
+        "value": 35694.12,
+        "lowSample": false
+      },
+      {
+        "sector": "Administración pública y defensa; seguridad social obligatoria",
+        "sex": "Hombres",
+        "value": 39489.64,
+        "lowSample": false
+      },
+      {
+        "sector": "Educación",
+        "sex": "Ambos sexos",
+        "value": 32210.11,
+        "lowSample": false
+      },
+      {
+        "sector": "Educación",
+        "sex": "Mujeres",
+        "value": 31350.59,
+        "lowSample": false
+      },
+      {
+        "sector": "Educación",
+        "sex": "Hombres",
+        "value": 33953.98,
+        "lowSample": false
+      },
+      {
+        "sector": "Actividades sanitarias y de servicios sociales",
+        "sex": "Ambos sexos",
+        "value": 32224.93,
+        "lowSample": false
+      },
+      {
+        "sector": "Actividades sanitarias y de servicios sociales",
+        "sex": "Mujeres",
+        "value": 30197.1,
+        "lowSample": false
+      },
+      {
+        "sector": "Actividades sanitarias y de servicios sociales",
+        "sex": "Hombres",
+        "value": 39246,
+        "lowSample": false
+      },
+      {
+        "sector": "Actividades artísticas, recreativas y de entretenimiento",
+        "sex": "Ambos sexos",
+        "value": 20383.16,
+        "lowSample": false
+      },
+      {
+        "sector": "Actividades artísticas, recreativas y de entretenimiento",
+        "sex": "Mujeres",
+        "value": 18551.36,
+        "lowSample": false
+      },
+      {
+        "sector": "Actividades artísticas, recreativas y de entretenimiento",
+        "sex": "Hombres",
+        "value": 21884.96,
+        "lowSample": false
+      },
+      {
+        "sector": "Otros servicios",
+        "sex": "Ambos sexos",
+        "value": 20951.43,
+        "lowSample": false
+      },
+      {
+        "sector": "Otros servicios",
+        "sex": "Mujeres",
+        "value": 18913.05,
+        "lowSample": false
+      },
+      {
+        "sector": "Otros servicios",
+        "sex": "Hombres",
+        "value": 24903.68,
+        "lowSample": false
+      }
+    ],
+    "jornada": [
+      {
+        "jornada": "Total",
+        "sex": "Ambos sexos",
+        "value": 29540.26,
+        "lowSample": false
+      },
+      {
+        "jornada": "Total",
+        "sex": "Mujeres",
+        "value": 26904.9,
+        "lowSample": false
+      },
+      {
+        "jornada": "Total",
+        "sex": "Hombres",
+        "value": 32057.55,
+        "lowSample": false
+      },
+      {
+        "jornada": "Jornada a tiempo completo",
+        "sex": "Ambos sexos",
+        "value": 33826.92,
+        "lowSample": false
+      },
+      {
+        "jornada": "Jornada a tiempo completo",
+        "sex": "Mujeres",
+        "value": 32736.6,
+        "lowSample": false
+      },
+      {
+        "jornada": "Jornada a tiempo completo",
+        "sex": "Hombres",
+        "value": 34667.25,
+        "lowSample": false
+      },
+      {
+        "jornada": "Jornada a tiempo parcial",
+        "sex": "Ambos sexos",
+        "value": 14076.75,
+        "lowSample": false
+      },
+      {
+        "jornada": "Jornada a tiempo parcial",
+        "sex": "Mujeres",
+        "value": 13454.47,
+        "lowSample": false
+      },
+      {
+        "jornada": "Jornada a tiempo parcial",
+        "sex": "Hombres",
+        "value": 15403.74,
+        "lowSample": false
+      }
+    ],
+    "percentiles": [
+      {
+        "region": "Total Nacional",
+        "sex": "Ambos sexos",
+        "measure": "Media",
+        "value": 29540.26,
+        "lowSample": false
+      },
+      {
+        "region": "Total Nacional",
+        "sex": "Ambos sexos",
+        "measure": "Percentil 10",
+        "value": 12018.46,
+        "lowSample": false
+      },
+      {
+        "region": "Total Nacional",
+        "sex": "Ambos sexos",
+        "measure": "Cuartil inferior",
+        "value": 17457.47,
+        "lowSample": false
+      },
+      {
+        "region": "Total Nacional",
+        "sex": "Ambos sexos",
+        "measure": "Mediana",
+        "value": 24497.17,
+        "lowSample": false
+      },
+      {
+        "region": "Total Nacional",
+        "sex": "Ambos sexos",
+        "measure": "Cuartil superior",
+        "value": 36969.61,
+        "lowSample": false
+      },
+      {
+        "region": "Total Nacional",
+        "sex": "Ambos sexos",
+        "measure": "Percentil 90",
+        "value": 52515.27,
+        "lowSample": false
+      },
+      {
+        "region": "Andalucía",
+        "sex": "Ambos sexos",
+        "measure": "Media",
+        "value": 26089.7,
+        "lowSample": false
+      },
+      {
+        "region": "Andalucía",
+        "sex": "Ambos sexos",
+        "measure": "Percentil 10",
+        "value": 10567.11,
+        "lowSample": false
+      },
+      {
+        "region": "Andalucía",
+        "sex": "Ambos sexos",
+        "measure": "Cuartil inferior",
+        "value": 15876,
+        "lowSample": false
+      },
+      {
+        "region": "Andalucía",
+        "sex": "Ambos sexos",
+        "measure": "Mediana",
+        "value": 21557.4,
+        "lowSample": false
+      },
+      {
+        "region": "Andalucía",
+        "sex": "Ambos sexos",
+        "measure": "Cuartil superior",
+        "value": 32099.35,
+        "lowSample": false
+      },
+      {
+        "region": "Andalucía",
+        "sex": "Ambos sexos",
+        "measure": "Percentil 90",
+        "value": 46498.34,
+        "lowSample": false
+      },
+      {
+        "region": "Aragón",
+        "sex": "Ambos sexos",
+        "measure": "Media",
+        "value": 28061.94,
+        "lowSample": false
+      },
+      {
+        "region": "Aragón",
+        "sex": "Ambos sexos",
+        "measure": "Percentil 10",
+        "value": 12053.34,
+        "lowSample": false
+      },
+      {
+        "region": "Aragón",
+        "sex": "Ambos sexos",
+        "measure": "Cuartil inferior",
+        "value": 18356.18,
+        "lowSample": false
+      },
+      {
+        "region": "Aragón",
+        "sex": "Ambos sexos",
+        "measure": "Mediana",
+        "value": 24936.2,
+        "lowSample": false
+      },
+      {
+        "region": "Aragón",
+        "sex": "Ambos sexos",
+        "measure": "Cuartil superior",
+        "value": 34535.16,
+        "lowSample": false
+      },
+      {
+        "region": "Aragón",
+        "sex": "Ambos sexos",
+        "measure": "Percentil 90",
+        "value": 45912.52,
+        "lowSample": false
+      },
+      {
+        "region": "Asturias, Principado de",
+        "sex": "Ambos sexos",
+        "measure": "Media",
+        "value": 28562.31,
+        "lowSample": false
+      },
+      {
+        "region": "Asturias, Principado de",
+        "sex": "Ambos sexos",
+        "measure": "Percentil 10",
+        "value": 11058.23,
+        "lowSample": false
+      },
+      {
+        "region": "Asturias, Principado de",
+        "sex": "Ambos sexos",
+        "measure": "Cuartil inferior",
+        "value": 16690.52,
+        "lowSample": false
+      },
+      {
+        "region": "Asturias, Principado de",
+        "sex": "Ambos sexos",
+        "measure": "Mediana",
+        "value": 24196.64,
+        "lowSample": false
+      },
+      {
+        "region": "Asturias, Principado de",
+        "sex": "Ambos sexos",
+        "measure": "Cuartil superior",
+        "value": 36057.57,
+        "lowSample": false
+      },
+      {
+        "region": "Asturias, Principado de",
+        "sex": "Ambos sexos",
+        "measure": "Percentil 90",
+        "value": 51000,
+        "lowSample": false
+      },
+      {
+        "region": "Balears, Illes",
+        "sex": "Ambos sexos",
+        "measure": "Media",
+        "value": 29075.06,
+        "lowSample": false
+      },
+      {
+        "region": "Balears, Illes",
+        "sex": "Ambos sexos",
+        "measure": "Percentil 10",
+        "value": 14986.07,
+        "lowSample": false
+      },
+      {
+        "region": "Balears, Illes",
+        "sex": "Ambos sexos",
+        "measure": "Cuartil inferior",
+        "value": 19546.12,
+        "lowSample": false
+      },
+      {
+        "region": "Balears, Illes",
+        "sex": "Ambos sexos",
+        "measure": "Mediana",
+        "value": 24962.01,
+        "lowSample": false
+      },
+      {
+        "region": "Balears, Illes",
+        "sex": "Ambos sexos",
+        "measure": "Cuartil superior",
+        "value": 33965.77,
+        "lowSample": false
+      },
+      {
+        "region": "Balears, Illes",
+        "sex": "Ambos sexos",
+        "measure": "Percentil 90",
+        "value": 47715.88,
+        "lowSample": false
+      },
+      {
+        "region": "Canarias",
+        "sex": "Ambos sexos",
+        "measure": "Media",
+        "value": 25120.38,
+        "lowSample": false
+      },
+      {
+        "region": "Canarias",
+        "sex": "Ambos sexos",
+        "measure": "Percentil 10",
+        "value": 11877.7,
+        "lowSample": false
+      },
+      {
+        "region": "Canarias",
+        "sex": "Ambos sexos",
+        "measure": "Cuartil inferior",
+        "value": 16305.72,
+        "lowSample": false
+      },
+      {
+        "region": "Canarias",
+        "sex": "Ambos sexos",
+        "measure": "Mediana",
+        "value": 20631.84,
+        "lowSample": false
+      },
+      {
+        "region": "Canarias",
+        "sex": "Ambos sexos",
+        "measure": "Cuartil superior",
+        "value": 29218.96,
+        "lowSample": false
+      },
+      {
+        "region": "Canarias",
+        "sex": "Ambos sexos",
+        "measure": "Percentil 90",
+        "value": 45093.89,
+        "lowSample": false
+      },
+      {
+        "region": "Cantabria",
+        "sex": "Ambos sexos",
+        "measure": "Media",
+        "value": 27097.17,
+        "lowSample": false
+      },
+      {
+        "region": "Cantabria",
+        "sex": "Ambos sexos",
+        "measure": "Percentil 10",
+        "value": 10799.3,
+        "lowSample": false
+      },
+      {
+        "region": "Cantabria",
+        "sex": "Ambos sexos",
+        "measure": "Cuartil inferior",
+        "value": 17044.41,
+        "lowSample": false
+      },
+      {
+        "region": "Cantabria",
+        "sex": "Ambos sexos",
+        "measure": "Mediana",
+        "value": 23246.78,
+        "lowSample": false
+      },
+      {
+        "region": "Cantabria",
+        "sex": "Ambos sexos",
+        "measure": "Cuartil superior",
+        "value": 34226.38,
+        "lowSample": false
+      },
+      {
+        "region": "Cantabria",
+        "sex": "Ambos sexos",
+        "measure": "Percentil 90",
+        "value": 47183.35,
+        "lowSample": false
+      },
+      {
+        "region": "Castilla y León",
+        "sex": "Ambos sexos",
+        "measure": "Media",
+        "value": 26177.28,
+        "lowSample": false
+      },
+      {
+        "region": "Castilla y León",
+        "sex": "Ambos sexos",
+        "measure": "Percentil 10",
+        "value": 11349.61,
+        "lowSample": false
+      },
+      {
+        "region": "Castilla y León",
+        "sex": "Ambos sexos",
+        "measure": "Cuartil inferior",
+        "value": 17011.37,
+        "lowSample": false
+      },
+      {
+        "region": "Castilla y León",
+        "sex": "Ambos sexos",
+        "measure": "Mediana",
+        "value": 22566.96,
+        "lowSample": false
+      },
+      {
+        "region": "Castilla y León",
+        "sex": "Ambos sexos",
+        "measure": "Cuartil superior",
+        "value": 32392.34,
+        "lowSample": false
+      },
+      {
+        "region": "Castilla y León",
+        "sex": "Ambos sexos",
+        "measure": "Percentil 90",
+        "value": 44688.93,
+        "lowSample": false
+      },
+      {
+        "region": "Castilla - La Mancha",
+        "sex": "Ambos sexos",
+        "measure": "Media",
+        "value": 26062.05,
+        "lowSample": false
+      },
+      {
+        "region": "Castilla - La Mancha",
+        "sex": "Ambos sexos",
+        "measure": "Percentil 10",
+        "value": 11674.14,
+        "lowSample": false
+      },
+      {
+        "region": "Castilla - La Mancha",
+        "sex": "Ambos sexos",
+        "measure": "Cuartil inferior",
+        "value": 17082.24,
+        "lowSample": false
+      },
+      {
+        "region": "Castilla - La Mancha",
+        "sex": "Ambos sexos",
+        "measure": "Mediana",
+        "value": 22045.52,
+        "lowSample": false
+      },
+      {
+        "region": "Castilla - La Mancha",
+        "sex": "Ambos sexos",
+        "measure": "Cuartil superior",
+        "value": 31131.79,
+        "lowSample": false
+      },
+      {
+        "region": "Castilla - La Mancha",
+        "sex": "Ambos sexos",
+        "measure": "Percentil 90",
+        "value": 45023.64,
+        "lowSample": false
+      },
+      {
+        "region": "Cataluña",
+        "sex": "Ambos sexos",
+        "measure": "Media",
+        "value": 31730.05,
+        "lowSample": false
+      },
+      {
+        "region": "Cataluña",
+        "sex": "Ambos sexos",
+        "measure": "Percentil 10",
+        "value": 12645.23,
+        "lowSample": false
+      },
+      {
+        "region": "Cataluña",
+        "sex": "Ambos sexos",
+        "measure": "Cuartil inferior",
+        "value": 18678.37,
+        "lowSample": false
+      },
+      {
+        "region": "Cataluña",
+        "sex": "Ambos sexos",
+        "measure": "Mediana",
+        "value": 27132.93,
+        "lowSample": false
+      },
+      {
+        "region": "Cataluña",
+        "sex": "Ambos sexos",
+        "measure": "Cuartil superior",
+        "value": 39776.8,
+        "lowSample": false
+      },
+      {
+        "region": "Cataluña",
+        "sex": "Ambos sexos",
+        "measure": "Percentil 90",
+        "value": 56220.78,
+        "lowSample": false
+      },
+      {
+        "region": "Comunitat Valenciana",
+        "sex": "Ambos sexos",
+        "measure": "Media",
+        "value": 26816.98,
+        "lowSample": false
+      },
+      {
+        "region": "Comunitat Valenciana",
+        "sex": "Ambos sexos",
+        "measure": "Percentil 10",
+        "value": 10522.98,
+        "lowSample": false
+      },
+      {
+        "region": "Comunitat Valenciana",
+        "sex": "Ambos sexos",
+        "measure": "Cuartil inferior",
+        "value": 16723.14,
+        "lowSample": false
+      },
+      {
+        "region": "Comunitat Valenciana",
+        "sex": "Ambos sexos",
+        "measure": "Mediana",
+        "value": 22652.43,
+        "lowSample": false
+      },
+      {
+        "region": "Comunitat Valenciana",
+        "sex": "Ambos sexos",
+        "measure": "Cuartil superior",
+        "value": 33230.36,
+        "lowSample": false
+      },
+      {
+        "region": "Comunitat Valenciana",
+        "sex": "Ambos sexos",
+        "measure": "Percentil 90",
+        "value": 46991.77,
+        "lowSample": false
+      },
+      {
+        "region": "Extremadura",
+        "sex": "Ambos sexos",
+        "measure": "Media",
+        "value": 24979.44,
+        "lowSample": false
+      },
+      {
+        "region": "Extremadura",
+        "sex": "Ambos sexos",
+        "measure": "Percentil 10",
+        "value": 9243,
+        "lowSample": false
+      },
+      {
+        "region": "Extremadura",
+        "sex": "Ambos sexos",
+        "measure": "Cuartil inferior",
+        "value": 15876,
+        "lowSample": false
+      },
+      {
+        "region": "Extremadura",
+        "sex": "Ambos sexos",
+        "measure": "Mediana",
+        "value": 20904.64,
+        "lowSample": false
+      },
+      {
+        "region": "Extremadura",
+        "sex": "Ambos sexos",
+        "measure": "Cuartil superior",
+        "value": 31096.89,
+        "lowSample": false
+      },
+      {
+        "region": "Extremadura",
+        "sex": "Ambos sexos",
+        "measure": "Percentil 90",
+        "value": 43833.88,
+        "lowSample": false
+      },
+      {
+        "region": "Galicia",
+        "sex": "Ambos sexos",
+        "measure": "Media",
+        "value": 26547.27,
+        "lowSample": false
+      },
+      {
+        "region": "Galicia",
+        "sex": "Ambos sexos",
+        "measure": "Percentil 10",
+        "value": 12147.86,
+        "lowSample": false
+      },
+      {
+        "region": "Galicia",
+        "sex": "Ambos sexos",
+        "measure": "Cuartil inferior",
+        "value": 17010,
+        "lowSample": false
+      },
+      {
+        "region": "Galicia",
+        "sex": "Ambos sexos",
+        "measure": "Mediana",
+        "value": 22603.14,
+        "lowSample": false
+      },
+      {
+        "region": "Galicia",
+        "sex": "Ambos sexos",
+        "measure": "Cuartil superior",
+        "value": 31587.21,
+        "lowSample": false
+      },
+      {
+        "region": "Galicia",
+        "sex": "Ambos sexos",
+        "measure": "Percentil 90",
+        "value": 44681.64,
+        "lowSample": false
+      },
+      {
+        "region": "Madrid, Comunidad de",
+        "sex": "Ambos sexos",
+        "measure": "Media",
+        "value": 34410.01,
+        "lowSample": false
+      },
+      {
+        "region": "Madrid, Comunidad de",
+        "sex": "Ambos sexos",
+        "measure": "Percentil 10",
+        "value": 13728.43,
+        "lowSample": false
+      },
+      {
+        "region": "Madrid, Comunidad de",
+        "sex": "Ambos sexos",
+        "measure": "Cuartil inferior",
+        "value": 18872.44,
+        "lowSample": false
+      },
+      {
+        "region": "Madrid, Comunidad de",
+        "sex": "Ambos sexos",
+        "measure": "Mediana",
+        "value": 28037.75,
+        "lowSample": false
+      },
+      {
+        "region": "Madrid, Comunidad de",
+        "sex": "Ambos sexos",
+        "measure": "Cuartil superior",
+        "value": 43598,
+        "lowSample": false
+      },
+      {
+        "region": "Madrid, Comunidad de",
+        "sex": "Ambos sexos",
+        "measure": "Percentil 90",
+        "value": 63685.49,
+        "lowSample": false
+      },
+      {
+        "region": "Murcia, Región de",
+        "sex": "Ambos sexos",
+        "measure": "Media",
+        "value": 26349.36,
+        "lowSample": false
+      },
+      {
+        "region": "Murcia, Región de",
+        "sex": "Ambos sexos",
+        "measure": "Percentil 10",
+        "value": 10167.03,
+        "lowSample": false
+      },
+      {
+        "region": "Murcia, Región de",
+        "sex": "Ambos sexos",
+        "measure": "Cuartil inferior",
+        "value": 16103,
+        "lowSample": false
+      },
+      {
+        "region": "Murcia, Región de",
+        "sex": "Ambos sexos",
+        "measure": "Mediana",
+        "value": 21672.45,
+        "lowSample": false
+      },
+      {
+        "region": "Murcia, Región de",
+        "sex": "Ambos sexos",
+        "measure": "Cuartil superior",
+        "value": 32023.13,
+        "lowSample": false
+      },
+      {
+        "region": "Murcia, Región de",
+        "sex": "Ambos sexos",
+        "measure": "Percentil 90",
+        "value": 47062.07,
+        "lowSample": false
+      },
+      {
+        "region": "Navarra, Comunidad Foral de",
+        "sex": "Ambos sexos",
+        "measure": "Media",
+        "value": 32605.28,
+        "lowSample": false
+      },
+      {
+        "region": "Navarra, Comunidad Foral de",
+        "sex": "Ambos sexos",
+        "measure": "Percentil 10",
+        "value": 13951.08,
+        "lowSample": false
+      },
+      {
+        "region": "Navarra, Comunidad Foral de",
+        "sex": "Ambos sexos",
+        "measure": "Cuartil inferior",
+        "value": 21014.1,
+        "lowSample": false
+      },
+      {
+        "region": "Navarra, Comunidad Foral de",
+        "sex": "Ambos sexos",
+        "measure": "Mediana",
+        "value": 29385.02,
+        "lowSample": false
+      },
+      {
+        "region": "Navarra, Comunidad Foral de",
+        "sex": "Ambos sexos",
+        "measure": "Cuartil superior",
+        "value": 40140.13,
+        "lowSample": false
+      },
+      {
+        "region": "Navarra, Comunidad Foral de",
+        "sex": "Ambos sexos",
+        "measure": "Percentil 90",
+        "value": 54862.49,
+        "lowSample": false
+      },
+      {
+        "region": "País Vasco",
+        "sex": "Ambos sexos",
+        "measure": "Media",
+        "value": 35170.28,
+        "lowSample": false
+      },
+      {
+        "region": "País Vasco",
+        "sex": "Ambos sexos",
+        "measure": "Percentil 10",
+        "value": 14169.72,
+        "lowSample": false
+      },
+      {
+        "region": "País Vasco",
+        "sex": "Ambos sexos",
+        "measure": "Cuartil inferior",
+        "value": 21433,
+        "lowSample": false
+      },
+      {
+        "region": "País Vasco",
+        "sex": "Ambos sexos",
+        "measure": "Mediana",
+        "value": 31912.13,
+        "lowSample": false
+      },
+      {
+        "region": "País Vasco",
+        "sex": "Ambos sexos",
+        "measure": "Cuartil superior",
+        "value": 45393.22,
+        "lowSample": false
+      },
+      {
+        "region": "País Vasco",
+        "sex": "Ambos sexos",
+        "measure": "Percentil 90",
+        "value": 58049.5,
+        "lowSample": false
+      },
+      {
+        "region": "Rioja, La",
+        "sex": "Ambos sexos",
+        "measure": "Media",
+        "value": 27855.4,
+        "lowSample": false
+      },
+      {
+        "region": "Rioja, La",
+        "sex": "Ambos sexos",
+        "measure": "Percentil 10",
+        "value": 12188.08,
+        "lowSample": false
+      },
+      {
+        "region": "Rioja, La",
+        "sex": "Ambos sexos",
+        "measure": "Cuartil inferior",
+        "value": 17718.12,
+        "lowSample": false
+      },
+      {
+        "region": "Rioja, La",
+        "sex": "Ambos sexos",
+        "measure": "Mediana",
+        "value": 24501.28,
+        "lowSample": false
+      },
+      {
+        "region": "Rioja, La",
+        "sex": "Ambos sexos",
+        "measure": "Cuartil superior",
+        "value": 34568.19,
+        "lowSample": false
+      },
+      {
+        "region": "Rioja, La",
+        "sex": "Ambos sexos",
+        "measure": "Percentil 90",
+        "value": 47172.71,
+        "lowSample": false
+      },
+      {
+        "region": "Total Nacional",
+        "sex": "Mujeres",
+        "measure": "Media",
+        "value": 26904.9,
+        "lowSample": false
+      },
+      {
+        "region": "Total Nacional",
+        "sex": "Mujeres",
+        "measure": "Percentil 10",
+        "value": 9717.33,
+        "lowSample": false
+      },
+      {
+        "region": "Total Nacional",
+        "sex": "Mujeres",
+        "measure": "Cuartil inferior",
+        "value": 15744.72,
+        "lowSample": false
+      },
+      {
+        "region": "Total Nacional",
+        "sex": "Mujeres",
+        "measure": "Mediana",
+        "value": 22087.71,
+        "lowSample": false
+      },
+      {
+        "region": "Total Nacional",
+        "sex": "Mujeres",
+        "measure": "Cuartil superior",
+        "value": 34439.17,
+        "lowSample": false
+      },
+      {
+        "region": "Total Nacional",
+        "sex": "Mujeres",
+        "measure": "Percentil 90",
+        "value": 48730.36,
+        "lowSample": false
+      },
+      {
+        "region": "Andalucía",
+        "sex": "Mujeres",
+        "measure": "Media",
+        "value": 23679.2,
+        "lowSample": false
+      },
+      {
+        "region": "Andalucía",
+        "sex": "Mujeres",
+        "measure": "Percentil 10",
+        "value": 8857.2,
+        "lowSample": false
+      },
+      {
+        "region": "Andalucía",
+        "sex": "Mujeres",
+        "measure": "Cuartil inferior",
+        "value": 13513.29,
+        "lowSample": false
+      },
+      {
+        "region": "Andalucía",
+        "sex": "Mujeres",
+        "measure": "Mediana",
+        "value": 18943.69,
+        "lowSample": false
+      },
+      {
+        "region": "Andalucía",
+        "sex": "Mujeres",
+        "measure": "Cuartil superior",
+        "value": 29843.74,
+        "lowSample": false
+      },
+      {
+        "region": "Andalucía",
+        "sex": "Mujeres",
+        "measure": "Percentil 90",
+        "value": 43860.86,
+        "lowSample": false
+      },
+      {
+        "region": "Aragón",
+        "sex": "Mujeres",
+        "measure": "Media",
+        "value": 24796.94,
+        "lowSample": false
+      },
+      {
+        "region": "Aragón",
+        "sex": "Mujeres",
+        "measure": "Percentil 10",
+        "value": 9552.65,
+        "lowSample": false
+      },
+      {
+        "region": "Aragón",
+        "sex": "Mujeres",
+        "measure": "Cuartil inferior",
+        "value": 15866.83,
+        "lowSample": false
+      },
+      {
+        "region": "Aragón",
+        "sex": "Mujeres",
+        "measure": "Mediana",
+        "value": 21775.86,
+        "lowSample": false
+      },
+      {
+        "region": "Aragón",
+        "sex": "Mujeres",
+        "measure": "Cuartil superior",
+        "value": 31225.95,
+        "lowSample": false
+      },
+      {
+        "region": "Aragón",
+        "sex": "Mujeres",
+        "measure": "Percentil 90",
+        "value": 42259.31,
+        "lowSample": false
+      },
+      {
+        "region": "Asturias, Principado de",
+        "sex": "Mujeres",
+        "measure": "Media",
+        "value": 25414.38,
+        "lowSample": false
+      },
+      {
+        "region": "Asturias, Principado de",
+        "sex": "Mujeres",
+        "measure": "Percentil 10",
+        "value": 8512.47,
+        "lowSample": false
+      },
+      {
+        "region": "Asturias, Principado de",
+        "sex": "Mujeres",
+        "measure": "Cuartil inferior",
+        "value": 14508.05,
+        "lowSample": false
+      },
+      {
+        "region": "Asturias, Principado de",
+        "sex": "Mujeres",
+        "measure": "Mediana",
+        "value": 19573.53,
+        "lowSample": false
+      },
+      {
+        "region": "Asturias, Principado de",
+        "sex": "Mujeres",
+        "measure": "Cuartil superior",
+        "value": 32843.41,
+        "lowSample": false
+      },
+      {
+        "region": "Asturias, Principado de",
+        "sex": "Mujeres",
+        "measure": "Percentil 90",
+        "value": 48240.3,
+        "lowSample": false
+      },
+      {
+        "region": "Balears, Illes",
+        "sex": "Mujeres",
+        "measure": "Media",
+        "value": 27886.01,
+        "lowSample": false
+      },
+      {
+        "region": "Balears, Illes",
+        "sex": "Mujeres",
+        "measure": "Percentil 10",
+        "value": 13739.28,
+        "lowSample": false
+      },
+      {
+        "region": "Balears, Illes",
+        "sex": "Mujeres",
+        "measure": "Cuartil inferior",
+        "value": 18439.88,
+        "lowSample": false
+      },
+      {
+        "region": "Balears, Illes",
+        "sex": "Mujeres",
+        "measure": "Mediana",
+        "value": 24481.98,
+        "lowSample": false
+      },
+      {
+        "region": "Balears, Illes",
+        "sex": "Mujeres",
+        "measure": "Cuartil superior",
+        "value": 33457.81,
+        "lowSample": false
+      },
+      {
+        "region": "Balears, Illes",
+        "sex": "Mujeres",
+        "measure": "Percentil 90",
+        "value": 45475.68,
+        "lowSample": false
+      },
+      {
+        "region": "Canarias",
+        "sex": "Mujeres",
+        "measure": "Media",
+        "value": 24299.07,
+        "lowSample": false
+      },
+      {
+        "region": "Canarias",
+        "sex": "Mujeres",
+        "measure": "Percentil 10",
+        "value": 9919.6,
+        "lowSample": false
+      },
+      {
+        "region": "Canarias",
+        "sex": "Mujeres",
+        "measure": "Cuartil inferior",
+        "value": 15809.92,
+        "lowSample": false
+      },
+      {
+        "region": "Canarias",
+        "sex": "Mujeres",
+        "measure": "Mediana",
+        "value": 20110.65,
+        "lowSample": false
+      },
+      {
+        "region": "Canarias",
+        "sex": "Mujeres",
+        "measure": "Cuartil superior",
+        "value": 29869.16,
+        "lowSample": false
+      },
+      {
+        "region": "Canarias",
+        "sex": "Mujeres",
+        "measure": "Percentil 90",
+        "value": 45089.76,
+        "lowSample": false
+      },
+      {
+        "region": "Cantabria",
+        "sex": "Mujeres",
+        "measure": "Media",
+        "value": 23863.21,
+        "lowSample": false
+      },
+      {
+        "region": "Cantabria",
+        "sex": "Mujeres",
+        "measure": "Percentil 10",
+        "value": 8404.01,
+        "lowSample": false
+      },
+      {
+        "region": "Cantabria",
+        "sex": "Mujeres",
+        "measure": "Cuartil inferior",
+        "value": 15021.75,
+        "lowSample": false
+      },
+      {
+        "region": "Cantabria",
+        "sex": "Mujeres",
+        "measure": "Mediana",
+        "value": 20012.64,
+        "lowSample": false
+      },
+      {
+        "region": "Cantabria",
+        "sex": "Mujeres",
+        "measure": "Cuartil superior",
+        "value": 30312.54,
+        "lowSample": false
+      },
+      {
+        "region": "Cantabria",
+        "sex": "Mujeres",
+        "measure": "Percentil 90",
+        "value": 43411.62,
+        "lowSample": false
+      },
+      {
+        "region": "Castilla y León",
+        "sex": "Mujeres",
+        "measure": "Media",
+        "value": 23646.7,
+        "lowSample": false
+      },
+      {
+        "region": "Castilla y León",
+        "sex": "Mujeres",
+        "measure": "Percentil 10",
+        "value": 9174.79,
+        "lowSample": false
+      },
+      {
+        "region": "Castilla y León",
+        "sex": "Mujeres",
+        "measure": "Cuartil inferior",
+        "value": 15172.48,
+        "lowSample": false
+      },
+      {
+        "region": "Castilla y León",
+        "sex": "Mujeres",
+        "measure": "Mediana",
+        "value": 20088.76,
+        "lowSample": false
+      },
+      {
+        "region": "Castilla y León",
+        "sex": "Mujeres",
+        "measure": "Cuartil superior",
+        "value": 29888.77,
+        "lowSample": false
+      },
+      {
+        "region": "Castilla y León",
+        "sex": "Mujeres",
+        "measure": "Percentil 90",
+        "value": 41526.56,
+        "lowSample": false
+      },
+      {
+        "region": "Castilla - La Mancha",
+        "sex": "Mujeres",
+        "measure": "Media",
+        "value": 23766.91,
+        "lowSample": false
+      },
+      {
+        "region": "Castilla - La Mancha",
+        "sex": "Mujeres",
+        "measure": "Percentil 10",
+        "value": 9591.7,
+        "lowSample": false
+      },
+      {
+        "region": "Castilla - La Mancha",
+        "sex": "Mujeres",
+        "measure": "Cuartil inferior",
+        "value": 15258.34,
+        "lowSample": false
+      },
+      {
+        "region": "Castilla - La Mancha",
+        "sex": "Mujeres",
+        "measure": "Mediana",
+        "value": 19345.97,
+        "lowSample": false
+      },
+      {
+        "region": "Castilla - La Mancha",
+        "sex": "Mujeres",
+        "measure": "Cuartil superior",
+        "value": 29408.72,
+        "lowSample": false
+      },
+      {
+        "region": "Castilla - La Mancha",
+        "sex": "Mujeres",
+        "measure": "Percentil 90",
+        "value": 42357.27,
+        "lowSample": false
+      },
+      {
+        "region": "Cataluña",
+        "sex": "Mujeres",
+        "measure": "Media",
+        "value": 29030.09,
+        "lowSample": false
+      },
+      {
+        "region": "Cataluña",
+        "sex": "Mujeres",
+        "measure": "Percentil 10",
+        "value": 10369.69,
+        "lowSample": false
+      },
+      {
+        "region": "Cataluña",
+        "sex": "Mujeres",
+        "measure": "Cuartil inferior",
+        "value": 16801.33,
+        "lowSample": false
+      },
+      {
+        "region": "Cataluña",
+        "sex": "Mujeres",
+        "measure": "Mediana",
+        "value": 24756.03,
+        "lowSample": false
+      },
+      {
+        "region": "Cataluña",
+        "sex": "Mujeres",
+        "measure": "Cuartil superior",
+        "value": 36880.49,
+        "lowSample": false
+      },
+      {
+        "region": "Cataluña",
+        "sex": "Mujeres",
+        "measure": "Percentil 90",
+        "value": 51839.11,
+        "lowSample": false
+      },
+      {
+        "region": "Comunitat Valenciana",
+        "sex": "Mujeres",
+        "measure": "Media",
+        "value": 24208.4,
+        "lowSample": false
+      },
+      {
+        "region": "Comunitat Valenciana",
+        "sex": "Mujeres",
+        "measure": "Percentil 10",
+        "value": 8380.82,
+        "lowSample": false
+      },
+      {
+        "region": "Comunitat Valenciana",
+        "sex": "Mujeres",
+        "measure": "Cuartil inferior",
+        "value": 14465.95,
+        "lowSample": false
+      },
+      {
+        "region": "Comunitat Valenciana",
+        "sex": "Mujeres",
+        "measure": "Mediana",
+        "value": 19890.09,
+        "lowSample": false
+      },
+      {
+        "region": "Comunitat Valenciana",
+        "sex": "Mujeres",
+        "measure": "Cuartil superior",
+        "value": 30763.54,
+        "lowSample": false
+      },
+      {
+        "region": "Comunitat Valenciana",
+        "sex": "Mujeres",
+        "measure": "Percentil 90",
+        "value": 43742.8,
+        "lowSample": false
+      },
+      {
+        "region": "Extremadura",
+        "sex": "Mujeres",
+        "measure": "Media",
+        "value": 23296.85,
+        "lowSample": false
+      },
+      {
+        "region": "Extremadura",
+        "sex": "Mujeres",
+        "measure": "Percentil 10",
+        "value": 7565.39,
+        "lowSample": false
+      },
+      {
+        "region": "Extremadura",
+        "sex": "Mujeres",
+        "measure": "Cuartil inferior",
+        "value": 12566.4,
+        "lowSample": false
+      },
+      {
+        "region": "Extremadura",
+        "sex": "Mujeres",
+        "measure": "Mediana",
+        "value": 19007.07,
+        "lowSample": false
+      },
+      {
+        "region": "Extremadura",
+        "sex": "Mujeres",
+        "measure": "Cuartil superior",
+        "value": 30901.62,
+        "lowSample": false
+      },
+      {
+        "region": "Extremadura",
+        "sex": "Mujeres",
+        "measure": "Percentil 90",
+        "value": 43389.43,
+        "lowSample": false
+      },
+      {
+        "region": "Galicia",
+        "sex": "Mujeres",
+        "measure": "Media",
+        "value": 24551.26,
+        "lowSample": false
+      },
+      {
+        "region": "Galicia",
+        "sex": "Mujeres",
+        "measure": "Percentil 10",
+        "value": 9700.04,
+        "lowSample": false
+      },
+      {
+        "region": "Galicia",
+        "sex": "Mujeres",
+        "measure": "Cuartil inferior",
+        "value": 15698.48,
+        "lowSample": false
+      },
+      {
+        "region": "Galicia",
+        "sex": "Mujeres",
+        "measure": "Mediana",
+        "value": 20603.4,
+        "lowSample": false
+      },
+      {
+        "region": "Galicia",
+        "sex": "Mujeres",
+        "measure": "Cuartil superior",
+        "value": 30269.23,
+        "lowSample": false
+      },
+      {
+        "region": "Galicia",
+        "sex": "Mujeres",
+        "measure": "Percentil 90",
+        "value": 42587.79,
+        "lowSample": false
+      },
+      {
+        "region": "Madrid, Comunidad de",
+        "sex": "Mujeres",
+        "measure": "Media",
+        "value": 31048.41,
+        "lowSample": false
+      },
+      {
+        "region": "Madrid, Comunidad de",
+        "sex": "Mujeres",
+        "measure": "Percentil 10",
+        "value": 11444.52,
+        "lowSample": false
+      },
+      {
+        "region": "Madrid, Comunidad de",
+        "sex": "Mujeres",
+        "measure": "Cuartil inferior",
+        "value": 17071.26,
+        "lowSample": false
+      },
+      {
+        "region": "Madrid, Comunidad de",
+        "sex": "Mujeres",
+        "measure": "Mediana",
+        "value": 25362.11,
+        "lowSample": false
+      },
+      {
+        "region": "Madrid, Comunidad de",
+        "sex": "Mujeres",
+        "measure": "Cuartil superior",
+        "value": 39230.44,
+        "lowSample": false
+      },
+      {
+        "region": "Madrid, Comunidad de",
+        "sex": "Mujeres",
+        "measure": "Percentil 90",
+        "value": 57968.53,
+        "lowSample": false
+      },
+      {
+        "region": "Murcia, Región de",
+        "sex": "Mujeres",
+        "measure": "Media",
+        "value": 23395.07,
+        "lowSample": false
+      },
+      {
+        "region": "Murcia, Región de",
+        "sex": "Mujeres",
+        "measure": "Percentil 10",
+        "value": 8218.43,
+        "lowSample": false
+      },
+      {
+        "region": "Murcia, Región de",
+        "sex": "Mujeres",
+        "measure": "Cuartil inferior",
+        "value": 13607.99,
+        "lowSample": false
+      },
+      {
+        "region": "Murcia, Región de",
+        "sex": "Mujeres",
+        "measure": "Mediana",
+        "value": 18528.77,
+        "lowSample": false
+      },
+      {
+        "region": "Murcia, Región de",
+        "sex": "Mujeres",
+        "measure": "Cuartil superior",
+        "value": 29789.5,
+        "lowSample": false
+      },
+      {
+        "region": "Murcia, Región de",
+        "sex": "Mujeres",
+        "measure": "Percentil 90",
+        "value": 44929.07,
+        "lowSample": false
+      },
+      {
+        "region": "Navarra, Comunidad Foral de",
+        "sex": "Mujeres",
+        "measure": "Media",
+        "value": 28776.99,
+        "lowSample": false
+      },
+      {
+        "region": "Navarra, Comunidad Foral de",
+        "sex": "Mujeres",
+        "measure": "Percentil 10",
+        "value": 11264.01,
+        "lowSample": false
+      },
+      {
+        "region": "Navarra, Comunidad Foral de",
+        "sex": "Mujeres",
+        "measure": "Cuartil inferior",
+        "value": 17760.74,
+        "lowSample": false
+      },
+      {
+        "region": "Navarra, Comunidad Foral de",
+        "sex": "Mujeres",
+        "measure": "Mediana",
+        "value": 25666.12,
+        "lowSample": false
+      },
+      {
+        "region": "Navarra, Comunidad Foral de",
+        "sex": "Mujeres",
+        "measure": "Cuartil superior",
+        "value": 36324.1,
+        "lowSample": false
+      },
+      {
+        "region": "Navarra, Comunidad Foral de",
+        "sex": "Mujeres",
+        "measure": "Percentil 90",
+        "value": 47290.68,
+        "lowSample": false
+      },
+      {
+        "region": "País Vasco",
+        "sex": "Mujeres",
+        "measure": "Media",
+        "value": 32300.14,
+        "lowSample": false
+      },
+      {
+        "region": "País Vasco",
+        "sex": "Mujeres",
+        "measure": "Percentil 10",
+        "value": 11303,
+        "lowSample": false
+      },
+      {
+        "region": "País Vasco",
+        "sex": "Mujeres",
+        "measure": "Cuartil inferior",
+        "value": 18164,
+        "lowSample": false
+      },
+      {
+        "region": "País Vasco",
+        "sex": "Mujeres",
+        "measure": "Mediana",
+        "value": 28467.42,
+        "lowSample": false
+      },
+      {
+        "region": "País Vasco",
+        "sex": "Mujeres",
+        "measure": "Cuartil superior",
+        "value": 42749,
+        "lowSample": false
+      },
+      {
+        "region": "País Vasco",
+        "sex": "Mujeres",
+        "measure": "Percentil 90",
+        "value": 56154.2,
+        "lowSample": false
+      },
+      {
+        "region": "Rioja, La",
+        "sex": "Mujeres",
+        "measure": "Media",
+        "value": 25840.18,
+        "lowSample": false
+      },
+      {
+        "region": "Rioja, La",
+        "sex": "Mujeres",
+        "measure": "Percentil 10",
+        "value": 10770.15,
+        "lowSample": false
+      },
+      {
+        "region": "Rioja, La",
+        "sex": "Mujeres",
+        "measure": "Cuartil inferior",
+        "value": 15876,
+        "lowSample": false
+      },
+      {
+        "region": "Rioja, La",
+        "sex": "Mujeres",
+        "measure": "Mediana",
+        "value": 21896.48,
+        "lowSample": false
+      },
+      {
+        "region": "Rioja, La",
+        "sex": "Mujeres",
+        "measure": "Cuartil superior",
+        "value": 32491.51,
+        "lowSample": false
+      },
+      {
+        "region": "Rioja, La",
+        "sex": "Mujeres",
+        "measure": "Percentil 90",
+        "value": 45670.19,
+        "lowSample": false
+      },
+      {
+        "region": "Total Nacional",
+        "sex": "Hombres",
+        "measure": "Media",
+        "value": 32057.55,
+        "lowSample": false
+      },
+      {
+        "region": "Total Nacional",
+        "sex": "Hombres",
+        "measure": "Percentil 10",
+        "value": 15327.38,
+        "lowSample": false
+      },
+      {
+        "region": "Total Nacional",
+        "sex": "Hombres",
+        "measure": "Cuartil inferior",
+        "value": 19776,
+        "lowSample": false
+      },
+      {
+        "region": "Total Nacional",
+        "sex": "Hombres",
+        "measure": "Mediana",
+        "value": 26376.88,
+        "lowSample": false
+      },
+      {
+        "region": "Total Nacional",
+        "sex": "Hombres",
+        "measure": "Cuartil superior",
+        "value": 39239.7,
+        "lowSample": false
+      },
+      {
+        "region": "Total Nacional",
+        "sex": "Hombres",
+        "measure": "Percentil 90",
+        "value": 56153.65,
+        "lowSample": false
+      },
+      {
+        "region": "Andalucía",
+        "sex": "Hombres",
+        "measure": "Media",
+        "value": 28295.53,
+        "lowSample": false
+      },
+      {
+        "region": "Andalucía",
+        "sex": "Hombres",
+        "measure": "Percentil 10",
+        "value": 14157.04,
+        "lowSample": false
+      },
+      {
+        "region": "Andalucía",
+        "sex": "Hombres",
+        "measure": "Cuartil inferior",
+        "value": 17970,
+        "lowSample": false
+      },
+      {
+        "region": "Andalucía",
+        "sex": "Hombres",
+        "measure": "Mediana",
+        "value": 23271.03,
+        "lowSample": false
+      },
+      {
+        "region": "Andalucía",
+        "sex": "Hombres",
+        "measure": "Cuartil superior",
+        "value": 33861.33,
+        "lowSample": false
+      },
+      {
+        "region": "Andalucía",
+        "sex": "Hombres",
+        "measure": "Percentil 90",
+        "value": 49331.56,
+        "lowSample": false
+      },
+      {
+        "region": "Aragón",
+        "sex": "Hombres",
+        "measure": "Media",
+        "value": 31123.18,
+        "lowSample": false
+      },
+      {
+        "region": "Aragón",
+        "sex": "Hombres",
+        "measure": "Percentil 10",
+        "value": 16882.54,
+        "lowSample": false
+      },
+      {
+        "region": "Aragón",
+        "sex": "Hombres",
+        "measure": "Cuartil inferior",
+        "value": 21548.14,
+        "lowSample": false
+      },
+      {
+        "region": "Aragón",
+        "sex": "Hombres",
+        "measure": "Mediana",
+        "value": 27408,
+        "lowSample": false
+      },
+      {
+        "region": "Aragón",
+        "sex": "Hombres",
+        "measure": "Cuartil superior",
+        "value": 37230.69,
+        "lowSample": false
+      },
+      {
+        "region": "Aragón",
+        "sex": "Hombres",
+        "measure": "Percentil 90",
+        "value": 49769.52,
+        "lowSample": false
+      },
+      {
+        "region": "Asturias, Principado de",
+        "sex": "Hombres",
+        "measure": "Media",
+        "value": 31852.13,
+        "lowSample": false
+      },
+      {
+        "region": "Asturias, Principado de",
+        "sex": "Hombres",
+        "measure": "Percentil 10",
+        "value": 15876.12,
+        "lowSample": false
+      },
+      {
+        "region": "Asturias, Principado de",
+        "sex": "Hombres",
+        "measure": "Cuartil inferior",
+        "value": 20357.38,
+        "lowSample": false
+      },
+      {
+        "region": "Asturias, Principado de",
+        "sex": "Hombres",
+        "measure": "Mediana",
+        "value": 27512.03,
+        "lowSample": false
+      },
+      {
+        "region": "Asturias, Principado de",
+        "sex": "Hombres",
+        "measure": "Cuartil superior",
+        "value": 38744.3,
+        "lowSample": false
+      },
+      {
+        "region": "Asturias, Principado de",
+        "sex": "Hombres",
+        "measure": "Percentil 90",
+        "value": 53288.17,
+        "lowSample": false
+      },
+      {
+        "region": "Balears, Illes",
+        "sex": "Hombres",
+        "measure": "Media",
+        "value": 30172.85,
+        "lowSample": false
+      },
+      {
+        "region": "Balears, Illes",
+        "sex": "Hombres",
+        "measure": "Percentil 10",
+        "value": 15936.49,
+        "lowSample": false
+      },
+      {
+        "region": "Balears, Illes",
+        "sex": "Hombres",
+        "measure": "Cuartil inferior",
+        "value": 20374.27,
+        "lowSample": false
+      },
+      {
+        "region": "Balears, Illes",
+        "sex": "Hombres",
+        "measure": "Mediana",
+        "value": 25194.96,
+        "lowSample": false
+      },
+      {
+        "region": "Balears, Illes",
+        "sex": "Hombres",
+        "measure": "Cuartil superior",
+        "value": 34329.46,
+        "lowSample": false
+      },
+      {
+        "region": "Balears, Illes",
+        "sex": "Hombres",
+        "measure": "Percentil 90",
+        "value": 49835.29,
+        "lowSample": false
+      },
+      {
+        "region": "Canarias",
+        "sex": "Hombres",
+        "measure": "Media",
+        "value": 25924.13,
+        "lowSample": false
+      },
+      {
+        "region": "Canarias",
+        "sex": "Hombres",
+        "measure": "Percentil 10",
+        "value": 14898.66,
+        "lowSample": false
+      },
+      {
+        "region": "Canarias",
+        "sex": "Hombres",
+        "measure": "Cuartil inferior",
+        "value": 17385.61,
+        "lowSample": false
+      },
+      {
+        "region": "Canarias",
+        "sex": "Hombres",
+        "measure": "Mediana",
+        "value": 21030.5,
+        "lowSample": false
+      },
+      {
+        "region": "Canarias",
+        "sex": "Hombres",
+        "measure": "Cuartil superior",
+        "value": 28647.92,
+        "lowSample": false
+      },
+      {
+        "region": "Canarias",
+        "sex": "Hombres",
+        "measure": "Percentil 90",
+        "value": 45126.94,
+        "lowSample": false
+      },
+      {
+        "region": "Cantabria",
+        "sex": "Hombres",
+        "measure": "Media",
+        "value": 30052.78,
+        "lowSample": false
+      },
+      {
+        "region": "Cantabria",
+        "sex": "Hombres",
+        "measure": "Percentil 10",
+        "value": 15173.82,
+        "lowSample": false
+      },
+      {
+        "region": "Cantabria",
+        "sex": "Hombres",
+        "measure": "Cuartil inferior",
+        "value": 19999.18,
+        "lowSample": false
+      },
+      {
+        "region": "Cantabria",
+        "sex": "Hombres",
+        "measure": "Mediana",
+        "value": 25271.12,
+        "lowSample": false
+      },
+      {
+        "region": "Cantabria",
+        "sex": "Hombres",
+        "measure": "Cuartil superior",
+        "value": 36799.82,
+        "lowSample": false
+      },
+      {
+        "region": "Cantabria",
+        "sex": "Hombres",
+        "measure": "Percentil 90",
+        "value": 50324.01,
+        "lowSample": false
+      },
+      {
+        "region": "Castilla y León",
+        "sex": "Hombres",
+        "measure": "Media",
+        "value": 28609.55,
+        "lowSample": false
+      },
+      {
+        "region": "Castilla y León",
+        "sex": "Hombres",
+        "measure": "Percentil 10",
+        "value": 15183.88,
+        "lowSample": false
+      },
+      {
+        "region": "Castilla y León",
+        "sex": "Hombres",
+        "measure": "Cuartil inferior",
+        "value": 19362.25,
+        "lowSample": false
+      },
+      {
+        "region": "Castilla y León",
+        "sex": "Hombres",
+        "measure": "Mediana",
+        "value": 24457.74,
+        "lowSample": false
+      },
+      {
+        "region": "Castilla y León",
+        "sex": "Hombres",
+        "measure": "Cuartil superior",
+        "value": 34339.87,
+        "lowSample": false
+      },
+      {
+        "region": "Castilla y León",
+        "sex": "Hombres",
+        "measure": "Percentil 90",
+        "value": 47208.88,
+        "lowSample": false
+      },
+      {
+        "region": "Castilla - La Mancha",
+        "sex": "Hombres",
+        "measure": "Media",
+        "value": 28023.12,
+        "lowSample": false
+      },
+      {
+        "region": "Castilla - La Mancha",
+        "sex": "Hombres",
+        "measure": "Percentil 10",
+        "value": 15711.73,
+        "lowSample": false
+      },
+      {
+        "region": "Castilla - La Mancha",
+        "sex": "Hombres",
+        "measure": "Cuartil inferior",
+        "value": 19020.24,
+        "lowSample": false
+      },
+      {
+        "region": "Castilla - La Mancha",
+        "sex": "Hombres",
+        "measure": "Mediana",
+        "value": 23634.51,
+        "lowSample": false
+      },
+      {
+        "region": "Castilla - La Mancha",
+        "sex": "Hombres",
+        "measure": "Cuartil superior",
+        "value": 32447.36,
+        "lowSample": false
+      },
+      {
+        "region": "Castilla - La Mancha",
+        "sex": "Hombres",
+        "measure": "Percentil 90",
+        "value": 47978.34,
+        "lowSample": false
+      },
+      {
+        "region": "Cataluña",
+        "sex": "Hombres",
+        "measure": "Media",
+        "value": 34437.73,
+        "lowSample": false
+      },
+      {
+        "region": "Cataluña",
+        "sex": "Hombres",
+        "measure": "Percentil 10",
+        "value": 15344.25,
+        "lowSample": false
+      },
+      {
+        "region": "Cataluña",
+        "sex": "Hombres",
+        "measure": "Cuartil inferior",
+        "value": 21068.14,
+        "lowSample": false
+      },
+      {
+        "region": "Cataluña",
+        "sex": "Hombres",
+        "measure": "Mediana",
+        "value": 29145.2,
+        "lowSample": false
+      },
+      {
+        "region": "Cataluña",
+        "sex": "Hombres",
+        "measure": "Cuartil superior",
+        "value": 42792.61,
+        "lowSample": false
+      },
+      {
+        "region": "Cataluña",
+        "sex": "Hombres",
+        "measure": "Percentil 90",
+        "value": 59960.01,
+        "lowSample": false
+      },
+      {
+        "region": "Comunitat Valenciana",
+        "sex": "Hombres",
+        "measure": "Media",
+        "value": 29356.69,
+        "lowSample": false
+      },
+      {
+        "region": "Comunitat Valenciana",
+        "sex": "Hombres",
+        "measure": "Percentil 10",
+        "value": 14930.04,
+        "lowSample": false
+      },
+      {
+        "region": "Comunitat Valenciana",
+        "sex": "Hombres",
+        "measure": "Cuartil inferior",
+        "value": 19185.77,
+        "lowSample": false
+      },
+      {
+        "region": "Comunitat Valenciana",
+        "sex": "Hombres",
+        "measure": "Mediana",
+        "value": 24584.07,
+        "lowSample": false
+      },
+      {
+        "region": "Comunitat Valenciana",
+        "sex": "Hombres",
+        "measure": "Cuartil superior",
+        "value": 35196.47,
+        "lowSample": false
+      },
+      {
+        "region": "Comunitat Valenciana",
+        "sex": "Hombres",
+        "measure": "Percentil 90",
+        "value": 49648.62,
+        "lowSample": false
+      },
+      {
+        "region": "Extremadura",
+        "sex": "Hombres",
+        "measure": "Media",
+        "value": 26660.75,
+        "lowSample": false
+      },
+      {
+        "region": "Extremadura",
+        "sex": "Hombres",
+        "measure": "Percentil 10",
+        "value": 14440.11,
+        "lowSample": false
+      },
+      {
+        "region": "Extremadura",
+        "sex": "Hombres",
+        "measure": "Cuartil inferior",
+        "value": 17844.77,
+        "lowSample": false
+      },
+      {
+        "region": "Extremadura",
+        "sex": "Hombres",
+        "measure": "Mediana",
+        "value": 22111.89,
+        "lowSample": false
+      },
+      {
+        "region": "Extremadura",
+        "sex": "Hombres",
+        "measure": "Cuartil superior",
+        "value": 31270.13,
+        "lowSample": false
+      },
+      {
+        "region": "Extremadura",
+        "sex": "Hombres",
+        "measure": "Percentil 90",
+        "value": 44684.72,
+        "lowSample": false
+      },
+      {
+        "region": "Galicia",
+        "sex": "Hombres",
+        "measure": "Media",
+        "value": 28637.65,
+        "lowSample": false
+      },
+      {
+        "region": "Galicia",
+        "sex": "Hombres",
+        "measure": "Percentil 10",
+        "value": 15315.97,
+        "lowSample": false
+      },
+      {
+        "region": "Galicia",
+        "sex": "Hombres",
+        "measure": "Cuartil inferior",
+        "value": 19466.32,
+        "lowSample": false
+      },
+      {
+        "region": "Galicia",
+        "sex": "Hombres",
+        "measure": "Mediana",
+        "value": 24105.76,
+        "lowSample": false
+      },
+      {
+        "region": "Galicia",
+        "sex": "Hombres",
+        "measure": "Cuartil superior",
+        "value": 32694.01,
+        "lowSample": false
+      },
+      {
+        "region": "Galicia",
+        "sex": "Hombres",
+        "measure": "Percentil 90",
+        "value": 47807.85,
+        "lowSample": false
+      },
+      {
+        "region": "Madrid, Comunidad de",
+        "sex": "Hombres",
+        "measure": "Media",
+        "value": 37634.49,
+        "lowSample": false
+      },
+      {
+        "region": "Madrid, Comunidad de",
+        "sex": "Hombres",
+        "measure": "Percentil 10",
+        "value": 15876,
+        "lowSample": false
+      },
+      {
+        "region": "Madrid, Comunidad de",
+        "sex": "Hombres",
+        "measure": "Cuartil inferior",
+        "value": 21409.25,
+        "lowSample": false
+      },
+      {
+        "region": "Madrid, Comunidad de",
+        "sex": "Hombres",
+        "measure": "Mediana",
+        "value": 30680.09,
+        "lowSample": false
+      },
+      {
+        "region": "Madrid, Comunidad de",
+        "sex": "Hombres",
+        "measure": "Cuartil superior",
+        "value": 47685.13,
+        "lowSample": false
+      },
+      {
+        "region": "Madrid, Comunidad de",
+        "sex": "Hombres",
+        "measure": "Percentil 90",
+        "value": 68784.2,
+        "lowSample": false
+      },
+      {
+        "region": "Murcia, Región de",
+        "sex": "Hombres",
+        "measure": "Media",
+        "value": 29006.96,
+        "lowSample": false
+      },
+      {
+        "region": "Murcia, Región de",
+        "sex": "Hombres",
+        "measure": "Percentil 10",
+        "value": 15058.27,
+        "lowSample": false
+      },
+      {
+        "region": "Murcia, Región de",
+        "sex": "Hombres",
+        "measure": "Cuartil inferior",
+        "value": 18667.68,
+        "lowSample": false
+      },
+      {
+        "region": "Murcia, Región de",
+        "sex": "Hombres",
+        "measure": "Mediana",
+        "value": 23134.72,
+        "lowSample": false
+      },
+      {
+        "region": "Murcia, Región de",
+        "sex": "Hombres",
+        "measure": "Cuartil superior",
+        "value": 33366.48,
+        "lowSample": false
+      },
+      {
+        "region": "Murcia, Región de",
+        "sex": "Hombres",
+        "measure": "Percentil 90",
+        "value": 49269.15,
+        "lowSample": false
+      },
+      {
+        "region": "Navarra, Comunidad Foral de",
+        "sex": "Hombres",
+        "measure": "Media",
+        "value": 36143.04,
+        "lowSample": false
+      },
+      {
+        "region": "Navarra, Comunidad Foral de",
+        "sex": "Hombres",
+        "measure": "Percentil 10",
+        "value": 18076.2,
+        "lowSample": false
+      },
+      {
+        "region": "Navarra, Comunidad Foral de",
+        "sex": "Hombres",
+        "measure": "Cuartil inferior",
+        "value": 24696.2,
+        "lowSample": false
+      },
+      {
+        "region": "Navarra, Comunidad Foral de",
+        "sex": "Hombres",
+        "measure": "Mediana",
+        "value": 32039.91,
+        "lowSample": false
+      },
+      {
+        "region": "Navarra, Comunidad Foral de",
+        "sex": "Hombres",
+        "measure": "Cuartil superior",
+        "value": 43909.76,
+        "lowSample": false
+      },
+      {
+        "region": "Navarra, Comunidad Foral de",
+        "sex": "Hombres",
+        "measure": "Percentil 90",
+        "value": 59057.76,
+        "lowSample": false
+      },
+      {
+        "region": "País Vasco",
+        "sex": "Hombres",
+        "measure": "Media",
+        "value": 37550.07,
+        "lowSample": false
+      },
+      {
+        "region": "País Vasco",
+        "sex": "Hombres",
+        "measure": "Percentil 10",
+        "value": 16909.08,
+        "lowSample": false
+      },
+      {
+        "region": "País Vasco",
+        "sex": "Hombres",
+        "measure": "Cuartil inferior",
+        "value": 24070,
+        "lowSample": false
+      },
+      {
+        "region": "País Vasco",
+        "sex": "Hombres",
+        "measure": "Mediana",
+        "value": 34333,
+        "lowSample": false
+      },
+      {
+        "region": "País Vasco",
+        "sex": "Hombres",
+        "measure": "Cuartil superior",
+        "value": 47408,
+        "lowSample": false
+      },
+      {
+        "region": "País Vasco",
+        "sex": "Hombres",
+        "measure": "Percentil 90",
+        "value": 60000,
+        "lowSample": false
+      },
+      {
+        "region": "Rioja, La",
+        "sex": "Hombres",
+        "measure": "Media",
+        "value": 30027.67,
+        "lowSample": false
+      },
+      {
+        "region": "Rioja, La",
+        "sex": "Hombres",
+        "measure": "Percentil 10",
+        "value": 15162.94,
+        "lowSample": false
+      },
+      {
+        "region": "Rioja, La",
+        "sex": "Hombres",
+        "measure": "Cuartil inferior",
+        "value": 20483.43,
+        "lowSample": false
+      },
+      {
+        "region": "Rioja, La",
+        "sex": "Hombres",
+        "measure": "Mediana",
+        "value": 26417.6,
+        "lowSample": false
+      },
+      {
+        "region": "Rioja, La",
+        "sex": "Hombres",
+        "measure": "Cuartil superior",
+        "value": 36471.97,
+        "lowSample": false
+      },
+      {
+        "region": "Rioja, La",
+        "sex": "Hombres",
+        "measure": "Percentil 90",
+        "value": 49042.04,
+        "lowSample": false
+      }
+    ],
+    "smiTranches": [
+      {
+        "tranche": "De 0 a 1 SMI",
+        "sex": "Ambos sexos",
+        "jornada": "Total",
+        "percent": 18.32,
+        "lowSample": false
+      },
+      {
+        "tranche": "De 0 a 1 SMI",
+        "sex": "Mujeres",
+        "jornada": "Total",
+        "percent": 25.64,
+        "lowSample": false
+      },
+      {
+        "tranche": "De 0 a 1 SMI",
+        "sex": "Hombres",
+        "jornada": "Total",
+        "percent": 11.33,
+        "lowSample": false
+      },
+      {
+        "tranche": "De 1 a 2 SMI",
+        "sex": "Ambos sexos",
+        "jornada": "Total",
+        "percent": 48.69,
+        "lowSample": false
+      },
+      {
+        "tranche": "De 1 a 2 SMI",
+        "sex": "Mujeres",
+        "jornada": "Total",
+        "percent": 45.47,
+        "lowSample": false
+      },
+      {
+        "tranche": "De 1 a 2 SMI",
+        "sex": "Hombres",
+        "jornada": "Total",
+        "percent": 51.77,
+        "lowSample": false
+      },
+      {
+        "tranche": "De 2 a 3 SMI",
+        "sex": "Ambos sexos",
+        "jornada": "Total",
+        "percent": 19.62,
+        "lowSample": false
+      },
+      {
+        "tranche": "De 2 a 3 SMI",
+        "sex": "Mujeres",
+        "jornada": "Total",
+        "percent": 18.13,
+        "lowSample": false
+      },
+      {
+        "tranche": "De 2 a 3 SMI",
+        "sex": "Hombres",
+        "jornada": "Total",
+        "percent": 21.03,
+        "lowSample": false
+      },
+      {
+        "tranche": "De 3 a 4 SMI",
+        "sex": "Ambos sexos",
+        "jornada": "Total",
+        "percent": 7.72,
+        "lowSample": false
+      },
+      {
+        "tranche": "De 3 a 4 SMI",
+        "sex": "Mujeres",
+        "jornada": "Total",
+        "percent": 6.34,
+        "lowSample": false
+      },
+      {
+        "tranche": "De 3 a 4 SMI",
+        "sex": "Hombres",
+        "jornada": "Total",
+        "percent": 9.03,
+        "lowSample": false
+      },
+      {
+        "tranche": "De 4 a 5 SMI",
+        "sex": "Ambos sexos",
+        "jornada": "Total",
+        "percent": 2.98,
+        "lowSample": false
+      },
+      {
+        "tranche": "De 4 a 5 SMI",
+        "sex": "Mujeres",
+        "jornada": "Total",
+        "percent": 2.37,
+        "lowSample": false
+      },
+      {
+        "tranche": "De 4 a 5 SMI",
+        "sex": "Hombres",
+        "jornada": "Total",
+        "percent": 3.55,
+        "lowSample": false
+      },
+      {
+        "tranche": "De 5 a 6 SMI",
+        "sex": "Ambos sexos",
+        "jornada": "Total",
+        "percent": 1.54,
+        "lowSample": false
+      },
+      {
+        "tranche": "De 5 a 6 SMI",
+        "sex": "Mujeres",
+        "jornada": "Total",
+        "percent": 1.27,
+        "lowSample": false
+      },
+      {
+        "tranche": "De 5 a 6 SMI",
+        "sex": "Hombres",
+        "jornada": "Total",
+        "percent": 1.79,
+        "lowSample": false
+      },
+      {
+        "tranche": "De 6 a 7 SMI",
+        "sex": "Ambos sexos",
+        "jornada": "Total",
+        "percent": 0.81,
+        "lowSample": false
+      },
+      {
+        "tranche": "De 6 a 7 SMI",
+        "sex": "Mujeres",
+        "jornada": "Total",
+        "percent": 0.59,
+        "lowSample": false
+      },
+      {
+        "tranche": "De 6 a 7 SMI",
+        "sex": "Hombres",
+        "jornada": "Total",
+        "percent": 1.01,
+        "lowSample": false
+      },
+      {
+        "tranche": "De 7 a 8 SMI",
+        "sex": "Ambos sexos",
+        "jornada": "Total",
+        "percent": 0.21,
+        "lowSample": false
+      },
+      {
+        "tranche": "De 7 a 8 SMI",
+        "sex": "Mujeres",
+        "jornada": "Total",
+        "percent": 0.12,
+        "lowSample": false
+      },
+      {
+        "tranche": "De 7 a 8 SMI",
+        "sex": "Hombres",
+        "jornada": "Total",
+        "percent": 0.3,
+        "lowSample": false
+      },
+      {
+        "tranche": "Más de 8 SMI",
+        "sex": "Ambos sexos",
+        "jornada": "Total",
+        "percent": 0.12,
+        "lowSample": false
+      },
+      {
+        "tranche": "Más de 8 SMI",
+        "sex": "Mujeres",
+        "jornada": "Total",
+        "percent": 0.05,
+        "lowSample": false
+      },
+      {
+        "tranche": "Más de 8 SMI",
+        "sex": "Hombres",
+        "jornada": "Total",
+        "percent": 0.18,
+        "lowSample": false
+      },
+      {
+        "tranche": "De 0 a 1 SMI",
+        "sex": "Ambos sexos",
+        "jornada": "Jornada a tiempo completo",
+        "percent": 4.42,
+        "lowSample": false
+      },
+      {
+        "tranche": "De 0 a 1 SMI",
+        "sex": "Mujeres",
+        "jornada": "Jornada a tiempo completo",
+        "percent": 5.78,
+        "lowSample": false
+      },
+      {
+        "tranche": "De 0 a 1 SMI",
+        "sex": "Hombres",
+        "jornada": "Jornada a tiempo completo",
+        "percent": 3.37,
+        "lowSample": false
+      },
+      {
+        "tranche": "De 1 a 2 SMI",
+        "sex": "Ambos sexos",
+        "jornada": "Jornada a tiempo completo",
+        "percent": 54.46,
+        "lowSample": false
+      },
+      {
+        "tranche": "De 1 a 2 SMI",
+        "sex": "Mujeres",
+        "jornada": "Jornada a tiempo completo",
+        "percent": 53.99,
+        "lowSample": false
+      },
+      {
+        "tranche": "De 1 a 2 SMI",
+        "sex": "Hombres",
+        "jornada": "Jornada a tiempo completo",
+        "percent": 54.81,
+        "lowSample": false
+      },
+      {
+        "tranche": "De 2 a 3 SMI",
+        "sex": "Ambos sexos",
+        "jornada": "Jornada a tiempo completo",
+        "percent": 24.25,
+        "lowSample": false
+      },
+      {
+        "tranche": "De 2 a 3 SMI",
+        "sex": "Mujeres",
+        "jornada": "Jornada a tiempo completo",
+        "percent": 25.01,
+        "lowSample": false
+      },
+      {
+        "tranche": "De 2 a 3 SMI",
+        "sex": "Hombres",
+        "jornada": "Jornada a tiempo completo",
+        "percent": 23.66,
+        "lowSample": false
+      },
+      {
+        "tranche": "De 3 a 4 SMI",
+        "sex": "Ambos sexos",
+        "jornada": "Jornada a tiempo completo",
+        "percent": 9.72,
+        "lowSample": false
+      },
+      {
+        "tranche": "De 3 a 4 SMI",
+        "sex": "Mujeres",
+        "jornada": "Jornada a tiempo completo",
+        "percent": 8.95,
+        "lowSample": false
+      },
+      {
+        "tranche": "De 3 a 4 SMI",
+        "sex": "Hombres",
+        "jornada": "Jornada a tiempo completo",
+        "percent": 10.32,
+        "lowSample": false
+      },
+      {
+        "tranche": "De 4 a 5 SMI",
+        "sex": "Ambos sexos",
+        "jornada": "Jornada a tiempo completo",
+        "percent": 3.76,
+        "lowSample": false
+      },
+      {
+        "tranche": "De 4 a 5 SMI",
+        "sex": "Mujeres",
+        "jornada": "Jornada a tiempo completo",
+        "percent": 3.37,
+        "lowSample": false
+      },
+      {
+        "tranche": "De 4 a 5 SMI",
+        "sex": "Hombres",
+        "jornada": "Jornada a tiempo completo",
+        "percent": 4.06,
+        "lowSample": false
+      },
+      {
+        "tranche": "De 5 a 6 SMI",
+        "sex": "Ambos sexos",
+        "jornada": "Jornada a tiempo completo",
+        "percent": 1.95,
+        "lowSample": false
+      },
+      {
+        "tranche": "De 5 a 6 SMI",
+        "sex": "Mujeres",
+        "jornada": "Jornada a tiempo completo",
+        "percent": 1.81,
+        "lowSample": false
+      },
+      {
+        "tranche": "De 5 a 6 SMI",
+        "sex": "Hombres",
+        "jornada": "Jornada a tiempo completo",
+        "percent": 2.05,
+        "lowSample": false
+      },
+      {
+        "tranche": "De 6 a 7 SMI",
+        "sex": "Ambos sexos",
+        "jornada": "Jornada a tiempo completo",
+        "percent": 1.03,
+        "lowSample": false
+      },
+      {
+        "tranche": "De 6 a 7 SMI",
+        "sex": "Mujeres",
+        "jornada": "Jornada a tiempo completo",
+        "percent": 0.85,
+        "lowSample": false
+      },
+      {
+        "tranche": "De 6 a 7 SMI",
+        "sex": "Hombres",
+        "jornada": "Jornada a tiempo completo",
+        "percent": 1.17,
+        "lowSample": false
+      },
+      {
+        "tranche": "De 7 a 8 SMI",
+        "sex": "Ambos sexos",
+        "jornada": "Jornada a tiempo completo",
+        "percent": 0.27,
+        "lowSample": false
+      },
+      {
+        "tranche": "De 7 a 8 SMI",
+        "sex": "Mujeres",
+        "jornada": "Jornada a tiempo completo",
+        "percent": 0.17,
+        "lowSample": false
+      },
+      {
+        "tranche": "De 7 a 8 SMI",
+        "sex": "Hombres",
+        "jornada": "Jornada a tiempo completo",
+        "percent": 0.34,
+        "lowSample": false
+      },
+      {
+        "tranche": "Más de 8 SMI",
+        "sex": "Ambos sexos",
+        "jornada": "Jornada a tiempo completo",
+        "percent": 0.14,
+        "lowSample": false
+      },
+      {
+        "tranche": "Más de 8 SMI",
+        "sex": "Mujeres",
+        "jornada": "Jornada a tiempo completo",
+        "percent": 0.07,
+        "lowSample": false
+      },
+      {
+        "tranche": "Más de 8 SMI",
+        "sex": "Hombres",
+        "jornada": "Jornada a tiempo completo",
+        "percent": 0.2,
+        "lowSample": false
+      }
+    ]
+  },
+  "poverty": {
+    "national": [
+      {
+        "sex": "Ambos sexos",
+        "ageGroup": "Total",
+        "indicator": "Tasa de riesgo de pobreza o exclusión social (indicador AROPE)",
+        "base": "Base 2013",
+        "percent": 25.7
+      },
+      {
+        "sex": "Ambos sexos",
+        "ageGroup": "Total",
+        "indicator": "En riesgo de pobreza (renta año anterior a la entrevista)",
+        "base": "Base 2013",
+        "percent": 19.5
+      },
+      {
+        "sex": "Ambos sexos",
+        "ageGroup": "Total",
+        "indicator": "Con carencia material y social severa",
+        "base": "Base 2013",
+        "percent": 8.1
+      },
+      {
+        "sex": "Ambos sexos",
+        "ageGroup": "Total",
+        "indicator": "Viviendo en hogares con baja intensidad en el trabajo (de 0 a 64 años)",
+        "base": "Base 2013",
+        "percent": 8
+      },
+      {
+        "sex": "Ambos sexos",
+        "ageGroup": "Menores de 16 años",
+        "indicator": "Tasa de riesgo de pobreza o exclusión social (indicador AROPE)",
+        "base": "Base 2013",
+        "percent": 33.9
+      },
+      {
+        "sex": "Ambos sexos",
+        "ageGroup": "Menores de 16 años",
+        "indicator": "En riesgo de pobreza (renta año anterior a la entrevista)",
+        "base": "Base 2013",
+        "percent": 28.5
+      },
+      {
+        "sex": "Ambos sexos",
+        "ageGroup": "Menores de 16 años",
+        "indicator": "Con carencia material y social severa",
+        "base": "Base 2013",
+        "percent": 10.7
+      },
+      {
+        "sex": "Ambos sexos",
+        "ageGroup": "Menores de 16 años",
+        "indicator": "Viviendo en hogares con baja intensidad en el trabajo (de 0 a 64 años)",
+        "base": "Base 2013",
+        "percent": 6.6
+      },
+      {
+        "sex": "Ambos sexos",
+        "ageGroup": "De 16 a 29 años",
+        "indicator": "Tasa de riesgo de pobreza o exclusión social (indicador AROPE)",
+        "base": "Base 2013",
+        "percent": 27
+      },
+      {
+        "sex": "Ambos sexos",
+        "ageGroup": "De 16 a 29 años",
+        "indicator": "En riesgo de pobreza (renta año anterior a la entrevista)",
+        "base": "Base 2013",
+        "percent": 20.9
+      },
+      {
+        "sex": "Ambos sexos",
+        "ageGroup": "De 16 a 29 años",
+        "indicator": "Con carencia material y social severa",
+        "base": "Base 2013",
+        "percent": 7.9
+      },
+      {
+        "sex": "Ambos sexos",
+        "ageGroup": "De 16 a 29 años",
+        "indicator": "Viviendo en hogares con baja intensidad en el trabajo (de 0 a 64 años)",
+        "base": "Base 2013",
+        "percent": 7.2
+      },
+      {
+        "sex": "Ambos sexos",
+        "ageGroup": "De 30 a 44 años",
+        "indicator": "Tasa de riesgo de pobreza o exclusión social (indicador AROPE)",
+        "base": "Base 2013",
+        "percent": 25.6
+      },
+      {
+        "sex": "Ambos sexos",
+        "ageGroup": "De 30 a 44 años",
+        "indicator": "En riesgo de pobreza (renta año anterior a la entrevista)",
+        "base": "Base 2013",
+        "percent": 18.6
+      },
+      {
+        "sex": "Ambos sexos",
+        "ageGroup": "De 30 a 44 años",
+        "indicator": "Con carencia material y social severa",
+        "base": "Base 2013",
+        "percent": 8.5
+      },
+      {
+        "sex": "Ambos sexos",
+        "ageGroup": "De 30 a 44 años",
+        "indicator": "Viviendo en hogares con baja intensidad en el trabajo (de 0 a 64 años)",
+        "base": "Base 2013",
+        "percent": 6.2
+      },
+      {
+        "sex": "Ambos sexos",
+        "ageGroup": "De 45 a 64 años",
+        "indicator": "Tasa de riesgo de pobreza o exclusión social (indicador AROPE)",
+        "base": "Base 2013",
+        "percent": 25.6
+      },
+      {
+        "sex": "Ambos sexos",
+        "ageGroup": "De 45 a 64 años",
+        "indicator": "En riesgo de pobreza (renta año anterior a la entrevista)",
+        "base": "Base 2013",
+        "percent": 17.3
+      },
+      {
+        "sex": "Ambos sexos",
+        "ageGroup": "De 45 a 64 años",
+        "indicator": "Con carencia material y social severa",
+        "base": "Base 2013",
+        "percent": 9
+      },
+      {
+        "sex": "Ambos sexos",
+        "ageGroup": "De 45 a 64 años",
+        "indicator": "Viviendo en hogares con baja intensidad en el trabajo (de 0 a 64 años)",
+        "base": "Base 2013",
+        "percent": 10.2
+      },
+      {
+        "sex": "Ambos sexos",
+        "ageGroup": "65 y más años",
+        "indicator": "Tasa de riesgo de pobreza o exclusión social (indicador AROPE)",
+        "base": "Base 2013",
+        "percent": 19.2
+      },
+      {
+        "sex": "Ambos sexos",
+        "ageGroup": "65 y más años",
+        "indicator": "En riesgo de pobreza (renta año anterior a la entrevista)",
+        "base": "Base 2013",
+        "percent": 16.4
+      },
+      {
+        "sex": "Ambos sexos",
+        "ageGroup": "65 y más años",
+        "indicator": "Con carencia material y social severa",
+        "base": "Base 2013",
+        "percent": 4.7
+      },
+      {
+        "sex": "Ambos sexos",
+        "ageGroup": "65 y más años",
+        "indicator": "Viviendo en hogares con baja intensidad en el trabajo (de 0 a 64 años)",
+        "base": "Base 2013",
+        "percent": null
+      },
+      {
+        "sex": "Ambos sexos",
+        "ageGroup": "Menos de 18 años",
+        "indicator": "Tasa de riesgo de pobreza o exclusión social (indicador AROPE)",
+        "base": "Base 2013",
+        "percent": 33.8
+      },
+      {
+        "sex": "Ambos sexos",
+        "ageGroup": "Menos de 18 años",
+        "indicator": "En riesgo de pobreza (renta año anterior a la entrevista)",
+        "base": "Base 2013",
+        "percent": 28.4
+      },
+      {
+        "sex": "Ambos sexos",
+        "ageGroup": "Menos de 18 años",
+        "indicator": "Con carencia material y social severa",
+        "base": "Base 2013",
+        "percent": 10.4
+      },
+      {
+        "sex": "Ambos sexos",
+        "ageGroup": "Menos de 18 años",
+        "indicator": "Viviendo en hogares con baja intensidad en el trabajo (de 0 a 64 años)",
+        "base": "Base 2013",
+        "percent": 6.6
+      },
+      {
+        "sex": "Ambos sexos",
+        "ageGroup": "De 18 a 64 años",
+        "indicator": "Tasa de riesgo de pobreza o exclusión social (indicador AROPE)",
+        "base": "Base 2013",
+        "percent": 25.7
+      },
+      {
+        "sex": "Ambos sexos",
+        "ageGroup": "De 18 a 64 años",
+        "indicator": "En riesgo de pobreza (renta año anterior a la entrevista)",
+        "base": "Base 2013",
+        "percent": 18.2
+      },
+      {
+        "sex": "Ambos sexos",
+        "ageGroup": "De 18 a 64 años",
+        "indicator": "Con carencia material y social severa",
+        "base": "Base 2013",
+        "percent": 8.6
+      },
+      {
+        "sex": "Ambos sexos",
+        "ageGroup": "De 18 a 64 años",
+        "indicator": "Viviendo en hogares con baja intensidad en el trabajo (de 0 a 64 años)",
+        "base": "Base 2013",
+        "percent": 8.3
+      },
+      {
+        "sex": "Hombres",
+        "ageGroup": "Total",
+        "indicator": "Tasa de riesgo de pobreza o exclusión social (indicador AROPE)",
+        "base": "Base 2013",
+        "percent": 24.5
+      },
+      {
+        "sex": "Hombres",
+        "ageGroup": "Total",
+        "indicator": "En riesgo de pobreza (renta año anterior a la entrevista)",
+        "base": "Base 2013",
+        "percent": 18.6
+      },
+      {
+        "sex": "Hombres",
+        "ageGroup": "Total",
+        "indicator": "Con carencia material y social severa",
+        "base": "Base 2013",
+        "percent": 7.7
+      },
+      {
+        "sex": "Hombres",
+        "ageGroup": "Total",
+        "indicator": "Viviendo en hogares con baja intensidad en el trabajo (de 0 a 64 años)",
+        "base": "Base 2013",
+        "percent": 7.5
+      },
+      {
+        "sex": "Hombres",
+        "ageGroup": "Menores de 16 años",
+        "indicator": "Tasa de riesgo de pobreza o exclusión social (indicador AROPE)",
+        "base": "Base 2013",
+        "percent": 32.3
+      },
+      {
+        "sex": "Hombres",
+        "ageGroup": "Menores de 16 años",
+        "indicator": "En riesgo de pobreza (renta año anterior a la entrevista)",
+        "base": "Base 2013",
+        "percent": 27.5
+      },
+      {
+        "sex": "Hombres",
+        "ageGroup": "Menores de 16 años",
+        "indicator": "Con carencia material y social severa",
+        "base": "Base 2013",
+        "percent": 9.9
+      },
+      {
+        "sex": "Hombres",
+        "ageGroup": "Menores de 16 años",
+        "indicator": "Viviendo en hogares con baja intensidad en el trabajo (de 0 a 64 años)",
+        "base": "Base 2013",
+        "percent": 6
+      },
+      {
+        "sex": "Hombres",
+        "ageGroup": "De 16 a 29 años",
+        "indicator": "Tasa de riesgo de pobreza o exclusión social (indicador AROPE)",
+        "base": "Base 2013",
+        "percent": 25.9
+      },
+      {
+        "sex": "Hombres",
+        "ageGroup": "De 16 a 29 años",
+        "indicator": "En riesgo de pobreza (renta año anterior a la entrevista)",
+        "base": "Base 2013",
+        "percent": 20.4
+      },
+      {
+        "sex": "Hombres",
+        "ageGroup": "De 16 a 29 años",
+        "indicator": "Con carencia material y social severa",
+        "base": "Base 2013",
+        "percent": 7.4
+      },
+      {
+        "sex": "Hombres",
+        "ageGroup": "De 16 a 29 años",
+        "indicator": "Viviendo en hogares con baja intensidad en el trabajo (de 0 a 64 años)",
+        "base": "Base 2013",
+        "percent": 7.1
+      },
+      {
+        "sex": "Hombres",
+        "ageGroup": "De 30 a 44 años",
+        "indicator": "Tasa de riesgo de pobreza o exclusión social (indicador AROPE)",
+        "base": "Base 2013",
+        "percent": 24.2
+      },
+      {
+        "sex": "Hombres",
+        "ageGroup": "De 30 a 44 años",
+        "indicator": "En riesgo de pobreza (renta año anterior a la entrevista)",
+        "base": "Base 2013",
+        "percent": 16.8
+      },
+      {
+        "sex": "Hombres",
+        "ageGroup": "De 30 a 44 años",
+        "indicator": "Con carencia material y social severa",
+        "base": "Base 2013",
+        "percent": 8.2
+      },
+      {
+        "sex": "Hombres",
+        "ageGroup": "De 30 a 44 años",
+        "indicator": "Viviendo en hogares con baja intensidad en el trabajo (de 0 a 64 años)",
+        "base": "Base 2013",
+        "percent": 6.4
+      },
+      {
+        "sex": "Hombres",
+        "ageGroup": "De 45 a 64 años",
+        "indicator": "Tasa de riesgo de pobreza o exclusión social (indicador AROPE)",
+        "base": "Base 2013",
+        "percent": 25.1
+      },
+      {
+        "sex": "Hombres",
+        "ageGroup": "De 45 a 64 años",
+        "indicator": "En riesgo de pobreza (renta año anterior a la entrevista)",
+        "base": "Base 2013",
+        "percent": 17.4
+      },
+      {
+        "sex": "Hombres",
+        "ageGroup": "De 45 a 64 años",
+        "indicator": "Con carencia material y social severa",
+        "base": "Base 2013",
+        "percent": 8.4
+      },
+      {
+        "sex": "Hombres",
+        "ageGroup": "De 45 a 64 años",
+        "indicator": "Viviendo en hogares con baja intensidad en el trabajo (de 0 a 64 años)",
+        "base": "Base 2013",
+        "percent": 9.4
+      },
+      {
+        "sex": "Hombres",
+        "ageGroup": "65 y más años",
+        "indicator": "Tasa de riesgo de pobreza o exclusión social (indicador AROPE)",
+        "base": "Base 2013",
+        "percent": 16.5
+      },
+      {
+        "sex": "Hombres",
+        "ageGroup": "65 y más años",
+        "indicator": "En riesgo de pobreza (renta año anterior a la entrevista)",
+        "base": "Base 2013",
+        "percent": 13.7
+      },
+      {
+        "sex": "Hombres",
+        "ageGroup": "65 y más años",
+        "indicator": "Con carencia material y social severa",
+        "base": "Base 2013",
+        "percent": 4.4
+      },
+      {
+        "sex": "Hombres",
+        "ageGroup": "65 y más años",
+        "indicator": "Viviendo en hogares con baja intensidad en el trabajo (de 0 a 64 años)",
+        "base": "Base 2013",
+        "percent": null
+      },
+      {
+        "sex": "Hombres",
+        "ageGroup": "Menos de 18 años",
+        "indicator": "Tasa de riesgo de pobreza o exclusión social (indicador AROPE)",
+        "base": "Base 2013",
+        "percent": 32.2
+      },
+      {
+        "sex": "Hombres",
+        "ageGroup": "Menos de 18 años",
+        "indicator": "En riesgo de pobreza (renta año anterior a la entrevista)",
+        "base": "Base 2013",
+        "percent": 27.4
+      },
+      {
+        "sex": "Hombres",
+        "ageGroup": "Menos de 18 años",
+        "indicator": "Con carencia material y social severa",
+        "base": "Base 2013",
+        "percent": 9.5
+      },
+      {
+        "sex": "Hombres",
+        "ageGroup": "Menos de 18 años",
+        "indicator": "Viviendo en hogares con baja intensidad en el trabajo (de 0 a 64 años)",
+        "base": "Base 2013",
+        "percent": 5.9
+      },
+      {
+        "sex": "Hombres",
+        "ageGroup": "De 18 a 64 años",
+        "indicator": "Tasa de riesgo de pobreza o exclusión social (indicador AROPE)",
+        "base": "Base 2013",
+        "percent": 24.8
+      },
+      {
+        "sex": "Hombres",
+        "ageGroup": "De 18 a 64 años",
+        "indicator": "En riesgo de pobreza (renta año anterior a la entrevista)",
+        "base": "Base 2013",
+        "percent": 17.7
+      },
+      {
+        "sex": "Hombres",
+        "ageGroup": "De 18 a 64 años",
+        "indicator": "Con carencia material y social severa",
+        "base": "Base 2013",
+        "percent": 8.1
+      },
+      {
+        "sex": "Hombres",
+        "ageGroup": "De 18 a 64 años",
+        "indicator": "Viviendo en hogares con baja intensidad en el trabajo (de 0 a 64 años)",
+        "base": "Base 2013",
+        "percent": 8
+      },
+      {
+        "sex": "Mujeres",
+        "ageGroup": "Total",
+        "indicator": "Tasa de riesgo de pobreza o exclusión social (indicador AROPE)",
+        "base": "Base 2013",
+        "percent": 26.8
+      },
+      {
+        "sex": "Mujeres",
+        "ageGroup": "Total",
+        "indicator": "En riesgo de pobreza (renta año anterior a la entrevista)",
+        "base": "Base 2013",
+        "percent": 20.3
+      },
+      {
+        "sex": "Mujeres",
+        "ageGroup": "Total",
+        "indicator": "Con carencia material y social severa",
+        "base": "Base 2013",
+        "percent": 8.6
+      },
+      {
+        "sex": "Mujeres",
+        "ageGroup": "Total",
+        "indicator": "Viviendo en hogares con baja intensidad en el trabajo (de 0 a 64 años)",
+        "base": "Base 2013",
+        "percent": 8.4
+      },
+      {
+        "sex": "Mujeres",
+        "ageGroup": "Menores de 16 años",
+        "indicator": "Tasa de riesgo de pobreza o exclusión social (indicador AROPE)",
+        "base": "Base 2013",
+        "percent": 35.5
+      },
+      {
+        "sex": "Mujeres",
+        "ageGroup": "Menores de 16 años",
+        "indicator": "En riesgo de pobreza (renta año anterior a la entrevista)",
+        "base": "Base 2013",
+        "percent": 29.5
+      },
+      {
+        "sex": "Mujeres",
+        "ageGroup": "Menores de 16 años",
+        "indicator": "Con carencia material y social severa",
+        "base": "Base 2013",
+        "percent": 11.6
+      },
+      {
+        "sex": "Mujeres",
+        "ageGroup": "Menores de 16 años",
+        "indicator": "Viviendo en hogares con baja intensidad en el trabajo (de 0 a 64 años)",
+        "base": "Base 2013",
+        "percent": 7.3
+      },
+      {
+        "sex": "Mujeres",
+        "ageGroup": "De 16 a 29 años",
+        "indicator": "Tasa de riesgo de pobreza o exclusión social (indicador AROPE)",
+        "base": "Base 2013",
+        "percent": 28.2
+      },
+      {
+        "sex": "Mujeres",
+        "ageGroup": "De 16 a 29 años",
+        "indicator": "En riesgo de pobreza (renta año anterior a la entrevista)",
+        "base": "Base 2013",
+        "percent": 21.3
+      },
+      {
+        "sex": "Mujeres",
+        "ageGroup": "De 16 a 29 años",
+        "indicator": "Con carencia material y social severa",
+        "base": "Base 2013",
+        "percent": 8.5
+      },
+      {
+        "sex": "Mujeres",
+        "ageGroup": "De 16 a 29 años",
+        "indicator": "Viviendo en hogares con baja intensidad en el trabajo (de 0 a 64 años)",
+        "base": "Base 2013",
+        "percent": 7.3
+      },
+      {
+        "sex": "Mujeres",
+        "ageGroup": "De 30 a 44 años",
+        "indicator": "Tasa de riesgo de pobreza o exclusión social (indicador AROPE)",
+        "base": "Base 2013",
+        "percent": 27
+      },
+      {
+        "sex": "Mujeres",
+        "ageGroup": "De 30 a 44 años",
+        "indicator": "En riesgo de pobreza (renta año anterior a la entrevista)",
+        "base": "Base 2013",
+        "percent": 20.4
+      },
+      {
+        "sex": "Mujeres",
+        "ageGroup": "De 30 a 44 años",
+        "indicator": "Con carencia material y social severa",
+        "base": "Base 2013",
+        "percent": 8.8
+      },
+      {
+        "sex": "Mujeres",
+        "ageGroup": "De 30 a 44 años",
+        "indicator": "Viviendo en hogares con baja intensidad en el trabajo (de 0 a 64 años)",
+        "base": "Base 2013",
+        "percent": 6
+      },
+      {
+        "sex": "Mujeres",
+        "ageGroup": "De 45 a 64 años",
+        "indicator": "Tasa de riesgo de pobreza o exclusión social (indicador AROPE)",
+        "base": "Base 2013",
+        "percent": 26.1
+      },
+      {
+        "sex": "Mujeres",
+        "ageGroup": "De 45 a 64 años",
+        "indicator": "En riesgo de pobreza (renta año anterior a la entrevista)",
+        "base": "Base 2013",
+        "percent": 17.2
+      },
+      {
+        "sex": "Mujeres",
+        "ageGroup": "De 45 a 64 años",
+        "indicator": "Con carencia material y social severa",
+        "base": "Base 2013",
+        "percent": 9.7
+      },
+      {
+        "sex": "Mujeres",
+        "ageGroup": "De 45 a 64 años",
+        "indicator": "Viviendo en hogares con baja intensidad en el trabajo (de 0 a 64 años)",
+        "base": "Base 2013",
+        "percent": 11
+      },
+      {
+        "sex": "Mujeres",
+        "ageGroup": "65 y más años",
+        "indicator": "Tasa de riesgo de pobreza o exclusión social (indicador AROPE)",
+        "base": "Base 2013",
+        "percent": 21.3
+      },
+      {
+        "sex": "Mujeres",
+        "ageGroup": "65 y más años",
+        "indicator": "En riesgo de pobreza (renta año anterior a la entrevista)",
+        "base": "Base 2013",
+        "percent": 18.5
+      },
+      {
+        "sex": "Mujeres",
+        "ageGroup": "65 y más años",
+        "indicator": "Con carencia material y social severa",
+        "base": "Base 2013",
+        "percent": 5
+      },
+      {
+        "sex": "Mujeres",
+        "ageGroup": "65 y más años",
+        "indicator": "Viviendo en hogares con baja intensidad en el trabajo (de 0 a 64 años)",
+        "base": "Base 2013",
+        "percent": null
+      },
+      {
+        "sex": "Mujeres",
+        "ageGroup": "Menos de 18 años",
+        "indicator": "Tasa de riesgo de pobreza o exclusión social (indicador AROPE)",
+        "base": "Base 2013",
+        "percent": 35.6
+      },
+      {
+        "sex": "Mujeres",
+        "ageGroup": "Menos de 18 años",
+        "indicator": "En riesgo de pobreza (renta año anterior a la entrevista)",
+        "base": "Base 2013",
+        "percent": 29.5
+      },
+      {
+        "sex": "Mujeres",
+        "ageGroup": "Menos de 18 años",
+        "indicator": "Con carencia material y social severa",
+        "base": "Base 2013",
+        "percent": 11.3
+      },
+      {
+        "sex": "Mujeres",
+        "ageGroup": "Menos de 18 años",
+        "indicator": "Viviendo en hogares con baja intensidad en el trabajo (de 0 a 64 años)",
+        "base": "Base 2013",
+        "percent": 7.3
+      },
+      {
+        "sex": "Mujeres",
+        "ageGroup": "De 18 a 64 años",
+        "indicator": "Tasa de riesgo de pobreza o exclusión social (indicador AROPE)",
+        "base": "Base 2013",
+        "percent": 26.6
+      },
+      {
+        "sex": "Mujeres",
+        "ageGroup": "De 18 a 64 años",
+        "indicator": "En riesgo de pobreza (renta año anterior a la entrevista)",
+        "base": "Base 2013",
+        "percent": 18.8
+      },
+      {
+        "sex": "Mujeres",
+        "ageGroup": "De 18 a 64 años",
+        "indicator": "Con carencia material y social severa",
+        "base": "Base 2013",
+        "percent": 9.2
+      },
+      {
+        "sex": "Mujeres",
+        "ageGroup": "De 18 a 64 años",
+        "indicator": "Viviendo en hogares con baja intensidad en el trabajo (de 0 a 64 años)",
+        "base": "Base 2013",
+        "percent": 8.7
+      }
+    ],
+    "regional": [
+      {
+        "region": "Total Nacional",
+        "group": "Total",
+        "indicator": "Tasa de riesgo de pobreza o exclusión social (indicador AROPE)",
+        "base": "Base 2013",
+        "percent": 25.7
+      },
+      {
+        "region": "Total Nacional",
+        "group": "Total",
+        "indicator": "En riesgo de pobreza (renta año anterior a la entrevista)",
+        "base": "Base 2013",
+        "percent": 19.5
+      },
+      {
+        "region": "Total Nacional",
+        "group": "Total",
+        "indicator": "Con carencia material y social severa",
+        "base": "Base 2013",
+        "percent": 8.1
+      },
+      {
+        "region": "Total Nacional",
+        "group": "Total",
+        "indicator": "Viviendo en hogares con baja intensidad en el trabajo (de 0 a 64 años)",
+        "base": "Base 2013",
+        "percent": 8
+      },
+      {
+        "region": "Andalucía",
+        "group": "Total",
+        "indicator": "Tasa de riesgo de pobreza o exclusión social (indicador AROPE)",
+        "base": "Base 2013",
+        "percent": 34.7
+      },
+      {
+        "region": "Andalucía",
+        "group": "Total",
+        "indicator": "En riesgo de pobreza (renta año anterior a la entrevista)",
+        "base": "Base 2013",
+        "percent": 27.7
+      },
+      {
+        "region": "Andalucía",
+        "group": "Total",
+        "indicator": "Con carencia material y social severa",
+        "base": "Base 2013",
+        "percent": 10.9
+      },
+      {
+        "region": "Andalucía",
+        "group": "Total",
+        "indicator": "Viviendo en hogares con baja intensidad en el trabajo (de 0 a 64 años)",
+        "base": "Base 2013",
+        "percent": 12
+      },
+      {
+        "region": "Aragón",
+        "group": "Total",
+        "indicator": "Tasa de riesgo de pobreza o exclusión social (indicador AROPE)",
+        "base": "Base 2013",
+        "percent": 19.1
+      },
+      {
+        "region": "Aragón",
+        "group": "Total",
+        "indicator": "En riesgo de pobreza (renta año anterior a la entrevista)",
+        "base": "Base 2013",
+        "percent": 13.6
+      },
+      {
+        "region": "Aragón",
+        "group": "Total",
+        "indicator": "Con carencia material y social severa",
+        "base": "Base 2013",
+        "percent": 6.5
+      },
+      {
+        "region": "Aragón",
+        "group": "Total",
+        "indicator": "Viviendo en hogares con baja intensidad en el trabajo (de 0 a 64 años)",
+        "base": "Base 2013",
+        "percent": 4.9
+      },
+      {
+        "region": "Asturias, Principado de",
+        "group": "Total",
+        "indicator": "Tasa de riesgo de pobreza o exclusión social (indicador AROPE)",
+        "base": "Base 2013",
+        "percent": 22.4
+      },
+      {
+        "region": "Asturias, Principado de",
+        "group": "Total",
+        "indicator": "En riesgo de pobreza (renta año anterior a la entrevista)",
+        "base": "Base 2013",
+        "percent": 17.2
+      },
+      {
+        "region": "Asturias, Principado de",
+        "group": "Total",
+        "indicator": "Con carencia material y social severa",
+        "base": "Base 2013",
+        "percent": 6.7
+      },
+      {
+        "region": "Asturias, Principado de",
+        "group": "Total",
+        "indicator": "Viviendo en hogares con baja intensidad en el trabajo (de 0 a 64 años)",
+        "base": "Base 2013",
+        "percent": 11.1
+      },
+      {
+        "region": "Balears, Illes",
+        "group": "Total",
+        "indicator": "Tasa de riesgo de pobreza o exclusión social (indicador AROPE)",
+        "base": "Base 2013",
+        "percent": 15.2
+      },
+      {
+        "region": "Balears, Illes",
+        "group": "Total",
+        "indicator": "En riesgo de pobreza (renta año anterior a la entrevista)",
+        "base": "Base 2013",
+        "percent": 11.6
+      },
+      {
+        "region": "Balears, Illes",
+        "group": "Total",
+        "indicator": "Con carencia material y social severa",
+        "base": "Base 2013",
+        "percent": 3.6
+      },
+      {
+        "region": "Balears, Illes",
+        "group": "Total",
+        "indicator": "Viviendo en hogares con baja intensidad en el trabajo (de 0 a 64 años)",
+        "base": "Base 2013",
+        "percent": 4.6
+      },
+      {
+        "region": "Canarias",
+        "group": "Total",
+        "indicator": "Tasa de riesgo de pobreza o exclusión social (indicador AROPE)",
+        "base": "Base 2013",
+        "percent": 31.2
+      },
+      {
+        "region": "Canarias",
+        "group": "Total",
+        "indicator": "En riesgo de pobreza (renta año anterior a la entrevista)",
+        "base": "Base 2013",
+        "percent": 22.9
+      },
+      {
+        "region": "Canarias",
+        "group": "Total",
+        "indicator": "Con carencia material y social severa",
+        "base": "Base 2013",
+        "percent": 9.3
+      },
+      {
+        "region": "Canarias",
+        "group": "Total",
+        "indicator": "Viviendo en hogares con baja intensidad en el trabajo (de 0 a 64 años)",
+        "base": "Base 2013",
+        "percent": 11.6
+      },
+      {
+        "region": "Cantabria",
+        "group": "Total",
+        "indicator": "Tasa de riesgo de pobreza o exclusión social (indicador AROPE)",
+        "base": "Base 2013",
+        "percent": 19.2
+      },
+      {
+        "region": "Cantabria",
+        "group": "Total",
+        "indicator": "En riesgo de pobreza (renta año anterior a la entrevista)",
+        "base": "Base 2013",
+        "percent": 13.9
+      },
+      {
+        "region": "Cantabria",
+        "group": "Total",
+        "indicator": "Con carencia material y social severa",
+        "base": "Base 2013",
+        "percent": 5
+      },
+      {
+        "region": "Cantabria",
+        "group": "Total",
+        "indicator": "Viviendo en hogares con baja intensidad en el trabajo (de 0 a 64 años)",
+        "base": "Base 2013",
+        "percent": 9
+      },
+      {
+        "region": "Castilla y León",
+        "group": "Total",
+        "indicator": "Tasa de riesgo de pobreza o exclusión social (indicador AROPE)",
+        "base": "Base 2013",
+        "percent": 24.1
+      },
+      {
+        "region": "Castilla y León",
+        "group": "Total",
+        "indicator": "En riesgo de pobreza (renta año anterior a la entrevista)",
+        "base": "Base 2013",
+        "percent": 19.8
+      },
+      {
+        "region": "Castilla y León",
+        "group": "Total",
+        "indicator": "Con carencia material y social severa",
+        "base": "Base 2013",
+        "percent": 6.7
+      },
+      {
+        "region": "Castilla y León",
+        "group": "Total",
+        "indicator": "Viviendo en hogares con baja intensidad en el trabajo (de 0 a 64 años)",
+        "base": "Base 2013",
+        "percent": 9.5
+      },
+      {
+        "region": "Castilla - La Mancha",
+        "group": "Total",
+        "indicator": "Tasa de riesgo de pobreza o exclusión social (indicador AROPE)",
+        "base": "Base 2013",
+        "percent": 34
+      },
+      {
+        "region": "Castilla - La Mancha",
+        "group": "Total",
+        "indicator": "En riesgo de pobreza (renta año anterior a la entrevista)",
+        "base": "Base 2013",
+        "percent": 25.9
+      },
+      {
+        "region": "Castilla - La Mancha",
+        "group": "Total",
+        "indicator": "Con carencia material y social severa",
+        "base": "Base 2013",
+        "percent": 9.8
+      },
+      {
+        "region": "Castilla - La Mancha",
+        "group": "Total",
+        "indicator": "Viviendo en hogares con baja intensidad en el trabajo (de 0 a 64 años)",
+        "base": "Base 2013",
+        "percent": 10
+      },
+      {
+        "region": "Cataluña",
+        "group": "Total",
+        "indicator": "Tasa de riesgo de pobreza o exclusión social (indicador AROPE)",
+        "base": "Base 2013",
+        "percent": 21.3
+      },
+      {
+        "region": "Cataluña",
+        "group": "Total",
+        "indicator": "En riesgo de pobreza (renta año anterior a la entrevista)",
+        "base": "Base 2013",
+        "percent": 14.3
+      },
+      {
+        "region": "Cataluña",
+        "group": "Total",
+        "indicator": "Con carencia material y social severa",
+        "base": "Base 2013",
+        "percent": 8.9
+      },
+      {
+        "region": "Cataluña",
+        "group": "Total",
+        "indicator": "Viviendo en hogares con baja intensidad en el trabajo (de 0 a 64 años)",
+        "base": "Base 2013",
+        "percent": 5.9
+      },
+      {
+        "region": "Comunitat Valenciana",
+        "group": "Total",
+        "indicator": "Tasa de riesgo de pobreza o exclusión social (indicador AROPE)",
+        "base": "Base 2013",
+        "percent": 30.7
+      },
+      {
+        "region": "Comunitat Valenciana",
+        "group": "Total",
+        "indicator": "En riesgo de pobreza (renta año anterior a la entrevista)",
+        "base": "Base 2013",
+        "percent": 26
+      },
+      {
+        "region": "Comunitat Valenciana",
+        "group": "Total",
+        "indicator": "Con carencia material y social severa",
+        "base": "Base 2013",
+        "percent": 6.9
+      },
+      {
+        "region": "Comunitat Valenciana",
+        "group": "Total",
+        "indicator": "Viviendo en hogares con baja intensidad en el trabajo (de 0 a 64 años)",
+        "base": "Base 2013",
+        "percent": 7.9
+      },
+      {
+        "region": "Extremadura",
+        "group": "Total",
+        "indicator": "Tasa de riesgo de pobreza o exclusión social (indicador AROPE)",
+        "base": "Base 2013",
+        "percent": 30.4
+      },
+      {
+        "region": "Extremadura",
+        "group": "Total",
+        "indicator": "En riesgo de pobreza (renta año anterior a la entrevista)",
+        "base": "Base 2013",
+        "percent": 26.2
+      },
+      {
+        "region": "Extremadura",
+        "group": "Total",
+        "indicator": "Con carencia material y social severa",
+        "base": "Base 2013",
+        "percent": 6.3
+      },
+      {
+        "region": "Extremadura",
+        "group": "Total",
+        "indicator": "Viviendo en hogares con baja intensidad en el trabajo (de 0 a 64 años)",
+        "base": "Base 2013",
+        "percent": 7.7
+      },
+      {
+        "region": "Galicia",
+        "group": "Total",
+        "indicator": "Tasa de riesgo de pobreza o exclusión social (indicador AROPE)",
+        "base": "Base 2013",
+        "percent": 22.1
+      },
+      {
+        "region": "Galicia",
+        "group": "Total",
+        "indicator": "En riesgo de pobreza (renta año anterior a la entrevista)",
+        "base": "Base 2013",
+        "percent": 16
+      },
+      {
+        "region": "Galicia",
+        "group": "Total",
+        "indicator": "Con carencia material y social severa",
+        "base": "Base 2013",
+        "percent": 7.1
+      },
+      {
+        "region": "Galicia",
+        "group": "Total",
+        "indicator": "Viviendo en hogares con baja intensidad en el trabajo (de 0 a 64 años)",
+        "base": "Base 2013",
+        "percent": 7.6
+      },
+      {
+        "region": "Madrid, Comunidad de",
+        "group": "Total",
+        "indicator": "Tasa de riesgo de pobreza o exclusión social (indicador AROPE)",
+        "base": "Base 2013",
+        "percent": 19.4
+      },
+      {
+        "region": "Madrid, Comunidad de",
+        "group": "Total",
+        "indicator": "En riesgo de pobreza (renta año anterior a la entrevista)",
+        "base": "Base 2013",
+        "percent": 12.7
+      },
+      {
+        "region": "Madrid, Comunidad de",
+        "group": "Total",
+        "indicator": "Con carencia material y social severa",
+        "base": "Base 2013",
+        "percent": 8.4
+      },
+      {
+        "region": "Madrid, Comunidad de",
+        "group": "Total",
+        "indicator": "Viviendo en hogares con baja intensidad en el trabajo (de 0 a 64 años)",
+        "base": "Base 2013",
+        "percent": 3.5
+      },
+      {
+        "region": "Murcia, Región de",
+        "group": "Total",
+        "indicator": "Tasa de riesgo de pobreza o exclusión social (indicador AROPE)",
+        "base": "Base 2013",
+        "percent": 32.5
+      },
+      {
+        "region": "Murcia, Región de",
+        "group": "Total",
+        "indicator": "En riesgo de pobreza (renta año anterior a la entrevista)",
+        "base": "Base 2013",
+        "percent": 26.7
+      },
+      {
+        "region": "Murcia, Región de",
+        "group": "Total",
+        "indicator": "Con carencia material y social severa",
+        "base": "Base 2013",
+        "percent": 9.6
+      },
+      {
+        "region": "Murcia, Región de",
+        "group": "Total",
+        "indicator": "Viviendo en hogares con baja intensidad en el trabajo (de 0 a 64 años)",
+        "base": "Base 2013",
+        "percent": 10
+      },
+      {
+        "region": "Navarra, Comunidad Foral de",
+        "group": "Total",
+        "indicator": "Tasa de riesgo de pobreza o exclusión social (indicador AROPE)",
+        "base": "Base 2013",
+        "percent": 16.5
+      },
+      {
+        "region": "Navarra, Comunidad Foral de",
+        "group": "Total",
+        "indicator": "En riesgo de pobreza (renta año anterior a la entrevista)",
+        "base": "Base 2013",
+        "percent": 12.3
+      },
+      {
+        "region": "Navarra, Comunidad Foral de",
+        "group": "Total",
+        "indicator": "Con carencia material y social severa",
+        "base": "Base 2013",
+        "percent": 4.8
+      },
+      {
+        "region": "Navarra, Comunidad Foral de",
+        "group": "Total",
+        "indicator": "Viviendo en hogares con baja intensidad en el trabajo (de 0 a 64 años)",
+        "base": "Base 2013",
+        "percent": 7.4
+      },
+      {
+        "region": "País Vasco",
+        "group": "Total",
+        "indicator": "Tasa de riesgo de pobreza o exclusión social (indicador AROPE)",
+        "base": "Base 2013",
+        "percent": 14.7
+      },
+      {
+        "region": "País Vasco",
+        "group": "Total",
+        "indicator": "En riesgo de pobreza (renta año anterior a la entrevista)",
+        "base": "Base 2013",
+        "percent": 9.3
+      },
+      {
+        "region": "País Vasco",
+        "group": "Total",
+        "indicator": "Con carencia material y social severa",
+        "base": "Base 2013",
+        "percent": 3
+      },
+      {
+        "region": "País Vasco",
+        "group": "Total",
+        "indicator": "Viviendo en hogares con baja intensidad en el trabajo (de 0 a 64 años)",
+        "base": "Base 2013",
+        "percent": 7.3
+      },
+      {
+        "region": "Rioja, La",
+        "group": "Total",
+        "indicator": "Tasa de riesgo de pobreza o exclusión social (indicador AROPE)",
+        "base": "Base 2013",
+        "percent": 22.8
+      },
+      {
+        "region": "Rioja, La",
+        "group": "Total",
+        "indicator": "En riesgo de pobreza (renta año anterior a la entrevista)",
+        "base": "Base 2013",
+        "percent": 18.4
+      },
+      {
+        "region": "Rioja, La",
+        "group": "Total",
+        "indicator": "Con carencia material y social severa",
+        "base": "Base 2013",
+        "percent": 4.3
+      },
+      {
+        "region": "Rioja, La",
+        "group": "Total",
+        "indicator": "Viviendo en hogares con baja intensidad en el trabajo (de 0 a 64 años)",
+        "base": "Base 2013",
+        "percent": 7.4
+      },
+      {
+        "region": "Ceuta",
+        "group": "Total",
+        "indicator": "Tasa de riesgo de pobreza o exclusión social (indicador AROPE)",
+        "base": "Base 2013",
+        "percent": 40.8
+      },
+      {
+        "region": "Ceuta",
+        "group": "Total",
+        "indicator": "En riesgo de pobreza (renta año anterior a la entrevista)",
+        "base": "Base 2013",
+        "percent": 37
+      },
+      {
+        "region": "Ceuta",
+        "group": "Total",
+        "indicator": "Con carencia material y social severa",
+        "base": "Base 2013",
+        "percent": 11
+      },
+      {
+        "region": "Ceuta",
+        "group": "Total",
+        "indicator": "Viviendo en hogares con baja intensidad en el trabajo (de 0 a 64 años)",
+        "base": "Base 2013",
+        "percent": 27.5
+      },
+      {
+        "region": "Melilla",
+        "group": "Total",
+        "indicator": "Tasa de riesgo de pobreza o exclusión social (indicador AROPE)",
+        "base": "Base 2013",
+        "percent": 43.7
+      },
+      {
+        "region": "Melilla",
+        "group": "Total",
+        "indicator": "En riesgo de pobreza (renta año anterior a la entrevista)",
+        "base": "Base 2013",
+        "percent": 39.3
+      },
+      {
+        "region": "Melilla",
+        "group": "Total",
+        "indicator": "Con carencia material y social severa",
+        "base": "Base 2013",
+        "percent": 11.8
+      },
+      {
+        "region": "Melilla",
+        "group": "Total",
+        "indicator": "Viviendo en hogares con baja intensidad en el trabajo (de 0 a 64 años)",
+        "base": "Base 2013",
+        "percent": 23.9
+      }
+    ]
+  }
+}
