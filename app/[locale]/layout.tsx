@@ -92,7 +92,19 @@ export default async function RootLayout({
         {/* The 6px ink bar that opens the page. */}
         <div aria-hidden style={{ height: 6, background: "var(--ink)" }} />
 
-        <Masthead locale={locale} nav={t.nav} masthead={t.masthead} dateline={dateline} />
+        <Masthead
+          locale={locale}
+          nav={t.nav}
+          masthead={t.masthead}
+          // Three strings, not the whole block: the masthead is a client
+          // component, so anything handed to it ships with every page.
+          search={{
+            label: t.search.label,
+            placeholder: t.search.placeholder,
+            submit: t.search.submit,
+          }}
+          dateline={dateline}
+        />
 
         {/* tabIndex -1 so the skip link actually moves focus here, not just
             the scroll position. */}
