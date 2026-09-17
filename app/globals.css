@@ -367,6 +367,23 @@ body {
    It is set in CSS rather than on the element so that it wins over the `stroke`
    presentation attribute the map sets per region, and so it does not depend on
    focus also selecting the region. */
+/* The front page's lead: the finding on the left, the organisations' rail on the
+   right, and one column on a phone.
+
+   It was declared as an inline `grid-template-columns`, which cannot carry a
+   media query, so the two columns held at every width — at 375px the rail was
+   squeezed to about 120px, its eyebrow could not fit, and the front page, which
+   is the first thing a reader ever sees, scrolled sideways. */
+.lead-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+@media (min-width: 640px) {
+  .lead-grid {
+    grid-template-columns: minmax(0, 2.05fr) minmax(0, 1fr);
+  }
+}
+
 .region:focus-visible {
   outline: none;
   stroke: var(--ink);

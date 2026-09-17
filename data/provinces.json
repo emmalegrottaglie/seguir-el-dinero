@@ -1,0 +1,322 @@
+{
+  "generatedAt": "2026-09-15T19:12:32.949Z",
+  "source": {
+    "body": "INE",
+    "name": "Tempus3, valores de las variables Provincias (115) y Comunidades y Ciudades Autónomas (70)",
+    "url": "https://www.ine.es/dyngs/DAB/index.htm?cid=1099"
+  },
+  "provinces": [
+    {
+      "code": "01",
+      "name": "Araba/Álava",
+      "slug": "araba",
+      "territoryId": "16"
+    },
+    {
+      "code": "02",
+      "name": "Albacete",
+      "slug": "albacete",
+      "territoryId": "08"
+    },
+    {
+      "code": "03",
+      "name": "Alicante/Alacant",
+      "slug": "alicante",
+      "territoryId": "10"
+    },
+    {
+      "code": "04",
+      "name": "Almería",
+      "slug": "almeria",
+      "territoryId": "01"
+    },
+    {
+      "code": "05",
+      "name": "Ávila",
+      "slug": "avila",
+      "territoryId": "07"
+    },
+    {
+      "code": "06",
+      "name": "Badajoz",
+      "slug": "badajoz",
+      "territoryId": "11"
+    },
+    {
+      "code": "07",
+      "name": "Illes Balears",
+      "slug": "illes-balears",
+      "territoryId": "04"
+    },
+    {
+      "code": "08",
+      "name": "Barcelona",
+      "slug": "barcelona",
+      "territoryId": "09"
+    },
+    {
+      "code": "09",
+      "name": "Burgos",
+      "slug": "burgos",
+      "territoryId": "07"
+    },
+    {
+      "code": "10",
+      "name": "Cáceres",
+      "slug": "caceres",
+      "territoryId": "11"
+    },
+    {
+      "code": "11",
+      "name": "Cádiz",
+      "slug": "cadiz",
+      "territoryId": "01"
+    },
+    {
+      "code": "12",
+      "name": "Castellón/Castelló",
+      "slug": "castellon",
+      "territoryId": "10"
+    },
+    {
+      "code": "13",
+      "name": "Ciudad Real",
+      "slug": "ciudad-real",
+      "territoryId": "08"
+    },
+    {
+      "code": "14",
+      "name": "Córdoba",
+      "slug": "cordoba",
+      "territoryId": "01"
+    },
+    {
+      "code": "15",
+      "name": "A Coruña",
+      "slug": "a-coruna",
+      "territoryId": "12"
+    },
+    {
+      "code": "16",
+      "name": "Cuenca",
+      "slug": "cuenca",
+      "territoryId": "08"
+    },
+    {
+      "code": "17",
+      "name": "Girona",
+      "slug": "girona",
+      "territoryId": "09"
+    },
+    {
+      "code": "18",
+      "name": "Granada",
+      "slug": "granada",
+      "territoryId": "01"
+    },
+    {
+      "code": "19",
+      "name": "Guadalajara",
+      "slug": "guadalajara",
+      "territoryId": "08"
+    },
+    {
+      "code": "20",
+      "name": "Gipuzkoa",
+      "slug": "gipuzkoa",
+      "territoryId": "16"
+    },
+    {
+      "code": "21",
+      "name": "Huelva",
+      "slug": "huelva",
+      "territoryId": "01"
+    },
+    {
+      "code": "22",
+      "name": "Huesca",
+      "slug": "huesca",
+      "territoryId": "02"
+    },
+    {
+      "code": "23",
+      "name": "Jaén",
+      "slug": "jaen",
+      "territoryId": "01"
+    },
+    {
+      "code": "24",
+      "name": "León",
+      "slug": "leon",
+      "territoryId": "07"
+    },
+    {
+      "code": "25",
+      "name": "Lleida",
+      "slug": "lleida",
+      "territoryId": "09"
+    },
+    {
+      "code": "26",
+      "name": "La Rioja",
+      "slug": "la-rioja",
+      "territoryId": "17"
+    },
+    {
+      "code": "27",
+      "name": "Lugo",
+      "slug": "lugo",
+      "territoryId": "12"
+    },
+    {
+      "code": "28",
+      "name": "Madrid",
+      "slug": "madrid",
+      "territoryId": "13"
+    },
+    {
+      "code": "29",
+      "name": "Málaga",
+      "slug": "malaga",
+      "territoryId": "01"
+    },
+    {
+      "code": "30",
+      "name": "Murcia",
+      "slug": "murcia",
+      "territoryId": "14"
+    },
+    {
+      "code": "31",
+      "name": "Navarra",
+      "slug": "navarra",
+      "territoryId": "15"
+    },
+    {
+      "code": "32",
+      "name": "Ourense",
+      "slug": "ourense",
+      "territoryId": "12"
+    },
+    {
+      "code": "33",
+      "name": "Asturias",
+      "slug": "asturias",
+      "territoryId": "03"
+    },
+    {
+      "code": "34",
+      "name": "Palencia",
+      "slug": "palencia",
+      "territoryId": "07"
+    },
+    {
+      "code": "35",
+      "name": "Las Palmas",
+      "slug": "las-palmas",
+      "territoryId": "05"
+    },
+    {
+      "code": "36",
+      "name": "Pontevedra",
+      "slug": "pontevedra",
+      "territoryId": "12"
+    },
+    {
+      "code": "37",
+      "name": "Salamanca",
+      "slug": "salamanca",
+      "territoryId": "07"
+    },
+    {
+      "code": "38",
+      "name": "Santa Cruz de Tenerife",
+      "slug": "santa-cruz-de-tenerife",
+      "territoryId": "05"
+    },
+    {
+      "code": "39",
+      "name": "Cantabria",
+      "slug": "cantabria",
+      "territoryId": "06"
+    },
+    {
+      "code": "40",
+      "name": "Segovia",
+      "slug": "segovia",
+      "territoryId": "07"
+    },
+    {
+      "code": "41",
+      "name": "Sevilla",
+      "slug": "sevilla",
+      "territoryId": "01"
+    },
+    {
+      "code": "42",
+      "name": "Soria",
+      "slug": "soria",
+      "territoryId": "07"
+    },
+    {
+      "code": "43",
+      "name": "Tarragona",
+      "slug": "tarragona",
+      "territoryId": "09"
+    },
+    {
+      "code": "44",
+      "name": "Teruel",
+      "slug": "teruel",
+      "territoryId": "02"
+    },
+    {
+      "code": "45",
+      "name": "Toledo",
+      "slug": "toledo",
+      "territoryId": "08"
+    },
+    {
+      "code": "46",
+      "name": "Valencia/València",
+      "slug": "valencia",
+      "territoryId": "10"
+    },
+    {
+      "code": "47",
+      "name": "Valladolid",
+      "slug": "valladolid",
+      "territoryId": "07"
+    },
+    {
+      "code": "48",
+      "name": "Bizkaia",
+      "slug": "bizkaia",
+      "territoryId": "16"
+    },
+    {
+      "code": "49",
+      "name": "Zamora",
+      "slug": "zamora",
+      "territoryId": "07"
+    },
+    {
+      "code": "50",
+      "name": "Zaragoza",
+      "slug": "zaragoza",
+      "territoryId": "02"
+    },
+    {
+      "code": "51",
+      "name": "Ceuta",
+      "slug": "ceuta",
+      "territoryId": "18"
+    },
+    {
+      "code": "52",
+      "name": "Melilla",
+      "slug": "melilla",
+      "territoryId": "19"
+    }
+  ]
+}

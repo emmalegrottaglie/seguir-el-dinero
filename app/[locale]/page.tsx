@@ -11,6 +11,8 @@ import { getDict, relativeTime } from "@/lib/i18n";
 import { euroExact, euroM, integer, percent } from "@/lib/format";
 import Bar, { BarLegend, type Segment } from "@/components/chart/Bar";
 import StatStrip, { type StatItem } from "@/components/StatStrip";
+import WhereYouLive from "@/components/WhereYouLive";
+import { getProvinces } from "@/lib/provinces";
 import StanceByGroup from "@/components/StanceByGroup";
 import CourtRecords from "@/components/CourtRecords";
 
@@ -42,12 +44,13 @@ export default async function PortalPage({
   const P = t.portal;
   const L = t.lead;
 
-  const [agg, salaries, votes, spend, news] = await Promise.all([
+  const [agg, salaries, votes, spend, news, provinceFile] = await Promise.all([
     getAggregation(),
     getSalaries(),
     getVotes(),
     getSpending(),
     fetchTopicNews(["lgtbi"], 8, locale === "en" ? "en" : "es"),
+    getProvinces(),
   ]);
 
   const totals = spendingTotals(spend);
@@ -129,11 +132,14 @@ export default async function PortalPage({
     <main>
       <StatStrip items={ticker} className="border-t border-[var(--line)]" />
 
+      {/* Where you live. Above the lead deliberately: the lead is the finding
+          this site owns, but a reader arriving from a link has no reason yet to
+          care about it, and "what does this mean where I am" is the question
+          they actually brought. The lead keeps its place directly below. */}
+      <WhereYouLive provinces={provinceFile.provinces} locale={locale} t={t.where} />
+
       {/* Lead */}
-      <section
-        className="rule-double grid"
-        style={{ gridTemplateColumns: "minmax(0,2.05fr) minmax(0,1fr)" }}
-      >
+      <section className="rule-double lead-grid">
         <article
           className="relative flex min-h-[376px] flex-col justify-end overflow-hidden px-9 pb-8 pt-8"
           style={{ background: "var(--surface)", borderTop: "6px solid var(--ink)" }}
@@ -187,7 +193,7 @@ export default async function PortalPage({
           </div>
         </article>
 
-        <aside className="border-l border-[var(--line)] px-6 pb-6 pt-6">
+        <aside className="border-t border-[var(--line)] px-6 pb-6 pt-6 sm:border-l sm:border-t-0">
           <p className="eyebrow" style={{ color: "var(--verd-text)" }}>
             {P.opinionKicker}
           </p>

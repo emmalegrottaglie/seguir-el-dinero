@@ -5,6 +5,140 @@ figures name their source; corrections and gaps are recorded alongside the work,
 
 ---
 
+## 2026-09-17 — "And where do you live?" — the site's first entry point that starts from the reader
+
+Every page here opens with a national figure and leaves the reader to work out
+whether any of it describes the place they live. This adds the question the
+other way round: a postcode or a province, and a page of what is on record for
+that comunidad autónoma, with the national figure beside each local one.
+
+It is the pattern mySociety states outright about TheyWorkForYou — asking for a
+postcode is "a super effective way of unlocking clear, relevant information for
+them to act on" — and this site had every ingredient for it and no way to ask.
+
+### The postcode never leaves the browser
+
+The first two digits of a Spanish postcode are the province code, and a province
+sits inside exactly one comunidad autónoma, so the whole journey is a lookup
+over a 52-row table. No geocoder, no address, no request carrying it, nothing
+stored. The box says so in the box, rather than in a privacy policy, because a
+reader typing where they live into a site about politics is owed it where they
+can see it.
+
+That constraint shaped the code. `lib/postcode.ts` holds the type and the pure
+resolution and imports nothing; `lib/provinces.ts` reads the JSON and therefore
+imports `node:fs`. They are split because a client component that imports
+`node:fs` does not fail at runtime, it fails the build — the same split as
+`lib/governments.ts` out of `lib/regions.ts`, for the same reason.
+
+The URL is the province, not the postcode. A postcode in a shareable link is
+location data the reader did not choose to publish, and the province is the real
+resolution of the answer anyway.
+
+### A province is not a comunidad autónoma, and the page says so first
+
+Every figure on this site is published per comunidad autónoma. The reader
+arrives by province because that is what a postcode gives. Those are different
+units, and the page's opening sentence is the distinction: *"Barcelona is in
+Catalunya. Everything below is measured for Catalunya, not for Barcelona: these
+figures do not exist per province, and dividing them down would be inventing
+them."*
+
+Nothing is apportioned, scaled or divided anywhere in `lib/local.ts`. Seven
+provinces share their name with their comunidad — Madrid, Murcia, Cantabria,
+Asturias, Navarra, La Rioja and the two autonomous cities — and those get a
+different opening line, because "Madrid is in Madrid" reads as a fault.
+
+### What the page shows, and what it refuses to show
+
+Who presides, with the investiture finding where there is one. How many
+officeholders the register carries there, how many publish a figure, and the
+median of what is published. The comunidad's median wage against the national
+one. Its AROPE rate against the national one. Its recorded hate crime against
+the national rate.
+
+Every one of those is nullable and nothing falls back:
+
+- **889 of the register's 6,670 rows state no territory.** They are named on the
+  page and not shared out between communities.
+- **EAES publishes no wage percentiles for Ceuta or Melilla.** Those two pages
+  say so. Substituting the national figure under a local heading is the one
+  error this feature must not make, and it is the easiest one to make by
+  accident.
+- A poverty series is selected by its stated base, and an ambiguous match yields
+  nothing rather than the first row — the rules `lib/indicators.ts` already
+  enforces.
+
+The closing line states the obvious thing that has to be stated: that a
+territory has a given rate and that whoever presides over it voted a given way
+are two facts side by side, not an explanation.
+
+### Nineteen territories, four vocabularies
+
+The map, the governments, the hate-crime file and the provinces all key on INE's
+two-digit code. The other two sources key on names, in two different spellings:
+the register writes "Islas Baleares", "Comunidad Valenciana", "País Vasco";
+INE's survey tables write "Balears, Illes", "Comunitat Valenciana", "Rioja, La",
+"Asturias, Principado de", and space the hyphen in "Castilla - La Mancha".
+
+Fuzzy matching across those would work most of the time, which is exactly the
+problem: the failure is a page headed with the reader's own province showing
+another region's government. `lib/territories.ts` writes the aliases out, and
+`npm run check:territories` fails the build if any source emits a spelling the
+table does not carry — in both directions, so a stale alias is caught too.
+
+The province table is derived rather than typed. `scripts/build-provinces.mjs`
+reads INE's own province and comunidad value lists and takes the parent from
+INE's hierarchy; 52 rows of two-digit codes is precisely the sort of table that
+acquires a silent transposition. It aborts unless there are 52 provinces, codes
+01 to 52 with none missing, unique slugs, and exactly 19 distinct comunidades.
+
+### Three bugs found while building it
+
+1. **`String.replace` swaps only the first occurrence.** The opening line names
+   the comunidad twice, so Barcelona's page shipped a literal `{territory}`. A
+   sweep found this is the only string on the site with a repeated placeholder,
+   but the next one would have failed the same way, so `fill()` in
+   `lib/format.ts` now does the substitution with `replaceAll`. An unknown
+   placeholder is left visible rather than blanked — a visible `{token}` is a bug
+   that gets noticed, and an empty gap is one that does not.
+
+2. **A count of 1 does not agree with a plural verb.** "1 de esos hechos se
+   registraron" is wrong Spanish, and one territory has exactly 1. The sentence
+   is restructured so the number stands alone after a colon, which is correct at
+   any count in all three languages.
+
+3. **The front page scrolled sideways on a phone, and had been doing so all
+   along.** Its lead is a two-column grid declared as an inline
+   `grid-template-columns`, and an inline style cannot carry a media query — so
+   at 375px the organisations' rail was squeezed to about 120px, its eyebrow
+   could not fit, and the document was 403px wide in a 375px viewport. Moved to
+   a `.lead-grid` class that is one column below 640px. Found because this was
+   the page being made into a landing page; it is a pre-existing fault, not a new
+   one.
+
+### Files
+
+- `scripts/build-provinces.mjs`, `data/provinces.json`, `lib/provinces.ts`,
+  `lib/postcode.ts` (all new) — the 52 provinces and the postcode bridge.
+- `lib/territories.ts`, `scripts/check-territories.mjs` (new) — the name join and
+  its guard.
+- `lib/local.ts` (new) — one comunidad's figures, each beside its national one.
+- `components/WhereYouLive.tsx` (new), `app/[locale]/donde/[provincia]/page.tsx`
+  (new).
+- `lib/format.ts` — `fill()`.
+- `app/[locale]/page.tsx` — the box above the lead; the lead grid now stacks.
+- `app/globals.css` — `.lead-grid`.
+- `lib/i18n.ts` — a `where` block in all three locales.
+
+Verified: `npx tsc --noEmit` and `npm run build` clean, 390 static pages (up 156:
+52 provinces × 3 locales); `npm run check:territories` resolves all four
+vocabularies; postcode 08036 routes to Barcelona and 99999 raises the error
+rather than guessing; the province select carries all 52; the contrast audit
+passes 31 pages with 0 inline-colour failures; no horizontal overflow at 375 px.
+
+---
+
 ## 2026-09-15 — A focus ring that followed a bounding box, and a sortable territory table
 
 ### The stray lines across the map
