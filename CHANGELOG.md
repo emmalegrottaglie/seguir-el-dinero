@@ -5,6 +5,62 @@ figures name their source; corrections and gaps are recorded alongside the work,
 
 ---
 
+## 2026-09-18 — A card for each foundation, the same way a politician gets one
+
+The party-linked foundations lived at the bottom of `/fundaciones` as a dense
+table — one row per entity, seven numeric columns, no visual identity. It was
+complete and it was unreadable: the only way to place a foundation was to read
+its whole row. `/politicos` solved the equivalent problem for officeholders
+with a card per person; the same treatment now applies here.
+
+### What a card carries, and why that set and no more
+
+Name and an `Avatar` (initials on the foundation's party-colour ring — the
+same fallback path the officeholder cards already use, since no foundation
+has a portrait), the party it is linked to, total money received, the same
+party/corporate/individual/public split as a small stacked bar the table row
+already computed, and — only where published — how many people are on record
+governing it.
+
+That last one is deliberately conditional. `lib/foundation-people.ts` documents
+board membership for about a tenth of the 39 audited entities; the other nine
+tenths have no published board at all. A card either states a count or says
+nothing — never "0 on the board", which would read as a fact about the
+foundation rather than what it actually is: a gap in what got published.
+Findings/compliance counts stay off the card by design (Emma's call) — they're
+still on the named-counterparty table above and on each dossier page, so
+nothing is lost, it's just not repeated on every one of 39 cards.
+
+### What stayed exactly as it was
+
+The four headline totals, the named-counterparty table, the register/legal/gap
+panels and the source line are untouched — only the "every audited entity"
+table became a grid. The ranking is the same `rankedEntities()` the table
+already used (money received, descending), so a card grid and the old table
+would list identically; nothing was re-sorted or re-scoped to make the redesign
+land. No search or filter was added — 39 entities is small enough that a plain
+ranked grid is the whole index, and adding a query-string filter would have
+turned a static page into a per-request one for no real gain here.
+
+### Files
+
+- `components/FoundationChannel.tsx` — the entity table replaced with a
+  `role="list"` grid of `panel`-styled link cards (same class list
+  `/politicos`'s featured cards use); a `Map` of board counts is built once for
+  all 39 entities rather than once per card, since `governanceFor()` scans the
+  full curated roster.
+- `lib/i18n.ts` — `foundations.boardCount` (all three locales); `tableNote`
+  rewritten to describe the cards instead of a now-gone findings column;
+  `foundations.findings` removed as dead after its only caller went away.
+
+Verified: `npx tsc --noEmit` and `npm run build` clean; all 39 cards render,
+ranked in the same order the table used; the board-count line confirmed
+present on exactly the ten entities `lib/foundation-people.ts` covers and
+absent everywhere else; `/fundacion/[slug]` and `/financiacion` confirmed
+unaffected; mobile (375 px) collapses to one column with no overflow.
+
+---
+
 ## 2026-09-18 — Every caveat is still there, just not shouting
 
 This site's honesty rule has always been that a stated gap beats a possibly-wrong

@@ -8,12 +8,14 @@ import {
   FOUNDATIONS_LAW_URL,
   type FoundationsFile,
 } from "@/lib/foundations";
-import { governanceCoverage } from "@/lib/foundation-people";
+import { governanceCoverage, governanceFor } from "@/lib/foundation-people";
 import type { OfficeJoin } from "@/lib/officeholder-ties";
+import { PARTIES } from "@/lib/parties";
 import { CHANNEL_COLORS } from "@/lib/chart-colors";
 import Bar, { BarLegend, type Segment } from "./chart/Bar";
+import Avatar from "./Avatar";
 import Caveat from "./Caveat";
-import { euro, euroCompact, formatDate, integer, percent } from "@/lib/format";
+import { euro, euroCompact, fill, formatDate, integer, percent } from "@/lib/format";
 import type { Dict } from "@/lib/i18n";
 
 /**
@@ -47,6 +49,11 @@ export default function FoundationChannel({
   const reg = registrationTally(data);
   const max = ranked[0] ? ranked[0].contributions + ranked[0].subsidies : 1;
   const gov = governanceCoverage(ranked.map((e) => e.name));
+
+  // Computed once for all 70 entities, not once per card: governanceFor()
+  // filters the full ROLES array, so doing it inside the render loop would be
+  // O(n²) over a list that is already the full published board registry.
+  const boardCounts = new Map(ranked.map((e) => [e.slug, governanceFor(e.name).people.length]));
 
   return (
     <section className="mx-auto mt-20 max-w-6xl">
@@ -163,87 +170,66 @@ export default function FoundationChannel({
       </div>
 
       {/* Every audited entity, so the named deals above are not mistaken for
-          the whole channel. */}
+          the whole channel. One card per entity, ranked by the same total the
+          bar inside it visualises — see rankedEntities() in lib/foundations.ts. */}
       <h3 className="display mt-14 text-xl">{F.tableTitle}</h3>
       <Caveat label={t.common.caveat} className="mt-3">
         {F.tableNote}
       </Caveat>
-      <div className="mt-6 overflow-x-auto">
-        <table className="w-full min-w-[48rem] border-collapse text-sm">
-          <caption className="sr-only">{F.tableTitle}</caption>
-          <thead>
-            <tr className="label-mono text-left text-[var(--ink-3)]">
-              <th scope="col" className="py-2 pr-4 font-normal">
-                {F.entity}
-              </th>
-              <th scope="col" className="py-2 pr-4 font-normal">
-                {F.party}
-              </th>
-              <th scope="col" className="w-1/6 py-2 pr-4 font-normal">
-                {F.total}
-              </th>
-              <th scope="col" className="whitespace-nowrap py-2 pr-3 text-right font-normal">
-                {F.fromParty}
-              </th>
-              <th scope="col" className="whitespace-nowrap py-2 pr-3 text-right font-normal">
-                {F.fromCompanies}
-              </th>
-              <th scope="col" className="whitespace-nowrap py-2 pr-3 text-right font-normal">
-                {F.publicSubsidies}
-              </th>
-              <th scope="col" className="whitespace-nowrap py-2 text-right font-normal">
-                {F.findings}
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {ranked.map((e) => {
-              const segments: Segment[] = [
-                { value: e.party_, color: CHANNEL_COLORS.party, label: F.fromParty },
-                { value: e.companies, color: CHANNEL_COLORS.companies, label: F.fromCompanies },
-                {
-                  value: e.individuals,
-                  color: CHANNEL_COLORS.individuals,
-                  label: F.fromIndividuals,
-                },
-                { value: e.subsidies, color: CHANNEL_COLORS.subsidies, label: F.publicSubsidies },
-              ];
-              return (
-                <tr key={e.slug} className="border-t border-[var(--line)] align-middle">
-                  <th scope="row" className="py-3 pr-4 text-left font-normal text-[var(--ink)]">
-                    <Link className="hover:text-[var(--gold-deep)]" href={`/${locale}/fundacion/${e.slug}`}>
-                      {displayName(e.name)}
-                    </Link>
-                  </th>
-                  <td className="py-3 pr-4 text-[var(--ink-2)]">
-                    {e.partyNif ? (
-                      <Link className="hover:text-[var(--gold-deep)]" href={`/${locale}/party/${e.partyNif}`}>
-                        {e.party}
-                      </Link>
-                    ) : (
-                      (e.party ?? <span className="text-[var(--ink-3)]">{F.noPartyStated}</span>)
-                    )}
-                  </td>
-                  <td className="py-3 pr-4">
-                    <Bar segments={segments} total={max} scale="compare" size="sm" />
-                  </td>
-                  <td className="mono py-3 pr-3 text-right" style={{ color: "var(--gold-deep)" }}>
-                    {e.party_ > 0 ? euroCompact(e.party_, bcp47) : "—"}
-                  </td>
-                  <td className="mono py-3 pr-3 text-right" style={{ color: "var(--red)" }}>
-                    {e.companies > 0 ? euroCompact(e.companies, bcp47) : "—"}
-                  </td>
-                  <td className="mono py-3 pr-3 text-right" style={{ color: "var(--gold-deep)" }}>
-                    {e.subsidies > 0 ? euroCompact(e.subsidies, bcp47) : "—"}
-                  </td>
-                  <td className="mono py-3 text-right text-[var(--ink-2)]">
-                    {e.findingCount > 0 ? integer(e.findingCount, bcp47) : "—"}
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+      <div
+        className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3"
+        role="list"
+        aria-label={F.tableTitle}
+      >
+        {ranked.map((e) => {
+          const segments: Segment[] = [
+            { value: e.party_, color: CHANNEL_COLORS.party, label: F.fromParty },
+            { value: e.companies, color: CHANNEL_COLORS.companies, label: F.fromCompanies },
+            {
+              value: e.individuals,
+              color: CHANNEL_COLORS.individuals,
+              label: F.fromIndividuals,
+            },
+            { value: e.subsidies, color: CHANNEL_COLORS.subsidies, label: F.publicSubsidies },
+          ];
+          const boardCount = boardCounts.get(e.slug) ?? 0;
+          return (
+            <Link
+              key={e.slug}
+              href={`/${locale}/fundacion/${e.slug}`}
+              role="listitem"
+              className="panel group flex flex-col gap-3 p-5 transition-colors hover:border-[var(--line)]"
+            >
+              <div className="flex items-center gap-3">
+                <Avatar
+                  name={displayName(e.name)}
+                  color={e.partyNif ? PARTIES[e.partyNif]?.color : undefined}
+                  size={44}
+                />
+                <div className="min-w-0">
+                  <p className="truncate group-hover:text-[var(--gold-deep)]">
+                    {displayName(e.name)}
+                  </p>
+                  <p className="label-mono mt-1 truncate text-[var(--ink-3)]">
+                    {e.party ?? F.noPartyStated}
+                  </p>
+                </div>
+              </div>
+
+              <p className="mono text-lg" style={{ color: "var(--gold-deep)" }}>
+                {euroCompact(e.contributions + e.subsidies, bcp47)}
+              </p>
+
+              <Bar segments={segments} total={max} scale="compare" size="sm" />
+
+              {boardCount > 0 && (
+                <p className="label-mono text-[var(--ink-3)]">
+                  {fill(F.boardCount, { count: integer(boardCount, bcp47) })}
+                </p>
+              )}
+            </Link>
+          );
+        })}
       </div>
 
       <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2">
