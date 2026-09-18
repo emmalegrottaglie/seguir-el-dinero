@@ -232,6 +232,8 @@ children resolve their percentages against nothing and stack at one point.
 | `donde/[provincia]/page.tsx` | What this site holds about one comunidad autónoma, reached by province: who presides, officeholders from there, wages, poverty, recorded hate crime — each beside its national figure |
 | `contexto/page.tsx` | The country the money is spent in: wages by sector, the payroll in multiples of the minimum wage, and the poverty indicators — INE figures, never joined to a vote |
 | `buscar/page.tsx` | One search across the register, parties, entities, comunidades, provinces, tracked divisions and the site's own sections — a form GET, server-rendered |
+| `datos/page.tsx` | Every dataset this site publishes, one section per table, each with a stable anchor, a row count, its source, and a CSV download |
+| `datos/[table]/route.ts` | The CSV itself, for one table id from `lib/datasets.ts` |
 | `metodologia/page.tsx` | Methodology and legal caveats |
 
 `/sueldos`, `/caras` and `/politician/[slug]` are redirects in `next.config.ts` — the salary and
@@ -295,6 +297,8 @@ ordinary browser one, so `FEED_HEADERS` in the registry sends the browser string
 | `lib/news-sources.mjs` | The feed registry itself, plus the excluded feeds and why |
 | `lib/i18n.ts` / `lib/locales.ts` | Dictionaries / locale constants (keeps middleware light) |
 | `lib/format.ts` | Currency, number and date formatting, locale-aware via BCP-47 tag |
+| `lib/datasets.ts` | The `/datos` registry: every published table as `{count, sources, csv}`, built from the same loaders the rest of the site uses |
+| `lib/csv.ts` | RFC 4180 CSV writer, BOM-prefixed for Excel |
 | `middleware.ts` | Redirects unprefixed paths to `/{locale}/…` |
 
 `lib/name-key.mjs` is plain JS with a `.d.mts` beside it **on purpose**: the build scripts and
