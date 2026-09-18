@@ -89,3 +89,23 @@ export function formatDate(iso: string, locale = "es-ES"): string {
     year: "numeric",
   }).format(new Date(Date.UTC(y, m - 1, d)));
 }
+
+/**
+ * Fills `{placeholder}` slots in a translated string.
+ *
+ * Every page here builds its prose by chaining `.replace("{x}", …)`, which
+ * replaces the *first* occurrence only. That is invisible until a sentence uses
+ * the same placeholder twice — the local page's opening line names the
+ * comunidad autónoma twice — and then it ships a raw `{territory}` to a reader.
+ *
+ * An unknown placeholder is left in the string rather than blanked, because a
+ * visible `{token}` is a bug that gets noticed and an empty gap is a bug that
+ * does not.
+ */
+export function fill(template: string, values: Record<string, string>): string {
+  let out = template;
+  for (const [key, value] of Object.entries(values)) {
+    out = out.replaceAll(`{${key}}`, value);
+  }
+  return out;
+}

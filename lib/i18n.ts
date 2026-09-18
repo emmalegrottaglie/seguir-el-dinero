@@ -666,6 +666,63 @@ const es = {
         "Estas cifras no se cruzan con ningún voto ni con ninguna financiación de esta web. Están aquí para que quien lea tenga delante las dos cosas, no para afirmar que una explica la otra.",
     },
   },
+  where: {
+    title: "¿Y usted, dónde vive?",
+    intro:
+      "Casi todo lo que hay en esta web se publica por comunidad autónoma. Escriba su código postal o elija su provincia y verá lo que consta de la suya.",
+    postcodeLabel: "Código postal",
+    postcodePlaceholder: "28001",
+    submit: "Ver",
+    provinceLabel: "O elija provincia",
+    provincePlaceholder: "Provincia…",
+    notFound: "Ese código postal no corresponde a ninguna provincia. Son cinco dígitos.",
+    privacy:
+      "El código postal se resuelve en su navegador: sus dos primeras cifras son el código de provincia. No se envía a ningún sitio ni se guarda.",
+    backHome: "← Portada",
+    eyebrow: "Dónde vive usted",
+    lead:
+      "{province} está en {territory}. Todo lo que sigue está medido para {territory}, no para {province}: no existen estas cifras por provincia, y dividirlas sería inventarlas.",
+    leadSame:
+      "{territory} es a la vez provincia y comunidad autónoma, así que todo lo que sigue está medido para ese mismo territorio.",
+    governmentTitle: "Quién preside",
+    president: "Presidencia",
+    party: "Partido",
+    since: "Desde",
+    governmentNote:
+      "Es quién ocupa la presidencia en la fecha de comprobación, no el resultado de las elecciones ni la composición del gobierno.",
+    noGovernment: "No consta presidencia para este territorio.",
+    investitureDecisive:
+      "El PP tenía {pp} de {seats} escaños, y la investidura salió adelante con votos de Vox: sin ellos no había mayoría. Vox tenía {vox} escaños.",
+    investitureShort:
+      "El PP tenía {pp} de {seats} escaños, menos de la mayoría absoluta, y Vox {vox}. Esta web recoge la aritmética; el acta de la votación no está verificada aquí.",
+    officeholdersTitle: "Cargos públicos de aquí",
+    officeholders:
+      "El registro de altos cargos recoge {count} cargos en {territory}. De ellos, {withSalary} publican retribución anual, y la mediana de lo publicado es {median}.",
+    officeholdersGap:
+      "{missing} de las {total} filas del registro no indican territorio, así que no entran en este recuento. No se reparten entre comunidades.",
+    noFigure: "ninguna cifra",
+    seeOfficeholders: "Ver estos cargos en el registro →",
+    wagesTitle: "Lo que se cobra aquí",
+    wages:
+      "En {territory} la mediana del salario bruto anual fue de {median}, frente a {national} en el conjunto de España. El 10 % peor pagado no llegó a {p10} y el 10 % mejor pagado superó {p90}.",
+    noWages:
+      "La encuesta salarial del INE no publica percentiles para {territory}: sus tablas por comunidad cubren las diecisiete comunidades autónomas y no las dos ciudades autónomas. No se sustituye por la cifra nacional.",
+    seeContext: "Ver los salarios de toda España →",
+    povertyTitle: "Riesgo de pobreza o exclusión",
+    national: "España",
+    povertyNote:
+      "Serie {base}. Es una proporción de la población, no un recuento, y no se cruza con nada más de esta web.",
+    noPoverty: "La Encuesta de Condiciones de Vida no publica este indicador para este territorio.",
+    hateTitle: "Delitos de odio registrados",
+    hate:
+      "En {territory} constan {total} hechos conocidos en {year}, una tasa de {rate} por cada 100.000 habitantes frente a {national} en el conjunto de España. Registrados por orientación sexual e identidad de género: {sogi}.",
+    hateNote:
+      "Son hechos conocidos por las fuerzas de seguridad, no incidencia: una tasa más alta puede reflejar más denuncia y no más delito.",
+    noHate: "El informe no localiza hechos conocidos en este territorio.",
+    seeMap: "Ver el mapa completo →",
+    closing:
+      "Nada de esta página une una cifra con otra. Que {territory} tenga una tasa determinada y que quien la preside votara de una manera son dos hechos puestos uno al lado del otro, no una explicación.",
+  },
   method: {
     title: "Metodología y límites",
     lead: "Esta herramienta es honesta sobre lo que puede y no puede mostrar. Léelo antes de sacar conclusiones.",
@@ -1399,6 +1456,63 @@ const en: Dict = {
         "None of these figures is crossed with any vote or any funding figure on this site. They are here so a reader has both in front of them, not to claim that one explains the other.",
     },
   },
+  where: {
+    title: "And where do you live?",
+    intro:
+      "Almost everything on this site is published by comunidad autónoma. Enter your postcode or pick your province and you will see what is on record for yours.",
+    postcodeLabel: "Postcode",
+    postcodePlaceholder: "28001",
+    submit: "Go",
+    provinceLabel: "Or pick a province",
+    provincePlaceholder: "Province…",
+    notFound: "That postcode matches no province. Spanish postcodes are five digits.",
+    privacy:
+      "The postcode is resolved in your browser: its first two digits are the province code. It is not sent anywhere and it is not stored.",
+    backHome: "← Front page",
+    eyebrow: "Where you live",
+    lead:
+      "{province} is in {territory}. Everything below is measured for {territory}, not for {province}: these figures do not exist per province, and dividing them down would be inventing them.",
+    leadSame:
+      "{territory} is both a province and a comunidad autónoma, so everything below is measured for that same territory.",
+    governmentTitle: "Who presides",
+    president: "President",
+    party: "Party",
+    since: "Since",
+    governmentNote:
+      "This is who holds the presidency on the date checked — not the election result, and not the composition of the government.",
+    noGovernment: "No presidency is on record for this territory.",
+    investitureDecisive:
+      "The PP held {pp} of {seats} seats, and the investiture carried with votes from Vox: without them there was no majority. Vox held {vox} seats.",
+    investitureShort:
+      "The PP held {pp} of {seats} seats, short of an absolute majority, and Vox held {vox}. This site records the arithmetic; the division record itself is not verified here.",
+    officeholdersTitle: "Officeholders from here",
+    officeholders:
+      "The senior appointments register carries {count} officeholders in {territory}. Of those, {withSalary} publish an annual figure, and the median of what is published is {median}.",
+    officeholdersGap:
+      "{missing} of the register's {total} rows state no territory and are not in this count. They are not shared out between communities.",
+    noFigure: "no figure",
+    seeOfficeholders: "See these officeholders in the register →",
+    wagesTitle: "What is earned here",
+    wages:
+      "In {territory} the median gross annual wage was {median}, against {national} across Spain. The lowest-paid tenth did not reach {p10} and the highest-paid tenth cleared {p90}.",
+    noWages:
+      "INE's earnings survey publishes no percentiles for {territory}: its regional tables cover the seventeen comunidades autónomas and not the two autonomous cities. The national figure is not substituted for it.",
+    seeContext: "See wages across Spain →",
+    povertyTitle: "At risk of poverty or exclusion",
+    national: "Spain",
+    povertyNote:
+      "{base} series. It is a share of a population rather than a count, and it is not crossed with anything else on this site.",
+    noPoverty: "The Living Conditions Survey publishes no figure for this territory.",
+    hateTitle: "Recorded hate crime",
+    hate:
+      "{total} offences were recorded in {territory} in {year}, a rate of {rate} per 100,000 inhabitants against {national} across Spain. Recorded under sexual orientation and gender identity: {sogi}.",
+    hateNote:
+      "These are offences known to the police, not incidence: a higher rate can reflect more reporting rather than more crime.",
+    noHate: "The report locates no recorded offence in this territory.",
+    seeMap: "See the whole map →",
+    closing:
+      "Nothing on this page joins one figure to another. That {territory} has a given rate and that whoever presides over it voted a given way are two facts placed side by side, not an explanation.",
+  },
   method: {
     title: "Methodology and limits",
     lead: "This tool is honest about what it can and cannot show. Read this before drawing conclusions.",
@@ -2129,6 +2243,63 @@ const ca: Dict = {
       note:
         "Aquestes xifres no es creuen amb cap vot ni amb cap finançament d’aquest web. Són aquí perquè qui llegeix tingui les dues coses al davant, no per afirmar que l’una explica l’altra.",
     },
+  },
+  where: {
+    title: "I vostè, on viu?",
+    intro:
+      "Gairebé tot el que hi ha en aquest web es publica per comunitat autònoma. Escrigui el seu codi postal o triï la seva província i veurà què consta de la seva.",
+    postcodeLabel: "Codi postal",
+    postcodePlaceholder: "08001",
+    submit: "Veure",
+    provinceLabel: "O triï província",
+    provincePlaceholder: "Província…",
+    notFound: "Aquest codi postal no correspon a cap província. En són cinc dígits.",
+    privacy:
+      "El codi postal es resol al seu navegador: les dues primeres xifres són el codi de província. No s’envia enlloc ni es desa.",
+    backHome: "← Portada",
+    eyebrow: "On viu vostè",
+    lead:
+      "{province} és a {territory}. Tot el que segueix està mesurat per a {territory}, no per a {province}: aquestes xifres no existeixen per província, i dividir-les seria inventar-les.",
+    leadSame:
+      "{territory} és alhora província i comunitat autònoma, així que tot el que segueix està mesurat per a aquest mateix territori.",
+    governmentTitle: "Qui presideix",
+    president: "Presidència",
+    party: "Partit",
+    since: "Des de",
+    governmentNote:
+      "És qui ocupa la presidència a la data de comprovació, no el resultat de les eleccions ni la composició del govern.",
+    noGovernment: "No consta presidència per a aquest territori.",
+    investitureDecisive:
+      "El PP tenia {pp} de {seats} escons, i la investidura va tirar endavant amb vots de Vox: sense ells no hi havia majoria. Vox en tenia {vox}.",
+    investitureShort:
+      "El PP tenia {pp} de {seats} escons, menys de la majoria absoluta, i Vox {vox}. Aquest web recull l’aritmètica; l’acta de la votació no està verificada aquí.",
+    officeholdersTitle: "Càrrecs públics d’aquí",
+    officeholders:
+      "El registre d’alts càrrecs recull {count} càrrecs a {territory}. D’aquests, {withSalary} publiquen retribució anual, i la mediana del que es publica és {median}.",
+    officeholdersGap:
+      "{missing} de les {total} files del registre no indiquen territori i no entren en aquest recompte. No es reparteixen entre comunitats.",
+    noFigure: "cap xifra",
+    seeOfficeholders: "Veure aquests càrrecs al registre →",
+    wagesTitle: "El que es cobra aquí",
+    wages:
+      "A {territory} la mediana del salari brut anual va ser de {median}, davant de {national} al conjunt d’Espanya. El 10 % pitjor pagat no va arribar a {p10} i el 10 % millor pagat va superar {p90}.",
+    noWages:
+      "L’enquesta salarial de l’INE no publica percentils per a {territory}: les seves taules per comunitat cobreixen les disset comunitats autònomes i no les dues ciutats autònomes. No se substitueix per la xifra estatal.",
+    seeContext: "Veure els salaris de tot Espanya →",
+    povertyTitle: "Risc de pobresa o exclusió",
+    national: "Espanya",
+    povertyNote:
+      "Sèrie {base}. És una proporció de la població, no un recompte, i no es creua amb res més d’aquest web.",
+    noPoverty: "L’Enquesta de Condicions de Vida no publica aquest indicador per a aquest territori.",
+    hateTitle: "Delictes d’odi registrats",
+    hate:
+      "A {territory} consten {total} fets coneguts el {year}, una taxa de {rate} per cada 100.000 habitants davant de {national} al conjunt d’Espanya. Registrats per orientació sexual i identitat de gènere: {sogi}.",
+    hateNote:
+      "Són fets coneguts per les forces de seguretat, no incidència: una taxa més alta pot reflectir més denúncia i no més delicte.",
+    noHate: "L’informe no localitza fets coneguts en aquest territori.",
+    seeMap: "Veure el mapa complet →",
+    closing:
+      "Res d’aquesta pàgina uneix una xifra amb una altra. Que {territory} tingui una taxa determinada i que qui la presideix votés d’una manera són dos fets posats l’un al costat de l’altre, no una explicació.",
   },
   method: {
     title: "Metodologia i límits",

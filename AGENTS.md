@@ -229,6 +229,7 @@ children resolve their percentages against nothing and stack at one point.
 | `party/[nif]/page.tsx` | Party detail: formation switcher, public + private money, faces, ledger, group stances, court record, news |
 | `votaciones/page.tsx` | Tracked votes: the money→party→vote flow, then result, per-group breakdown, deputy search |
 | `derechos/page.tsx` | The rights section: the LGBTQ+ organisations' own feeds, with images, plus the source directory |
+| `donde/[provincia]/page.tsx` | What this site holds about one comunidad autónoma, reached by province: who presides, officeholders from there, wages, poverty, recorded hate crime — each beside its national figure |
 | `contexto/page.tsx` | The country the money is spent in: wages by sector, the payroll in multiples of the minimum wage, and the poverty indicators — INE figures, never joined to a vote |
 | `metodologia/page.tsx` | Methodology and legal caveats |
 
@@ -340,6 +341,8 @@ npm run build:hate-territory -- path/to/INFORME_odio_2024.pdf   # per-community 
 npm run build:regions          # projects the community geometry into data/regions.json
 curl http://localhost:3000/api/refresh   # subsidies (add the CRON_SECRET header if set)
 npm run build:ine              # INE wage and poverty series into data/indicators.json
+npm run build:provinces        # the 52 provinces and the comunidad each belongs to
+npm run check:territories      # guards the name join between the four sources; non-zero on an unknown spelling
 npm run check:feeds            # health-checks every news feed; non-zero on a dead or stale one
 npm run check:office-join      # guards the board-member → public-office join; non-zero on a break
 npm run check:investitures     # guards the investiture arithmetic; non-zero on a sum that does not close
