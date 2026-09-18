@@ -231,6 +231,7 @@ children resolve their percentages against nothing and stack at one point.
 | `derechos/page.tsx` | The rights section: the LGBTQ+ organisations' own feeds, with images, plus the source directory |
 | `donde/[provincia]/page.tsx` | What this site holds about one comunidad autónoma, reached by province: who presides, officeholders from there, wages, poverty, recorded hate crime — each beside its national figure |
 | `contexto/page.tsx` | The country the money is spent in: wages by sector, the payroll in multiples of the minimum wage, and the poverty indicators — INE figures, never joined to a vote |
+| `buscar/page.tsx` | One search across the register, parties, entities, comunidades, provinces, tracked divisions and the site's own sections — a form GET, server-rendered |
 | `datos/page.tsx` | Every dataset this site publishes, one section per table, each with a stable anchor, a row count, its source, and a CSV download |
 | `datos/[table]/route.ts` | The CSV itself, for one table id from `lib/datasets.ts` |
 | `metodologia/page.tsx` | Methodology and legal caveats |

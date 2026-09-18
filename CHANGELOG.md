@@ -96,6 +96,97 @@ table's comma-containing names confirmed correctly quoted; UTF-8 accents
 
 ---
 
+## 2026-09-17 — One search across everything, and it says what it does not search
+
+Until now a reader had to already know which of eleven pages held the thing they
+were looking for. An officeholder is on one page, the party that funds them on
+another, the foundation that party owns on a third, the comunidad they govern on
+a fourth. That is a map of the site's internals, not of anyone's question.
+
+`/buscar` searches all of it at once: the 6,670-row register, 28 parties, the
+audited entities, 19 comunidades, 52 provinces, the tracked divisions, and the
+site's own sections. A field sits in the masthead on every page.
+
+### A form GET, not a typeahead
+
+The whole thing is `<form role="search" method="get">` and a server render.
+
+That is a decision about cost, not an absence of effort. The register alone is
+1.8 MB; an index of it shipped to every visitor so that a few can have a
+dropdown charges every reader for the minority who search. A form GET costs
+nothing to anyone who does not use it, works with JavaScript off, produces a URL
+that can be sent to someone, and lets the browser's own navigation announce the
+change of context — which a typeahead has to reimplement and usually gets wrong.
+It is the shape `/politicos` already used.
+
+Queries run in about 180 ms end to end. The register is folded once per process
+rather than once per query: 6,670 names, posts and places is roughly 27,000
+`normalize()` calls, and the data does not change between deploys.
+
+### What it refuses to claim
+
+**It says what it searches.** Names and titles — not the text of the reports
+behind them. A word that appears only inside a Tribunal de Cuentas finding will
+not turn up, and without that sentence a reader would take an empty result as
+proof the word is not there.
+
+**A truncated list says how much it truncated.** Eight rows per group, with "and
+N more" printed underneath, so the eight never read as the whole answer.
+
+**A query that was never run does not report "no results".** Under two
+characters the search does not run at all, and the page says the query is too
+short rather than making a claim about the data.
+
+**The empty state says what an absence means.** "Something missing here does not
+mean it does not exist: this search looks only at names and titles."
+
+### Ranking, and the bug that made it necessary
+
+Groups were in a fixed order with the register first. Searching "pp" therefore
+listed a man called Giuseppe above the Partido Popular — a weak match in a big
+group beating an exact match in a small one.
+
+Groups are now ordered by their best match, with the fixed list left as the
+tie-break. "pp" leads with Partidos, "vivienda" with the tracked divisions on the
+housing law, "metodología" with the section, and "díaz" with people. Within a
+group the tiers are exact, then a word starting with the query, then anywhere;
+and a person matched on their post or town ranks below every person matched on
+their name, because when the query is a name that is what was asked for.
+
+The post and the town are matched as well as the name — thousands of these rows
+are mayors of small towns, so "alcalde de Soria" has to work — and both are
+printed beside every result, because a list of bare names where dozens of people
+share a surname is not an answer.
+
+### Two things caught in passing
+
+- **"1 resultados" does not agree in Spanish**, and a one-result query is common.
+  The count is now printed after a colon, which is correct at any number in all
+  three languages. Same fix as the hate-crime sentence two days ago; worth noting
+  that this is the second time, and that a plural-aware formatter would be the
+  real answer if a third appears.
+- **The masthead is a client component**, so anything handed to it is serialised
+  into the payload of every page. It was being given the whole `search` block,
+  including the scope paragraph and the empty-state hint — several hundred bytes
+  of prose only the results page renders. It now takes the three strings the
+  field prints.
+
+### Files
+
+- `lib/search.ts` (new) — the index, the ranking, and the folded register cache.
+- `app/[locale]/buscar/page.tsx` (new), `components/SearchBox.tsx` (new).
+- `components/Masthead.tsx`, `app/[locale]/layout.tsx` — the field in the nav row,
+  beside the locale toggle rather than as a twelfth tab: the tab row already
+  wraps, and a search field is not one of the site's sections.
+- `lib/i18n.ts` — a `search` block in all three locales.
+
+Verified: `npx tsc --noEmit` and `npm run build` clean, 393 static pages; queries
+checked across every result kind, including the empty state, the too-short state
+and the ranking fix; the contrast audit passes 34 pages with 0 inline-colour
+failures; no horizontal overflow at 375 px.
+
+---
+
 ## 2026-09-17 — "And where do you live?" — the site's first entry point that starts from the reader
 
 Every page here opens with a national figure and leaves the reader to work out
