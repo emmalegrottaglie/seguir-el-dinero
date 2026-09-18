@@ -316,11 +316,11 @@ const es = {
     lawLink: "Ley Orgánica 8/2007, disposición adicional séptima ↗",
     tableTitle: "Entidad por entidad",
     tableNote:
-      "Una fila por entidad, sumando los ejercicios que el informe fiscaliza. El partido es el que consta en el propio informe. La última columna cuenta los incumplimientos que el Tribunal recoge en su ficha.",
+      "Una tarjeta por entidad, sumando los ejercicios que el informe fiscaliza. El partido es el que consta en el propio informe. La barra reparte el total entre partido, empresas, particulares y subvención pública; ordenadas por lo que recibió cada una, de mayor a menor.",
     entity: "Entidad",
     party: "Partido",
     total: "Total recibido",
-    findings: "Incumplimientos",
+    boardCount: "{count} en el patronato",
     noPartyStated: "sin partido indicado",
     gapTitle: "Lo que no muestra",
     gapBody:
@@ -1195,11 +1195,11 @@ const en: Dict = {
     lawLink: "Ley Orgánica 8/2007, disposición adicional séptima ↗",
     tableTitle: "Entity by entity",
     tableNote:
-      "One row per entity, adding the exercises the report audits. The party is the one the report itself states. The last column counts the breaches the Tribunal records in that entity's own dossier.",
+      "One card per entity, adding the exercises the report audits. The party is the one the report itself states. The bar splits the total between party, corporate, individual and public money; sorted by what each one received, highest first.",
     entity: "Entity",
     party: "Party",
     total: "Total received",
-    findings: "Breaches",
+    boardCount: "{count} on the board",
     noPartyStated: "no party stated",
     gapTitle: "What this does not show",
     gapBody:
@@ -2072,11 +2072,11 @@ const ca: Dict = {
     lawLink: "Llei Orgànica 8/2007, disposició addicional setena ↗",
     tableTitle: "Entitat per entitat",
     tableNote:
-      "Una fila per entitat, sumant els exercicis que l'informe fiscalitza. El partit és el que consta al propi informe. L'última columna compta els incompliments que el Tribunal recull a la seva fitxa.",
+      "Una targeta per entitat, sumant els exercicis que l'informe fiscalitza. El partit és el que consta al propi informe. La barra reparteix el total entre partit, empreses, particulars i subvenció pública; ordenades pel que va rebre cadascuna, de més a menys.",
     entity: "Entitat",
     party: "Partit",
     total: "Total rebut",
-    findings: "Incompliments",
+    boardCount: "{count} al patronat",
     noPartyStated: "sense partit indicat",
     gapTitle: "Què no mostra",
     gapBody:
