@@ -1,3 +1,5 @@
+import Caveat from "@/components/Caveat";
+
 /**
  * The line under a chart that says where its numbers came from.
  *
@@ -9,8 +11,11 @@
  *
  * `note` is for what the reader must know to read the chart correctly — a
  * definition that differs from the obvious one, a population the figure
- * excludes. It sits in the source line rather than in the prose above because a
- * caveat a reader meets after the chart is a caveat they meet too late.
+ * excludes. It renders collapsed, one click below the citation, via `Caveat`:
+ * the sentence used to sit here fully expanded on every chart on the site,
+ * which read as noise on the pages that had several. Nothing in `note` is
+ * shortened for this — the full sentence is still there, just not forced on
+ * every reader who already trusts the number.
  */
 export interface ChartSource {
   /** The producing body, e.g. "INE" or "Tribunal de Cuentas". */
@@ -25,25 +30,34 @@ export interface ChartSource {
 export default function SourceLine({
   sources,
   note,
+  caveatLabel,
   className = "",
 }: {
   sources: ChartSource[];
   note?: string;
+  /** Label for the collapsed note's toggle. Required when `note` is set. */
+  caveatLabel?: string;
   className?: string;
 }) {
   return (
-    <p className={`label-mono mt-3 text-[var(--ink-3)] ${className}`}>
-      {sources.map((s, i) => (
-        <span key={s.url + s.name}>
-          {i > 0 && " · "}
-          <a className="src" href={s.url} target="_blank" rel="noopener noreferrer">
-            {s.publisher}
-          </a>
-          {" "}
-          {s.name} ({s.period})
-        </span>
-      ))}
-      {note && <span className="block normal-case">{note}</span>}
-    </p>
+    <div className={className}>
+      <p className="label-mono mt-3 text-[var(--ink-3)]">
+        {sources.map((s, i) => (
+          <span key={s.url + s.name}>
+            {i > 0 && " · "}
+            <a className="src" href={s.url} target="_blank" rel="noopener noreferrer">
+              {s.publisher}
+            </a>
+            {" "}
+            {s.name} ({s.period})
+          </span>
+        ))}
+      </p>
+      {note && caveatLabel && (
+        <Caveat label={caveatLabel} className="mt-1.5">
+          {note}
+        </Caveat>
+      )}
+    </div>
   );
 }

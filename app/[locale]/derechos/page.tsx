@@ -3,6 +3,7 @@ import { getDict, relativeTime } from "@/lib/i18n";
 import { fetchTopicNews } from "@/lib/news";
 import { NEWS_SOURCES } from "@/lib/news-sources.mjs";
 import ArticleCard from "@/components/ArticleCard";
+import Caveat from "@/components/Caveat";
 
 // Half an hour, matching /api/news. The feeds themselves publish far less
 // often than that, and the registry's own staleness guards are in lib/news.
@@ -161,9 +162,9 @@ export default async function DerechosPage({
         </p>
       )}
 
-      <p className="mt-12 max-w-3xl text-sm leading-relaxed text-[var(--ink-3)]">
+      <Caveat label={t.common.caveat} className="mt-12">
         {r.caveat}
-      </p>
+      </Caveat>
 
       <p className="label-mono mt-6">
         <Link className="src" href={`/${locale}/metodologia`}>

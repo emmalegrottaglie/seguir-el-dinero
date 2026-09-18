@@ -241,6 +241,7 @@ const es = {
     backToPanel: "← Volver al panel",
     backToFaces: "← Caras",
     nif: "NIF",
+    caveat: "Qué hay que saber",
   },
   blocs: {
     derecha: "Derecha",
@@ -1031,6 +1032,7 @@ const en: Dict = {
     backToPanel: "← Back to dashboard",
     backToFaces: "← Faces",
     nif: "Tax ID",
+    caveat: "What to know",
   },
   blocs: {
     derecha: "Right",
@@ -1819,6 +1821,7 @@ const ca: Dict = {
     backToPanel: "← Tornar al tauler",
     backToFaces: "← Cares",
     nif: "NIF",
+    caveat: "Què cal saber",
   },
   blocs: {
     derecha: "Dreta",

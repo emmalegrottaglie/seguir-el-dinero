@@ -4,6 +4,7 @@ import { euroExact, integer } from "@/lib/format";
 import { PARTIES } from "@/lib/parties";
 import { TRANCHE_COLORS } from "@/lib/chart-colors";
 import Bar, { BarLegend, type Segment } from "./chart/Bar";
+import Caveat from "./Caveat";
 import type { Dict, Locale } from "@/lib/i18n";
 
 /**
@@ -132,9 +133,9 @@ export default function DonationsTable({
           { value: 1, color: TRANCHE_COLORS.large, label: F.trancheLarge },
         ]}
       />
-      <p className="mt-2" style={{ fontSize: "11.5px", color: "var(--ink-3)" }}>
+      <Caveat label={t.common.caveat} className="mt-2">
         {F.barNote}
-      </p>
+      </Caveat>
 
       <p
         className="mt-4"

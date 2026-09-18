@@ -307,7 +307,10 @@ and the section stat strips, one component because the anatomy is identical), `S
 `DonationsTable`, `ElectoralSpending`, `VoteFlow` (the money→party→vote ribbons), `RightsMap`
 (the only client-side chart), `CourtRecords`, `PartySwitcher`, `FoundationChannel` +
 `FoundationGovernance`, `Dashboard` (party funding, client), `StanceByGroup`, `ArticleCard`,
-`Avatar` + `PhotoCredit`, `NewsFeed`, `BlueskyFeed`, `CountUp`, `LocaleToggle`.
+`Avatar` + `PhotoCredit`, `NewsFeed`, `BlueskyFeed`, `CountUp`, `LocaleToggle`, `Caveat` (a
+`<details>`-based progressive-disclosure wrapper — `SourceLine`'s `note` renders through it, and
+it is the standard way to collapse a limitation without deleting it; see the "Every caveat is
+still there" entry in `CHANGELOG.md` for which caveats were and were not converted, and why).
 
 Data files in `data/`: `subsidies.json` (live), `salaries.json` (~1.7 MB), `votes.json`,
 `photos.json`, `foundations.json`, `electoral-spending.json`, `regions.json` (projected SVG

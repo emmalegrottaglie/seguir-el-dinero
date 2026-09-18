@@ -13,6 +13,7 @@ import CourtRecords from "@/components/CourtRecords";
 import PartySwitcher from "@/components/PartySwitcher";
 import { TRANCHE_COLORS } from "@/lib/chart-colors";
 import Bar, { type Segment } from "@/components/chart/Bar";
+import Caveat from "@/components/Caveat";
 import type { SubsidyKind } from "@/lib/types";
 
 export const revalidate = 3600;
@@ -343,9 +344,9 @@ export default async function PartyPage({
               );
             })}
           </ul>
-          <p className="mt-3" style={{ fontSize: "11.5px", lineHeight: 1.5, color: "var(--ink-3)" }}>
+          <Caveat label={t.common.caveat} className="mt-3">
             {t.party.stanceNote}
-          </p>
+          </Caveat>
         </div>
 
         <div>

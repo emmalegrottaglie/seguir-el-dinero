@@ -5,6 +5,86 @@ figures name their source; corrections and gaps are recorded alongside the work,
 
 ---
 
+## 2026-09-18 — Every caveat is still there, just not shouting
+
+This site's honesty rule has always been that a stated gap beats a possibly-wrong
+number, and for a while that meant every limitation was printed in full, always
+expanded, on every page that had one. Readable and honest pulled against each
+other: a page with three caveats read as three warnings competing with the
+figures they were explaining. Nothing here removes a single sentence. It changes
+whether the sentence is visible by default.
+
+### `Caveat`: a `<details>`, not a client component
+
+`components/Caveat.tsx` is a native `<details>`/`<summary>` pair — closed by
+default, a small "+ Qué hay que saber" toggle, the full text one click away.
+No JavaScript ships for this: the browser owns open/closed state, and the
+element degrades to a plain expandable disclosure with no JS at all. That is
+the same preference this site already follows for the search box and the
+sortable territory table — reach for the platform's own affordance before a
+library.
+
+`SourceLine`'s existing `note` prop is the main beneficiary: it used to render
+a caveat sentence inline inside the citation's own `<p>`, always expanded, on
+every chart that had one. `note` now renders through `Caveat` instead — the
+same sentence, collapsed, as a sibling of the citation rather than crammed
+inside it (a `<details>` cannot legally sit inside a `<p>`).
+
+### What got collapsed, and what deliberately did not
+
+Nine sites converted: the three INE-indicator caveats on `/contexto` (the
+low-sample flag, the SMI-tranches rationale, the AROPE-base note), `/donde`'s
+two standalone paragraphs (the register's territory-gap count, the closing
+"nothing here is joined" line), the two chart-scaling notes on the donations
+and electoral-spending bars, the foundation-channel's counterparty and
+per-entity table notes, who-governs-a-foundation's inference-discipline note,
+the parliamentary-group-is-not-a-party distinction, a party's stance-counting
+method, and the rights page's own methodology caveat.
+
+Left alone, on purpose:
+
+- **A caveat that reframes the headline figures themselves** — `/contexto`'s
+  part-time/full-time wage warning ("ninguna de estas cifras es «lo que paga
+  un puesto»") and the funding page's corporate-donation-ban paragraph. These
+  are not footnotes a reader can skip; they change how the number above them
+  should be read at all, so they stay in the main flow.
+- **A legend needed to read the chart in front of you** — the map's
+  active-layer caption, and a table's column definitions. Hiding these would
+  make the chart harder to read, not easier — the opposite of the goal.
+- **The sole content of an already-minimal empty state** — a party with no
+  court record gets one explicit card saying so; collapsing its own
+  explanation would hide the one thing the card exists to say.
+- **A caveat already gated behind an interaction** — the map's per-community
+  hover panel is itself opt-in; collapsing text inside something you already
+  had to click to see would be disclosure squared, not progressive disclosure.
+- **`CoverageChart`**, because it lives only on `/metodologia`, which this
+  pass leaves untouched — that page is the one place a reader chooses to see
+  everything expanded, and it should stay that way.
+- **Verbatim quoted findings** (a foundation dossier's `deal.text`) — these
+  are evidence, not a hedge about the evidence, and quoting them collapsed
+  would read as this site hiding something rather than citing it.
+
+### Files
+
+- `components/Caveat.tsx` (new).
+- `components/chart/SourceLine.tsx` — `note` now renders through `Caveat`;
+  callers must also pass `caveatLabel` or the note is dropped rather than
+  shown ungated, so every existing call site was updated alongside it.
+- `app/globals.css` — `.caveat > summary` styling: `content` markers rather
+  than the browser's own disclosure triangle, `--gold-deep` to match `.src`.
+- `lib/i18n.ts` — `common.caveat`, the toggle label, in all three locales.
+- Nine call sites across `app/[locale]/{contexto,derechos,donde,party}` and
+  `components/{DonationsTable,ElectoralSpending,FoundationChannel,
+  FoundationGovernance,GroupBreakdown,PovertyPanel,SmiLadder,WageLadder}`.
+
+Verified: `npx tsc --noEmit` and `npm run build` clean; every collapsed
+caveat's full sentence confirmed present in the server-rendered HTML (so it
+is not lost, only closed) and confirmed to open on click; the site-wide
+`+`/`–` toggle checked against `.src`'s existing colour rather than a new
+one; mobile (375 px) checked with no overflow.
+
+---
+
 ## 2026-09-17 — "And where do you live?" — the site's first entry point that starts from the reader
 
 Every page here opens with a national figure and leaves the reader to work out

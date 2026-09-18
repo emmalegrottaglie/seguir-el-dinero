@@ -29,10 +29,12 @@ export default function SmiLadder({
   indicators,
   t,
   bcp47,
+  caveatLabel,
 }: {
   indicators: Indicators;
   t: Dict["contexto"];
   bcp47: string;
+  caveatLabel: string;
 }) {
   const S = t.smi;
   const tranches = smiLadder(indicators);
@@ -80,6 +82,7 @@ export default function SmiLadder({
       <SourceLine
         sources={[{ publisher: "INE", name: src.name, period: src.period, url: src.url }]}
         note={S.sourceNote}
+        caveatLabel={caveatLabel}
       />
     </section>
   );

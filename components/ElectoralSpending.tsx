@@ -9,6 +9,7 @@ import { euroExact, integer, percent } from "@/lib/format";
 import { formationColor } from "@/lib/spending";
 import { SPEND_COLORS } from "@/lib/chart-colors";
 import Bar, { BarLegend, type Segment } from "./chart/Bar";
+import Caveat from "./Caveat";
 import type { Dict } from "@/lib/i18n";
 import SpendDonut, { type DonutSlice } from "./SpendDonut";
 
@@ -243,9 +244,9 @@ export default function ElectoralSpending({
           { value: 1, color: SPEND_COLORS.residual, label: s.unexplained },
         ]}
       />
-      <p className="mt-2" style={{ fontSize: "11.5px", color: "var(--ink-3)" }}>
+      <Caveat label={t.common.caveat} className="mt-2">
         {s.barNote}
-      </p>
+      </Caveat>
 
       <div className="panel mt-8 p-5">
         <p className="eyebrow mb-2.5">{s.gapTitle}</p>
