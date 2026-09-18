@@ -46,6 +46,7 @@ export default function Masthead({
     { href: `/${locale}/mapa`, label: nav.map, voice: "org" },
     { href: `/${locale}/politicos`, label: nav.people },
     { href: `/${locale}/contexto`, label: nav.context },
+    { href: `/${locale}/datos`, label: nav.data },
     { href: `/${locale}/metodologia`, label: nav.methodology },
   ];
 

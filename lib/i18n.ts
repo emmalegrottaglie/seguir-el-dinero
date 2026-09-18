@@ -26,6 +26,7 @@ const es = {
     rights: "Derechos",
     map: "Mapa",
     foundations: "Fundaciones",
+    data: "Datos",
     sectionData: "Datos",
     sectionAbout: "Sobre",
     menu: "Menú",
@@ -794,6 +795,69 @@ const es = {
     src2: "Tribunal de Cuentas — partidos políticos ↗",
     src3: "Ley Orgánica 8/2007 sobre financiación de partidos ↗",
   },
+  datos: {
+    eyebrow: "Descargas",
+    title: "Los datos, tabla por tabla",
+    lead: "Las mismas cifras que el resto del sitio, no una extracción nueva: cada tabla de aquí abajo es la que ya alimenta sus páginas, en un CSV descargable. El enlace a cada tabla es permanente, para poder citarla.",
+    rows: "{count} filas",
+    download: "Descargar CSV",
+    perRowSourced: "Cada fila lleva su propia fuente y fecha, en las columnas fuente_*: esta tabla no comparte una única fuente.",
+    columnsNote: "Las cabeceras de columna son fijas y no cambian con el idioma de esta página.",
+    tables: {
+      subsidios: {
+        title: "Subvenciones públicas a partidos",
+        description: "Cada concesión de la BDNS a un partido político, una fila por concesión.",
+      },
+      donaciones: {
+        title: "Donaciones privadas, 2020",
+        description: "Donaciones privadas del ejercicio 2020, por partido y tramo, según el Tribunal de Cuentas.",
+      },
+      fundaciones: {
+        title: "Fundaciones vinculadas a partidos",
+        description: "Un dossier por entidad y ejercicio, del informe 1.642 del Tribunal de Cuentas.",
+      },
+      fundaciones_cargos: {
+        title: "Quién gobierna esas fundaciones",
+        description: "Personas con un cargo en el patronato de una fundación vinculada, con la fuente de cada nombramiento.",
+      },
+      fundaciones_vinculos: {
+        title: "Sus otros cargos",
+        description: "Los cargos que esas mismas personas tienen fuera de la fundación — empresa, gobierno u otro organismo.",
+      },
+      gasto_electoral: {
+        title: "Gasto electoral declarado",
+        description: "Lo que cada formación declaró haber gastado en las elecciones al Parlamento Europeo de 2024, por partida.",
+      },
+      salarios: {
+        title: "Registro de altos cargos",
+        description: "6.670 cargos públicos, con su puesto, su partido y su retribución.",
+      },
+      votaciones: {
+        title: "Votaciones nominales",
+        description: "Cada voto registrado en las votaciones que este sitio sigue, una fila por diputado y votación.",
+      },
+      delitos_odio: {
+        title: "Delitos de odio por comunidad",
+        description: "Hechos registrados por comunidad autónoma, con la tasa por 100.000 habitantes.",
+      },
+      gobiernos: {
+        title: "Presidencias autonómicas",
+        description: "Quién preside cada comunidad autónoma, y desde cuándo.",
+      },
+      provincias: {
+        title: "Provincias y comunidades",
+        description: "Las 52 provincias y la comunidad autónoma a la que pertenece cada una.",
+      },
+      salarios_ine: {
+        title: "Salarios — INE",
+        description: "Salario por sector, tipo de jornada, percentil y tramo de SMI, según la Encuesta Anual de Estructura Salarial.",
+      },
+      pobreza_ine: {
+        title: "Pobreza y exclusión — INE",
+        description: "Tasas AROPE nacionales y por comunidad autónoma, según la Encuesta de Condiciones de Vida.",
+      },
+    },
+  },
 };
 
 type Dict = typeof es;
@@ -816,6 +880,7 @@ const en: Dict = {
     rights: "Rights",
     map: "Map",
     foundations: "Foundations",
+    data: "Data",
     sectionData: "Data",
     sectionAbout: "About",
     menu: "Menu",
@@ -1584,6 +1649,69 @@ const en: Dict = {
     src2: "Court of Auditors — political parties ↗",
     src3: "Organic Law 8/2007 on party financing ↗",
   },
+  datos: {
+    eyebrow: "Downloads",
+    title: "The data, table by table",
+    lead: "The same figures the rest of the site shows, not a new extraction: every table below is the one already feeding its pages, as a downloadable CSV. Each table's link is permanent, so it can be cited.",
+    rows: "{count} rows",
+    download: "Download CSV",
+    perRowSourced: "Every row carries its own source and date, in the source_* columns: this table has no single shared source.",
+    columnsNote: "Column headers are fixed and do not change with this page's language.",
+    tables: {
+      subsidios: {
+        title: "Public subsidies to parties",
+        description: "Every BDNS grant to a political party, one row per grant.",
+      },
+      donaciones: {
+        title: "Private donations, 2020",
+        description: "Private donations for 2020, by party and tranche, per the Court of Auditors.",
+      },
+      fundaciones: {
+        title: "Party-linked foundations",
+        description: "One dossier per entity and exercise, from Court of Auditors report 1.642.",
+      },
+      fundaciones_cargos: {
+        title: "Who governs those foundations",
+        description: "People holding a board role in a party-linked foundation, with the source of each appointment.",
+      },
+      fundaciones_vinculos: {
+        title: "Their other roles",
+        description: "Roles those same people hold outside the foundation — a company, a government post, another body.",
+      },
+      gasto_electoral: {
+        title: "Declared election spending",
+        description: "What each formation declared spending in the 2024 European Parliament election, by line.",
+      },
+      salarios: {
+        title: "Officeholder register",
+        description: "6,670 public office-holders, with their post, party and pay.",
+      },
+      votaciones: {
+        title: "Roll-call votes",
+        description: "Every recorded vote in the divisions this site tracks, one row per deputy and division.",
+      },
+      delitos_odio: {
+        title: "Hate crime by comunidad",
+        description: "Recorded incidents by autonomous community, with the rate per 100,000 residents.",
+      },
+      gobiernos: {
+        title: "Regional presidencies",
+        description: "Who presides each autonomous community, and since when.",
+      },
+      provincias: {
+        title: "Provinces and comunidades",
+        description: "The 52 provinces and the autonomous community each one sits in.",
+      },
+      salarios_ine: {
+        title: "Wages — INE",
+        description: "Wages by sector, contract type, percentile and minimum-wage tranche, per the annual wage structure survey.",
+      },
+      pobreza_ine: {
+        title: "Poverty and exclusion — INE",
+        description: "National and regional AROPE rates, per the Survey on Income and Living Conditions.",
+      },
+    },
+  },
 };
 
 const ca: Dict = {
@@ -1604,6 +1732,7 @@ const ca: Dict = {
     rights: "Drets",
     map: "Mapa",
     foundations: "Fundacions",
+    data: "Dades",
     sectionData: "Dades",
     sectionAbout: "Sobre",
     menu: "Menú",
@@ -2371,6 +2500,69 @@ const ca: Dict = {
     src1: "BDNS / SNPSAP — concessions a partits polítics ↗",
     src2: "Tribunal de Comptes — partits polítics ↗",
     src3: "Llei Orgànica 8/2007 sobre finançament de partits ↗",
+  },
+  datos: {
+    eyebrow: "Descàrregues",
+    title: "Les dades, taula per taula",
+    lead: "Les mateixes xifres que la resta del lloc, no una extracció nova: cada taula d'aquí sota és la que ja alimenta les seves pàgines, en un CSV descarregable. L'enllaç a cada taula és permanent, per poder-la citar.",
+    rows: "{count} files",
+    download: "Descarregar CSV",
+    perRowSourced: "Cada fila porta la seva pròpia font i data, a les columnes fuente_*: aquesta taula no comparteix una única font.",
+    columnsNote: "Les capçaleres de columna són fixes i no canvien amb l'idioma d'aquesta pàgina.",
+    tables: {
+      subsidios: {
+        title: "Subvencions públiques a partits",
+        description: "Cada concessió de la BDNS a un partit polític, una fila per concessió.",
+      },
+      donaciones: {
+        title: "Donacions privades, 2020",
+        description: "Donacions privades de l'exercici 2020, per partit i tram, segons el Tribunal de Comptes.",
+      },
+      fundaciones: {
+        title: "Fundacions vinculades a partits",
+        description: "Un dossier per entitat i exercici, de l'informe 1.642 del Tribunal de Comptes.",
+      },
+      fundaciones_cargos: {
+        title: "Qui governa aquestes fundacions",
+        description: "Persones amb un càrrec al patronat d'una fundació vinculada, amb la font de cada nomenament.",
+      },
+      fundaciones_vinculos: {
+        title: "Els seus altres càrrecs",
+        description: "Els càrrecs que aquestes mateixes persones tenen fora de la fundació — empresa, govern o un altre organisme.",
+      },
+      gasto_electoral: {
+        title: "Despesa electoral declarada",
+        description: "El que cada formació va declarar haver gastat a les eleccions al Parlament Europeu de 2024, per partida.",
+      },
+      salarios: {
+        title: "Registre d'alts càrrecs",
+        description: "6.670 càrrecs públics, amb el seu lloc, el seu partit i la seva retribució.",
+      },
+      votaciones: {
+        title: "Votacions nominals",
+        description: "Cada vot registrat a les votacions que aquest lloc segueix, una fila per diputat i votació.",
+      },
+      delitos_odio: {
+        title: "Delictes d'odi per comunitat",
+        description: "Fets registrats per comunitat autònoma, amb la taxa per 100.000 habitants.",
+      },
+      gobiernos: {
+        title: "Presidències autonòmiques",
+        description: "Qui presideix cada comunitat autònoma, i des de quan.",
+      },
+      provincias: {
+        title: "Províncies i comunitats",
+        description: "Les 52 províncies i la comunitat autònoma a la qual pertany cadascuna.",
+      },
+      salarios_ine: {
+        title: "Salaris — INE",
+        description: "Salari per sector, tipus de jornada, percentil i tram de SMI, segons l'Enquesta Anual d'Estructura Salarial.",
+      },
+      pobreza_ine: {
+        title: "Pobresa i exclusió — INE",
+        description: "Taxes AROPE nacionals i per comunitat autònoma, segons l'Enquesta de Condicions de Vida.",
+      },
+    },
   },
 };
 

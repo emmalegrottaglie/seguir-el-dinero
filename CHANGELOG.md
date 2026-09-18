@@ -5,6 +5,97 @@ figures name their source; corrections and gaps are recorded alongside the work,
 
 ---
 
+## 2026-09-18 — Every table, as a CSV, with a permanent link
+
+Until now the only way to take a figure off this site was to copy it out of a
+sentence. `/datos` is the fix: thirteen tables, one per published dataset, each
+downloadable as a CSV and each with a stable anchor — `/es/datos#salarios` names
+one table, not "the site's data" in general, so a specific figure can be cited
+rather than described.
+
+### Not a new extraction
+
+Every table in `lib/datasets.ts` is built from the same loader the rest of the
+site already calls — `getSalaries()`, `getVotes()`, `getFoundations()`, and so
+on. Nothing here re-reads a report or re-derives a number; a row count on
+`/datos` and the count implied by the chart on another page come from the same
+function, so they cannot drift apart. The registry is one file: a table added
+there appears on the page and at its download route with nothing else to touch.
+
+Thirteen tables: BDNS subsidies (232 rows), 2020 private donations (17), the
+70 party-foundation dossiers, who governs those foundations and their outside
+ties (54 + 18, each row individually sourced), declared electoral spending (8),
+the 6,670-row officeholder register, 3,145 roll-call ballots, hate crime by
+comunidad (19), regional presidencies (19), the 52 provinces, and two INE
+tables — wages (444 rows across sector/jornada/percentile/SMI-tranche) and
+poverty (176, national and regional AROPE).
+
+### What a download route buys that a table on a page does not
+
+The CSV columns are fixed, cross-locale identifiers — `retribucion_bruta_anual_eur`,
+not a translated header — because a script reading one of these files by column
+name should not break depending on which of the three locales downloaded it.
+What *is* localised is each table's title and one-sentence description on
+`/datos`; the data underneath is the same file regardless of language, so
+`/es/datos/salarios` and `/en/datos/salarios` serve byte-identical content.
+
+A UTF-8 BOM is prepended (`lib/csv.ts`) because Excel — still the tool most
+people who ask for "the raw data" actually open it in — guesses Windows-1252
+without one, and every accented name in the register would render wrong.
+Fields are quoted per RFC 4180; the roll-call table is what actually exercises
+that path, since the Congreso's own deputy names are published as
+"Apellidos, Nombre" — a literal comma inside a field that must survive being a
+CSV field and not become a fourth column.
+
+Two tables — who governs a party foundation, and what else those people hold —
+have no single publisher to cite: each row's source is a different dated
+record, already in its own `fuente_*` columns. `/datos` says so explicitly
+rather than attaching one source line that would only be true for some rows.
+
+### Two source lines that would have shipped with empty parentheses
+
+`SourceLine` renders `{publisher} {name} ({period})` unconditionally, and two
+of the thirteen tables had nothing to put in `period`: the roll-call votes
+(no single date — the tracked divisions span 2023–2026) and the province
+table (a classification, not a series — INE gives it no period at all). Caught
+in the browser rather than in review: both rendered as "… ()". Fixed by
+computing the vote date range from the data itself rather than leaving it
+blank, and by stating "vigente" for the province table, since a classification
+table does have a truth condition — it is either current or superseded — even
+though it has no period in the sense a survey does.
+
+### Files
+
+- `lib/datasets.ts` (new) — the registry: thirteen `{id, count, sources, csv}`
+  definitions, each a thin wrapper over an existing loader.
+- `lib/csv.ts` (new) — the RFC 4180 writer.
+- `app/[locale]/datos/page.tsx` (new) — the index: one section per table, each
+  with its `id`, row count, source line (or the per-row-sourced note), and a
+  download link.
+- `app/[locale]/datos/[table]/route.ts` (new) — the CSV itself, keyed by table
+  id rather than by locale.
+- `components/Masthead.tsx` — a `Datos` tab between Contexto and Metodología.
+- `lib/i18n.ts` — a `datos` block in all three locales: page copy plus a
+  title/description pair per table.
+- `AGENTS.md` — routes and library tables.
+
+### A branch that was two merges behind `main`
+
+Before starting this, `main` was missing both the postcode entry point (#20)
+and site-wide search (#21): #21's base was `feat/where-you-live`, not `main`,
+so merging it only updated that branch. Opened a housekeeping PR to land both
+on `main` and branched this work from plain `main` instead of stacking again,
+since `/datos` depends on neither feature.
+
+Verified: `npx tsc --noEmit` and `npm run build` clean, 393 static pages (up
+from 390); all thirteen CSV downloads checked by HTTP status and row count
+against the page's own count, for an exact match on every table; the roll-call
+table's comma-containing names confirmed correctly quoted; UTF-8 accents
+(`Álava`, `Cáceres`) confirmed intact in the raw bytes; the mobile layout
+(375 px) checked with no horizontal overflow.
+
+---
+
 ## 2026-09-17 — "And where do you live?" — the site's first entry point that starts from the reader
 
 Every page here opens with a national figure and leaves the reader to work out
