@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { Dict, Locale } from "@/lib/i18n";
 import LocaleToggle from "./LocaleToggle";
+import SearchBox, { type SearchBoxStrings } from "./SearchBox";
 
 interface Tab {
   href: string;
@@ -28,11 +29,13 @@ export default function Masthead({
   locale,
   nav,
   masthead,
+  search,
   dateline,
 }: {
   locale: Locale;
   nav: Dict["nav"];
   masthead: Dict["masthead"];
+  search: SearchBoxStrings;
   dateline: string;
 }) {
   const pathname = usePathname();
@@ -135,7 +138,11 @@ export default function Masthead({
             </Link>
           );
         })}
-        <div className="ml-auto flex items-center pl-4 pr-1">
+        {/* Search sits with the locale toggle rather than as a twelfth tab:
+            the tab row already wraps to four lines on a phone, and a search
+            field is not one of the site's sections. */}
+        <div className="flex w-full items-center gap-4 py-1.5 pl-4 pr-1 sm:ml-auto sm:w-auto">
+          <SearchBox locale={locale} t={search} className="min-w-0 flex-1 sm:flex-none" />
           <LocaleToggle current={locale} />
         </div>
       </nav>

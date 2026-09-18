@@ -724,6 +724,30 @@ const es = {
     closing:
       "Nada de esta página une una cifra con otra. Que {territory} tenga una tasa determinada y que quien la preside votara de una manera son dos hechos puestos uno al lado del otro, no una explicación.",
   },
+  search: {
+    label: "Buscar en la web",
+    placeholder: "Buscar…",
+    submit: "Buscar",
+    eyebrow: "Búsqueda",
+    title: "Buscar",
+    scope:
+      "Busca nombres y títulos: personas del registro de altos cargos con su puesto y su municipio, partidos, fundaciones vinculadas, comunidades, provincias, votaciones seguidas y secciones de la web. No busca dentro del texto de los informes, así que una palabra que sólo aparezca en un hallazgo del Tribunal de Cuentas no saldrá aquí.",
+    count: "Resultados para «{query}»: {total}",
+    more: "y {more} más",
+    tooShort: "Escriba al menos {min} letras.",
+    empty: "No hay resultados para «{query}».",
+    emptyHint:
+      "Pruebe con menos palabras, o con el apellido en lugar del nombre completo. Los acentos no importan. Que algo no salga aquí no significa que no exista: esta búsqueda sólo mira nombres y títulos.",
+    kinds: {
+      person: "Cargos públicos",
+      party: "Partidos",
+      foundation: "Fundaciones y entidades",
+      territory: "Comunidades autónomas",
+      province: "Provincias",
+      vote: "Votaciones seguidas",
+      page: "Secciones",
+    },
+  },
   method: {
     title: "Metodología y límites",
     lead: "Esta herramienta es honesta sobre lo que puede y no puede mostrar. Léelo antes de sacar conclusiones.",
@@ -1515,6 +1539,30 @@ const en: Dict = {
     closing:
       "Nothing on this page joins one figure to another. That {territory} has a given rate and that whoever presides over it voted a given way are two facts placed side by side, not an explanation.",
   },
+  search: {
+    label: "Search the site",
+    placeholder: "Search…",
+    submit: "Search",
+    eyebrow: "Search",
+    title: "Search",
+    scope:
+      "Searches names and titles: people in the senior appointments register along with their post and town, parties, linked foundations, comunidades, provinces, tracked divisions and the site's own sections. It does not search inside the text of the reports, so a word that appears only in a Tribunal de Cuentas finding will not turn up here.",
+    count: "Results for “{query}”: {total}",
+    more: "and {more} more",
+    tooShort: "Type at least {min} letters.",
+    empty: "No results for “{query}”.",
+    emptyHint:
+      "Try fewer words, or a surname rather than a full name. Accents do not matter. Something missing here does not mean it does not exist: this search looks only at names and titles.",
+    kinds: {
+      person: "Officeholders",
+      party: "Parties",
+      foundation: "Foundations and entities",
+      territory: "Comunidades autónomas",
+      province: "Provinces",
+      vote: "Tracked divisions",
+      page: "Sections",
+    },
+  },
   method: {
     title: "Methodology and limits",
     lead: "This tool is honest about what it can and cannot show. Read this before drawing conclusions.",
@@ -2303,6 +2351,30 @@ const ca: Dict = {
     seeMap: "Veure el mapa complet →",
     closing:
       "Res d’aquesta pàgina uneix una xifra amb una altra. Que {territory} tingui una taxa determinada i que qui la presideix votés d’una manera són dos fets posats l’un al costat de l’altre, no una explicació.",
+  },
+  search: {
+    label: "Cercar al web",
+    placeholder: "Cercar…",
+    submit: "Cercar",
+    eyebrow: "Cerca",
+    title: "Cercar",
+    scope:
+      "Cerca noms i títols: persones del registre d’alts càrrecs amb el seu lloc i el seu municipi, partits, fundacions vinculades, comunitats, províncies, votacions seguides i seccions del web. No cerca dins del text dels informes, així que una paraula que només aparegui en una troballa del Tribunal de Comptes no hi sortirà.",
+    count: "Resultats per a «{query}»: {total}",
+    more: "i {more} més",
+    tooShort: "Escrigui almenys {min} lletres.",
+    empty: "No hi ha resultats per a «{query}».",
+    emptyHint:
+      "Provi amb menys paraules, o amb el cognom en lloc del nom complet. Els accents no hi fan res. Que una cosa no hi surti no vol dir que no existeixi: aquesta cerca només mira noms i títols.",
+    kinds: {
+      person: "Càrrecs públics",
+      party: "Partits",
+      foundation: "Fundacions i entitats",
+      territory: "Comunitats autònomes",
+      province: "Províncies",
+      vote: "Votacions seguides",
+      page: "Seccions",
+    },
   },
   method: {
     title: "Metodologia i límits",
