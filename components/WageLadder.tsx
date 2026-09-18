@@ -23,10 +23,12 @@ export default function WageLadder({
   indicators,
   t,
   bcp47,
+  caveatLabel,
 }: {
   indicators: Indicators;
   t: Dict["contexto"];
   bcp47: string;
+  caveatLabel: string;
 }) {
   const W = t.wages;
   const ladder = sectorLadder(indicators);
@@ -81,6 +83,7 @@ export default function WageLadder({
           { publisher: "INE", name: pct.name, period: pct.period, url: pct.url },
         ]}
         note={W.sourceNote}
+        caveatLabel={caveatLabel}
       />
 
       {/* The single caveat that changes how every figure above should be read:

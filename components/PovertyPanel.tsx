@@ -35,10 +35,12 @@ export default function PovertyPanel({
   indicators,
   t,
   bcp47,
+  caveatLabel,
 }: {
   indicators: Indicators;
   t: Dict["contexto"];
   bcp47: string;
+  caveatLabel: string;
 }) {
   const P = t.poverty;
   const src = sourceFor(indicators, "povertyNational");
@@ -126,6 +128,7 @@ export default function PovertyPanel({
             ? P.base.replace("{base}", bases[0])
             : P.multipleBases.replace("{bases}", bases.join(", ")).replace("{shown}", AROPE_BASE)
         }
+        caveatLabel={caveatLabel}
       />
 
       <p className="mt-6 leading-relaxed text-[var(--ink-3)]">{P.note}</p>

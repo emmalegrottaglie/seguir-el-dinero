@@ -4,6 +4,7 @@ import { tallyByGroup } from "@/lib/votes";
 import { groupInfo, groupParty, GROUPS_SOURCE } from "@/lib/groups";
 import { STANCE_COLORS } from "@/lib/chart-colors";
 import Bar from "./chart/Bar";
+import Caveat from "./Caveat";
 import type { Dict, Locale } from "@/lib/i18n";
 
 /**
@@ -153,13 +154,12 @@ export default function GroupBreakdown({
         </tbody>
       </table>
 
-      {/* Not label-mono: it uppercases, and this is prose. */}
-      <p className="mt-4 max-w-3xl text-xs leading-relaxed text-[var(--ink-3)]">
+      <Caveat label={t.common.caveat} className="mt-4">
         {v.groupNote}{" "}
         <a className="src" href={GROUPS_SOURCE} target="_blank" rel="noopener noreferrer">
           {v.groupSource}
         </a>
-      </p>
+      </Caveat>
     </div>
   );
 }

@@ -12,6 +12,7 @@ import { governanceCoverage } from "@/lib/foundation-people";
 import type { OfficeJoin } from "@/lib/officeholder-ties";
 import { CHANNEL_COLORS } from "@/lib/chart-colors";
 import Bar, { BarLegend, type Segment } from "./chart/Bar";
+import Caveat from "./Caveat";
 import { euro, euroCompact, formatDate, integer, percent } from "@/lib/format";
 import type { Dict } from "@/lib/i18n";
 
@@ -94,9 +95,9 @@ export default function FoundationChannel({
 
       {/* The only companies the report names, with the disclosure verdict. */}
       <h3 className="display mt-14 text-xl">{F.counterpartyTitle}</h3>
-      <p className="mt-3 max-w-3xl text-sm leading-relaxed text-[var(--ink-2)]">
+      <Caveat label={t.common.caveat} className="mt-3">
         {F.counterpartyNote}
-      </p>
+      </Caveat>
       <div className="mt-6 overflow-x-auto">
         <table className="w-full min-w-[46rem] border-collapse text-sm">
           <caption className="sr-only">{F.counterpartyTitle}</caption>
@@ -164,9 +165,9 @@ export default function FoundationChannel({
       {/* Every audited entity, so the named deals above are not mistaken for
           the whole channel. */}
       <h3 className="display mt-14 text-xl">{F.tableTitle}</h3>
-      <p className="mt-3 max-w-3xl text-sm leading-relaxed text-[var(--ink-2)]">
+      <Caveat label={t.common.caveat} className="mt-3">
         {F.tableNote}
-      </p>
+      </Caveat>
       <div className="mt-6 overflow-x-auto">
         <table className="w-full min-w-[48rem] border-collapse text-sm">
           <caption className="sr-only">{F.tableTitle}</caption>

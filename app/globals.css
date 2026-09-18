@@ -412,6 +412,37 @@ a {
   text-decoration-color: currentColor;
 }
 
+/* A caveat, collapsed by default — see components/Caveat.tsx. The marker is
+   drawn with `content` rather than the default triangle so it reads as text,
+   not as a tree control, and matches `.src`'s gold rather than the browser's
+   own disclosure-widget colour. */
+.caveat > summary {
+  cursor: pointer;
+  list-style: none;
+  color: var(--gold-deep);
+  text-decoration: underline;
+  text-decoration-color: rgba(125, 84, 17, 0.4);
+  text-underline-offset: 3px;
+  font-size: 0.688rem;
+  letter-spacing: 0.02em;
+}
+
+.caveat > summary::-webkit-details-marker {
+  display: none;
+}
+
+.caveat > summary::before {
+  content: "+ ";
+}
+
+.caveat[open] > summary::before {
+  content: "– ";
+}
+
+.caveat > summary:hover {
+  text-decoration-color: currentColor;
+}
+
 /* The same link inside an organisations' block. */
 .src-org {
   color: var(--verd-deep);

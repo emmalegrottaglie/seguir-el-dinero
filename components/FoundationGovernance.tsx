@@ -2,6 +2,7 @@ import { governanceFor, type Source, type Tie } from "@/lib/foundation-people";
 import { nameKey } from "@/lib/name-key.mjs";
 import type { OfficeTie } from "@/lib/officeholder-ties";
 import type { Dict } from "@/lib/i18n";
+import Caveat from "./Caveat";
 
 /**
  * Who governs one party-linked entity, and what else those people hold.
@@ -56,9 +57,9 @@ export default function FoundationGovernance({
   return (
     <section className="mt-14 border-t border-[var(--line)] pt-8">
       <h2 className="display section-tick text-xl">{F.peopleTitle}</h2>
-      <p className="mt-4 max-w-3xl text-sm leading-relaxed text-[var(--ink-2)]">
+      <Caveat label={t.common.caveat} className="mt-4">
         {F.peopleNote}
-      </p>
+      </Caveat>
 
       {gov.rename && (
         <div className="panel mt-6 p-5">

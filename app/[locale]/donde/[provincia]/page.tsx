@@ -7,6 +7,7 @@ import { shortName } from "@/lib/governments";
 import { euro, fill, integer, percent, rate, formatDate } from "@/lib/format";
 import Bar from "@/components/chart/Bar";
 import SourceLine from "@/components/chart/SourceLine";
+import Caveat from "@/components/Caveat";
 
 export const revalidate = 3600;
 
@@ -121,6 +122,7 @@ export default async function DondePage({
                 },
               ]}
               note={W.governmentNote}
+              caveatLabel={t.common.caveat}
             />
           </>
         ) : (
@@ -142,12 +144,12 @@ export default async function DondePage({
                 : euro(officeholders.medianGross, bcp47),
           })}
         </p>
-        <p className="mt-3 max-w-[68ch] text-sm leading-relaxed text-[var(--ink-3)]">
+        <Caveat label={t.common.caveat} className="mt-3">
           {fill(W.officeholdersGap, {
             missing: integer(view.registerWithoutTerritory, bcp47),
             total: integer(view.registerTotal, bcp47),
           })}
-        </p>
+        </Caveat>
         <Link
           href={`/${locale}/politicos?q=${encodeURIComponent(territory.registerName)}`}
           className="src mt-4 inline-block"
@@ -231,6 +233,7 @@ export default async function DondePage({
                 },
               ]}
               note={fill(W.povertyNote, { base: poverty.base })}
+              caveatLabel={t.common.caveat}
             />
           </>
         ) : (
@@ -263,6 +266,7 @@ export default async function DondePage({
                 },
               ]}
               note={W.hateNote}
+              caveatLabel={t.common.caveat}
             />
           </>
         ) : (
@@ -273,9 +277,9 @@ export default async function DondePage({
         </Link>
       </section>
 
-      <p className="mt-16 max-w-[68ch] text-sm leading-relaxed text-[var(--ink-3)]">
+      <Caveat label={t.common.caveat} className="mt-16">
         {fill(W.closing, { territory: territoryName })}
-      </p>
+      </Caveat>
     </main>
   );
 }
