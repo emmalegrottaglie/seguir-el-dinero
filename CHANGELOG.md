@@ -5,6 +5,39 @@ figures name their source; corrections and gaps are recorded alongside the work,
 
 ---
 
+## 2026-09-19 — The map's stray outline, fixed for the click and not just the key
+
+A community selected on the map by clicking still drew the browser's own
+bounding-box outline — the exact bug PR #19 was supposed to have closed, and
+reported again with a fresh screenshot showing the same disconnected black
+lines and box across Castilla y León.
+
+The earlier fix scoped its CSS rule to `.region:focus-visible`, which
+suppresses the browser's outline only when the browser itself decides focus
+should be visibly indicated. Chrome's `:focus-visible` heuristic does not
+consider a mouse click on this kind of element deserving of that treatment —
+verified live: clicking a region left `:focus` true but `:focus-visible`
+false, and with no rule targeting plain `:focus`, the browser fell through to
+its own default `outline: auto`, drawn around the path's bounding box exactly
+as the original bug described, just triggered by the far more common
+interaction (click) instead of the one the fix actually covered (Tab).
+
+Fixed by widening the selector from `.region:focus-visible` to `.region:focus`
+— the comment already explaining the rule states the reasoning universally
+("a focusable SVG shape cannot use the global focus ring"), so the rule now
+matches that reasoning regardless of how focus arrived. Confirmed via computed
+styles before and after: `outlineStyle` was `"auto"` on click, now `"none"`
+with the intended `stroke: var(--ink)` at `2.4px` in its place, on both a
+mouse click and a programmatic/keyboard focus.
+
+Verified: `npx tsc --noEmit` and `npm run build` clean; reproduced the bug
+live (clicking Castilla y León, matching the reported screenshot), confirmed
+the fix removes it, and confirmed keyboard Tab focus still gets the same
+stroke treatment as before — this is strictly a superset of the prior fix,
+not a replacement of its behaviour.
+
+---
+
 ## 2026-09-18 — A card for each foundation, the same way a politician gets one
 
 The party-linked foundations lived at the bottom of `/fundaciones` as a dense
