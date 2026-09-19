@@ -384,7 +384,13 @@ body {
   }
 }
 
-.region:focus-visible {
+/* Plain `:focus`, not `:focus-visible`: clicking a region focuses it (it is a
+   tabIndex={0} SVG shape), and Chrome's `:focus-visible` heuristic does not
+   match a mouse-click focus. Scoping this rule to `:focus-visible` therefore
+   only suppressed the browser's own bounding-box outline for keyboard Tab —
+   the far more common mouse click still fell through to the browser default,
+   which is exactly the bug this rule exists to prevent. */
+.region:focus {
   outline: none;
   stroke: var(--ink);
   stroke-width: 2.4;
