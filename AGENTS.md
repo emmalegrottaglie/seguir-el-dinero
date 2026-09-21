@@ -299,6 +299,7 @@ ordinary browser one, so `FEED_HEADERS` in the registry sends the browser string
 | `lib/format.ts` | Currency, number and date formatting, locale-aware via BCP-47 tag |
 | `lib/datasets.ts` | The `/datos` registry: every published table as `{count, sources, csv}`, built from the same loaders the rest of the site uses |
 | `lib/csv.ts` | RFC 4180 CSV writer, BOM-prefixed for Excel |
+| `lib/smi.ts` | The SMI, one hand-transcribed entry per year with its Real Decreto; `currentSmi()`, `multiplesOfSmi()` |
 | `middleware.ts` | Redirects unprefixed paths to `/{locale}/…` |
 
 `lib/name-key.mjs` is plain JS with a `.d.mts` beside it **on purpose**: the build scripts and

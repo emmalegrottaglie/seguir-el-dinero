@@ -121,8 +121,19 @@ tranches and the poverty indicators. Two findings worth carrying forward:
   ninetieth percentiles instead of the mean-versus-mode gap. Adding the mode means transcribing it
   with its own source block, the way `lib/donations.ts` handles a figure that only exists in a PDF.
 
-Next up is step 3's remaining half (the register overlay on the wage ladder, which needs the SMI as a
-typed per-year module with BOE references), then step 4, the housing panel.
+**Step 3's remaining half is DONE (2026-09-21).** `lib/smi.ts` holds the SMI as a typed per-year
+module, 2020–2026, each entry with its Real Decreto and BOE id — 2021 carries a `note` recording
+that Real Decreto 817/2021 only took effect from 1 September, rather than presenting €965/month as
+though it applied the whole year. `lib/indicators.ts` gains `trancheFor()`, and
+`components/SmiPosition.tsx` renders the register overlay on `/politico/[slug]`: the same nine SMI
+tranches `SmiLadder` already draws on `/contexto`, with the row containing this person's multiple
+marked. Verified against Teresa Ribera: €424,236.84 ÷ €17,094 (2026 SMI) = 24.8×, in the "Más de 8
+SMI" tranche.
+
+Next up is step 4, the housing panel — both official empty-dwelling estimates (INE's 3.8M and the
+Ministerio's 7.7M) and the homelessness figure, per §3 and §6.E of `PLAN-CONTEXT-LAYER.md`. Still
+needs its own INE/ministry table-id discovery pass before it can start, the way item 1 and item 6
+needed one for their Tribunal de Cuentas reports.
 
 **Stop conditions.** No correlation measure, no derived score, no ordering of parties by anything
 computed: facts side by side, never joined by an asserted cause. Never divide empty dwellings by

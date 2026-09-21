@@ -162,6 +162,34 @@ export function smiLadder(indicators: Indicators): SmiTranche[] {
   return order;
 }
 
+/**
+ * Which of `smiLadder()`'s tranches a multiple of the SMI falls into.
+ *
+ * Parses INE's own tranche labels ("De 0 a 1 SMI", "Más de 8 SMI") rather than
+ * hardcoding the boundaries, since the tranches are ingested data and their
+ * exact set is INE's to change, not this module's. Returns null only if the
+ * ladder's labels stop matching that shape, which would mean the ingest itself
+ * changed and this needs revisiting — not something to paper over with a guess.
+ */
+export function trancheFor(multiple: number, tranches: SmiTranche[]): SmiTranche | null {
+  let openEnded: SmiTranche | null = null;
+  for (const t of tranches) {
+    const range = t.tranche.match(/^De (\d+) a (\d+) SMI$/);
+    if (range) {
+      const lo = Number(range[1]);
+      const hi = Number(range[2]);
+      if (multiple >= lo && multiple < hi) return t;
+      continue;
+    }
+    const open = t.tranche.match(/^Más de (\d+) SMI$/);
+    if (open) {
+      const lo = Number(open[1]);
+      if (multiple >= lo) openEnded = t;
+    }
+  }
+  return openEnded;
+}
+
 /** Full-time versus part-time, which EAES's headline figure blends together. */
 export function jornadaSplit(indicators: Indicators): JornadaWage[] {
   return indicators.wages.jornada.filter((r) => r.sex === BOTH_SEXES && r.jornada !== "Total");
