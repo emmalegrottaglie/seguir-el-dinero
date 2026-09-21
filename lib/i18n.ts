@@ -75,6 +75,16 @@ const es = {
     caveat:
       "{missing} de las {total} filas del registro no publican cifra y no entran en este reparto. El eje es logarítmico: lo publicado va de {min} a {max}, cuatro órdenes de magnitud, y mezcla una alcaldía de pueblo a tiempo parcial con la Corona y una comisaría europea. Una posición en este eje es una posición en una lista, no un juicio sobre si un cargo vale lo que cobra.",
   },
+  smiPosition: {
+    title: "En múltiplos del salario mínimo",
+    sentence:
+      "{pay} al año equivale a {multiple} veces el SMI de {year} ({smi}/año); cae en el tramo «{tranche}», donde se sitúa el {share} de los asalariados.",
+    boeLink: "RD {rd} ↗",
+    noFigure:
+      "El registro no publica retribución anual para este cargo, así que no hay múltiplo de SMI que calcular.",
+    caveat:
+      "El SMI es un salario por persona trabajadora; esta cifra es la retribución de un cargo público, que no siempre es a tiempo completo ni el único ingreso de quien lo ocupa. La comparación da una escala común, no una equivalencia exacta.",
+  },
   ballotGrid: {
     noBallot: "Sin voto registrado",
     caption:
@@ -954,6 +964,16 @@ const en: Dict = {
     caveat:
       "{missing} of the register's {total} rows publish no figure and are not in this distribution. The axis is logarithmic: published pay runs from {min} to {max}, four orders of magnitude, and it mixes a part-time village mayoralty with the Crown and a European commissionership. A position on this axis is a position in a list, not a judgement about whether a post is worth its pay.",
   },
+  smiPosition: {
+    title: "In multiples of the minimum wage",
+    sentence:
+      "{pay} a year is {multiple} times the {year} SMI ({smi}/year); it falls in the \"{tranche}\" tranche, where {share} of wage earners sit.",
+    boeLink: "RD {rd} ↗",
+    noFigure:
+      "The register publishes no annual figure for this post, so there is no SMI multiple to calculate.",
+    caveat:
+      "The SMI is a per-worker wage; this figure is a public post's pay, which is not always full-time nor the only income of whoever holds it. The comparison gives a common scale, not an exact equivalence.",
+  },
   ballotGrid: {
     noBallot: "No ballot recorded",
     caption:
@@ -1830,6 +1850,16 @@ const ca: Dict = {
     median: "La mediana publicada és de {median}.",
     caveat:
       "{missing} de les {total} files del registre no publiquen xifra i no entren en aquest repartiment. L’eix és logarítmic: el que es publica va de {min} a {max}, quatre ordres de magnitud, i barreja una alcaldia de poble a temps parcial amb la Corona i una comissaria europea. Una posició en aquest eix és una posició en una llista, no un judici sobre si un càrrec val el que cobra.",
+  },
+  smiPosition: {
+    title: "En múltiples del salari mínim",
+    sentence:
+      "{pay} l’any equival a {multiple} vegades l’SMI de {year} ({smi}/any); cau al tram «{tranche}», on se situa el {share} dels assalariats.",
+    boeLink: "RD {rd} ↗",
+    noFigure:
+      "El registre no publica retribució anual per a aquest càrrec, així que no hi ha cap múltiple d’SMI a calcular.",
+    caveat:
+      "L’SMI és un salari per persona treballadora; aquesta xifra és la retribució d’un càrrec públic, que no sempre és a temps complet ni l’únic ingrés de qui l’ocupa. La comparació dona una escala comuna, no una equivalència exacta.",
   },
   ballotGrid: {
     noBallot: "Sense vot registrat",

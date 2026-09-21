@@ -5,6 +5,74 @@ figures name their source; corrections and gaps are recorded alongside the work,
 
 ---
 
+## 2026-09-21 — Every salary, in multiples of the minimum wage
+
+`NEXT-STEPS.md` names this precisely: *"the register overlay on the wage ladder, which needs the
+SMI as a typed per-year module with BOE references."* `/contexto`'s `SmiLadder` already draws the
+country's share of workers per SMI-multiple tranche (INE table 28182); nothing converted a single
+salary into a multiple of the minimum wage, because nothing held the SMI's own euro value. That's
+the missing piece — not a new dataset, a small one that had never been transcribed.
+
+### The SMI, one entry per year, each with its Real Decreto
+
+`lib/smi.ts` — seven years, 2020 through 2026, each verified against BOE directly: the decree
+number and date, its `BOE-A-…` id, the monthly and annual amount, and the date the rate actually
+took effect. Same treatment `lib/donations.ts` already gets for a figure of this shape: hand
+transcribed, reviewed, cited — not scraped, because there is nothing to scrape from a page of legal
+text with one number in it.
+
+**2021 gets a `note`, not a rounded-off annual figure.** Real Decreto 817/2021 set €965/month, but
+only from 1 September; January through August that year stayed at 2020's €950/month under Real
+Decreto 231/2020, which was still in force. €965/month is the figure everyone cites as "the 2021
+SMI," and it's what the module stores — but presenting it as though it applied all twelve months
+would be the same shape of error this project has caught before (the AROPE-base mixing, the
+low-sample flag): a real number, silently standing in for a claim it doesn't support.
+
+Only 2026 is actually load-bearing here — `data/salaries.json` is a current snapshot, so every
+register figure is a 2026 annual amount — but the module holds all seven years, because the SMI
+changes yearly and the next person to touch this file shouldn't have to re-derive that.
+
+### The overlay: a mark on the chart that already exists, not a new one
+
+`lib/indicators.ts` gains `trancheFor(multiple, tranches)`, which parses `smiLadder()`'s own tranche
+labels ("De 0 a 1 SMI", "Más de 8 SMI") to find which one a multiple falls into, rather than
+hardcoding the boundaries — the tranche set is INE's ingested data to change, not this function's
+to assume.
+
+`components/SmiPosition.tsx` renders `/contexto`'s exact nine tranche rows a second time, on
+`/politico/[slug]`, right after the existing `SalaryDistributionChart` — same section, same
+"where this pay sits" framing, no new heading. The one row containing this person's multiple gets a
+gold-deep left rule and bold weight; the other eight are drawn anyway, for the same reason
+`SalaryDistributionChart` draws its whole histogram instead of a bare percentile: "24.8×" means
+little without the shape of what it's a multiple of. A person with no published `gross` (about
+1,700 of the register's rows) gets a stated absence instead of a marker — same branch
+`SalaryDistributionChart` already takes for the same reason.
+
+### Verified against a real figure
+
+Teresa Ribera, €424,236.84/year ÷ €17,094 (2026 SMI) = 24.8×, landing in "Más de 8 SMI" — the
+tranche where 0.12% of wage earners sit. Confirmed live across all three locales; the Spanish
+tranche label stays untranslated in `/en` and `/ca`, matching how party and territory names already
+work site-wide.
+
+### Files
+
+- `lib/smi.ts` (new) — the per-year SMI module.
+- `lib/indicators.ts` — `trancheFor()`, additive only; `smiLadder()` and `/contexto` untouched.
+- `components/SmiPosition.tsx` (new).
+- `app/[locale]/politico/[slug]/page.tsx` — fetches `getIndicators()` alongside the existing
+  `Promise.all`, renders `<SmiPosition>` beside `<SalaryDistributionChart>`.
+- `lib/i18n.ts` — `smiPosition` block, ×3 locales.
+
+Not in this change: `NEXT-STEPS.md` step 4 (the housing panel) and §6.A's sector-by-sector wage
+ladder, which is a distinct interactive tool for `/contexto` and doesn't need the SMI value at all.
+
+Verified: `npx tsc --noEmit` and `npm run build` clean; the Ribera figure spot-checked by hand and
+confirmed in all three locales; the no-figure branch confirmed on a genuine zero-gross row; mobile
+(375px) checked, no overflow; `/contexto` confirmed byte-for-byte unaffected.
+
+---
+
 ## 2026-09-19 — The map's stray outline, fixed for the click and not just the key
 
 A community selected on the map by clicking still drew the browser's own
