@@ -10,7 +10,7 @@ export * from "./locales";
 
 const es = {
   meta: {
-    title: "Seguir el Dinero · Subvenciones públicas a los partidos",
+    title: "Siguiendo el Dinero · Subvenciones públicas a los partidos",
     description:
       "Rastreo de las subvenciones públicas estatales que reciben los partidos políticos españoles, con datos de la Base de Datos Nacional de Subvenciones (BDNS).",
   },
@@ -245,7 +245,7 @@ const es = {
   },
   footer: {
     source:
-      "Seguir el Dinero · Datos abiertos BDNS, Tribunal de Cuentas y Congreso de los Diputados",
+      "Siguiendo el Dinero · Datos abiertos BDNS, Tribunal de Cuentas y Congreso de los Diputados",
     caveat: "Los hechos van uno junto a otro; ninguna causa se afirma",
   },
   common: {
@@ -899,7 +899,7 @@ type Dict = typeof es;
 
 const en: Dict = {
   meta: {
-    title: "Follow the Money · Public subsidies to Spanish parties",
+    title: "Following the Money · Public subsidies to Spanish parties",
     description:
       "Tracking the public state subsidies that Spanish political parties receive, with data from the National Subsidies Database (BDNS).",
   },
@@ -1134,7 +1134,7 @@ const en: Dict = {
   },
   footer: {
     source:
-      "Seguir el Dinero · Open data from the BDNS, the Court of Auditors and the Congress of Deputies",
+      "Siguiendo el Dinero · Open data from the BDNS, the Court of Auditors and the Congress of Deputies",
     caveat: "Facts are placed side by side; no cause is asserted",
   },
   common: {
@@ -1786,7 +1786,7 @@ const en: Dict = {
 
 const ca: Dict = {
   meta: {
-    title: "Seguir el Diner · Subvencions públiques als partits",
+    title: "Seguint el Diner · Subvencions públiques als partits",
     description:
       "Seguiment de les subvencions públiques estatals que reben els partits polítics espanyols, amb dades de la Base de Dades Nacional de Subvencions (BDNS).",
   },
@@ -2021,7 +2021,7 @@ const ca: Dict = {
   },
   footer: {
     source:
-      "Seguir el Dinero · Dades obertes de la BDNS, el Tribunal de Comptes i el Congrés dels Diputats",
+      "Siguiendo el Dinero · Dades obertes de la BDNS, el Tribunal de Comptes i el Congrés dels Diputats",
     caveat: "Els fets van un al costat de l’altre; no s’afirma cap causa",
   },
   common: {

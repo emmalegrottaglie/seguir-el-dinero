@@ -1,4 +1,4 @@
-# AGENTS.md — Seguir el Dinero
+# AGENTS.md — Siguiendo el Dinero
 
 Working guide for anyone (agent or human) continuing this project. The README is the
 reader-facing document; this one covers how the thing is built, why it is built that way, and

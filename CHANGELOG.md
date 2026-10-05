@@ -5,6 +5,30 @@ figures name their source; corrections and gaps are recorded alongside the work,
 
 ---
 
+## 2026-10-05 — The site is now "Siguiendo el Dinero"
+
+Renamed from "Seguir el Dinero". The infinitive became a gerund: the name now describes work in
+progress rather than an instruction.
+
+Changed everywhere the name is shown: the masthead wordmark, the page `<title>` in each locale, and
+the footer credit line. The footer and the wordmark keep the Spanish name in all three locales, as
+before. The `<title>` was already translated per locale, so it follows the same change of tense:
+"Following the Money" in English (was "Follow the Money") and "Seguint el Diner" in Catalan (was
+"Seguir el Diner"). Also updated: the README and `AGENTS.md` headings, the design-system comment in
+`app/globals.css`, and the `User-Agent` strings the image proxy and the photo fetcher send to other
+servers, since those identify the site by name.
+
+The wordmark is three characters longer. At 375px it still sits on one line at its 38px floor
+(309px wide against 331px of room), and the descender of the "g" still clears the edition line
+below it, which is what the `mt-3` comment in `Masthead.tsx` is about.
+
+Deliberately not changed: the GitHub repository, the Vercel project and its domain, and the
+`package.json` name, which are all still `seguir-el-dinero`. Renaming those is an account-level
+change, and nothing in the code depends on them. Earlier changelog entries keep the old name,
+because they record what was true when they were written.
+
+---
+
 ## 2026-09-21 — Every salary, in multiples of the minimum wage
 
 `NEXT-STEPS.md` names this precisely: *"the register overlay on the wage ladder, which needs the
