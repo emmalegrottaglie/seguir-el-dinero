@@ -1,0 +1,3236 @@
+{
+  "generatedAt": "2026-10-06T14:23:17.592Z",
+  "source": {
+    "name": "Congreso de los Diputados — Declaraciones de Bienes y Rentas, XV Legislatura (transcripción propia)",
+    "url": "https://www.congreso.es/es/busqueda-de-diputados"
+  },
+  "check": {
+    "name": "RTVE",
+    "url": "https://www.rtve.es/noticias/2023/declaracion-bienes-diputados-congreso/"
+  },
+  "count": 18,
+  "declarations": [
+    {
+      "deputy": "Abades Martínez, Cristina",
+      "cod": 160,
+      "filed": "2023-08-08",
+      "url": "https://www.congreso.es/docbienes/leg15/000150/000150_000_e_0000648_20230808.pdf",
+      "reason": "toma",
+      "income": [
+        {
+          "group": "salary",
+          "concept": "Xunta de Galicia. Nómina",
+          "amount": 55348.17
+        },
+        {
+          "group": "salary",
+          "concept": "Ayuntamiento de Lugo. Dietas por asistencia a Pleno y Comisiones",
+          "amount": 2900
+        }
+      ],
+      "irpf": 14723.99,
+      "realEstate": [
+        {
+          "kind": "urban",
+          "description": "PISO",
+          "location": "CERVO",
+          "acquired": "2005",
+          "title": "PLENO DOMINIO COMPRAVENTA"
+        },
+        {
+          "kind": "urban",
+          "description": "GARAJE",
+          "location": "CERVO",
+          "acquired": "2005",
+          "title": "PLENO DOMINIO COMPRAVENTA"
+        },
+        {
+          "kind": "urban",
+          "description": "TRASTERO",
+          "location": "CERVO",
+          "acquired": "2005",
+          "title": "PLENO DOMINIO COMPRAVENTA"
+        }
+      ],
+      "deposits": [
+        {
+          "description": "CUENTAS CORRIENTES",
+          "amount": 114508.85
+        }
+      ],
+      "otherAssets": [],
+      "holdingsOver5pct": null,
+      "vehicles": [
+        {
+          "acquired": "2018",
+          "description": "AUDI Q3"
+        }
+      ],
+      "loans": [],
+      "otherDebts": null,
+      "observations": null,
+      "notes": [],
+      "verified": {
+        "method": "rtve",
+        "checkedAt": "2026-10-06"
+      }
+    },
+    {
+      "deputy": "Acedo Reyes, Sofía",
+      "cod": 69,
+      "filed": "2023-08-03",
+      "url": "https://www.congreso.es/docbienes/leg15/000066/000066_000_e_0000297_20230803.pdf",
+      "reason": "toma",
+      "income": [
+        {
+          "group": "salary",
+          "concept": "LAS CORRESPONDIENTES COMO SENADORA DE LA XIV LEGISLATURA",
+          "amount": null
+        }
+      ],
+      "irpf": 6238.92,
+      "realEstate": [
+        {
+          "kind": "urban",
+          "description": "VIVIENDA PARTICULAR",
+          "location": "MELILLA",
+          "acquired": "JULIO 2017",
+          "title": "PLENO DOMINIO-COMPRAVENTA"
+        }
+      ],
+      "deposits": [
+        {
+          "description": "CAIXAFUTURO",
+          "amount": 17242.96
+        },
+        {
+          "description": "VALOR FUTURO 10 UL",
+          "amount": 5183.32
+        },
+        {
+          "description": "CUENTA CORRIENTE",
+          "amount": 4000
+        },
+        {
+          "description": "CUENTA DE AHORRO COMÚN",
+          "amount": 9519.59
+        }
+      ],
+      "otherAssets": [
+        {
+          "kind": "other",
+          "description": "MY BOX JUBILACIÓN",
+          "amount": 8453
+        }
+      ],
+      "holdingsOver5pct": null,
+      "vehicles": [
+        {
+          "acquired": "FEBRERO 2011",
+          "description": "TURISMO PARTICULAR AUDI A1"
+        },
+        {
+          "acquired": "ENERO 2020",
+          "description": "PIAGGIO-VESPA 125 PRIMAVERA"
+        }
+      ],
+      "loans": [
+        {
+          "description": "HIPOTECA VIVIENDA PARTICULAR",
+          "granted": "JULIO 2017",
+          "amount": 163000,
+          "pending": 129802.25
+        },
+        {
+          "description": "PRÉSTAMO HIPOTECA",
+          "granted": "AGOSTO 2022",
+          "amount": 120000,
+          "pending": 116998.81
+        }
+      ],
+      "otherDebts": null,
+      "observations": null,
+      "notes": [],
+      "verified": {
+        "method": "rtve",
+        "checkedAt": "2026-10-06"
+      }
+    },
+    {
+      "deputy": "Agüera Gago, Cristina",
+      "cod": 136,
+      "filed": "2023-08-07",
+      "url": "https://www.congreso.es/docbienes/leg15/000132/000132_000_e_0000562_20230807.pdf",
+      "reason": "toma",
+      "income": [
+        {
+          "group": "salary",
+          "concept": "PERCEPCIÓN SALARIAL AYUNTAMIENTO BADALONA",
+          "amount": 59117.3
+        },
+        {
+          "group": "other",
+          "concept": "RENTA INMUEBLE",
+          "amount": 11400
+        },
+        {
+          "group": "other",
+          "concept": "RENTA INMUEBLE",
+          "amount": 6012.5
+        }
+      ],
+      "irpf": 16072.58,
+      "realEstate": [
+        {
+          "kind": "urban",
+          "description": "PISO",
+          "location": "BARCELONA",
+          "acquired": "2016",
+          "title": "100% PLENO DOMINIO COMPRA"
+        },
+        {
+          "kind": "urban",
+          "description": "PISO",
+          "location": "BARCELONA",
+          "acquired": "2020",
+          "title": "50% PLENO DOMINIO COMPRA"
+        },
+        {
+          "kind": "urban",
+          "description": "APARCAMIENTO",
+          "location": "BARCELONA",
+          "acquired": "2020",
+          "title": "50% PLENO DOMINIO COMPRA"
+        },
+        {
+          "kind": "urban",
+          "description": "APARCAMIENTO",
+          "location": "BARCELONA",
+          "acquired": "2020",
+          "title": "50% PLENO DOMINIO COMPRA"
+        },
+        {
+          "kind": "urban",
+          "description": "TRASTERO",
+          "location": "BARCELONA",
+          "acquired": "2020",
+          "title": "50% PLENO DOMINIO COMPRA"
+        }
+      ],
+      "deposits": [
+        {
+          "description": "CUENTAS CORRIENTES",
+          "amount": 53945.63
+        }
+      ],
+      "otherAssets": [
+        {
+          "kind": "securities",
+          "description": "PARTICIPACIONES CAFES AGUERA SL (VALOR SEGÚN EL BALANCE ANUAL ANTERIOR)",
+          "amount": 20368.23
+        },
+        {
+          "kind": "other",
+          "description": "DERECHO ECONÓMICO SOBRE VIVIENDA (FUTURA COMPRA)",
+          "amount": 40986
+        }
+      ],
+      "holdingsOver5pct": null,
+      "vehicles": [
+        {
+          "acquired": "2022",
+          "description": "AUDI Q3 SPORTBACK"
+        }
+      ],
+      "loans": [
+        {
+          "description": "HIPOTECA",
+          "granted": "2016",
+          "amount": 141600,
+          "pending": 113982.67
+        },
+        {
+          "description": "PRÉSTAMO COCHE VOLSWAGEN BANK",
+          "granted": "2022",
+          "amount": 10175.15,
+          "pending": 6855.25
+        },
+        {
+          "description": "PRÉSTAMO PRIVADO FAMILIAR",
+          "granted": "2016",
+          "amount": 30000,
+          "pending": 30000
+        }
+      ],
+      "otherDebts": null,
+      "observations": null,
+      "notes": [],
+      "verified": {
+        "method": "rtve",
+        "checkedAt": "2026-10-06"
+      }
+    },
+    {
+      "deputy": "Alía Aguado, María Pilar",
+      "cod": 183,
+      "filed": "2023-08-09",
+      "url": "https://www.congreso.es/docbienes/leg15/000174/000174_000_e_0000747_20230809.pdf",
+      "reason": "toma",
+      "income": [
+        {
+          "group": "salary",
+          "concept": "UNIVERSIDAD DE CASTILLA LA MANCHA",
+          "amount": 4920.2
+        },
+        {
+          "group": "salary",
+          "concept": "ACTIVIDAD PROFESIONAL DE ECONOMISTA",
+          "amount": 56659.56
+        },
+        {
+          "group": "dividends",
+          "concept": "DIVIDENDOS ACCIONES COTIZADAS 35,77 DIVIDENDOS ACCIONES SETEP TOLEDO, SL 5.890,00",
+          "amount": 5925.77
+        }
+      ],
+      "irpf": 44091.8,
+      "realEstate": [
+        {
+          "kind": "urban",
+          "description": "GARAJE",
+          "location": "TOLEDO",
+          "acquired": "14/11/2001",
+          "title": "PLENO DOMINIO COMPRAVENTA GANANCIAL"
+        },
+        {
+          "kind": "urban",
+          "description": "GARAJE",
+          "location": "TOLEDO",
+          "acquired": "28/02/2019",
+          "title": "PLENO DOMINIO COMPRAVENTA GANANCIAL"
+        },
+        {
+          "kind": "urban",
+          "description": "CASA UNIFAMILIAR",
+          "location": "TOLEDO",
+          "acquired": "09/06/2015",
+          "title": "NUDA PROPIEDAD DONACION PRIVATIVO"
+        },
+        {
+          "kind": "urban",
+          "description": "LOCAL COMERCIAL",
+          "location": "TOLEDO",
+          "acquired": "25/02/2022",
+          "title": "PLENO DOMINIO COMPRAVENTA GANANCIAL"
+        },
+        {
+          "kind": "urban",
+          "description": "PISO-GARAJE-TRASTERO",
+          "location": "TOLEDO",
+          "acquired": "07/02/2020",
+          "title": "PLENO DOMINIO COMPRAVENTA GANANCIAL"
+        }
+      ],
+      "deposits": [
+        {
+          "description": "CUENTAS CORRIENTES EN DIVERSAS ENTIDADES",
+          "amount": 59949.74
+        }
+      ],
+      "otherAssets": [
+        {
+          "kind": "securities",
+          "description": "FONDOS DE INVERSIÓN (03/08/2023)",
+          "amount": 29752.47
+        },
+        {
+          "kind": "securities",
+          "description": "ACCIONES SETEP TOLEDO, SL",
+          "amount": 117360.88
+        },
+        {
+          "kind": "securities",
+          "description": "ACCIONES ABACO CONSULTORES Y ASESORES TRIBUTARIOS, SL",
+          "amount": 1588.63
+        },
+        {
+          "kind": "other",
+          "description": "PLAN DE PENSIONES (31.12.2022)",
+          "amount": 48077.17
+        }
+      ],
+      "holdingsOver5pct": "LA SOCIEDAD SETEP TOLEDO, SL POSEE EL 95% DE LA SOCIEDAD ABACO CONSULTORES Y ASESORES TRIBUTARIOS, SL",
+      "vehicles": [
+        {
+          "acquired": "2009",
+          "description": "NISSAN QASHQAI"
+        },
+        {
+          "acquired": "2022",
+          "description": "MINI COUNTRYMAN (Propiedad de ABACO CONSULTORES Y ASESORES TRIBUTARIOS, SL)"
+        },
+        {
+          "acquired": "2023",
+          "description": "JEEP COMPASS (Propiedad de SETEP TOLEDO, SL)"
+        }
+      ],
+      "loans": [
+        {
+          "description": "AVALES UNICAJA",
+          "granted": "07/04/2017",
+          "amount": 70200,
+          "pending": 24000
+        },
+        {
+          "description": "PRESTAMO HIPOTECARIO UNICAJA",
+          "granted": "25/02/2022",
+          "amount": 100000,
+          "pending": 91864.21
+        }
+      ],
+      "otherDebts": null,
+      "observations": null,
+      "notes": [],
+      "verified": {
+        "method": "rtve",
+        "checkedAt": "2026-10-06"
+      }
+    },
+    {
+      "deputy": "Álvarez de Toledo Peralta-Ramos, Cayetana",
+      "cod": 315,
+      "filed": "2023-08-16",
+      "url": "https://www.congreso.es/docbienes/leg15/000311/000311_000_e_0001306_20230816.pdf",
+      "reason": "toma",
+      "income": [
+        {
+          "group": "other",
+          "concept": "Derechos de autor y conferencias.",
+          "amount": 188364.89
+        }
+      ],
+      "irpf": 66574.04,
+      "realEstate": [
+        {
+          "kind": "urban",
+          "description": "Piso",
+          "location": "Madrid",
+          "acquired": "2011",
+          "title": "100% Pleno dominio, compraventa"
+        },
+        {
+          "kind": "urban",
+          "description": "Piso",
+          "location": "Argentina",
+          "acquired": "1995",
+          "title": "50% Pleno dominio, compraventa"
+        },
+        {
+          "kind": "urban",
+          "description": "Piso",
+          "location": "Madrid",
+          "acquired": "2022",
+          "title": "100% Pleno dominio, compraventa"
+        }
+      ],
+      "deposits": [
+        {
+          "description": "Cuenta corriente BBVA",
+          "amount": 22776
+        },
+        {
+          "description": "Fondo inversión Deutsche Bank",
+          "amount": 1221158
+        }
+      ],
+      "otherAssets": [],
+      "holdingsOver5pct": null,
+      "vehicles": [
+        {
+          "acquired": "2014",
+          "description": "Volkswagen Polo"
+        }
+      ],
+      "loans": [
+        {
+          "description": "Crédito hipotecario Deutsche Bank",
+          "granted": "2022",
+          "amount": 630000,
+          "pending": 215907.74
+        },
+        {
+          "description": "Póliza de crédito Deutsche Bank",
+          "granted": "2022",
+          "amount": 700000,
+          "pending": 472687.62
+        }
+      ],
+      "otherDebts": null,
+      "observations": null,
+      "notes": [],
+      "verified": {
+        "method": "rtve",
+        "checkedAt": "2026-10-06"
+      }
+    },
+    {
+      "deputy": "Belarra Urteaga, Ione",
+      "cod": 262,
+      "filed": "2023-08-11",
+      "url": "https://www.congreso.es/docbienes/leg15/000248/000248_000_e_0001042_20230811.pdf",
+      "reason": "toma",
+      "income": [
+        {
+          "group": "salary",
+          "concept": "RENDIMIENTOS DE TRABAJO",
+          "amount": 77478.24
+        }
+      ],
+      "irpf": 22072.63,
+      "realEstate": [
+        {
+          "kind": "urban",
+          "description": "MITAD INDIVISA VIVIENDA",
+          "location": "MADRID",
+          "acquired": "1-10-2019",
+          "title": "39327,59 € (VALOR CATASTRAL)"
+        }
+      ],
+      "deposits": [
+        {
+          "description": "CUENTAS DE AHORRO SALDO A 31-12-2022",
+          "amount": 84245.27
+        }
+      ],
+      "otherAssets": [],
+      "holdingsOver5pct": null,
+      "vehicles": [],
+      "loans": [
+        {
+          "description": "PRESTAMO HIPOTECARIO CAJA DE CREDITO DE INGENIEROS, SOC. COOP.",
+          "granted": "1-10-2019",
+          "amount": 70700,
+          "pending": 59697.43
+        }
+      ],
+      "otherDebts": null,
+      "observations": null,
+      "notes": [],
+      "verified": {
+        "method": "rtve",
+        "checkedAt": "2026-10-06"
+      }
+    },
+    {
+      "deputy": "Conde Bajén, Agustín",
+      "cod": 7,
+      "filed": "2023-08-01",
+      "url": "https://www.congreso.es/docbienes/leg15/000007/000007_000_e_0000031_20230801.pdf",
+      "reason": "toma",
+      "income": [
+        {
+          "group": "salary",
+          "concept": "Retribuciones dinerarias",
+          "amount": 62000.96
+        },
+        {
+          "group": "salary",
+          "concept": "Actividades económicas",
+          "amount": 20000
+        },
+        {
+          "group": "dividends",
+          "concept": "Dividendos",
+          "amount": 17.05
+        },
+        {
+          "group": "other",
+          "concept": "Renta inmobiliaria imputada",
+          "amount": 767.89
+        }
+      ],
+      "irpf": 10080.66,
+      "realEstate": [
+        {
+          "kind": "urban",
+          "description": "Vivienda 7.500 m2 solar 650 m2 construidos",
+          "location": "Toledo",
+          "acquired": "2007",
+          "title": "Compraventa y obra nueva pleno dominio 50%"
+        },
+        {
+          "kind": "urban",
+          "description": "Casa 2.595 m2 solar 1.507 m2 construidos",
+          "location": "Toledo",
+          "acquired": "1990",
+          "title": "Herencia. Pleno dominio 32ª parte"
+        },
+        {
+          "kind": "urban",
+          "description": "Solar 35.650 m2",
+          "location": "Toledo",
+          "acquired": "1990",
+          "title": "herencia. pleno dominio 16ª parte"
+        },
+        {
+          "kind": "urban",
+          "description": "Solar 2.231m2",
+          "location": "Toledo",
+          "acquired": "1990",
+          "title": "Herencia. pleno dominio 48ª parte"
+        }
+      ],
+      "deposits": [
+        {
+          "description": "Cuentas a la vista",
+          "amount": 177963
+        }
+      ],
+      "otherAssets": [
+        {
+          "kind": "securities",
+          "description": "Banco Santander",
+          "amount": 853.17
+        },
+        {
+          "kind": "securities",
+          "description": "Instituto de Liderazgo Político S.L. 20% capital social (600 acciones)",
+          "amount": 600
+        },
+        {
+          "kind": "other",
+          "description": "Fondos de inversión",
+          "amount": 43065.58
+        },
+        {
+          "kind": "other",
+          "description": "Plan de pensiones",
+          "amount": 80000
+        }
+      ],
+      "holdingsOver5pct": null,
+      "vehicles": [
+        {
+          "acquired": "2021",
+          "description": "Hyunday Tucson"
+        },
+        {
+          "acquired": "2015",
+          "description": "Citroën C2"
+        }
+      ],
+      "loans": [],
+      "otherDebts": null,
+      "observations": null,
+      "notes": [],
+      "verified": {
+        "method": "rtve",
+        "checkedAt": "2026-10-06"
+      }
+    },
+    {
+      "deputy": "Díaz Pérez, Yolanda",
+      "cod": 342,
+      "filed": "2023-08-16",
+      "url": "https://www.congreso.es/docbienes/leg15/000324/000324_000_e_0001361_20230816.pdf",
+      "reason": "toma",
+      "income": [
+        {
+          "group": "salary",
+          "concept": "MINISTRA DE TRABAJO Y ECONOMIA SOCIAL y VICEPRESIDENTA SEGUNDA DEL GOBIERNO",
+          "amount": 78202.72
+        }
+      ],
+      "irpf": 24809.98,
+      "realEstate": [
+        {
+          "kind": "urban",
+          "description": "DESPACHO",
+          "location": "A CORUÑA",
+          "acquired": "7 de agosto de 2003",
+          "title": "Propiedad ganancial compraventa"
+        },
+        {
+          "kind": "urban",
+          "description": "VIVIENDA",
+          "location": "A CORUÑA",
+          "acquired": "25 de noviembre de 2003",
+          "title": "Propiedad ganancial"
+        }
+      ],
+      "deposits": [
+        {
+          "description": "CUENTA CORRIENTE GANANCIAL AL 50%",
+          "amount": 33200.68
+        }
+      ],
+      "otherAssets": [],
+      "holdingsOver5pct": null,
+      "vehicles": [
+        {
+          "acquired": "24 de octubre de 2014",
+          "description": "VOLKSWAGEN GOLF (50% ganancial)"
+        },
+        {
+          "acquired": "23 de agost de 2013",
+          "description": "VOLKSWAGEN TOURAN (50% ganancial)"
+        }
+      ],
+      "loans": [
+        {
+          "description": "PRÉSTAMO HIPOTECARIO EN BANCO SANTANDER (50% GANANCIAL)",
+          "granted": "25 de noviembre de 2003",
+          "amount": 168284,
+          "pending": 39553.44
+        }
+      ],
+      "otherDebts": null,
+      "observations": null,
+      "notes": [],
+      "verified": {
+        "method": "rtve",
+        "checkedAt": "2026-10-06"
+      }
+    },
+    {
+      "deputy": "García Félix, Manuel",
+      "cod": 25,
+      "filed": "2023-08-02",
+      "url": "https://www.congreso.es/docbienes/leg15/000026/000026_000_e_0000120_20230802.pdf",
+      "reason": "toma",
+      "income": [
+        {
+          "group": "salary",
+          "concept": "EXCMO. AYUNTAMIENTO LA PALMA DEL CONDADO",
+          "amount": 41070.47
+        },
+        {
+          "group": "salary",
+          "concept": "UNIVERSIDAD DE HUELVA",
+          "amount": 2121.6
+        }
+      ],
+      "irpf": 11337.4,
+      "realEstate": [
+        {
+          "kind": "urban",
+          "description": "VIVIENDA",
+          "location": "HUELVA",
+          "acquired": "2002",
+          "title": "PLENO DOMINIO GANANCIAL COMPRAVENTA"
+        },
+        {
+          "kind": "urban",
+          "description": "VIVIENDA",
+          "location": "SEVILLA",
+          "acquired": "2007",
+          "title": "PORCIÓN INDIVISA 25% COMPRAVENTA"
+        },
+        {
+          "kind": "urban",
+          "description": "VIVIENDA",
+          "location": "SEVILLA",
+          "acquired": "2007",
+          "title": "PORCIÓN INDIVISA 25% COMPRAVENTA"
+        },
+        {
+          "kind": "urban",
+          "description": "VIVIENDA",
+          "location": "HUELVA",
+          "acquired": "2010",
+          "title": "PLENO DOMINIO GANANCIAL COMPRAVENTA"
+        },
+        {
+          "kind": "urban",
+          "description": "PLAZA GARAJE",
+          "location": "HUELVA",
+          "acquired": "2022",
+          "title": "PORCION INDIVISA 16,66% HERENCIA"
+        }
+      ],
+      "deposits": [
+        {
+          "description": "CAIXABANK",
+          "amount": 1342.28
+        },
+        {
+          "description": "CAIXABANK",
+          "amount": 1082.59
+        },
+        {
+          "description": "CAJARURAL",
+          "amount": 0
+        }
+      ],
+      "otherAssets": [],
+      "holdingsOver5pct": null,
+      "vehicles": [
+        {
+          "acquired": "05/09/2016",
+          "description": "MERCEDES C200CDI [matrícula omitida]"
+        }
+      ],
+      "loans": [
+        {
+          "description": "PRÉSTAMO HIPOTECARIO. CAIXABANK",
+          "granted": "03/05/2002",
+          "amount": 94700,
+          "pending": 69509.11
+        },
+        {
+          "description": "PRÉSTAMO HIPOTECARIO. CAIXABANK",
+          "granted": "14/03/2005",
+          "amount": 86699.84,
+          "pending": 45610.98
+        },
+        {
+          "description": "PRÉSTAMO HIPOTECARIO. CAIXABANK",
+          "granted": "14/03/2005",
+          "amount": 6310.63,
+          "pending": 3321.21
+        },
+        {
+          "description": "PRÉSTAMO HIPOTECARIO. CAIXABANK",
+          "granted": "06/07/2010",
+          "amount": 104000,
+          "pending": 54674.81
+        }
+      ],
+      "otherDebts": null,
+      "observations": null,
+      "notes": [],
+      "verified": {
+        "method": "rtve",
+        "checkedAt": "2026-10-06"
+      }
+    },
+    {
+      "deputy": "García Gomis, David",
+      "cod": 104,
+      "filed": "2023-08-04",
+      "url": "https://www.congreso.es/docbienes/leg15/000097/000097_000_e_0000416_20230804.pdf",
+      "reason": "toma",
+      "income": [
+        {
+          "group": "salary",
+          "concept": "DIPUTADO CORTES VALENCIANAS",
+          "amount": 58864.76
+        }
+      ],
+      "irpf": 13546.21,
+      "realEstate": [],
+      "deposits": [
+        {
+          "description": "CUENTA CORRIENTE",
+          "amount": 2722
+        }
+      ],
+      "otherAssets": [
+        {
+          "kind": "other",
+          "description": "PLAN DE PENSIONES",
+          "amount": 2352
+        },
+        {
+          "kind": "other",
+          "description": "PLAN DE AHORRO",
+          "amount": 100
+        }
+      ],
+      "holdingsOver5pct": null,
+      "vehicles": [],
+      "loans": [
+        {
+          "description": "PRESTAMO PERSONAL",
+          "granted": "30/04/2023",
+          "amount": 15500,
+          "pending": 13152.5
+        }
+      ],
+      "otherDebts": null,
+      "observations": null,
+      "notes": [],
+      "verified": {
+        "method": "rtve",
+        "checkedAt": "2026-10-06"
+      }
+    },
+    {
+      "deputy": "Iniesta Egido, Isabel",
+      "cod": 137,
+      "filed": "2023-08-07",
+      "url": "https://www.congreso.es/docbienes/leg15/000131/000131_000_e_0000559_20230807.pdf",
+      "reason": "toma",
+      "income": [
+        {
+          "group": "salary",
+          "concept": "ALCALDESA AYUNTAMIENTO DE ALPERA",
+          "amount": 26260.08
+        },
+        {
+          "group": "salary",
+          "concept": "MANCOMUNIDAD DE MUNICIPIOS MONTEIBERICO",
+          "amount": 392
+        },
+        {
+          "group": "dividends",
+          "concept": "BANCO SANTANDER SA",
+          "amount": 0.6
+        }
+      ],
+      "irpf": 4868.12,
+      "realEstate": [
+        {
+          "kind": "urban",
+          "description": "SOLAR. SUELO SIN EDIFICAR",
+          "location": "ALBACETE",
+          "acquired": "03/11/2022",
+          "title": "PLENO DOMINIO DONACIÓN"
+        }
+      ],
+      "deposits": [
+        {
+          "description": "CUENTA CORRIENTE 20588.35 EUR CUENTA CORRIENTE 0.01 EUR CUENTA CORRIENTE 0.51 EUR",
+          "amount": 20588.87
+        }
+      ],
+      "otherAssets": [
+        {
+          "kind": "securities",
+          "description": "11 ACCIONES BANCO SANTANDER S.A.",
+          "amount": 39.69
+        }
+      ],
+      "holdingsOver5pct": null,
+      "vehicles": [
+        {
+          "acquired": "17/06/2019",
+          "description": "OPEL ASTRA+"
+        }
+      ],
+      "loans": [],
+      "otherDebts": null,
+      "observations": null,
+      "notes": [],
+      "verified": {
+        "method": "rtve",
+        "checkedAt": "2026-10-06"
+      }
+    },
+    {
+      "deputy": "Nogueras i Camero, Míriam",
+      "cod": 241,
+      "filed": "2023-08-10",
+      "url": "https://www.congreso.es/docbienes/leg15/000228/000228_000_e_0000971_20230810.pdf",
+      "reason": "toma",
+      "income": [],
+      "irpf": 31603.17,
+      "realEstate": [
+        {
+          "kind": "urban",
+          "description": "33.3% PLAZA APARCAMIENTO",
+          "location": "BARCELONA",
+          "acquired": "29/10/2009",
+          "title": "PLENO DOMINIO/HERENCIA"
+        },
+        {
+          "kind": "urban",
+          "description": "33.3% PLAZA APARCAMIENTO",
+          "location": "BARCELONA",
+          "acquired": "29/10/2009",
+          "title": "PLENO DOMINIO/HERENCIA"
+        },
+        {
+          "kind": "urban",
+          "description": "33.3% PLAZA APARCAMIENTO",
+          "location": "BARCELONA",
+          "acquired": "29/10/2009",
+          "title": "PLENO DOMINIO/HERENCIA"
+        },
+        {
+          "kind": "urban",
+          "description": "16,6% PISO",
+          "location": "BARCELONA",
+          "acquired": "29/10/2009",
+          "title": "PLENO DOMINIO/HERENCIA"
+        }
+      ],
+      "deposits": [
+        {
+          "description": "CUENTAS BANCARIAS",
+          "amount": 158189.53
+        }
+      ],
+      "otherAssets": [],
+      "holdingsOver5pct": null,
+      "vehicles": [],
+      "loans": [],
+      "otherDebts": null,
+      "observations": null,
+      "notes": [],
+      "verified": {
+        "method": "rtve",
+        "checkedAt": "2026-10-06"
+      }
+    },
+    {
+      "deputy": "Núñez Feijóo, Alberto",
+      "cod": 346,
+      "filed": "2023-08-16",
+      "url": "https://www.congreso.es/docbienes/leg15/000332/000332_000_e_0001389_20230816.pdf",
+      "reason": "toma",
+      "income": [
+        {
+          "group": "salary",
+          "concept": "XUNTA DE GALICIA",
+          "amount": 21686.55
+        },
+        {
+          "group": "salary",
+          "concept": "PARLAMENTO DE GALICIA",
+          "amount": 1770.25
+        },
+        {
+          "group": "salary",
+          "concept": "PARTIDO POPULAR (GASTOS DE REPRESENTACIÓN)",
+          "amount": 39260
+        },
+        {
+          "group": "salary",
+          "concept": "GRUPO PARLAMENTARIO POPULAR EN EL SENADO (PRESIDENTE)",
+          "amount": 31850
+        },
+        {
+          "group": "dividends",
+          "concept": "DIVIDENDOS ACCIONES",
+          "amount": 2112.58
+        },
+        {
+          "group": "interest",
+          "concept": "INTERESES",
+          "amount": 5.08
+        },
+        {
+          "group": "other",
+          "concept": "RENDIMIENTOS BIENES INMUEBLES",
+          "amount": 5584.4
+        }
+      ],
+      "irpf": 64872.64,
+      "realEstate": [
+        {
+          "kind": "urban",
+          "description": "VIVIENDA",
+          "location": "MADRID",
+          "acquired": "31/12/2001",
+          "title": "PLENO DOMINIO/ COMPRAVENTA"
+        },
+        {
+          "kind": "urban",
+          "description": "VIVIENDA",
+          "location": "VIGO (PONTEVEDRA)",
+          "acquired": "1/2/2001",
+          "title": "PLENO DOMINIO/ COMPRAVENTA"
+        },
+        {
+          "kind": "urban",
+          "description": "PLAZA GARAJE",
+          "location": "VIGO (PONTEVEDRA)",
+          "acquired": "1/2/2001",
+          "title": "PLENO DOMINIO/ COMPRAVENTA"
+        },
+        {
+          "kind": "urban",
+          "description": "VIVIENDA",
+          "location": "A CORUÑA",
+          "acquired": "11/8/2023",
+          "title": "PLENO DOMINIO/ COMPRAVENTA"
+        },
+        {
+          "kind": "urban",
+          "description": "PLAZA GARAJE",
+          "location": "A CORUÑA",
+          "acquired": "11/8/2023",
+          "title": "PLENO DOMINIO/ COMPRAVENTA"
+        },
+        {
+          "kind": "rustic",
+          "description": "FINCA RÚSTICA",
+          "location": "AMES (A CORUÑA",
+          "acquired": "30/6/1992",
+          "title": "PLENO DOMINIO/ COMPRAVENTA"
+        }
+      ],
+      "deposits": [
+        {
+          "description": "CUENTA CORRIENTE (saldo a 14/8/2023)",
+          "amount": 37627.24
+        }
+      ],
+      "otherAssets": [
+        {
+          "kind": "securities",
+          "description": "100 ACCIONES TELEFÓNICA (valor 14/8/2023)",
+          "amount": 363.4
+        },
+        {
+          "kind": "securities",
+          "description": "4000 ACCIONES INDITEX (valor 14/8/2023)",
+          "amount": 133200
+        },
+        {
+          "kind": "other",
+          "description": "FONDO INVERSIÓN ABANCA",
+          "amount": 403425.29
+        },
+        {
+          "kind": "other",
+          "description": "PLAN PENSIONES",
+          "amount": 195163.16
+        }
+      ],
+      "holdingsOver5pct": null,
+      "vehicles": [],
+      "loans": [],
+      "otherDebts": null,
+      "observations": null,
+      "notes": [],
+      "verified": {
+        "method": "rtve",
+        "checkedAt": "2026-10-06"
+      }
+    },
+    {
+      "deputy": "Ortega Smith-Molina, Francisco Javier",
+      "cod": 325,
+      "filed": "2023-08-16",
+      "url": "https://www.congreso.es/docbienes/leg15/000309/000309_000_e_0001294_20230816.pdf",
+      "reason": "toma",
+      "income": [
+        {
+          "group": "salary",
+          "concept": "ACTIVIDADES ECONÓMICAS REALIZADAS Y RENDIMIENTOS OBTENIDOS",
+          "amount": 156443.17
+        },
+        {
+          "group": "dividends",
+          "concept": "PARTICIPACIÓN EN COMUNIDAD DE BIENES",
+          "amount": 7591.28
+        },
+        {
+          "group": "interest",
+          "concept": "INTERESES DE CUENTAS, DEPÓSITOS Y DE ACTIVOS FINANCIEROS EN GENERAL",
+          "amount": 0.01
+        }
+      ],
+      "irpf": 9642.6,
+      "realEstate": [
+        {
+          "kind": "urban",
+          "description": "VIVIENDA",
+          "location": "SOTO DEL REAL",
+          "acquired": "JUNIO 2021",
+          "title": "50% POR COMPRAVENTA"
+        },
+        {
+          "kind": "urban",
+          "description": "VIVIENDA",
+          "location": "CASTROPOL",
+          "acquired": "DICIEMBRE 2019",
+          "title": "25% POR HERENCIA"
+        },
+        {
+          "kind": "urban",
+          "description": "VIVIENDA",
+          "location": "MADRID",
+          "acquired": "DICIEMBRE 2011",
+          "title": "100% DONACIÓN"
+        },
+        {
+          "kind": "urban",
+          "description": "VIVIENDA",
+          "location": "TOLEDO",
+          "acquired": "JULIO 2000",
+          "title": "12,50% POR HERENCIA"
+        },
+        {
+          "kind": "urban",
+          "description": "SOLAR",
+          "location": "CASTROPOL",
+          "acquired": "ENERO 1998",
+          "title": "16,66% POR COMPRAVENTA"
+        },
+        {
+          "kind": "urban",
+          "description": "VIVIENDA",
+          "location": "CASTROPOL",
+          "acquired": "ABRIL 2003",
+          "title": "100% COMPRAVENTA"
+        }
+      ],
+      "deposits": [
+        {
+          "description": "5 CUENTAS CORRIENTAS",
+          "amount": 91370
+        }
+      ],
+      "otherAssets": [],
+      "holdingsOver5pct": null,
+      "vehicles": [
+        {
+          "acquired": "Marzo/2021",
+          "description": "Mitsubishi Outlander"
+        },
+        {
+          "acquired": "Noviembre/1965",
+          "description": "Opel Rekord Olympia"
+        }
+      ],
+      "loans": [],
+      "otherDebts": null,
+      "observations": "Clase y características: SOLAR\nSituación: Castropol (Asturias)\nFecha de adquisición: Diciembre 2019\nDerecho sobre el bien y Título de adquisición: 1,4%. POR HERENCIA\n\nClase y características: SOLAR\nSituación: Castropol (Asturias)\nFecha de adquisición: Julio 2000\nDerecho sobre el bien y Título de adquisición: 8%. POR HERENCIA\n\nClase y características: SOLAR\nSituación: Castropol (Asturias)\nFecha de adquisición: Enero 2016\nDerecho sobre el bien y Título de adquisición: 50%. POR COMPRAVENTA\nClase y características: SOLAR\nSituación: Castropol (Asturias)\nFecha de adquisición: Enero 2016\nDerecho sobre el bien y Título de adquisición: 50%. POR COMPRAVENTA\n\nClase y características: SOLAR\nSituación: Castropol (Asturias)\nFecha de adquisición: Diciembre 2019\nDerecho sobre el bien y Título de adquisición: 8,33%. POR HERENCIA\n\nClase y características: LOCAL\nSituación: Madrid\nFecha de adquisición: Julio 2000\nDerecho sobre el bien y Título de adquisición: 25%. POR HERENCIA",
+      "notes": [],
+      "verified": {
+        "method": "rtve",
+        "checkedAt": "2026-10-06"
+      }
+    },
+    {
+      "deputy": "Puente Santiago, Óscar",
+      "cod": 90,
+      "filed": "2023-08-03",
+      "url": "https://www.congreso.es/docbienes/leg15/000074/000074_000_e_0000328_20230803.pdf",
+      "reason": "toma",
+      "income": [
+        {
+          "group": "salary",
+          "concept": "SALARIO ALCALDE AYUNTAMIENTO VALLADOLID",
+          "amount": 84168.54
+        },
+        {
+          "group": "other",
+          "concept": "RENTA APARTAMENTO",
+          "amount": 2656.02
+        }
+      ],
+      "irpf": 26350.77,
+      "realEstate": [
+        {
+          "kind": "urban",
+          "description": "APARTAMENTO Y GARAJE",
+          "location": "VALLADOLID",
+          "acquired": "2000",
+          "title": "NUDA PROPIEDAD 50%"
+        },
+        {
+          "kind": "urban",
+          "description": "APARTAMENTO Y GARAJE",
+          "location": "VALLADOLID",
+          "acquired": "2008",
+          "title": "NUDA PROPIEDAD 50%"
+        },
+        {
+          "kind": "urban",
+          "description": "PISO Y GARAJE",
+          "location": "VALLADOLID",
+          "acquired": "2013",
+          "title": "NUDA PROPIEDAD 50%"
+        }
+      ],
+      "deposits": [
+        {
+          "description": "CUENTA CORRIENTE CAJA RURAL ZAMORA PLAN PREVISION ASEGURADO PLAN PENSION",
+          "amount": 37786.66
+        }
+      ],
+      "otherAssets": [
+        {
+          "kind": "other",
+          "description": "PLAN PENSION MUTUALIDAD ABOGACIA",
+          "amount": 42479.4
+        }
+      ],
+      "holdingsOver5pct": null,
+      "vehicles": [],
+      "loans": [
+        {
+          "description": "HIPOTECA BANCO SANTANDER",
+          "granted": "31-01-2008",
+          "amount": 130540,
+          "pending": 69780
+        },
+        {
+          "description": "HIPOTECA BANCO SANTANDER",
+          "granted": "6-2-2013",
+          "amount": 232000,
+          "pending": 160834.86
+        },
+        {
+          "description": "PRESTAMO PERSONAL CAJA RURAL ZAMORA",
+          "granted": "20-4-2021",
+          "amount": 50000,
+          "pending": 31914.07
+        }
+      ],
+      "otherDebts": null,
+      "observations": null,
+      "notes": [],
+      "verified": {
+        "method": "rtve",
+        "checkedAt": "2026-10-06"
+      }
+    },
+    {
+      "deputy": "Rufián Romero, Gabriel",
+      "cod": 312,
+      "filed": "2023-08-16",
+      "url": "https://www.congreso.es/docbienes/leg15/000299/000299_000_e_0001249_20230816.pdf",
+      "reason": "toma",
+      "income": [
+        {
+          "group": "salary",
+          "concept": "SALARIO CONGRESO DE LOS DIPUTADOS",
+          "amount": 99148
+        }
+      ],
+      "irpf": 29450,
+      "realEstate": [
+        {
+          "kind": "urban",
+          "description": "VIVIENDA FAMILIAR",
+          "location": "PLENODOMINO",
+          "acquired": "2018",
+          "title": "PLENODOMINIO 50% COMPRAVENTA"
+        }
+      ],
+      "deposits": [
+        {
+          "description": "Cuenta Corriente Caixa d'Enginyers",
+          "amount": 22000
+        },
+        {
+          "description": "Cuenta Corriente Caixa d'Enginyers",
+          "amount": 0
+        }
+      ],
+      "otherAssets": [],
+      "holdingsOver5pct": null,
+      "vehicles": [],
+      "loans": [
+        {
+          "description": "Hipoteca Caixa d'Enginyers",
+          "granted": "07/09/2018",
+          "amount": 200000,
+          "pending": 171000
+        },
+        {
+          "description": "Préstamo Caixa d'Enginyers",
+          "granted": "02/01/2019",
+          "amount": 80000,
+          "pending": 71000
+        }
+      ],
+      "otherDebts": null,
+      "observations": null,
+      "notes": [
+        {
+          "path": "loans[1].pending",
+          "written": "71,000"
+        }
+      ],
+      "verified": {
+        "method": "rtve",
+        "checkedAt": "2026-10-06"
+      }
+    },
+    {
+      "deputy": "Sáez Alonso-Muñumer, Pablo",
+      "cod": 61,
+      "filed": "2023-08-03",
+      "url": "https://www.congreso.es/docbienes/leg15/000050/000050_000_e_0000224_20230803.pdf",
+      "reason": "toma",
+      "income": [
+        {
+          "group": "salary",
+          "concept": "Retribuciones salariales netas percibidas (1)",
+          "amount": 34401.21
+        },
+        {
+          "group": "dividends",
+          "concept": "Rendimientos netos capital mobiliario",
+          "amount": 743.59
+        }
+      ],
+      "irpf": 35291.55,
+      "realEstate": [
+        {
+          "kind": "urban",
+          "description": "VIVIENDA",
+          "location": "MADRID",
+          "acquired": "16/6/2000",
+          "title": "Pleno dominio al 50% Bien en gananciales Compraventa"
+        },
+        {
+          "kind": "urban",
+          "description": "PLAZA DE GARAJE",
+          "location": "MADRID",
+          "acquired": "16/6/2000",
+          "title": "Pleno dominio al 50% Bien en gananciales Compraventa"
+        },
+        {
+          "kind": "urban",
+          "description": "VIVIENDA",
+          "location": "SEGOVIA",
+          "acquired": null,
+          "title": "Pleno dominio de un 8,33% de la propiedad Herencia"
+        },
+        {
+          "kind": "urban",
+          "description": "VIVIENDA",
+          "location": "VALLADOLID",
+          "acquired": "26/01/2021",
+          "title": "Pleno dominio de un 30% de la propiedad de un piso."
+        },
+        {
+          "kind": "urban",
+          "description": "VIVIENDA",
+          "location": "ALICANTE",
+          "acquired": "30/09/2022",
+          "title": "Pleno dominio al 50% Bien en gananciales Compraventa"
+        }
+      ],
+      "deposits": [
+        {
+          "description": "Importe que me corresponde del saldo al 31 de diciembre de 2002 de tres cuentas corrientes bancarias (2)",
+          "amount": 13762.07
+        }
+      ],
+      "otherAssets": [
+        {
+          "kind": "securities",
+          "description": "PLAN DE PENSIONES. VALOR A 31 DE DICIEMBRE DE 2022",
+          "amount": 35443.23
+        },
+        {
+          "kind": "securities",
+          "description": "FONDOS DE INVERSIÓN. VALOR A 31 DE DICIEMBRE DE 2022 (3)",
+          "amount": 28772.39
+        },
+        {
+          "kind": "securities",
+          "description": "CARTERA MULTI INVERSIÓN. VALOR A 31 DE DICIEMBRE DE 2022 (3)",
+          "amount": 34182.06
+        },
+        {
+          "kind": "securities",
+          "description": "CARTERA DE VALORES. VALOR A 13 DE OCTUBRE DE 2022 (3).",
+          "amount": 11553.46
+        }
+      ],
+      "holdingsOver5pct": null,
+      "vehicles": [
+        {
+          "acquired": "Septiembre de 2022",
+          "description": "Hyundai Kona (Híbrido)"
+        },
+        {
+          "acquired": "Marzo de 2022",
+          "description": "Hyundai i10"
+        }
+      ],
+      "loans": [
+        {
+          "description": "Préstamo Hipotecario concedido por Deutsche Bank (4)",
+          "granted": "3/3/2005",
+          "amount": 239888.39,
+          "pending": 19112.01
+        },
+        {
+          "description": "Préstamo personal (4)",
+          "granted": "sept. 2022",
+          "amount": 18575.7,
+          "pending": 18326.63
+        },
+        {
+          "description": "Préstamo personal (4)",
+          "granted": "agto. 2022",
+          "amount": 768.12,
+          "pending": 512.08
+        },
+        {
+          "description": "Préstamo personal (4)",
+          "granted": "marzo 2022",
+          "amount": 7960.08,
+          "pending": 6976.21
+        }
+      ],
+      "otherDebts": "NINGUNA",
+      "observations": "(1): Retribuciones netas percibidas en 2022. Importe calculado como: Retribuciones brutas dinerarias - Cotizaciones - Gastos deducibles - Retenciones (corregidas al alza por una mayor cuota a pagar que sale tras la presentación de la declaración de IRPF). Importe resultante: 34.401€.\n(2): Importe: 50% del saldo de dos cuentas corrientes al 31/12/2022 por ser gananciales y un 33,33% de otra cuenta corriente bancaria de titularidad junto con mis hermanos.\n(3). Estos importes reflejan el 50% de su valor al estar en régimen de gananciales.\nLas cartera de valores son acciones que cotizan en la bolsa española.\nLa cartera de acciones Multi3strategia y la participación en Fondo de inversiones son gestionados por una entidad financiera española.\n(4): Los préstamos se reflejan al 100%, no repartiéndose en función del 50% de gananciales.",
+      "notes": [],
+      "verified": {
+        "method": "rtve",
+        "checkedAt": "2026-10-06"
+      }
+    },
+    {
+      "deputy": "Sánchez Pérez-Castejón, Pedro",
+      "cod": 189,
+      "filed": "2023-08-09",
+      "url": "https://www.congreso.es/docbienes/leg15/000177/000177_000_e_0000756_20230809.pdf",
+      "reason": "toma",
+      "income": [
+        {
+          "group": "salary",
+          "concept": "PRESIDENTE DEL GOBIERNO",
+          "amount": 87814.8
+        },
+        {
+          "group": "dividends",
+          "concept": "DIVIDENDOS Y OTROS",
+          "amount": 360.57
+        },
+        {
+          "group": "other",
+          "concept": "ARRENDAMIENTOS DE INMUEBLES",
+          "amount": 12845
+        },
+        {
+          "group": "other",
+          "concept": "DERECHOS DE AUTOR",
+          "amount": 42000
+        }
+      ],
+      "irpf": 43782.67,
+      "realEstate": [
+        {
+          "kind": "urban",
+          "description": "VIVIENDA",
+          "location": "MADRID",
+          "acquired": "2008",
+          "title": "50% PROPIEDAD, COMPRAVENTA"
+        },
+        {
+          "kind": "urban",
+          "description": "VIVIENDA",
+          "location": "MADRID",
+          "acquired": "1992",
+          "title": "100% PROPIEDAD, COMPRAVENTA"
+        },
+        {
+          "kind": "urban",
+          "description": "PLAZA DE APARCAMIENTO",
+          "location": "MADRID",
+          "acquired": "2008",
+          "title": "50% PROPIEDAD, COMPRAVENTA"
+        },
+        {
+          "kind": "urban",
+          "description": "PLAZA DE APARCAMIENTO",
+          "location": "MADRID",
+          "acquired": "1992",
+          "title": "100% PROPIEDAD, COMPRAVENTA"
+        }
+      ],
+      "deposits": [
+        {
+          "description": "2 CUENTAS CORRIENTES",
+          "amount": 19208.79
+        },
+        {
+          "description": "1 PLAN DE PENSIONES",
+          "amount": 105378.1
+        },
+        {
+          "description": "1 FONDO DE INVERSIÓN",
+          "amount": 81449.2
+        }
+      ],
+      "otherAssets": [
+        {
+          "kind": "securities",
+          "description": "ACCIONES COTIZADAS EN BOLSA (a 22 de junio de 2023)",
+          "amount": 5104
+        },
+        {
+          "kind": "other",
+          "description": "DONATIVOS A PSOE Y OTROS",
+          "amount": 4418.4
+        }
+      ],
+      "holdingsOver5pct": null,
+      "vehicles": [],
+      "loans": [
+        {
+          "description": "PRÉSTAMO HIPOTECARIO",
+          "granted": "2008",
+          "amount": 159300,
+          "pending": 61786.31
+        }
+      ],
+      "otherDebts": null,
+      "observations": null,
+      "notes": [],
+      "verified": {
+        "method": "rtve",
+        "checkedAt": "2026-10-06"
+      }
+    }
+  ],
+  "unresolved": [
+    {
+      "deputy": "Abascal Conde, Santiago",
+      "cod": 317,
+      "reason": "awaiting-second-reading"
+    },
+    {
+      "deputy": "Aceves Galindo, José Luis",
+      "cod": 64,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Adrio Taracido, María",
+      "cod": 139,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Agirretxea Urresti, Joseba Andoni",
+      "cod": 305,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Aguirre Gil de Biedma, Rocío",
+      "cod": 371,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Aizcorbe Torra, Juan José",
+      "cod": 52,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Aizpurua Arzallus, Mertxe",
+      "cod": 300,
+      "reason": "awaiting-second-reading"
+    },
+    {
+      "deputy": "Alcaraz Martos, Francisco José",
+      "cod": 4,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Alfonso Cendón, Javier",
+      "cod": 252,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Alfonso Silvestre, Alma",
+      "cod": 254,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Almirón Ruiz, Oriol",
+      "cod": 387,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Almodóvar Sánchez, Emilia",
+      "cod": 367,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Alonso Cantorné, Fèlix",
+      "cod": 269,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Alós López, Ana Isabel",
+      "cod": 334,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Álvarez Fanjul, Beatriz",
+      "cod": 143,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Álvarez González, Alicia",
+      "cod": 134,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Álvaro Vidal, Francesc-Marc",
+      "cod": 222,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Andala Ubbi, Teslem",
+      "cod": 338,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Andrés Añón, Carmen",
+      "cod": 106,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Antuñano Colina, Pablo",
+      "cod": 403,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Aragonés Mendiguchía, Carlos",
+      "cod": 259,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Aranda Vargas, Francisco",
+      "cod": 21,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Argota Castro, Trinidad Carmen",
+      "cod": 103,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Argüelles García, Silverio",
+      "cod": 163,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Armario González, Blanca",
+      "cod": 249,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Armengol Socias, Francina",
+      "cod": 185,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Arribas Maroto, Manuel",
+      "cod": 96,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Asarta Cuevas, Alberto",
+      "cod": 316,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Aznar Teruel, Evarist",
+      "cod": 406,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Azorín Salar, Lázaro",
+      "cod": 273,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Badia Casas, Eloi",
+      "cod": 329,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Barrio Baroja, Carmelo",
+      "cod": 378,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Bayón Rolo, Juan Andrés",
+      "cod": 382,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Beamonte Mesa, Luis María",
+      "cod": 297,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Belda Pérez-Pedrero, Enrique",
+      "cod": 208,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Belmonte Gómez, Rafael Benigno",
+      "cod": 175,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Bendodo Benasayag, Elías",
+      "cod": 209,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Bermúdez de Castro Fernández, José Antonio",
+      "cod": 118,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Blanco Arrúe, Gabriel",
+      "cod": 400,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Blanquer Alcaraz, Patricia",
+      "cod": 170,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Boada Danés, Júlia",
+      "cod": 332,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Bolaños García, Félix",
+      "cod": 253,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Borrego Cortés, Isabel María",
+      "cod": 145,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Bravo Baena, Juan",
+      "cod": 9,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Cabezón Casas, Tomás",
+      "cod": 2,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Cacho Isla, Iván",
+      "cod": 401,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Calvo Gómez, Pilar",
+      "cod": 243,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Camino Miñana, Víctor",
+      "cod": 364,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Campos Asensi, Jorge",
+      "cod": 207,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Canelo Matito, Andrea",
+      "cod": 388,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Cantalapiedra Álvarez, María de las Mercedes",
+      "cod": 234,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Carazo Hermoso, Eduardo",
+      "cod": 282,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Carballedo Berlanga, María Eugenia",
+      "cod": 341,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Castilla Álvarez, María Carmen",
+      "cod": 15,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Catalán Higueras, Alberto",
+      "cod": 149,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Cavacasillas Rodríguez, Antonio",
+      "cod": 299,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Celaya Brey, Javier",
+      "cod": 162,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Cercas Mena, Blanca",
+      "cod": 111,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Cervera Pinart, Josep Maria",
+      "cod": 242,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Chamorro Delmo, Ricardo",
+      "cod": 294,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Clavell López, Óscar",
+      "cod": 109,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Clemente Muñoz, Raquel",
+      "cod": 276,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Cobo Carmona, Ana",
+      "cod": 75,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Cobo Pérez, Noelia",
+      "cod": 321,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Cobo Vega, Manuel",
+      "cod": 324,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Cofiño Fernández, Rafael",
+      "cod": 122,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Conde López, Francisco José",
+      "cod": 349,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Conesa Coma, Ignasi",
+      "cod": 352,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Cortés Carballo, Mario",
+      "cod": 85,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Corujo Berriel, María Dolores",
+      "cod": 187,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Crespín Rubio, Rafaela",
+      "cod": 154,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Cruset Domènech, Josep Maria",
+      "cod": 244,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Cruz Santana, Gabriel",
+      "cod": 168,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Cruz-Guzmán García, María Soledad",
+      "cod": 319,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Cuesta Rodríguez, María",
+      "cod": 44,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Cuevas Larrosa, Raúl",
+      "cod": 395,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "De la Rosa Baena, Olvido",
+      "cod": 376,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "De las Cuevas Cortés, Félix",
+      "cod": 107,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "De los Santos González, Jaime Miguel",
+      "cod": 270,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "De Luna Tobarra, Llanos",
+      "cod": 174,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "De Meer Méndez, Rocío",
+      "cod": 284,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "De Rosa Torner, Fernando",
+      "cod": 248,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Del Valle Rodríguez, Emilio Jesús",
+      "cod": 124,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Delgado Arce, Celso Luis",
+      "cod": 32,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Delgado-Taramona Hernández, Jimena",
+      "cod": 235,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Díaz Marín, Raúl",
+      "cod": 50,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Diouf Dioh, Luc Andre",
+      "cod": 142,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Estrems Fayos, Etna",
+      "cod": 392,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Fabra Part, Alberto",
+      "cod": 108,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Fagúndez Campo, Antidio",
+      "cod": 29,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Faneca López, María Luisa",
+      "cod": 167,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Fernández Benéitez, Andrea",
+      "cod": 31,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Fernández González, María Mercedes",
+      "cod": 82,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Fernández Hernández, Pedro",
+      "cod": 14,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Fernández Ríos, Tomás",
+      "cod": 214,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Figaredo Álvarez-Sala, José María",
+      "cod": 193,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Flores Juberías, Carlos",
+      "cod": 159,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Floriano Corrales, Carlos Javier",
+      "cod": 55,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Folch Blanc, Javier José",
+      "cod": 115,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Franco González, Silvia",
+      "cod": 30,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Fullaondo la Cruz, Marije",
+      "cod": 291,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Fúnez de Gregorio, Carmen",
+      "cod": 65,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Gallardo Barrena, Pedro Ignacio",
+      "cod": 74,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Gamarra Ruiz-Clavijo, Concepción",
+      "cod": 314,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "García Adanero, Carlos",
+      "cod": 266,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "García Chavarría, María Montserrat",
+      "cod": 380,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "García Gurrutxaga, María Luisa",
+      "cod": 113,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "García López, Maribel",
+      "cod": 49,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "García Morís, Roberto",
+      "cod": 195,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Garre Murcia, Cristóbal",
+      "cod": 84,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Garrido Jiménez, Elisa",
+      "cod": 116,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Garrido Valenzuela, Irene",
+      "cod": 42,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Gavin i Valls, Isidre",
+      "cod": 239,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Gil de Reboleño Lastortres, Esther",
+      "cod": 86,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Gil Lázaro, Ignacio",
+      "cod": 117,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Gómez Piña, Luis Antonio",
+      "cod": 396,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "González Gracia, Juan Antonio",
+      "cod": 228,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "González Herdaro, Ana",
+      "cod": 407,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "González López, Nahuel",
+      "cod": 166,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "González Vázquez, Marta",
+      "cod": 200,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "González-Robatto Perote, Jacobo",
+      "cod": 121,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Gracia Blanco, Marta",
+      "cod": 370,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Granollers Cunillera, Inés",
+      "cod": 221,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Guardiola Salmerón, Mirian",
+      "cod": 351,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Guijarro García, Txema",
+      "cod": 92,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Guinart Moreno, Lídia",
+      "cod": 272,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Gutiérrez Prieto, Sergio",
+      "cod": 232,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Gutiérrez Santiago, Víctor",
+      "cod": 357,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Hernández Quero, Carlos",
+      "cod": 345,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Hernando Fraile, Rafael Antonio",
+      "cod": 202,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Herrera García, Milena",
+      "cod": 186,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Herrero Bono, José Alberto",
+      "cod": 277,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Hispán Iglesias de Ussel, Pablo",
+      "cod": 350,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Hita Téllez, Guillermo",
+      "cod": 381,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Hoces Íñiguez, Ignacio",
+      "cod": 194,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Hoyo Juliá, Belén",
+      "cod": 67,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Ibáñez Hernando, Ángel",
+      "cod": 180,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Ibáñez Mezquita, Alberto",
+      "cod": 165,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Iñarritu García, Jon",
+      "cod": 290,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Jerez Antequera, Juan Carlos",
+      "cod": 18,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Jiménez Linuesa, Beatriz",
+      "cod": 41,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Jódar Pérez, Irene",
+      "cod": 405,
+      "reason": "awaiting-second-reading"
+    },
+    {
+      "deputy": "Jordà i Roura, Teresa",
+      "cod": 224,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Lago Peñas, Manuel",
+      "cod": 375,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Lamuà Estañol, Marc",
+      "cod": 110,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Leal Fernández, Isaura",
+      "cod": 191,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Legarda Uriarte, Mikel",
+      "cod": 306,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Lima García, Laura María",
+      "cod": 155,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Llamazares Domingo, Esther",
+      "cod": 340,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "López Álvarez, Patxi",
+      "cod": 120,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "López Cano, Ignacio",
+      "cod": 264,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "López Maraver, Ángel",
+      "cod": 73,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "López Tagliafico, Candela",
+      "cod": 372,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "López Zamora, Cristina",
+      "cod": 365,
+      "reason": "awaiting-second-reading"
+    },
+    {
+      "deputy": "Lorente Anaya, Macarena",
+      "cod": 48,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Lorenzo Cazorla, Juan Antonio",
+      "cod": 354,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Losada Fernández, José",
+      "cod": 353,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Macías Gata, Alfonso Carlos",
+      "cod": 298,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Madrenas i Mir, Marta",
+      "cod": 245,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Madrid Olmo, Bartolomé",
+      "cod": 260,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Maldonado López, Adriana",
+      "cod": 105,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Marcos Ortega, Milagros",
+      "cod": 320,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Marí Bosó, José Vicente",
+      "cod": 188,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Marín Aparicio, Inmaculada",
+      "cod": 409,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Mariscal Anaya, Guillermo",
+      "cod": 255,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Mariscal Zabala, Manuel",
+      "cod": 263,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Marqués Atés, Amador",
+      "cod": 79,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Martín Blanco, Nacho",
+      "cod": 173,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Martín García, Pedro Samuel",
+      "cod": 150,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Martín Martínez, Andreu",
+      "cod": 62,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Martín Rodríguez, Margarita",
+      "cod": 146,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Martín Urriza, Carlos",
+      "cod": 225,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Martínez Barbero, Verónica",
+      "cod": 310,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Martínez Gómez, Antonio",
+      "cod": 102,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Martínez Hierro, Lander",
+      "cod": 87,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Martínez Labella, Ana",
+      "cod": 213,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Martínez Ramírez, Carmen",
+      "cod": 218,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Martínez Salmerón, Joaquín",
+      "cod": 182,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Martínez Seijo, María Luz",
+      "cod": 63,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Matute García de Jalón, Oskar",
+      "cod": 287,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Mayoral de Lamo, Alberto",
+      "cod": 363,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Mayoral Pérez, Jesús",
+      "cod": 366,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Mejías Sánchez, Carina",
+      "cod": 331,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Melgarejo Moreno, Joaquín",
+      "cod": 211,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Mellado Sierra, Valle",
+      "cod": 171,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Méndez Monasterio, Lourdes",
+      "cod": 203,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Mercadal Baquero, Pepe",
+      "cod": 190,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Merino Martínez, Javier",
+      "cod": 99,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Mesquida Mayans, Joan",
+      "cod": 132,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Micó Micó, Àgueda",
+      "cod": 164,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Mínguez García, Montse",
+      "cod": 80,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Molina León, Ainhoa",
+      "cod": 391,
+      "reason": "awaiting-second-reading"
+    },
+    {
+      "deputy": "Moneo Díez, María Sandra",
+      "cod": 204,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Montávez Aguillaume, Vicente",
+      "cod": 390,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Montesinos de Miguel, Macarena",
+      "cod": 216,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Moraleja Gómez, Tristana María",
+      "cod": 198,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Morales Álvarez, Álvaro",
+      "cod": 93,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Moreno Borrás, Cristina",
+      "cod": 385,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Moreno Fernández, Mª Isabel",
+      "cod": 361,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Moro Almaraz, María Jesús",
+      "cod": 151,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Muñoz Abrines, Pedro",
+      "cod": 236,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Muñoz de la Iglesia, Ester",
+      "cod": 28,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Nacarino-Brabo Jiménez, Aurora",
+      "cod": 348,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Narbona Ruiz, Cristina",
+      "cod": 271,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Nasarre Oliva, Begoña",
+      "cod": 178,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Navarro Lacoba, Carmen",
+      "cod": 215,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Noriega Gómez, Javier",
+      "cod": 141,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Núñez Guijarro, José Enrique",
+      "cod": 373,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Ogou i Corbi, Viviane",
+      "cod": 397,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Olano Vela, Jaime Eduardo de",
+      "cod": 161,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Otero Gabirondo, Mikel",
+      "cod": 398,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Otero García, Mercedes",
+      "cod": 386,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Otero Rodríguez, Patricia",
+      "cod": 377,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Pachón Martín, Brígida",
+      "cod": 410,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Pagès i Massó, Josep",
+      "cod": 389,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Palencia Rubio, Héctor",
+      "cod": 1,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Paniagua Núñez, Miguel Ángel",
+      "cod": 323,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Paré Aregall, Josep",
+      "cod": 369,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Parra Aparicio, Julia",
+      "cod": 210,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Parra Gallego, Agustín",
+      "cod": 172,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Pascual Rocamora, Sandra",
+      "cod": 212,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Pedreño Molina, Juan Luis",
+      "cod": 339,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Peña Camarero, Esther",
+      "cod": 95,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Perea i Conillas, María Mercè",
+      "cod": 19,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Pérez Coronado, Pablo",
+      "cod": 45,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Pérez López, Álvaro",
+      "cod": 27,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Pérez Ortiz, Isabel María",
+      "cod": 8,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Pérez Osma, Daniel",
+      "cod": 16,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Pérez Recuerda, Isabel Gema",
+      "cod": 88,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Pisarello Prados, Gerardo",
+      "cod": 328,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Plaza García, Inés",
+      "cod": 81,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Poblador Pacheco, María Araceli",
+      "cod": 39,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Pose Mesura, Modesto",
+      "cod": 129,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Pozueta Fernández, Isabel",
+      "cod": 288,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Prieto Serrano, María Isabel",
+      "cod": 71,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Puy Fraga, Pedro",
+      "cod": 199,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Quintana Carballo, Rosa",
+      "cod": 197,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Quintanilla Navarro, Miguel Ángel",
+      "cod": 181,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Quintero Hernández, Jonay",
+      "cod": 394,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Rallo Lombarte, Artemi",
+      "cod": 54,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Ramajo Prada, Óscar",
+      "cod": 46,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Ramírez Carner, Arnau",
+      "cod": 94,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Ramírez del Río, José",
+      "cod": 70,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Ramírez Martín, María Lourdes",
+      "cod": 60,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Ramírez Moreno, María de las Nieves",
+      "cod": 5,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Ramos Esteban, César Joaquín",
+      "cod": 100,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Recas Martín, Alda",
+      "cod": 393,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Redondo Cárdenas, Gonzalo",
+      "cod": 98,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Rego Candamil, Néstor",
+      "cod": 238,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Renteria Lasanta, Nerea",
+      "cod": 399,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Requena Ruiz, Juan Diego",
+      "cod": 131,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Rey de las Heras, Luis Alfonso",
+      "cod": 11,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Reynal Reillo, Esperanza",
+      "cod": 246,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Rivera Arias, Engracia",
+      "cod": 157,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Rives Arcayna, Caridad",
+      "cod": 231,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Robles López, Joaquín",
+      "cod": 318,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Rodríguez Almeida, Andrés Alberto",
+      "cod": 256,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Rodríguez Calleja, Patricia",
+      "cod": 51,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Rodríguez de Millán Parro, María José",
+      "cod": 344,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Rodríguez Gómez de Celis, Alfonso",
+      "cod": 140,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Rodríguez Herrer, María Elvira",
+      "cod": 404,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Rodríguez Palacios, Javier",
+      "cod": 355,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Rodríguez Salas, José Antonio",
+      "cod": 128,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Rodríguez Serra, Santi",
+      "cod": 101,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Rodríguez Suárez, Esther",
+      "cod": 359,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Rojas García, Carlos",
+      "cod": 12,
+      "reason": "awaiting-second-reading"
+    },
+    {
+      "deputy": "Rojas Manrique, Juan Antonio",
+      "cod": 156,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Rojo Blas, Alberto",
+      "cod": 176,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Román Jasanada, Antonio",
+      "cod": 59,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Romero Pozo, Rafaela",
+      "cod": 112,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Romero Vilches, María de los Reyes",
+      "cod": 307,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Ros Martínez, Susana",
+      "cod": 58,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Rueda Perelló, Patricia",
+      "cod": 293,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Ruiz Boix, Juan Carlos",
+      "cod": 68,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Ruiz de Diego, Víctor Javier",
+      "cod": 362,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Ruiz Solás, María de la Cabeza",
+      "cod": 283,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Sáez Cruz, Emilio",
+      "cod": 138,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Sagastizabal Unzetabarrenetxea, Idoia",
+      "cod": 309,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Sahuquillo García, Luis Carlos",
+      "cod": 10,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Sainz Martín, María",
+      "cod": 384,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Salvador i Duch, Jordi",
+      "cod": 77,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Sánchez Díaz, María Carmen",
+      "cod": 72,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Sánchez García, José María",
+      "cod": 53,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Sánchez Ojeda, Carlos Alberto",
+      "cod": 152,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Sánchez Pérez, César",
+      "cod": 217,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Sánchez Serna, Javier",
+      "cod": 292,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Sánchez Sierra, María del Mar",
+      "cod": 281,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Sánchez Torregrosa, Maribel",
+      "cod": 177,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Sancho Íñiguez, Herminio Rufino",
+      "cod": 130,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Santana Aguilera, Ada",
+      "cod": 133,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Santana Perera, Noemí",
+      "cod": 33,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Santiago Romero, Enrique Fernando",
+      "cod": 125,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Santos Maraver, Agustín",
+      "cod": 311,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Sanz Martínez, Luisa",
+      "cod": 91,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Sarrià Morell, Vicent Manuel",
+      "cod": 219,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Sastre Uyá, Miguel Ángel",
+      "cod": 206,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Sayas López, Sergio",
+      "cod": 148,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Sémper Pascual, Borja",
+      "cod": 258,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Senderos Oraá, Daniel",
+      "cod": 17,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Serrada Pariente, David",
+      "cod": 24,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Serrano Martínez, Juan Francisco",
+      "cod": 40,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Sierra Caballero, Francisco",
+      "cod": 268,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Simancas Simancas, Rafael",
+      "cod": 229,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Simarro Vicens, Carlos",
+      "cod": 402,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Soldevilla Novials, Alba",
+      "cod": 358,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Soler Mur, Alejandro",
+      "cod": 296,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Taibo Monelos, Diego",
+      "cod": 412,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Tarno Blanco, Ricardo",
+      "cod": 89,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Tellado Filgueira, Miguel",
+      "cod": 26,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Teniente Sánchez, Cristina",
+      "cod": 47,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Tomás Olivares, Violante",
+      "cod": 119,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Torres Tejada, María",
+      "cod": 368,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Trenzano Rubio, Marta",
+      "cod": 220,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Uriarte Bengoechea, Edurne",
+      "cod": 374,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Valero Morales, Juan Antonio",
+      "cod": 78,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Valido García, Cristina",
+      "cod": 38,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Vallugera Balañà, Pilar",
+      "cod": 223,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Vaquero Montero, Maribel",
+      "cod": 303,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Varela Pazos, Marta",
+      "cod": 347,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Vázquez Blanco, Ana Belén",
+      "cod": 196,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Vázquez Jiménez, María del Mar",
+      "cod": 76,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Vedrina Conesa, María Elisa",
+      "cod": 383,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Velarde Gómez, Martina",
+      "cod": 169,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Velasco Morillo, Elvira",
+      "cod": 34,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Velasco Retamosa, José Manuel",
+      "cod": 184,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Verano Domínguez, Bella",
+      "cod": 43,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Verdejo Vicente, Ferran",
+      "cod": 23,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Vergara Román, Laura",
+      "cod": 408,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Vidal Matas, Vicenç",
+      "cod": 192,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Vidal Sáez, Aina",
+      "cod": 327,
+      "reason": "not-transcribed"
+    },
+    {
+      "deputy": "Zaragoza Alonso, José",
+      "cod": 35,
+      "reason": "not-transcribed"
+    }
+  ]
+}

@@ -29,6 +29,8 @@ Six documents, each with one job. Start with the one that matches your question.
 | Party-linked foundations | Tribunal de Cuentas report nº 1.642 (2021–22) | Fixed snapshot, lagged |
 | Public salaries of officeholders | Registro de Altos Cargos / transparencia.gob.es | Rebuilt from a CSV export |
 | Key roll-call votes | Congreso de los Diputados open data | Rebuilt on demand |
+| Sitting deputies and their economic interests | Congreso de los Diputados open data and deputy pages | Rebuilt on demand |
+| Deputies' asset declarations | Congreso scans, transcribed here and checked against RTVE or a second reading | First XV filing (2023), transcribed in batches |
 | Portraits | Wikipedia / Wikimedia Commons | Rebuilt on demand |
 | Politician social presence | Curated registry + Bluesky public API | Live per request |
 | Rights, housing and poverty news | Curated RSS/Atom registry (`lib/news-sources.mjs`) | Live, 30-minute cache |
@@ -57,6 +59,11 @@ Read `/metodologia` in the app before drawing conclusions. In short:
   by type, because a "proposición no de Ley" or a motion is a non-binding position, not the
   passage of a law. A person has a position only if their vote is on record — never inferred from
   their party.
+- **Declarations are self-declared, and the asset ones are transcribed here.** Congreso publishes
+  deputies' asset declarations as scans, "sin corrección alguna". A transcription is published only
+  once its totals match RTVE's independent transcription or a second reading of the scan; until then
+  the profile links the official PDF. No net worth is computed, because the form gives property no
+  value.
 - **Portraits are only attached on an exact name match** with the Wikipedia article title, and
   only when the licence permits reuse; author and licence are shown wherever the photo appears.
   Everyone else gets initials, never a stand-in photo of someone else.
@@ -110,6 +117,10 @@ deploy.
 | `npm run discover:votes -- XV` | nothing | Shortlists candidate votes for a human to review |
 | `npm run build:photos` | `data/photos.json` | Wikimedia portraits; skips anything not freely licensed. Re-run to top up after throttling |
 | `npm run build:foundations -- <pdf>` | `data/foundations.json` | Python, needs `pip install pypdf`; **aborts** unless the extracted sums reconcile with the report's own totals |
+| `npm run build:deputies` | `data/deputies.json`, `data/interests.json` | Congreso roster, deputy pages and interests open data; caches each first asset-declaration PDF locally; **aborts** unless every roster entry matches exactly one deputy page |
+| `npm run check:deputies` | nothing | The deputy-to-register join; **exits non-zero** on a missing or stale alias, a party-family disagreement or a slug collision |
+| `npm run build:declarations` | `data/declarations.json` | Publishes only transcriptions that pass a check, and lists the rest |
+| `npm run check:declarations` | nothing | Re-runs the checks on every published declaration |
 | `npm run check:feeds` | nothing | Health-checks every news feed; **exits non-zero** on a dead, unparseable or stale source |
 
 Run `npm run check:feeds` after editing `lib/news-sources.mjs`. A feed can answer HTTP 200 and
@@ -186,8 +197,8 @@ A healthy response reports `"storage":{"configured":"kv","writtenTo":"kv"}`.
 |------|------|
 | `/[locale]` | Portal: headline figures, how each group voted, rights and housing news |
 | `/[locale]/financiacion` | Money: subsidies dashboard and the party-linked foundations layer |
-| `/[locale]/politicos` | Every officeholder: search, party facets, paging |
-| `/[locale]/politico/[slug]` | One person: pay, party funding, recorded ballots, social, news |
+| `/[locale]/politicos` | Every officeholder and sitting deputy: search, party facets, paging |
+| `/[locale]/politico/[slug]` | One person: pay, party funding, declarations to Congress, recorded ballots, social, news |
 | `/[locale]/party/[nif]` | One party: public and private money, faces, ledger, news |
 | `/[locale]/votaciones` | Key votes: result, per-group breakdown, deputy search |
 | `/[locale]/metodologia` | Methodology, legal caveats, and the full news-source registry |
@@ -206,13 +217,18 @@ API routes: `/api/refresh` (BDNS pull, cron-protected), `/api/news`, `/api/blues
 | `lib/data.ts` | Load, cache and invalidate the aggregated snapshot |
 | `lib/normalize.ts` | Parse `beneficiario` into NIF, classify subsidy kind, aggregate, filter |
 | `lib/parties.ts` | Canonical NIF → party registry (name, colour, bloc) |
-| `lib/people.ts` | The join: one profile per officeholder from every dataset |
+| `lib/people.ts` | The join: one profile per officeholder and sitting deputy from every dataset |
 | `lib/name-key.mjs` | Shared accent-folded name keys — single source of truth for every join |
 | `lib/politicians.ts` | Curated politicians with verified Bluesky handles |
 | `lib/donations.ts` | Private donations 2020, transcribed from Tribunal de Cuentas report 1573 |
 | `lib/foundations.ts` + `scripts/extract-foundations.py` | Party-linked foundations from report 1.642 |
 | `lib/salaries.ts` + `scripts/build-salaries.mjs` | Officeholder pay: load, search, party join |
 | `lib/votes.ts` + `scripts/fetch-votes.mjs` | Pinned roll-call votes and per-deputy positions |
+| `lib/deputies.ts` + `scripts/fetch-deputies.mjs` | Sitting deputies, their filings, and the interests open data |
+| `lib/deputy-join.mjs` + `scripts/check-deputies.mjs` | The deputy-to-register join (aliases, party families) and its guard |
+| `lib/declarations.ts` + `scripts/build-declarations.mjs` | Asset declarations and interests: types, loaders, and the checked build |
+| `lib/declaration-totals.mjs` + `scripts/check-declarations.mjs` | The totals rule shared by the page and the checks |
+| `scripts/declaration-transcription.md` | The instructions every transcription reader follows |
 | `scripts/discover-votes.mjs` | Finds candidate votes for review (publishes nothing) |
 | `lib/photos.ts` + `scripts/fetch-photos.mjs` | Freely-licensed portraits with attribution |
 | `lib/news.ts` | Feed fetching and merging: RSS and Atom, staleness guards, per-source cap |
@@ -222,6 +238,7 @@ API routes: `/api/refresh` (BDNS pull, cron-protected), `/api/news`, `/api/blues
 | `components/Sidebar.tsx` | Left rail navigation and the mobile menu |
 | `components/Dashboard.tsx` | Overview: totals, filters, ranked bars |
 | `components/StanceByGroup.tsx` | Per-group ballots, labelled by how each group voted |
+| `components/Declarations.tsx` | Profile section: asset declaration, economic interests, caveat |
 | `components/NewsFeed.tsx` | News panel: topic mode (registry) or query mode (search) |
 
 ## Sources
@@ -230,6 +247,8 @@ API routes: `/api/refresh` (BDNS pull, cron-protected), `/api/news`, `/api/blues
 - [Tribunal de Cuentas — political parties](https://www.tcu.es/es/partidos-politicos/)
 - [Organic Law 8/2007 on party financing](https://www.boe.es/buscar/act.php?id=BOE-A-2007-13022)
 - [Congreso de los Diputados — open data](https://www.congreso.es/es/opendata)
+- [Congreso de los Diputados — deputies and their declarations](https://www.congreso.es/es/busqueda-de-diputados)
+- [RTVE — the deputies' 2023 declarations](https://www.rtve.es/noticias/2023/declaracion-bienes-diputados-congreso/), used only to check transcribed totals, never as a source
 
 The full news-source registry, including the feeds deliberately excluded and the reason for each,
 is listed in the app at `/metodologia` and in `lib/news-sources.mjs`.

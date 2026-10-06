@@ -1,8 +1,7 @@
 import Link from "next/link";
-import { querySalaries } from "@/lib/salaries";
-import { getBadges, featuredSlugs, getProfile } from "@/lib/people";
+import { getBadges, featuredSlugs, getProfile, placeOf, queryPeople } from "@/lib/people";
 import { getDict } from "@/lib/i18n";
-import { euro, euroCompact, integer } from "@/lib/format";
+import { euroCompact, integer } from "@/lib/format";
 import Avatar from "@/components/Avatar";
 
 // Search and paging come from the query string.
@@ -21,7 +20,7 @@ export default async function PoliticosPage({
   const P = t.people;
   const S = t.salaries;
 
-  const { results, total, page: current, pages, parties } = await querySalaries({
+  const { results, total, page: current, pages, parties } = await queryPeople({
     q,
     party,
     page: Number(page) || 1,
@@ -74,7 +73,10 @@ export default async function PoliticosPage({
                 </div>
                 <p className="label-mono truncate text-[var(--ink-3)]">{person.role}</p>
                 <div className="mono flex flex-wrap gap-x-4 gap-y-1 text-xs">
-                  <span className="text-[var(--ink)]">{euroCompact(person.gross, bcp47)}</span>
+                  {/* No published pay is a gap, not a zero. */}
+                  <span className="text-[var(--ink)]">
+                    {person.gross > 0 ? euroCompact(person.gross, bcp47) : "—"}
+                  </span>
                   <span className="text-[var(--gold-deep)]">
                     {integer(record.length, bcp47)} {P.hasRecord}
                   </span>
@@ -161,11 +163,11 @@ export default async function PoliticosPage({
                   <div className="hidden min-w-0 sm:block">
                     <p className="label-mono truncate text-[var(--ink-2)]">{p.partyShort}</p>
                     <p className="label-mono mt-1 truncate text-[var(--ink-3)]">
-                      {p.municipality ?? p.region ?? "—"}
+                      {placeOf(p) ?? "—"}
                     </p>
                   </div>
                   <p className="mono text-right text-sm text-[var(--ink)]">
-                    {euroCompact(p.gross, bcp47)}
+                    {p.gross > 0 ? euroCompact(p.gross, bcp47) : "—"}
                   </p>
                 </Link>
                 <hr className="hairline" />

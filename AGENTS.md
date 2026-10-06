@@ -184,6 +184,61 @@ register writes "PSOE" — and a second copy of a rule drifts from the first. Th
 first draft tried it with substring matching and failed all ten PSOE and PNV matches, which is
 the drift in miniature.
 
+## The deputies' declarations are transcribed, and nothing is published unchecked
+
+Congreso publishes two declarations per deputy, and they could not be more different to ingest.
+The **Intereses Económicos** are open data: `docacteco__*.json`, one row per prior activity,
+foundation or association, gift or remark, reproduced on the profile as published (the `sector`
+field is free text and is never normalised). The **Bienes y Rentas** exist only as one scanned PDF
+per deputy, so they are transcribed here.
+
+**Who gets a profile.** The profile spine was the pay register, which carries only 229 of the 350
+sitting deputies: 217 under the same folded name, 12 under a longer or shorter one. `lib/deputy-join.mjs`
+links a deputy to a register row only on the officeholder join's two conditions: one register row
+with that folded name (or a `DEPUTY_ALIASES` entry), **and** agreeing party families (PSC sits with
+PSOE, the parties of the 2023 SUMAR list with Sumar). A deputy whose name appears nowhere in the
+register, not even inside a longer name, gets a profile from Congreso alone (121 of them): no pay
+figure, `inRegister: false`, the gap stated, and no salary-distribution or SMI block, because those
+blocks' "the register publishes no figure for this post" would be false. A deputy with a candidate
+row is never linked or duplicated automatically: `check:deputies` lists the candidate, a person
+reads it, and only then does it go into `DEPUTY_ALIASES` with the review date. All 12 aliases are
+Congreso posts in the register, carried as "Madrid" the way the register carries Congress deputies.
+
+**Which filing.** Each deputy's first filing of the legislature, the one made on taking the seat:
+it puts every deputy on the same footing (income of the year before), and it is the filing RTVE
+transcribed. Later filings are listed on the profile with their date and a link, not transcribed.
+
+**How a transcription earns publication.** Readers follow `scripts/declaration-transcription.md`:
+verbatim text, Spanish amounts parsed, illegible cells left null and listed, nothing inferred, and
+no marital status, matrimonial regime, age or signature. `build:declarations` publishes a reading
+only when its section totals (`lib/declaration-totals.mjs`) equal RTVE's published totals for
+income, financial assets and debts, or equal all four totals (IRPF included) of an independent
+second reading. Everything else is listed and left out, and the profile links the PDF instead.
+RTVE is a **check, never a source**: its figures are cached locally, never published and never
+committed, and it has its own errors — it records a Toledo house of Agustín Conde Bajén as bought
+("compraventa") where the scan says inherited ("Herencia").
+
+What the check does not cover, said plainly: text fields are not cross-checked, and an
+RTVE-checked entry's IRPF line rests on the one reading, because RTVE's listing does not carry it.
+The page's caveat says both.
+
+**What the build changes, and what it flags.** A published reading is never edited by hand. The
+build makes one change in code: a licence plate typed into a vehicle row becomes "[matrícula
+omitida]", since the form itself asks for none, and `build:declarations` prints every replacement so
+a false match is caught on review. An amount written other than in Spanish format is read by a
+fixed rule (a comma followed by exactly three digits is a thousands separator, since euro amounts
+never carry three decimals; an apostrophe is a decimal mark) and recorded in `notes` with the cell
+exactly as written; the page shows that written form beneath the figure, and `/datos` carries it.
+The deposits block asks for one balance across all accounts, so a
+figure may sit beside one account line with null on the rest, and the page says so. A deputy with
+no rows in the interests file gets a stated gap rather than a missing section.
+
+**What the page will not do.** There is no grand total, because the form gives property no value
+and a "net worth" would leave out what is often the largest asset. There is no ranking of deputies
+by anything declared, and no tally of how the owners of N properties voted. The declaration sits
+directly above the recorded votes on the profile, with the juxtaposition line, and that is the
+whole link.
+
 ## Every bar goes through one primitive, and its scale is a required prop
 
 `components/chart/Bar.tsx` is the only bar on this site. Before it there were thirteen
@@ -224,8 +279,8 @@ children resolve their percentages against nothing and stack at one point.
 | `fundaciones/page.tsx` | The foundation channel: who pays the party foundations and who governs them |
 | `fundacion/[slug]/page.tsx` | One party-linked entity: money in by source, public money by grantor, findings |
 | `mapa/page.tsx` | The territorial map: which party governs each community, and the recorded hate-crime rate there |
-| `politicos/page.tsx` | Politician directory: featured record-holders + the full register |
-| `politico/[slug]/page.tsx` | One person: pay, party funding, recorded ballots, social, news |
+| `politicos/page.tsx` | Politician directory: featured record-holders + everyone with a profile (the pay register, plus the sitting deputies it does not carry) |
+| `politico/[slug]/page.tsx` | One person: pay, party funding, what a deputy declared to Congreso, recorded ballots, social, news |
 | `party/[nif]/page.tsx` | Party detail: formation switcher, public + private money, faces, ledger, group stances, court record, news |
 | `votaciones/page.tsx` | Tracked votes: the money→party→vote flow, then result, per-group breakdown, deputy search |
 | `derechos/page.tsx` | The rights section: the LGBTQ+ organisations' own feeds, with images, plus the source directory |
@@ -280,7 +335,7 @@ ordinary browser one, so `FEED_HEADERS` in the registry sends the browser string
 | `lib/donations.ts` | Private donations 2020, transcribed from the TdC report |
 | `lib/foundations.ts` | Party-linked foundations 2021–22, per-dossier + the legal mechanism |
 | `lib/foundation-people.ts` | Curated: who governs each foundation, and their outside roles, one dated source per record |
-| `lib/salaries.ts` | Officeholder pay: load, accent-folded search, paging, party facets |
+| `lib/salaries.ts` | The pay register: load. Everything about *pay* reads it; the directory does not (see `lib/people.ts`) |
 | `lib/votes.ts` | Roll-call votes: load, `positionsFor`, `tallyByGroup`, `stancesByParty`, `voteDateISO`, `newestFirst` |
 | `lib/regions.ts` | The communities' projected geometry and the per-territory hate-crime figures (file loaders + types) |
 | `lib/governments.ts` | Curated: who holds each community's presidency, and since when. Free of Node imports, so the map's client component can read it |
@@ -291,7 +346,11 @@ ordinary browser one, so `FEED_HEADERS` in the registry sends the browser string
 | `lib/spending.ts` | Electoral spending, plus `formationNif`/`formationColor` for the report's coalition labels |
 | `lib/photos.ts` | Portrait lookup, `portraitKeys` for bulk tests |
 | `lib/politicians.ts` | Curated politicians with verified Bluesky handles |
-| `lib/people.ts` | **The join.** Assembles one profile from every dataset that knows the person |
+| `lib/people.ts` | **The join.** The people spine (register rows plus the deputies the register lacks), one profile from every dataset that knows the person, and the directory query |
+| `lib/deputies.ts` | The sitting deputies, from Congreso open data and each deputy's ficha, with every declaration the ficha links |
+| `lib/deputy-join.mjs` | The deputy → register join (one folded name or a reviewed alias, **and** party-family agreement), the electoral-formation map, `DEPUTY_ALIASES` |
+| `lib/declarations.ts` | Bienes y Rentas as transcribed and checked (`data/declarations.json`), and the Intereses Económicos open-data rows |
+| `lib/declaration-totals.mjs` | The section totals of a declaration, shared by the page and the build's check |
 | `lib/name-key.mjs` | Shared name folding — `foldText`, `foldTokens`, `nameKey` |
 | `lib/news.ts` | Feed fetching and merging: RSS + Atom, staleness guards, per-source cap |
 | `lib/news-sources.mjs` | The feed registry itself, plus the excluded feeds and why |
@@ -304,7 +363,9 @@ ordinary browser one, so `FEED_HEADERS` in the registry sends the browser string
 
 `lib/name-key.mjs` is plain JS with a `.d.mts` beside it **on purpose**: the build scripts and
 the app must fold names with the identical implementation, or portrait and social lookups
-silently miss. Do not fork it.
+silently miss. Do not fork it. `lib/deputy-join.mjs` and `lib/declaration-totals.mjs` follow the
+same pattern for the same reason: `check:deputies` must run the join the app runs, and the totals
+the build checked must be the totals the page prints.
 
 ### Components
 
@@ -320,7 +381,9 @@ still there" entry in `CHANGELOG.md` for which caveats were and were not convert
 
 Data files in `data/`: `subsidies.json` (live), `salaries.json` (~1.7 MB), `votes.json`,
 `photos.json`, `foundations.json`, `electoral-spending.json`, `regions.json` (projected SVG
-paths), `hate-territory.json`.
+paths), `hate-territory.json`, `deputies.json`, `interests.json`, `declarations.json`. The
+declaration scans (`data/_declaraciones/*.pdf`) and their working transcriptions
+(`data/_transcriptions/`) are gitignored and regenerable.
 
 Read server-side only — pages render a filtered slice, so the browser never receives the large
 datasets. `data/_*.json` are scraper caches and are gitignored. `regions.json` is the one file
@@ -355,6 +418,10 @@ npm run check:territories      # guards the name join between the four sources; 
 npm run check:feeds            # health-checks every news feed; non-zero on a dead or stale one
 npm run check:office-join      # guards the board-member → public-office join; non-zero on a break
 npm run check:investitures     # guards the investiture arithmetic; non-zero on a sum that does not close
+npm run build:deputies         # Congreso roster, fichas, interest declarations, and the asset-declaration scans
+npm run check:deputies         # guards the deputy → register join; lists candidates for DEPUTY_ALIASES
+npm run build:declarations     # publishes only the transcriptions that pass their check
+npm run check:declarations     # re-runs each published entry's check; non-zero on a failure
 ```
 
 Endpoint notes that cost real time to work out:
@@ -383,6 +450,15 @@ Endpoint notes that cost real time to work out:
   to be checked before it is iterated. A `null` `Valor` is a third thing again — a cell the
   indicator does not define, such as low work intensity (0-64) for the 65-and-over age group — and
   it is neither zero nor an error.
+- **Congreso deputies.** `/es/opendata/diputados` links timestamped files (`DiputadosActivos__*.json`,
+  `docacteco__*.json`, `Diputadas__*.json`) whose names change daily, so scrape the links from the page.
+  The roster carries no `codParlamentario`; the fichas are enumerable as
+  `busqueda-de-diputados?…&codParlamentario=N&idLegislatura=XV` and are server-rendered, with the
+  declaration PDFs linked in the raw HTML and dated in their filenames. The Bienes y Rentas PDFs are
+  CCITT scans with no usable text layer; BOCG reproduces the same images.
+- **RTVE's listing** of the 2023 declarations paginates inconsistently unless an order is given:
+  `?page=2` and `?page=3` return ten overlapping rows each and about thirty deputies never appear.
+  `?order=nombre_listado,asc&page=N` returns twenty new rows a page.
 - **Wikipedia and Commons** throttle anonymous clients hard (429). The photo script backs off
   exponentially and caches both passes. Commons returns file titles with spaces while
   `pageimage` gives underscores — keys must be normalised or the licence lookup silently misses.

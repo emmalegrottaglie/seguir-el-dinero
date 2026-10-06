@@ -5,6 +5,102 @@ figures name their source; corrections and gaps are recorded alongside the work,
 
 ---
 
+## 2026-10-06 — What each deputy declared to Congress, next to how they voted
+
+Every sitting deputy now has a profile, and each profile carries what the deputy declared to the
+Congreso de los Diputados: the *Declaración de Intereses Económicos* for all 350, and the
+*Declaración de Bienes y Rentas* for the 18 whose transcription has passed its check so far. The
+declarations sit directly above the deputy's recorded votes, with a line saying the two are shown
+together so they can be looked up and that neither explains the other. There is no net-worth
+figure, no ranking by anything declared, and no tally of how the owners of anything voted.
+
+**A profile for every deputy.** Profiles came only from the pay register, which carries 229 of the
+350 sitting deputies. `npm run build:deputies` (`scripts/fetch-deputies.mjs`) now reads Congreso's
+open-data roster and each deputy's *ficha* into `data/deputies.json`. A deputy is linked to a
+register row only on the existing two-condition rule: exactly one register row with the same folded
+name, or a reviewed alias, **and** agreeing party families (`lib/deputy-join.mjs`). That links 229
+(217 by name, 12 by alias), gives 121 a profile built from Congreso alone, and leaves none
+unresolved. `npm run check:deputies` fails on a slug collision, a missing or stale alias, a family
+disagreement, or fewer than 200 links.
+
+- The 12 aliases are deputies the register lists under a longer or shorter given name, such as
+  Congreso's "Iniesta Egido, Isabel" and the register's "Isabel Belén Iniesta Egido". Each was read
+  by eye on 2026-10-05. Their profiles were missing their recorded votes, and now show them.
+- The 121 Congreso-only profiles show "—" for pay and say the deputy is not in the register this
+  site uses. They skip the salary-distribution and minimum-wage blocks, whose wording ("the register
+  publishes no figure for this post") would be false for them.
+- `/politicos` and `/buscar` include them; a deputy's place is their constituency. The directory's
+  introduction and source note now name Congreso's deputy list beside the pay register.
+
+**"0 €" fixed.** About 1,706 register rows publish no pay figure, and their profile pay panel, card
+and directory row printed "0 €". They now show "—", with "No published figure" and the reason.
+
+**Economic interests.** `data/interests.json` holds Congreso's *Intereses Económicos* open data row
+for row: 2,787 rows for 403 declarants, covering prior activities, foundations and associations,
+gifts and remarks. A profile shows the deputy's rows grouped by filing and type, with the free-text
+`sector` exactly as declared, and a foundation links to its page here only on an exact name match.
+342 sitting deputies have rows under their name; the other 8 have none in the file, and their
+profiles say so.
+
+**Asset declarations.** Congreso publishes the *Bienes y Rentas* only as one scanned PDF per deputy,
+with no text layer and no dataset, so each deputy's first filing of the legislature (made on taking
+the seat in 2023, with the income of 2022) is transcribed here from the scan, following
+`scripts/declaration-transcription.md`: text verbatim, amounts parsed from Spanish format, illegible
+cells left empty and listed, nothing inferred, and no marital status, matrimonial regime or
+signature. `npm run build:declarations` publishes a reading only when its totals for income,
+financial assets and debts equal the ones RTVE published from its own transcription of the same
+filings, or when all four totals, IRPF included, equal an independent second reading. Everything
+else is left out, and the profile links the official PDF with a stated gap.
+`npm run check:declarations` re-runs both checks on every published entry.
+
+- **18 published**, all matching RTVE to the cent.
+- **The pilot.** 24 declarations were read. Of the 21 that RTVE also covers, 17 matched on the first
+  reading. Three did not, and stay out until a second reading settles them: Santiago Abascal Conde
+  (income), Mertxe Aizpurua Arzallus (financial assets) and Carlos Rojas García (debts). Three
+  deputies who took their seats after RTVE's snapshot, Cristina López Zamora, Ainhoa Molina León and
+  Irene Jódar Pérez, can only be checked by a second reading and await one.
+- **One cell, one new rule.** Gabriel Rufián Romero's declaration writes the pending balance of an
+  80.000 € loan as "71,000". The rules then read that in Spanish format, as 71 euros, where RTVE
+  read 71,000. Euro amounts never carry three decimals, so the rules now read a comma followed by
+  exactly three digits as a thousands separator, and an apostrophe as a decimal mark. With that, the
+  reading matches RTVE on every total and is published. The rule was written after this mismatch
+  exposed the case, so for that one cell the check is not independent: the figure was checked by
+  eye against the scan, and the page shows the cell as written beneath it.
+- **RTVE is a check, never a source.** Its figures are cached locally, never published and never
+  committed. It has its own errors: it records a Toledo house of Agustín Conde Bajén as bought
+  ("compraventa") where the scan says inherited ("Herencia"). The page credits RTVE with a link.
+- **What the check does not cover**, stated on the page: text fields are not cross-checked, and
+  RTVE's listing has no IRPF figure, so the IRPF line of an RTVE-checked declaration rests on a
+  single reading.
+- **Left out or flagged on purpose.** One declaration gives a vehicle's licence plate, which the form
+  asks deputies not to give; the build replaces any plate in a vehicle row with "[matrícula omitida]"
+  and prints each replacement, and the page says plates are left out. The deposits block asks for a
+  single balance across all accounts, so a figure can sit beside one account with the others empty;
+  the page says that too. An amount written other than in Spanish format is shown beneath the
+  figure exactly as the scan has it, with a line asking readers to check the PDF, and the `/datos`
+  table carries it in a `cifra_tal_como_figura` column. Rufián's "71,000" is the one case so far.
+- **Cost.** Reading the scans cost two to three times the estimate per declaration, mostly because
+  readers zoomed into single cells. The remaining 325 filings, the six second readings and the 71
+  deputies' later filings are planned in `NEXT-STEPS.md` as smaller batches, each its own change.
+
+The scans (`data/_declaraciones/`) and the raw readings (`data/_transcriptions/`) stay local and are
+not committed; `data/declarations.json` is the published result.
+
+**On `/datos`.** Two new tables: `declaraciones_bienes`, one row per declared item with the official
+PDF and the check used on every row, and `intereses_economicos`, the open-data rows as published.
+
+**Verified.** `check:deputies`, `check:declarations`, `npx tsc --noEmit` and `npm run build`
+(396 static pages) pass. In the browser, in es, en and ca: Agustín Conde Bajén's totals (income
+82,785.90 €, financial assets 302,481.75 €, the Toledo house "Herencia"); Cristina Abades Martínez,
+Congreso-only, with "—" for pay and the gap stated, her votes and her declaration, on her profile, in
+`/politicos` and in search; Isabel Belén Iniesta Egido's votes; Óscar Puente Santiago's later
+filings listed; Cristina López Zamora's "not transcribed yet" with the PDF link; Laura Vergara
+Román's empty-interests gap; Gabriel Rufián Romero's pending balance, 71.000 € with
+"escrito «71,000»" beneath it, and the same in the CSV; the plate left out; the IRPF caveat; both
+CSVs. No horizontal overflow at 375px, and no console errors.
+
+---
+
 ## 2026-10-05 — The site is now "Siguiendo el Dinero"
 
 Renamed from "Seguir el Dinero". The infinitive became a gerund: the name now describes work in

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getProfile } from "@/lib/people";
+import { getProfile, placeOf } from "@/lib/people";
 import { getDict } from "@/lib/i18n";
 import { euro, euroCompact, integer, percent } from "@/lib/format";
 import Avatar from "@/components/Avatar";
@@ -14,6 +14,9 @@ import BallotGrid from "@/components/BallotGrid";
 import { getIndicators, smiLadder } from "@/lib/indicators";
 import { currentSmi } from "@/lib/smi";
 import SmiPosition from "@/components/SmiPosition";
+import Declarations from "@/components/Declarations";
+import { getDeclarations } from "@/lib/declarations";
+import { entities, getFoundations } from "@/lib/foundations";
 
 export const dynamic = "force-dynamic";
 
@@ -32,13 +35,17 @@ export default async function PoliticoPage({
   const profile = await getProfile(slug);
   if (!profile) notFound();
 
-  const { person, party, donations, portrait, social, record } = profile;
-  const [distribution, position, allVotes, indicators] = await Promise.all([
+  const { person, party, donations, portrait, social, record, declaration, interests } = profile;
+  const [distribution, position, allVotes, indicators, declarations, foundations] = await Promise.all([
     getSalaryDistribution(),
     positionOf(person.gross),
     getVotes(),
     getIndicators(),
+    getDeclarations(),
+    getFoundations(),
   ]);
+  const foundationSlugs = new Set(entities(foundations).map((e) => e.slug));
+  const place = placeOf(person);
   const smi = currentSmi();
   const { locale, bcp47, t } = getDict(localeParam);
   const P = t.people;
@@ -83,11 +90,8 @@ export default async function PoliticoPage({
             ) : (
               <span className="text-[var(--ink-2)]">{person.partyShort}</span>
             )}
-            {(person.municipality || person.region) && (
-              <span className="text-[var(--ink-3)]">
-                {person.municipality ?? person.region}
-              </span>
-            )}
+            {place && <span className="text-[var(--ink-3)]">{place}</span>}
+            {person.deputy && <span className="text-[var(--ink-3)]">{person.deputy.group}</span>}
           </p>
         </div>
       </div>
@@ -97,8 +101,20 @@ export default async function PoliticoPage({
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div className="panel p-5">
             <p className="label-mono mb-2">{P.pay}</p>
-            <p className="mono text-2xl text-[var(--ink)]">{euro(person.gross, bcp47)}</p>
-            <p className="label-mono mt-1 text-[var(--ink-3)]">{t.salaries.annual}</p>
+            {/* No published pay is a gap, not a zero. */}
+            {person.gross > 0 ? (
+              <>
+                <p className="mono text-2xl text-[var(--ink)]">{euro(person.gross, bcp47)}</p>
+                <p className="label-mono mt-1 text-[var(--ink-3)]">{t.salaries.annual}</p>
+              </>
+            ) : (
+              <>
+                <p className="mono text-2xl text-[var(--ink-3)]">—</p>
+                <p className="mt-1 text-sm text-[var(--ink-3)]">
+                  {person.inRegister ? `${P.noPay}. ${P.noPayExplain}` : P.notInRegister}
+                </p>
+              </>
+            )}
           </div>
           {party && (
             <Link
@@ -118,23 +134,44 @@ export default async function PoliticoPage({
         </div>
         <p className="label-mono mt-4 text-[var(--ink-3)]">{P.juxtaposition}</p>
 
-        <h3 className="display mt-10 text-lg">{t.salaryShape.title}</h3>
-        <SalaryDistributionChart
-          gross={person.gross}
-          distribution={distribution}
-          position={position}
-          t={t.salaryShape}
-          bcp47={bcp47}
-        />
+        {/* Both place a register figure; for someone the register does not carry, their
+            "the register publishes no figure for this post" lines would be false. */}
+        {person.inRegister && (
+          <>
+            <h3 className="display mt-10 text-lg">{t.salaryShape.title}</h3>
+            <SalaryDistributionChart
+              gross={person.gross}
+              distribution={distribution}
+              position={position}
+              t={t.salaryShape}
+              bcp47={bcp47}
+            />
 
-        <SmiPosition
-          gross={person.gross > 0 ? person.gross : null}
-          tranches={smiLadder(indicators)}
-          smi={smi}
-          t={t.smiPosition}
+            <SmiPosition
+              gross={person.gross > 0 ? person.gross : null}
+              tranches={smiLadder(indicators)}
+              smi={smi}
+              t={t.smiPosition}
+              bcp47={bcp47}
+            />
+          </>
+        )}
+      </section>
+
+      {/* What a sitting deputy declared to Congress, directly above how they voted */}
+      {person.deputy && (
+        <Declarations
+          deputy={person.deputy}
+          declaration={declaration}
+          interests={interests}
+          check={declarations.check}
+          foundationSlugs={foundationSlugs}
+          t={t.declarations}
+          caveatLabel={t.common.caveat}
+          locale={locale}
           bcp47={bcp47}
         />
-      </section>
+      )}
 
       {/* Recorded votes on rights legislation */}
       <section className="mt-12">

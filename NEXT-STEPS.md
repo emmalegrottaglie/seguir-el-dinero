@@ -196,6 +196,61 @@ sourced proceedings, with status and outcome stated, are the defensible form.
 
 ---
 
+## 7. The deputies' asset declarations — the remaining transcriptions
+
+**Goal.** Every sitting deputy's first *Declaración de Bienes y Rentas* of the XV Legislatura
+transcribed and checked, so each profile shows what the deputy declared rather than only a link to
+the scan.
+
+**Where it stands (2026-10-06).** 18 of the 349 filings are published, all checked against RTVE.
+The method, the checks and what they do not cover are in `AGENTS.md` ("The deputies' declarations
+are transcribed, and nothing is published unchecked"); the reader instructions are in
+`scripts/declaration-transcription.md`. Remaining:
+
+- 325 filings not yet read. `npm run build:declarations` lists them as `not-transcribed`, and
+  `data/_declaraciones/<cod>.pdf` holds each scan (`npm run build:deputies` downloads them again if
+  the cache is gone).
+- 6 awaiting a second reading:
+  - three whose first reading differed from RTVE: 317 (Abascal Conde, income), 300 (Aizpurua
+    Arzallus, financial assets) and 12 (Rojas García, debts);
+  - three who took their seats after RTVE's August 2023 snapshot, so only a second reading can
+    check them: 365 (López Zamora), 391 (Molina León) and 405 (Jódar Pérez).
+
+**Procedure.** The pilot cost two to three times the estimate per declaration, mostly from readers
+zooming into single cells. Run the rest in small batches, each its own pull request:
+
+1. Give each reader two declarations and a reading letter ("a", or "b" for a second reading), and
+   point it at `scripts/declaration-transcription.md` rather than restating the rules.
+2. Use a lighter model for the readers, and have them read each page at full-page scale, cropping
+   only a cell they cannot read that way.
+3. After each batch, run `npm run build:declarations` and `npm run check:declarations`. A reading
+   that disagrees with RTVE gets a "b" reading from a different reader, made without sight of the
+   "a".
+4. Record in the batch's CHANGELOG entry how many were published, by which check, and which were
+   left out and why.
+
+**Settled, and still open.**
+
+- **Amounts not in Spanish format** (settled 2026-10-06). A comma followed by exactly three digits
+  is a thousands separator, since euro amounts never carry three decimals, and an apostrophe is a
+  decimal mark. Each such cell is noted and shown as written beneath its figure. A figure the rules
+  still do not settle is illegible, so its declaration waits.
+- **IRPF** (open). RTVE's listing has no IRPF figure, so an RTVE-checked declaration's IRPF rests on one
+  reading. A second reading of the IRPF box alone, which is quick, would close that gap.
+
+**Later.**
+
+- 71 deputies have later filings (ministers, changes of circumstance), listed on their profiles by
+  date with a link. Transcribe them only once every first filing is done; RTVE does not cover them,
+  so each needs a second reading.
+- Senators file the same declarations with the Senado. Nothing of the Senado is ingested yet.
+
+**Stop conditions.** Do not publish a reading that has not passed a check. Do not add a net-worth
+total, a ranking of deputies by anything declared, or a tally of how deputies holding a given asset
+voted. Do not use RTVE's figures as a source, even where a reading is missing.
+
+---
+
 ## Standing practice
 
 - **Document every task in `CHANGELOG.md`** — what changed, why, the source behind any new
