@@ -5,6 +5,65 @@ figures name their source; corrections and gaps are recorded alongside the work,
 
 ---
 
+## 2026-10-06 — Asset declarations, second batch: 44 published
+
+The second batch of transcriptions of the deputies' *Declaración de Bienes y Rentas*, run with the
+cheaper settings planned in `NEXT-STEPS.md`: two declarations per reader, a lighter model, and pages
+read at full-page scale without cropping.
+
+**What was read.** The next 20 first filings in Congreso's surname order, from José Luis Aceves
+Galindo to Francisco Aranda Vargas; second readings of the six the pilot left waiting; and, in the
+same pass, second readings of the four of the 20 who took their seats after RTVE's snapshot, since
+only a second reading can check them. The four new first readings that did not match RTVE then got
+a second reading too: 34 readings in all.
+
+**Result: 44 published, up from 18**, 31 checked against RTVE and 13 by an independent second
+reading. None is waiting for a second reading; 305 filings are not yet transcribed. Of the 16 new
+filings RTVE covers, 12 matched it on the first reading.
+
+**Where two readings agree and RTVE does not.** In six declarations, two independent readings agree
+with each other and not with RTVE, so they are published by the second-reading check. Two were
+checked by eye against the scan, and in both the scan bears out the readings:
+
+- Santiago Abascal Conde: the scan lists one income line, 37.357,8 €; RTVE's income is 18,000 €
+  higher.
+- Mertxe Aizpurua Arzallus: the scan lists a current account of 19.400 € and a life insurance of
+  21.000 €; RTVE's financial total is 9,287.48 € higher.
+- Francisco José Alcaraz Martos: the form's last block lists a mobile home ("casa móvil") at
+  57.000 €, which RTVE counts as income rather than as an asset; RTVE's debts are also 1,357.26 €
+  higher.
+- Francesc-Marc Álvaro Vidal: the same block lists a rent ("Renta de alquiler por el piso reseñado")
+  of 1.056 €, which RTVE counts as income.
+- Juan José Aizcorbe Torra and Teslem Andala Ubbi: debts 200 € and 2 cents apart.
+
+**The form's last block holds income as well as assets.** It is titled "Otros bienes, rentas o
+derechos de contenido económico no declarados en apartados anteriores", and deputies use it for both:
+a mobile home in one declaration, a rent in another. Its items are transcribed as written and, as
+before, counted in the "deposits and other assets" total, because splitting income from assets
+within it would mean judging each item. The label on the page now repeats the block's own title,
+"Otros bienes, rentas o derechos", so a rent listed there is not presented as an asset.
+
+**Two new transcription rules**, both written into `scripts/declaration-transcription.md`:
+
+- A row whose amount is filled but whose first cell is empty is kept, with the empty cell null and
+  shown as "—": an account with no description, an interest line with no concept. Three readings
+  had one, and the build had rejected them as invalid.
+- A deputy who runs out of loan rows may continue the table in the "otras deudas" box. Carlos Rojas
+  García did, with loans 6 and 7, which both readings had transcribed identically as free text. They
+  are now transcribed as loans, which brings his debts outstanding to 692,810 €, RTVE's figure. One
+  of the two balances is written "56 .419 €", and the page shows it as written.
+
+**Cost.** The batch took 30 points of the five-hour usage window (35% to 65%) and 5 of the weekly,
+for 34 readings, or a little under one point per reading; the pilot took 42 points for 21. The
+background research for the housing news feeds ran in the same window.
+
+**Verified.** `check:declarations`, `check:deputies`, `npx tsc --noEmit` and `npm run build` pass.
+In the browser: `/politicos/declaraciones` with 44 rows; Carlos Rojas García's seven loans and the
+balance shown as written; Pablo Antuñano Colina's interest line with "—" for its blank concept; the
+relabelled block in es, en and ca.
+
+---
+
 ## 2026-10-06 — What each deputy declared to Congress, next to how they voted
 
 Every sitting deputy now has a profile, and each profile carries what the deputy declared to the
