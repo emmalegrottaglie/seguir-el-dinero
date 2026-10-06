@@ -229,6 +229,11 @@ a false match is caught on review. An amount written other than in Spanish forma
 fixed rule (a comma followed by exactly three digits is a thousands separator, since euro amounts
 never carry three decimals; an apostrophe is a decimal mark) and recorded in `notes` with the cell
 exactly as written; the page shows that written form beneath the figure, and `/datos` carries it.
+Two layout rules come from the second batch: a row with an amount and an empty first cell is kept
+with that cell null, and loan rows a deputy continued into the "otras deudas" box are transcribed
+as loans. The form's last block, "otros bienes, rentas o derechos", holds rents as well as assets;
+its items count towards the deposits-and-other-assets total, and the page labels them with the
+block's own title rather than calling them assets.
 The deposits block asks for one balance across all accounts, so a
 figure may sit beside one account line with null on the rest, and the page says so. A deputy with
 no rows in the interests file gets a stated gap rather than a missing section.
