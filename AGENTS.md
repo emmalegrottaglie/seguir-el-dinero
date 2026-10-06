@@ -237,7 +237,9 @@ no rows in the interests file gets a stated gap rather than a missing section.
 and a "net worth" would leave out what is often the largest asset. There is no ranking of deputies
 by anything declared, and no tally of how the owners of N properties voted. The declaration sits
 directly above the recorded votes on the profile, with the juxtaposition line, and that is the
-whole link.
+whole link. The side-by-side table at `/politicos/declaraciones` keeps the same rules: Congreso's
+surname order, no sorting by any amount, properties and vehicles counted rather than valued, and no
+column summed across deputies.
 
 ## Every bar goes through one primitive, and its scale is a required prop
 
@@ -280,6 +282,7 @@ children resolve their percentages against nothing and stack at one point.
 | `fundacion/[slug]/page.tsx` | One party-linked entity: money in by source, public money by grantor, findings |
 | `mapa/page.tsx` | The territorial map: which party governs each community, and the recorded hate-crime rate there |
 | `politicos/page.tsx` | Politician directory: featured record-holders + everyone with a profile (the pay register, plus the sitting deputies it does not carry) |
+| `politicos/declaraciones/page.tsx` | What the sitting deputies declared, side by side: each transcribed declaration's totals by section in surname order, a party filter, and the deputies still waiting for a transcription. Shares the `PeopleTabs` sub-navigation with the directory |
 | `politico/[slug]/page.tsx` | One person: pay, party funding, what a deputy declared to Congreso, recorded ballots, social, news |
 | `party/[nif]/page.tsx` | Party detail: formation switcher, public + private money, faces, ledger, group stances, court record, news |
 | `votaciones/page.tsx` | Tracked votes: the money→party→vote flow, then result, per-group breakdown, deputy search |

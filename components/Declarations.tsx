@@ -60,7 +60,7 @@ export default function Declarations({
   const num = "mono py-2.5 pr-4 text-right align-top";
 
   return (
-    <section className="mt-12">
+    <section id="declaracion" className="mt-12 scroll-mt-6">
       <h2 className="display section-tick text-xl">{t.title}</h2>
       <p className="label-mono mt-4 text-[var(--ink-3)]">{t.juxtaposition}</p>
 

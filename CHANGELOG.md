@@ -86,6 +86,16 @@ else is left out, and the profile links the official PDF with a stated gap.
 The scans (`data/_declaraciones/`) and the raw readings (`data/_transcriptions/`) stay local and are
 not committed; `data/declarations.json` is the published result.
 
+**A tab of its own under Politicians.** `/politicos/declaraciones`, reached from a "Declared
+assets" tab beside the directory, lists every transcribed declaration side by side: income,
+deposits and other assets, and debts outstanding as totals, and properties and vehicles as counts,
+because the form gives them no value. Each name links to the full declaration on the profile. The
+order is Congreso's surname order and cannot be changed: the site does not rank deputies by
+anything they declared, does not sum a column across deputies, and says so under the table. A party
+filter narrows both the table and the collapsed list of deputies still waiting for a
+transcription; the one deputy whose Congreso page carries no asset declaration is named. The page
+is also in site search.
+
 **On `/datos`.** Two new tables: `declaraciones_bienes`, one row per declared item with the official
 PDF and the check used on every row, and `intereses_economicos`, the open-data rows as published.
 
@@ -97,7 +107,9 @@ Congreso-only, with "—" for pay and the gap stated, her votes and her declarat
 filings listed; Cristina López Zamora's "not transcribed yet" with the PDF link; Laura Vergara
 Román's empty-interests gap; Gabriel Rufián Romero's pending balance, 71.000 € with
 "escrito «71,000»" beneath it, and the same in the CSV; the plate left out; the IRPF caveat; both
-CSVs. No horizontal overflow at 375px, and no console errors.
+CSVs; `/politicos/declaraciones` with its 18 rows, the ERC filter (one row, six pending), an unknown
+party's empty state, and the tab on both pages. No horizontal overflow at 375px, and no console
+errors.
 
 ---
 
