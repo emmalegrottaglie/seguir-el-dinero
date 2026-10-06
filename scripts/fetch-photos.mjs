@@ -14,7 +14,7 @@
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { nameKey } from "../lib/name-key.mjs";
 
-const UA = "SeguirElDinero/1.0 (public-funding transparency site)";
+const UA = "SiguiendoElDinero/1.0 (public-funding transparency site)";
 const API = "https://es.wikipedia.org/w/api.php";
 const COMMONS = "https://commons.wikimedia.org/w/api.php";
 

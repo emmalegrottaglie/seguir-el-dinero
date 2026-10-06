@@ -1,4 +1,4 @@
-# Seguir el Dinero — Spanish party-funding tracker
+# Siguiendo el Dinero — Spanish party-funding tracker
 
 A transparency portal for the money behind Spanish political parties: the public state subsidies
 they receive (pulled live from the official national subsidies database), the private donations

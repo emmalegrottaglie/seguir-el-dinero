@@ -78,7 +78,7 @@ export async function GET(request: Request) {
   try {
     const upstream = await fetch(target, {
       signal: controller.signal,
-      headers: { "User-Agent": "seguir-el-dinero/1.0 (+image proxy)", Accept: "image/*" },
+      headers: { "User-Agent": "siguiendo-el-dinero/1.0 (+image proxy)", Accept: "image/*" },
       // Do not follow a redirect off an allowed host.
       redirect: "follow",
       next: { revalidate },

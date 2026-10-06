@@ -82,11 +82,11 @@ export default function Masthead({
               className="display block font-normal"
               style={{ fontSize: "clamp(38px,6.2vw,72px)", lineHeight: 0.9, letterSpacing: "-0.03em" }}
             >
-              Seguir <span className="italic text-[var(--gold)]">el</span> Dinero
+              Siguiendo <span className="italic text-[var(--gold)]">el</span> Dinero
             </span>
           </Link>
           {/* mt-3, not mt-1. The wordmark runs at 72px on a 0.9 line height,
-              so its box is 65px and the descender of the "g" in "Seguir"
+              so its box is 65px and the descender of the "g" in "Siguiendo"
               paints about 7px below it — over the "Nº" of this line, which
               measured as a 4px box gap and read as a strikethrough. */}
           <p
