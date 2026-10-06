@@ -108,7 +108,7 @@ export default async function MetodologiaPage({
                   </th>
                   <td className="label-mono py-2.5 pr-4 text-[var(--ink-2)]">
                     {s.kind === "org" ? m.feedsOrg : m.feedsMedia}
-                    {s.lang === "en" ? " · EN" : ""}
+                    {s.lang !== "es" ? ` · ${s.lang.toUpperCase()}` : ""}
                   </td>
                   <td className="label-mono py-2.5 text-[var(--ink-3)]">
                     {s.topics.map((topic) => m.feedsTopic[topic]).join(" · ")}

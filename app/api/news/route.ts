@@ -20,9 +20,10 @@ export async function GET(request: Request) {
       .map((t) => t.trim())
       .filter((t): t is NewsTopic => (TOPICS as string[]).includes(t));
     if (topics.length === 0) return NextResponse.json({ items: [], dropped: [] });
-    // Catalan readers are served the Spanish-language sources first: the
-    // registry has no Catalan feed, and Spanish is the nearer of the two.
-    const prefer = params.get("lang") === "en" ? "en" : "es";
+    // Readers get their own language first, then Spanish. The housing registry has
+    // Catalan feeds; the other topics have none, so Catalan readers see Spanish first there.
+    const lang = params.get("lang");
+    const prefer = lang === "en" || lang === "ca" ? lang : "es";
     try {
       const { items, dropped } = await fetchTopicNews(topics, 8, prefer);
       return NextResponse.json({ items, dropped }, { headers: CACHE });

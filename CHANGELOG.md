@@ -101,6 +101,52 @@ CSVs. No horizontal overflow at 375px, and no console errors.
 
 ---
 
+## 2026-10-06 — Housing in the news: fourteen new sources, and a section on the portal
+
+Rents, evictions and the tenant protests have become a lead story, and the site had three housing
+sources in its feed registry (Provivienda, Hogar Sí and El Salto · Vivienda) and no page that showed
+them. Now it has seventeen, and the portal has a section of its own, "La vivienda, en las noticias".
+
+**The fourteen new feeds**, each fetched on 2026-10-06 and publishing within the previous week:
+
+- public broadcasters: RTVE · Vivienda and 3Cat · Habitatge;
+- national press: El País, El Mundo, elDiario.es, El Español, 20minutos and The Objective, each
+  through its housing section or tag;
+- a wire agency and a fact-checker: Europa Press · Vivienda and Newtral · Vivienda;
+- the Catalan-language press: Ara · Habitatge and VilaWeb · Habitatge;
+- the organisations behind the protests, in their own voice: the Sindicat de Llogateres and the
+  PAH.
+
+**How they were chosen.** To span the spectrum rather than to agree, and only through section or tag
+feeds that carry housing reporting: property portals are left out because they have a commercial
+interest in prices. About fifty feeds qualified technically. The rest were left out because they
+would tilt the balance, repeat national copy (most regional dailies) or publish too rarely; they
+are listed with the reason in `research/housing-feeds.md`, so a later pass starts there. Five that
+could not be used are recorded in `EXCLUDED_FEEDS`: ABC (stale and empty housing feeds), La
+Vanguardia (no housing feed, 403), Público (no RSS), CTXT (general feed behind a bot check) and the
+Sindicato de Inquilinas de Madrid (nothing since 28 July).
+
+**On the portal.** Six items, newest first, one per publisher. The organisations publish far less
+often than the press, so newest-first alone would never show them: they get two places of their
+own, ahead of four from the press. Every item names its source and whether it is an organisation
+or a news outlet.
+
+**Catalan.** The registry's language field gains `ca`. Spanish and Catalan now rank as one for a
+reader of either, so a Catalan page is not narrowed to the three Catalan outlets, and an item in a
+language other than Spanish and the page's own is tagged, as English items already were.
+
+**A fix to the health check.** `npm run check:feeds` reported three of the new feeds as having "no
+dated items" although the panel read them: they wrap their dates in CDATA, which `lib/news.ts`
+unwraps and the check did not. The check now unwraps it too, so it fails only feeds the panel
+cannot read. All 29 sources pass. Arcópoli, an LGBTI source, has published nothing in 120 days; the
+check flags it, and it is left as it is here.
+
+**Verified.** `npm run check:feeds`, `npx tsc --noEmit` and `npm run build` pass. In the browser:
+the section on `/es`, `/ca` and `/en`, with two organisations and four outlets from six different
+publishers, and no horizontal overflow at 375px.
+
+---
+
 ## 2026-10-05 — The site is now "Siguiendo el Dinero"
 
 Renamed from "Seguir el Dinero". The infinitive became a gerund: the name now describes work in

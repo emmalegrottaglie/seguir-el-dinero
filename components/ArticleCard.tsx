@@ -7,7 +7,7 @@ import type { NewsItem } from "@/lib/news";
  * so reading an LGBTQ+ organisation's article does not hand that organisation's
  * server the reader's IP address. It is a plain <img> and not next/image on
  * purpose: the optimiser wants a fixed list of remote hosts, and these are
- * fifteen publishers whose CDNs change under us — a broken image on every card
+ * some thirty publishers whose CDNs change under us — a broken image on every card
  * would cost more than the optimisation saves.
  *
  * A card without an image is not a lesser card. It drops the media block
@@ -50,7 +50,9 @@ export default function ArticleCard({
           </span>
           <span className="text-[var(--ink-3)]">·</span>
           <span className="text-[var(--ink-3)]">{isOrg ? orgLabel : mediaLabel}</span>
-          {item.lang === "en" && <span className="text-[var(--ink-3)]">· EN</span>}
+          {item.lang && item.lang !== "es" && (
+            <span className="text-[var(--ink-3)]">· {item.lang.toUpperCase()}</span>
+          )}
         </p>
 
         <h3 className="display text-lg leading-snug">

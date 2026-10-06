@@ -26,7 +26,7 @@ export default function NewsFeed({
   const { rise, reduce } = useEntrance();
 
   const key = topics
-    ? `topic=${topics.join(",")}&lang=${locale === "en" ? "en" : "es"}`
+    ? `topic=${topics.join(",")}&lang=${locale}`
     : query
       ? `q=${encodeURIComponent(query)}`
       : "";

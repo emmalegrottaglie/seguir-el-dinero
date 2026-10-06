@@ -10,10 +10,10 @@ export interface NewsSource {
   url: string;
   format: FeedFormat;
   topics: NewsTopic[];
-  lang: "es" | "en";
+  lang: "es" | "en" | "ca";
   /** `org` = the organisation's own publication. `media` = a news outlet. */
   kind: "org" | "media";
-  /** Newest item at the 2026-09-01 probe, as an ISO date. Provenance, not logic. */
+  /** Newest item at the probe made when the source was added, as an ISO date. Provenance, not logic. */
   probedNewest: string;
 }
 
