@@ -19,7 +19,11 @@
     "build:regions": "node scripts/build-regions.mjs",
     "build:hate-territory": "python scripts/extract-hate-territory.py",
     "check:office-join": "node scripts/check-office-join.mjs",
-    "check:investitures": "node scripts/check-investitures.mjs"
+    "check:investitures": "node scripts/check-investitures.mjs",
+    "build:deputies": "node scripts/fetch-deputies.mjs",
+    "check:deputies": "node scripts/check-deputies.mjs",
+    "build:declarations": "node scripts/build-declarations.mjs",
+    "check:declarations": "node scripts/check-declarations.mjs"
   },
   "engines": {
     "node": "22.x"

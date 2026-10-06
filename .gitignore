@@ -51,3 +51,7 @@ __pycache__/
 # streaming-template runtime the handoff itself says not to port, and the
 # decisions that matter are recorded in the code and CHANGELOG.md.
 /Spain LGBT Rights Dashboard/
+
+# transcriptions of the deputies' declaration scans (regenerable working copies; the
+# published result is data/declarations.json)
+data/_transcriptions/

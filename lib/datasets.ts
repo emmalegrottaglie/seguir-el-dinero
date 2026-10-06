@@ -10,6 +10,7 @@ import { getIndicators, sourceFor } from "./indicators";
 import { GOVERNMENTS, GOVERNMENTS_SOURCE } from "./governments";
 import { TERRITORIES } from "./territories";
 import { DONATIONS_2020, DONATIONS_SOURCE } from "./donations";
+import { getDeclarations, getInterests } from "./declarations";
 import { toCsv, type CsvColumn } from "./csv";
 
 /**
@@ -289,6 +290,108 @@ const votaciones = dataset({
   },
 });
 
+/** One row per item a deputy declared, in the form's order, so the table reads like the form. */
+interface DeclaredItem {
+  deputy: string;
+  filed: string;
+  part: string;
+  description: string | null;
+  location?: string | null;
+  date?: string | null;
+  title?: string | null;
+  amount?: number | null;
+  pending?: number | null;
+  method: string;
+  url: string;
+}
+
+const declaracionesBienes = dataset<DeclaredItem>({
+  id: "declaraciones_bienes",
+  rows: async () => {
+    const { declarations } = await getDeclarations();
+    return declarations.flatMap((d) => {
+      const base = { deputy: d.deputy, filed: d.filed, method: d.verified.method, url: d.url };
+      const text = (part: string, description: string | null) =>
+        description ? [{ ...base, part, description }] : [];
+      return [
+        ...d.income.map((l) => ({ ...base, part: `rentas_${l.group}`, description: l.concept, amount: l.amount })),
+        ...(d.irpf !== null ? [{ ...base, part: "irpf", description: null, amount: d.irpf }] : []),
+        ...d.realEstate.map((p) => ({
+          ...base,
+          part: `inmueble_${p.kind}`,
+          description: p.description,
+          location: p.location,
+          date: p.acquired,
+          title: p.title,
+        })),
+        ...d.deposits.map((x) => ({ ...base, part: "deposito", description: x.description, amount: x.amount })),
+        ...d.otherAssets.map((a) => ({
+          ...base,
+          part: a.kind === "securities" ? "valores" : "otros_bienes",
+          description: a.description,
+          amount: a.amount,
+        })),
+        ...text("participadas_mas_5", d.holdingsOver5pct),
+        ...d.vehicles.map((v) => ({ ...base, part: "vehiculo", description: v.description, date: v.acquired })),
+        ...d.loans.map((l) => ({
+          ...base,
+          part: "prestamo",
+          description: l.description,
+          date: l.granted,
+          amount: l.amount,
+          pending: l.pending,
+        })),
+        ...text("otras_deudas", d.otherDebts),
+        ...text("observaciones", d.observations),
+      ];
+    });
+  },
+  columns: [
+    { header: "diputado", value: (r) => r.deputy },
+    { header: "fecha_declaracion", value: (r) => r.filed },
+    { header: "apartado", value: (r) => r.part },
+    { header: "descripcion", value: (r) => r.description },
+    { header: "situacion", value: (r) => r.location },
+    { header: "fecha", value: (r) => r.date },
+    { header: "derecho_y_titulo", value: (r) => r.title },
+    { header: "importe", value: (r) => r.amount },
+    { header: "saldo_pendiente", value: (r) => r.pending },
+    { header: "verificacion", value: (r) => r.method },
+    { header: "fuente_url", value: (r) => r.url },
+  ],
+  sources: async () => [],
+  perRowSourced: true,
+});
+
+const interesesEconomicos = dataset({
+  id: "intereses_economicos",
+  rows: async () => (await getInterests()).rows,
+  columns: [
+    { header: "diputado", value: (r) => r.name },
+    { header: "fecha_registro", value: (r) => r.registered },
+    { header: "declaracion", value: (r) => r.declaration },
+    { header: "tipo", value: (r) => r.type },
+    { header: "periodo", value: (r) => r.period },
+    { header: "empleador", value: (r) => r.employer },
+    { header: "sector", value: (r) => r.sector },
+    { header: "descripcion", value: (r) => r.description },
+    { header: "destinatario", value: (r) => r.recipient },
+    { header: "benefactor", value: (r) => r.benefactor },
+    { header: "observaciones", value: (r) => r.observations },
+  ],
+  sources: async () => {
+    const data = await getInterests();
+    return [
+      {
+        publisher: "Congreso de los Diputados",
+        name: "Datos abiertos, declaraciones de intereses económicos",
+        period: `actualizado ${data.generatedAt.slice(0, 10)}`,
+        url: data.source.url,
+      },
+    ];
+  },
+});
+
 const delitosOdio = dataset({
   id: "delitos_odio",
   rows: async () => {
@@ -447,6 +550,8 @@ export const DATASETS: DatasetDef[] = [
   gastoElectoral,
   salarios,
   votaciones,
+  declaracionesBienes,
+  interesesEconomicos,
   delitosOdio,
   gobiernos,
   provincias,

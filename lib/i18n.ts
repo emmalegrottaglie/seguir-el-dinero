@@ -35,7 +35,7 @@ const es = {
   people: {
     title: "Políticos",
     intro:
-      "Cada cargo público en activo: lo que cobra, la financiación de su partido, su voto registrado en leyes de derechos y, cuando existe, sus redes y los titulares en los que aparece.",
+      "Cada cargo público en activo del registro de retribuciones y cada diputado del Congreso: lo que cobra cuando el registro lo publica, la financiación de su partido, su voto registrado en leyes de derechos, lo que declaró al Congreso y, cuando existe, sus redes y los titulares en los que aparece.",
     featured: "Con voto registrado",
     featuredNote:
       "Perfiles con votación nominal documentada. El resto del registro aparece en el buscador.",
@@ -46,6 +46,10 @@ const es = {
     noRecordExplain:
       "No consta ninguna votación nominal de esta persona en los asuntos que seguimos. No se deduce su postura a partir de su partido.",
     pay: "Retribución",
+    noPay: "Sin cifra publicada",
+    noPayExplain: "El registro de retribuciones no publica una cifra para este cargo.",
+    notInRegister:
+      "No figura en el registro de retribuciones que usa este sitio; el perfil procede de la lista de diputados del Congreso.",
     partyFunding: "Financiación del partido",
     rightsRecord: "Voto en leyes de derechos",
     juxtaposition:
@@ -84,6 +88,73 @@ const es = {
       "El registro no publica retribución anual para este cargo, así que no hay múltiplo de SMI que calcular.",
     caveat:
       "El SMI es un salario por persona trabajadora; esta cifra es la retribución de un cargo público, que no siempre es a tiempo completo ni el único ingreso de quien lo ocupa. La comparación da una escala común, no una equivalencia exacta.",
+  },
+  declarations: {
+    title: "Lo que declaró al Congreso",
+    juxtaposition:
+      "Lo declarado y lo votado se publican juntos para poder consultarlos; lo uno no explica lo otro.",
+    filed:
+      "Declaración de bienes y rentas del {date}, presentada al tomar el escaño; las rentas son las de {year}.",
+    officialPdf: "PDF oficial ↗",
+    later: "Declaraciones posteriores, aún sin transcribir aquí:",
+    notTranscribed:
+      "Esta declaración aún no está transcrita aquí. Se puede consultar en el PDF oficial.",
+    noFiling: "La ficha del Congreso no enlaza ninguna declaración de bienes y rentas.",
+    checkRtve: "Totales cotejados con la transcripción independiente de",
+    checkSecond: "Totales cotejados con una segunda lectura independiente del escaneo.",
+    income: "Rentas declaradas",
+    incomeNote:
+      "Del año anterior a la declaración. El formulario excluye lo cobrado del Congreso o del Senado, que ambas cámaras publican aparte.",
+    groups: {
+      salary: "Salarios, honorarios y retribuciones",
+      dividends: "Dividendos y beneficios",
+      interest: "Intereses de cuentas y activos",
+      other: "Otras rentas",
+    },
+    irpf: "Cuota del IRPF declarada",
+    realEstate: "Inmuebles",
+    realEstateNote:
+      "El formulario no pide el valor de los inmuebles, así que aquí no hay cifra de patrimonio total.",
+    propertyKinds: { urban: "urbano", rustic: "rústico", company: "vía sociedad" },
+    financial: "Depósitos y otros bienes",
+    deposits: "Saldo en cuentas",
+    depositsNote:
+      "El formulario pide un único saldo para el conjunto de las cuentas, así que puede aparecer junto a sólo una de ellas.",
+    notesFlag:
+      "Alguna cifra de esta declaración está escrita de forma poco habitual y se ha transcrito según las reglas del formulario: conviene comprobarla en el PDF oficial.",
+    noInterests: "El fichero de datos abiertos del Congreso no recoge ninguna fila con este nombre.",
+    assetKinds: { securities: "Valores y participaciones", other: "Otros bienes y derechos" },
+    holdings: "Sociedades participadas en más de un 5 %",
+    vehicles: "Vehículos",
+    debts: "Deudas",
+    otherDebts: "Otras deudas",
+    observations: "Observaciones",
+    total: "Total declarado",
+    none: "Nada declarado en este apartado.",
+    columns: {
+      concept: "Concepto",
+      group: "Procedencia",
+      amount: "Euros",
+      description: "Descripción",
+      location: "Situación",
+      acquired: "Adquisición",
+      title: "Derecho y título",
+      kind: "Tipo",
+      granted: "Concesión",
+      lent: "Importe concedido",
+      pending: "Saldo pendiente",
+      sector: "sector declarado",
+      benefactor: "de",
+    },
+    interests: "Intereses económicos",
+    interestsNote:
+      "Datos abiertos del Congreso, reproducidos tal cual, incluido el sector, que cada declarante escribe a su manera.",
+    activities: "Actividades",
+    foundations: "Fundaciones, asociaciones y aportaciones",
+    donations: "Regalos y donaciones recibidos",
+    interestObservations: "Observaciones",
+    caveat:
+      "Todo lo que figura aquí es una declaración propia: el Congreso la publica «sin corrección alguna», según su propio formulario. La declaración de bienes y rentas sólo existe como escaneo, sin texto legible por máquina, así que la transcribe este sitio, y cada transcripción se publica únicamente si sus totales coinciden con la transcripción independiente de {check} o con una segunda lectura independiente del escaneo. El listado de {check} no incluye el IRPF, así que en las declaraciones cotejadas con él esa cifra procede de una sola lectura, y los textos no se cotejan en ningún caso. Se omiten las matrículas que alguna declaración incluye, porque el propio formulario pide no indicarlas. Ante cualquier diferencia, manda el PDF oficial.",
   },
   ballotGrid: {
     noBallot: "Sin voto registrado",
@@ -147,7 +218,8 @@ const es = {
     page: "Página",
     of: "de",
     median: "Mediana",
-    sourceNote: "Fuente · Registro de Altos Cargos / transparencia.gob.es",
+    sourceNote:
+      "Fuentes · Registro de Altos Cargos / transparencia.gob.es; los diputados que el registro no recoge, de los datos abiertos del Congreso",
     caveat:
       "Retribución del cargo, no patrimonio ni ingresos privados. Solo cargos marcados como activos en la fuente.",
   },
@@ -871,6 +943,16 @@ const es = {
         title: "Votaciones nominales",
         description: "Cada voto registrado en las votaciones que este sitio sigue, una fila por diputado y votación.",
       },
+      declaraciones_bienes: {
+        title: "Declaraciones de bienes y rentas",
+        description:
+          "Lo que cada diputado en activo declaró al tomar el escaño, transcrito del escaneo oficial: una fila por renta, inmueble, cuenta, bien, vehículo o deuda.",
+      },
+      intereses_economicos: {
+        title: "Declaraciones de intereses económicos",
+        description:
+          "Actividades previas, fundaciones y asociaciones, regalos y observaciones que declara cada diputado, tal como las publica el Congreso.",
+      },
       delitos_odio: {
         title: "Delitos de odio por comunidad",
         description: "Hechos registrados por comunidad autónoma, con la tasa por 100.000 habitantes.",
@@ -924,7 +1006,7 @@ const en: Dict = {
   people: {
     title: "Politicians",
     intro:
-      "Every serving officeholder: what they are paid, how their party is funded, their recorded vote on rights legislation and, where it exists, their social presence and the headlines they appear in.",
+      "Every serving officeholder in the pay register, and every member of the Congress: what they are paid where the register publishes it, how their party is funded, their recorded vote on rights legislation, what they declared to Congress and, where it exists, their social presence and the headlines they appear in.",
     featured: "With a voting record",
     featuredNote:
       "Profiles with a documented roll-call vote. The rest of the register is in the search below.",
@@ -935,6 +1017,10 @@ const en: Dict = {
     noRecordExplain:
       "This person has no roll-call vote on record for the items we track. Their position is not inferred from their party.",
     pay: "Pay",
+    noPay: "No published figure",
+    noPayExplain: "The pay register publishes no figure for this post.",
+    notInRegister:
+      "Not in the pay register this site uses; this profile comes from Congreso's list of deputies.",
     partyFunding: "Party funding",
     rightsRecord: "Vote on rights legislation",
     juxtaposition:
@@ -973,6 +1059,73 @@ const en: Dict = {
       "The register publishes no annual figure for this post, so there is no SMI multiple to calculate.",
     caveat:
       "The SMI is a per-worker wage; this figure is a public post's pay, which is not always full-time nor the only income of whoever holds it. The comparison gives a common scale, not an exact equivalence.",
+  },
+  declarations: {
+    title: "What they declared to Congress",
+    juxtaposition:
+      "What was declared and how they voted are published together so both can be looked up; neither explains the other.",
+    filed:
+      "Declaration of assets and income dated {date}, filed on taking the seat; the income is for {year}.",
+    officialPdf: "Official PDF ↗",
+    later: "Later declarations, not yet transcribed here:",
+    notTranscribed:
+      "This declaration is not transcribed here yet. It can be read in the official PDF.",
+    noFiling: "The Congreso profile links no declaration of assets and income.",
+    checkRtve: "Totals checked against the independent transcription by",
+    checkSecond: "Totals checked against a second, independent reading of the scan.",
+    income: "Declared income",
+    incomeNote:
+      "For the year before the declaration. The form excludes pay from the Congreso or the Senado, which both chambers publish separately.",
+    groups: {
+      salary: "Salaries, fees and other pay",
+      dividends: "Dividends and profit shares",
+      interest: "Interest on accounts and assets",
+      other: "Other income",
+    },
+    irpf: "Declared income-tax (IRPF) liability",
+    realEstate: "Property",
+    realEstateNote:
+      "The form does not ask for the value of property, so there is no total net-worth figure here.",
+    propertyKinds: { urban: "urban", rustic: "rural", company: "via a company" },
+    financial: "Deposits and other assets",
+    deposits: "Account balances",
+    depositsNote:
+      "The form asks for a single balance covering all accounts, so it may appear beside only one of them.",
+    notesFlag:
+      "Some figure in this declaration is written in an unusual way and was transcribed by the form's rules: worth checking against the official PDF.",
+    noInterests: "Congreso's open-data file has no rows under this name.",
+    assetKinds: { securities: "Securities and holdings", other: "Other goods and rights" },
+    holdings: "Companies more than 5 % owned",
+    vehicles: "Vehicles",
+    debts: "Debts",
+    otherDebts: "Other debts",
+    observations: "Remarks",
+    total: "Total declared",
+    none: "Nothing declared in this part.",
+    columns: {
+      concept: "Item",
+      group: "Source",
+      amount: "Euros",
+      description: "Description",
+      location: "Location",
+      acquired: "Acquired",
+      title: "Right and title",
+      kind: "Type",
+      granted: "Granted",
+      lent: "Amount lent",
+      pending: "Outstanding",
+      sector: "declared sector",
+      benefactor: "from",
+    },
+    interests: "Economic interests",
+    interestsNote:
+      "Congreso open data, reproduced as published, including the sector, which each declarant words their own way. Text stays in Spanish.",
+    activities: "Activities",
+    foundations: "Foundations, associations and contributions",
+    donations: "Gifts and donations received",
+    interestObservations: "Remarks",
+    caveat:
+      "Everything here is self-declared: the Congreso publishes it \"sin corrección alguna\" (without any correction), as its own form says. The asset declaration exists only as a scan with no machine-readable text, so this site transcribes it, and each transcription is published only when its totals equal the independent transcription by {check} or a second, independent reading of the scan. {check}'s listing has no IRPF figure, so in declarations checked against it that line rests on a single reading, and text is never cross-checked. Licence plates that a few declarations include are left out, as the form itself asks. Wherever they differ, the official PDF prevails.",
   },
   ballotGrid: {
     noBallot: "No ballot recorded",
@@ -1036,7 +1189,8 @@ const en: Dict = {
     page: "Page",
     of: "of",
     median: "Median",
-    sourceNote: "Source · Register of Senior Officials / transparencia.gob.es",
+    sourceNote:
+      "Sources · Register of Senior Officials / transparencia.gob.es; deputies the register does not carry, from Congreso open data",
     caveat:
       "Pay for the post — not personal wealth or private income. Only posts marked active in the source.",
   },
@@ -1760,6 +1914,16 @@ const en: Dict = {
         title: "Roll-call votes",
         description: "Every recorded vote in the divisions this site tracks, one row per deputy and division.",
       },
+      declaraciones_bienes: {
+        title: "Declarations of assets and income",
+        description:
+          "What each sitting deputy declared on taking the seat, transcribed from the official scan: one row per income line, property, account, asset, vehicle or debt.",
+      },
+      intereses_economicos: {
+        title: "Declarations of economic interests",
+        description:
+          "Prior activities, foundations and associations, gifts and remarks each deputy declares, as the Congreso publishes them.",
+      },
       delitos_odio: {
         title: "Hate crime by comunidad",
         description: "Recorded incidents by autonomous community, with the rate per 100,000 residents.",
@@ -1811,7 +1975,7 @@ const ca: Dict = {
   people: {
     title: "Polítics",
     intro:
-      "Cada càrrec públic en actiu: què cobra, el finançament del seu partit, el seu vot registrat en lleis de drets i, quan existeix, les seves xarxes i els titulars on apareix.",
+      "Cada càrrec públic en actiu del registre de retribucions i cada diputat del Congrés: què cobra quan el registre ho publica, el finançament del seu partit, el seu vot registrat en lleis de drets, què va declarar al Congrés i, quan existeix, les seves xarxes i els titulars on apareix.",
     featured: "Amb vot registrat",
     featuredNote:
       "Perfils amb votació nominal documentada. La resta del registre és al cercador.",
@@ -1822,6 +1986,10 @@ const ca: Dict = {
     noRecordExplain:
       "No consta cap votació nominal d'aquesta persona en els assumptes que seguim. No es dedueix la seva postura a partir del seu partit.",
     pay: "Retribució",
+    noPay: "Sense xifra publicada",
+    noPayExplain: "El registre de retribucions no publica cap xifra per a aquest càrrec.",
+    notInRegister:
+      "No figura al registre de retribucions que fa servir aquest lloc; el perfil prové de la llista de diputats del Congrés.",
     partyFunding: "Finançament del partit",
     rightsRecord: "Vot en lleis de drets",
     juxtaposition:
@@ -1860,6 +2028,73 @@ const ca: Dict = {
       "El registre no publica retribució anual per a aquest càrrec, així que no hi ha cap múltiple d’SMI a calcular.",
     caveat:
       "L’SMI és un salari per persona treballadora; aquesta xifra és la retribució d’un càrrec públic, que no sempre és a temps complet ni l’únic ingrés de qui l’ocupa. La comparació dona una escala comuna, no una equivalència exacta.",
+  },
+  declarations: {
+    title: "Què va declarar al Congrés",
+    juxtaposition:
+      "El que es declara i el que es vota es publiquen junts per poder-los consultar; l’un no explica l’altre.",
+    filed:
+      "Declaració de béns i rendes del {date}, presentada en prendre l’escó; les rendes són les de {year}.",
+    officialPdf: "PDF oficial ↗",
+    later: "Declaracions posteriors, encara sense transcriure aquí:",
+    notTranscribed:
+      "Aquesta declaració encara no està transcrita aquí. Es pot consultar al PDF oficial.",
+    noFiling: "La fitxa del Congrés no enllaça cap declaració de béns i rendes.",
+    checkRtve: "Totals contrastats amb la transcripció independent de",
+    checkSecond: "Totals contrastats amb una segona lectura independent de l’escaneig.",
+    income: "Rendes declarades",
+    incomeNote:
+      "De l’any anterior a la declaració. El formulari exclou el que es cobra del Congrés o del Senat, que totes dues cambres publiquen a part.",
+    groups: {
+      salary: "Salaris, honoraris i retribucions",
+      dividends: "Dividends i beneficis",
+      interest: "Interessos de comptes i actius",
+      other: "Altres rendes",
+    },
+    irpf: "Quota de l’IRPF declarada",
+    realEstate: "Immobles",
+    realEstateNote:
+      "El formulari no demana el valor dels immobles, així que aquí no hi ha cap xifra de patrimoni total.",
+    propertyKinds: { urban: "urbà", rustic: "rústic", company: "via societat" },
+    financial: "Dipòsits i altres béns",
+    deposits: "Saldo en comptes",
+    depositsNote:
+      "El formulari demana un únic saldo per al conjunt dels comptes, així que pot aparèixer al costat només d’un d’ells.",
+    notesFlag:
+      "Alguna xifra d’aquesta declaració està escrita d’una manera poc habitual i s’ha transcrit segons les regles del formulari: convé comprovar-la al PDF oficial.",
+    noInterests: "El fitxer de dades obertes del Congrés no recull cap fila amb aquest nom.",
+    assetKinds: { securities: "Valors i participacions", other: "Altres béns i drets" },
+    holdings: "Societats participades en més d’un 5 %",
+    vehicles: "Vehicles",
+    debts: "Deutes",
+    otherDebts: "Altres deutes",
+    observations: "Observacions",
+    total: "Total declarat",
+    none: "No s’hi declara res en aquest apartat.",
+    columns: {
+      concept: "Concepte",
+      group: "Procedència",
+      amount: "Euros",
+      description: "Descripció",
+      location: "Situació",
+      acquired: "Adquisició",
+      title: "Dret i títol",
+      kind: "Tipus",
+      granted: "Concessió",
+      lent: "Import concedit",
+      pending: "Saldo pendent",
+      sector: "sector declarat",
+      benefactor: "de",
+    },
+    interests: "Interessos econòmics",
+    interestsNote:
+      "Dades obertes del Congrés, reproduïdes tal com es publiquen, inclòs el sector, que cada declarant escriu a la seva manera. El text es manté en castellà.",
+    activities: "Activitats",
+    foundations: "Fundacions, associacions i aportacions",
+    donations: "Regals i donacions rebuts",
+    interestObservations: "Observacions",
+    caveat:
+      "Tot el que hi ha aquí és una declaració pròpia: el Congrés la publica «sin corrección alguna», com diu el seu propi formulari. La declaració de béns i rendes només existeix com a escaneig, sense text llegible per màquina, així que la transcriu aquest lloc, i cada transcripció es publica només si els seus totals coincideixen amb la transcripció independent de {check} o amb una segona lectura independent de l’escaneig. El llistat de {check} no inclou l’IRPF, així que en les declaracions contrastades amb ell aquesta xifra prové d’una sola lectura, i els textos no es contrasten mai. S’ometen les matrícules que alguna declaració inclou, perquè el mateix formulari demana no indicar-les. Davant qualsevol diferència, mana el PDF oficial.",
   },
   ballotGrid: {
     noBallot: "Sense vot registrat",
@@ -1923,7 +2158,8 @@ const ca: Dict = {
     page: "Pàgina",
     of: "de",
     median: "Mediana",
-    sourceNote: "Font · Registre d'Alts Càrrecs / transparencia.gob.es",
+    sourceNote:
+      "Fonts · Registre d'Alts Càrrecs / transparencia.gob.es; els diputats que el registre no recull, de les dades obertes del Congrés",
     caveat:
       "Retribució del càrrec, no patrimoni ni ingressos privats. Només càrrecs marcats com a actius a la font.",
   },
@@ -2646,6 +2882,16 @@ const ca: Dict = {
       votaciones: {
         title: "Votacions nominals",
         description: "Cada vot registrat a les votacions que aquest lloc segueix, una fila per diputat i votació.",
+      },
+      declaraciones_bienes: {
+        title: "Declaracions de béns i rendes",
+        description:
+          "El que cada diputat en actiu va declarar en prendre l’escó, transcrit de l’escaneig oficial: una fila per renda, immoble, compte, bé, vehicle o deute.",
+      },
+      intereses_economicos: {
+        title: "Declaracions d’interessos econòmics",
+        description:
+          "Activitats prèvies, fundacions i associacions, regals i observacions que declara cada diputat, tal com les publica el Congrés.",
       },
       delitos_odio: {
         title: "Delictes d'odi per comunitat",

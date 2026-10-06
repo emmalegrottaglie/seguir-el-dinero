@@ -1,4 +1,4 @@
-import { getSalaries } from "./salaries";
+import { getPeople, placeOf, type Person } from "./people";
 import { getVotes } from "./votes";
 import { getFoundations, entities } from "./foundations";
 import { getProvinces } from "./provinces";
@@ -132,23 +132,24 @@ interface PersonRow {
 let peopleCache: PersonRow[] | null = null;
 
 /**
- * The register, folded once per process rather than once per query.
+ * Everyone with a profile (the register plus the deputies it lacks), folded once
+ * per process rather than once per query.
  *
- * Folding 6,670 names, posts and places on every keystroke-free page load is
+ * Folding ~6,800 names, posts and places on every keystroke-free page load is
  * about twenty-seven thousand `normalize()` calls for a result set that never
  * changes between deploys. The data is static, so the index is built on the
  * first search and kept.
  */
-function peopleIndex(people: Awaited<ReturnType<typeof getSalaries>>["people"]): PersonRow[] {
+function peopleIndex(people: Person[]): PersonRow[] {
   if (peopleCache) return peopleCache;
   peopleCache = people.map((p) => ({
     slug: p.slug,
     name: p.name,
     // Thousands of these rows are mayors of small towns, so a list of bare
     // names would be unusable; the post and the place are what tell them apart.
-    detail: [p.role, p.municipality ?? p.region].filter(Boolean).join(" · ") || null,
+    detail: [p.role, placeOf(p)].filter(Boolean).join(" · ") || null,
     fName: foldText(p.name),
-    fContext: foldText([p.role, p.municipality ?? "", p.region ?? ""].join(" ")),
+    fContext: foldText([p.role, p.municipality ?? "", p.region ?? "", p.deputy?.constituency ?? ""].join(" ")),
   }));
   return peopleCache;
 }
@@ -161,8 +162,8 @@ export async function search(rawQuery: string, locale: string): Promise<SearchOu
     return { query, groups: [], total: 0 };
   }
 
-  const [salaries, votes, foundations, provinceFile] = await Promise.all([
-    getSalaries(),
+  const [people, votes, foundations, provinceFile] = await Promise.all([
+    getPeople(),
     getVotes(),
     getFoundations(),
     getProvinces(),
@@ -185,7 +186,7 @@ export async function search(rawQuery: string, locale: string): Promise<SearchOu
   // looking for "alcalde de Soria" knows the post and not the person. A context
   // match ranks below every name match: when the query is a name, that is what
   // was asked for.
-  for (const p of peopleIndex(salaries.people)) {
+  for (const p of peopleIndex(people)) {
     const rank =
       score(p.fName, needle) ??
       (p.fContext.includes(needle) ? CONTEXT_RANK : null);
