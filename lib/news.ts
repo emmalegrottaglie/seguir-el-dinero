@@ -17,11 +17,11 @@ export interface NewsItem {
   sourceId?: string;
   /** `org` when the item comes from an organisation's own publication. */
   sourceKind?: "org" | "media";
-  lang?: "es" | "en";
+  lang?: "es" | "en" | "ca";
   /**
    * Lead image, as an absolute URL on the publisher's own host. Rendered
    * through /api/news-image rather than directly: hotlinking would hand every
-   * reader's IP address to fifteen third-party hosts, which for a site whose
+   * reader's IP address to every publisher in the registry, which for a site whose
    * feeds include LGBTQ+ organisations is a privacy cost, not just a technical
    * one. Absent where the feed publishes no usable image.
    */
@@ -263,7 +263,7 @@ export async function fetchTopicNews(
    * a Spanish page is not led by two English items merely because the European
    * organisations publish more often than the Spanish ones.
    */
-  preferLang: "es" | "en" = "es",
+  preferLang: "es" | "en" | "ca" = "es",
   now = Date.now(),
 ): Promise<TopicNews> {
   const sources = sourcesForTopics(topics);
@@ -275,7 +275,11 @@ export async function fetchTopicNews(
   const items: NewsItem[] = [];
   const overflow: NewsItem[] = [];
 
-  const rank = (i: NewsItem) => (i.lang === preferLang ? 0 : 1);
+  // The reader's language first. Spanish and Catalan count as one for a reader of either: the
+  // site's Catalan readers read Spanish, and ranking Catalan first would narrow a Catalan page to
+  // the three Catalan outlets in the registry.
+  const local = (lang?: string) => lang === "es" || lang === "ca";
+  const rank = (i: NewsItem) => (i.lang === preferLang || (local(preferLang) && local(i.lang)) ? 0 : 1);
 
   for (const item of results
     .flatMap((r) => r.items)

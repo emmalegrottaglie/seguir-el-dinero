@@ -44,12 +44,13 @@ export default async function PortalPage({
   const P = t.portal;
   const L = t.lead;
 
-  const [agg, salaries, votes, spend, news, provinceFile] = await Promise.all([
+  const [agg, salaries, votes, spend, news, housing, provinceFile] = await Promise.all([
     getAggregation(),
     getSalaries(),
     getVotes(),
     getSpending(),
     fetchTopicNews(["lgtbi"], 8, locale === "en" ? "en" : "es"),
+    fetchTopicNews(["vivienda"], 40, locale),
     getProvinces(),
   ]);
 
@@ -127,6 +128,17 @@ export default async function PortalPage({
     (a, b) => order.indexOf(a.topic) - order.indexOf(b.topic),
   );
   const orgItems = news.items.filter((i) => i.sourceKind === "org").slice(0, 3);
+  // The organisations publish far less often than the press, so newest-first alone would never
+  // show them: they get two places of their own, ahead of four from the press. One item per
+  // publisher, so six places show six voices rather than the two busiest twice over.
+  const firstPerSource = (items: typeof housing.items, n: number) => {
+    const seen = new Set<string>();
+    return items.filter((i) => !seen.has(i.source) && seen.add(i.source)).slice(0, n);
+  };
+  const housingItems = [
+    ...firstPerSource(housing.items.filter((i) => i.sourceKind === "org"), 2),
+    ...firstPerSource(housing.items.filter((i) => i.sourceKind !== "org"), 4),
+  ];
 
   return (
     <main>
@@ -428,6 +440,50 @@ export default async function PortalPage({
             </ul>
           </div>
         </div>
+      </section>
+
+      {/* Housing, in the news: the registry's housing press and organisations together, newest
+          first and at most two items per source, each named with its source and its kind. */}
+      <section className="rule-ink px-6 pb-7 pt-6">
+        <p className="eyebrow">{P.housingKicker}</p>
+        <h2 className="display mt-2 text-[25px] font-semibold" style={{ lineHeight: 1.1 }}>
+          {P.housingTitle}
+        </h2>
+        <p className="mt-2 max-w-2xl" style={{ fontSize: "12.5px", lineHeight: 1.5, color: "var(--ink-3)" }}>
+          {P.housingNote}
+        </p>
+        {housingItems.length === 0 ? (
+          <p className="mt-4" style={{ fontSize: "12.5px", color: "var(--ink-3)" }}>
+            {t.rights.empty}
+          </p>
+        ) : (
+          <ul className="mt-3 grid grid-cols-1 gap-x-8 sm:grid-cols-2 lg:grid-cols-3">
+            {housingItems.map((item) => (
+              <li key={item.link} className="py-3" style={{ borderTop: "1px solid var(--line)" }}>
+                <p className="label-mono" style={{ letterSpacing: "0.14em", color: "var(--ink-2)" }}>
+                  {item.source}
+                  <span style={{ color: "var(--ink-3)" }}>
+                    {" · "}
+                    {item.sourceKind === "org" ? t.rights.kindOrg : t.rights.kindMedia}
+                    {item.lang && item.lang !== "es" && item.lang !== locale ? ` · ${item.lang.toUpperCase()}` : ""}
+                  </span>
+                </p>
+                <a
+                  href={item.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="display mt-1 block text-[17px] font-semibold hover:underline"
+                  style={{ lineHeight: 1.2 }}
+                >
+                  {item.title}
+                </a>
+                <p className="mt-1" style={{ fontSize: "11.5px", color: "var(--ink-3)" }}>
+                  {relativeTime(item.date, locale)}
+                </p>
+              </li>
+            ))}
+          </ul>
+        )}
       </section>
 
       {/* Three columns */}

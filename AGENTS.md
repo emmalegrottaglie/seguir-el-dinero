@@ -298,7 +298,7 @@ Caras sections were merged into `politicos`.
 
 `news-image` is an **allowlisted** image proxy, and both halves of that matter. Feed images are
 served through this origin so a reader who opens the rights section does not hand their IP
-address to fifteen third-party hosts — several of them LGBTQ+ organisations, where who reads
+address to some thirty third-party hosts — several of them LGBTQ+ organisations, where who reads
 them is the last thing to leak. And the allowlist is what keeps it from being an SSRF tool and a
 bandwidth piñata: only hosts vouched for by `lib/news-sources.mjs` (plus their subdomains and
 the `www.`/bare counterpart) are fetched, only responses declaring `image/*` are returned, and
@@ -315,10 +315,16 @@ because of feeds that failed silently:
 - **Item age.** Nothing older than 120 days enters the panel, whatever the source.
 
 Two further rules keep the panel representative: at most two items per source, so a daily outlet
-cannot bury organisations that post weekly, and items in the reader's language sort first. Feeds are
+cannot bury organisations that post weekly, and items in the reader's language sort first, with
+Spanish and Catalan counted as one, so a Catalan page is not narrowed to the three Catalan outlets.
+The portal's housing section goes further: two places for organisations ahead of four for the
+press, one item per publisher. The housing sources were chosen to span the spectrum, and
+`research/housing-feeds.md` holds every feed probed, including those left out and why. Feeds are
 parsed for both RSS (`<item>`) and Atom (`<entry>`) — El Salto publishes Atom, and the RSS-only
 parser returned an empty array for it without erroring. Run `npm run check:feeds` after editing the
-registry; it fails on any source that is unreachable, unparseable or stale.
+registry; it fails on any source that is unreachable, unparseable or stale. Its date parsing must
+match the app's: three housing feeds wrap their dates in CDATA, which `lib/news.ts` unwrapped and
+the check, until it was fixed, reported as "no dated items".
 
 One gotcha worth keeping: `provivienda.org` answers 403 to a descriptive bot User-Agent and 200 to an
 ordinary browser one, so `FEED_HEADERS` in the registry sends the browser string.

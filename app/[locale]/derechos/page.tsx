@@ -126,8 +126,8 @@ export default async function DerechosPage({
                   >
                     {s.name} ↗
                   </a>
-                  {s.lang === "en" && (
-                    <span className="label-mono ml-2 text-[var(--ink-3)]">EN</span>
+                  {s.lang !== "es" && (
+                    <span className="label-mono ml-2 text-[var(--ink-3)]">{s.lang.toUpperCase()}</span>
                   )}
                 </li>
               ))}

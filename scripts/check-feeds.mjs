@@ -50,7 +50,9 @@ function dates(xml, format) {
   const blocks = xml.match(new RegExp(`<${block}[\\s>][\\s\\S]*?</${block}>`, "g")) ?? [];
   return blocks
     .map((b) => {
-      const m = b.match(new RegExp(`<(?:${tag})[^>]*>([^<]+)<`));
+      // Some publishers wrap the date in CDATA. lib/news.ts unwraps it, so this must too, or the
+      // check fails feeds the panel reads perfectly well.
+      const m = b.match(new RegExp(`<(?:${tag})[^>]*>\\s*(?:<!\\[CDATA\\[)?([^<\\]]+)`));
       return m ? new Date(m[1]) : null;
     })
     .filter((d) => d && !Number.isNaN(d.getTime()))

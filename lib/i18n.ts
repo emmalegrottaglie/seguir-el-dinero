@@ -502,6 +502,10 @@ const es = {
     tickLargeNote: "Entre todos aportaron {amount}",
     opinionKicker: "Las organizaciones hablan",
     opinionTitle: "Opinión y análisis",
+    housingKicker: "Vivienda",
+    housingTitle: "La vivienda, en las noticias",
+    housingNote:
+      "Lo último de medios de distinto signo, de las radiotelevisiones públicas y de las organizaciones de inquilinas y de afectados por la hipoteca, cada pieza con el nombre de quien la publica. Las organizaciones hablan en su propia voz; los medios, como cobertura.",
     opinionCta: "Directorio de organizaciones",
     bandTitle: "El pulso de los datos",
     bandNote: "Tres registros públicos, resumidos",
@@ -1474,6 +1478,10 @@ const en: Dict = {
     tickLargeNote: "Between them they gave {amount}",
     opinionKicker: "The organisations speak",
     opinionTitle: "Opinion and analysis",
+    housingKicker: "Housing",
+    housingTitle: "Housing, in the news",
+    housingNote:
+      "The latest from outlets across the spectrum, the public broadcasters, and tenants' and mortgage-holders' organisations, each item named with its publisher. The organisations speak in their own voice; the outlets are coverage.",
     opinionCta: "Directory of organisations",
     bandTitle: "The pulse of the data",
     bandNote: "Three public registers, summarised",
@@ -2444,6 +2452,10 @@ const ca: Dict = {
     tickLargeNote: "Entre tots van aportar {amount}",
     opinionKicker: "Les organitzacions parlen",
     opinionTitle: "Opinió i anàlisi",
+    housingKicker: "Habitatge",
+    housingTitle: "L’habitatge, a les notícies",
+    housingNote:
+      "El més recent de mitjans de diferent signe, de les ràdios i televisions públiques i de les organitzacions de llogateres i d’afectades per la hipoteca, cada peça amb el nom de qui la publica. Les organitzacions parlen amb la seva pròpia veu; els mitjans, com a cobertura.",
     opinionCta: "Directori d'organitzacions",
     bandTitle: "El pols de les dades",
     bandNote: "Tres registres públics, resumits",
