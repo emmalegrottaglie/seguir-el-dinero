@@ -301,6 +301,8 @@ interface DeclaredItem {
   title?: string | null;
   amount?: number | null;
   pending?: number | null;
+  /** Any amount on the row written other than in Spanish format, as it appears on the scan. */
+  written?: string | null;
   method: string;
   url: string;
 }
@@ -311,11 +313,25 @@ const declaracionesBienes = dataset<DeclaredItem>({
     const { declarations } = await getDeclarations();
     return declarations.flatMap((d) => {
       const base = { deputy: d.deputy, filed: d.filed, method: d.verified.method, url: d.url };
+      const noted = new Map(d.notes.map((n) => [n.path, n.written]));
+      const written = (...cells: [path: string, column: string][]) =>
+        cells
+          .filter(([path]) => noted.has(path))
+          .map(([path, column]) => `${column}: ${noted.get(path)}`)
+          .join("; ") || null;
       const text = (part: string, description: string | null) =>
         description ? [{ ...base, part, description }] : [];
       return [
-        ...d.income.map((l) => ({ ...base, part: `rentas_${l.group}`, description: l.concept, amount: l.amount })),
-        ...(d.irpf !== null ? [{ ...base, part: "irpf", description: null, amount: d.irpf }] : []),
+        ...d.income.map((l, i) => ({
+          ...base,
+          part: `rentas_${l.group}`,
+          description: l.concept,
+          amount: l.amount,
+          written: written([`income[${i}].amount`, "importe"]),
+        })),
+        ...(d.irpf !== null
+          ? [{ ...base, part: "irpf", description: null, amount: d.irpf, written: written(["irpf", "importe"]) }]
+          : []),
         ...d.realEstate.map((p) => ({
           ...base,
           part: `inmueble_${p.kind}`,
@@ -324,22 +340,30 @@ const declaracionesBienes = dataset<DeclaredItem>({
           date: p.acquired,
           title: p.title,
         })),
-        ...d.deposits.map((x) => ({ ...base, part: "deposito", description: x.description, amount: x.amount })),
-        ...d.otherAssets.map((a) => ({
+        ...d.deposits.map((x, i) => ({
+          ...base,
+          part: "deposito",
+          description: x.description,
+          amount: x.amount,
+          written: written([`deposits[${i}].amount`, "importe"]),
+        })),
+        ...d.otherAssets.map((a, i) => ({
           ...base,
           part: a.kind === "securities" ? "valores" : "otros_bienes",
           description: a.description,
           amount: a.amount,
+          written: written([`otherAssets[${i}].amount`, "importe"]),
         })),
         ...text("participadas_mas_5", d.holdingsOver5pct),
         ...d.vehicles.map((v) => ({ ...base, part: "vehiculo", description: v.description, date: v.acquired })),
-        ...d.loans.map((l) => ({
+        ...d.loans.map((l, i) => ({
           ...base,
           part: "prestamo",
           description: l.description,
           date: l.granted,
           amount: l.amount,
           pending: l.pending,
+          written: written([`loans[${i}].amount`, "importe"], [`loans[${i}].pending`, "saldo_pendiente"]),
         })),
         ...text("otras_deudas", d.otherDebts),
         ...text("observaciones", d.observations),
@@ -356,6 +380,7 @@ const declaracionesBienes = dataset<DeclaredItem>({
     { header: "derecho_y_titulo", value: (r) => r.title },
     { header: "importe", value: (r) => r.amount },
     { header: "saldo_pendiente", value: (r) => r.pending },
+    { header: "cifra_tal_como_figura", value: (r) => r.written },
     { header: "verificacion", value: (r) => r.method },
     { header: "fuente_url", value: (r) => r.url },
   ],

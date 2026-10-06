@@ -43,6 +43,16 @@ export default function Declarations({
   const money = (n: number | null) =>
     n === null ? "—" : Number.isInteger(n) ? euro(n, bcp47) : euroExact(n, bcp47);
   const totals = declaration ? declarationTotals(declaration) : null;
+  // An amount written other than in Spanish format is also shown as the scan has it.
+  const noted = new Map((declaration?.notes ?? []).map((n) => [n.path, n.written]));
+  const amount = (n: number | null, path: string) => (
+    <>
+      {money(n)}
+      {noted.has(path) && (
+        <span className="label-mono block text-[var(--red)]">{fill(t.writtenAs, { text: noted.get(path)! })}</span>
+      )}
+    </>
+  );
 
   const th = "py-2 pr-4 font-normal";
   const thNum = "whitespace-nowrap py-2 pr-4 text-right font-normal";
@@ -125,7 +135,7 @@ export default function Declarations({
                     <tr key={i} className="border-t border-[var(--line)]">
                       <th scope="row" className={`${cell} text-left font-normal`}>{l.concept}</th>
                       <td className={`${cell} text-[var(--ink-3)]`}>{t.groups[l.group]}</td>
-                      <td className={num}>{money(l.amount)}</td>
+                      <td className={num}>{amount(l.amount, `income[${i}].amount`)}</td>
                     </tr>
                   ))}
                   <tr className="border-t border-[var(--ink)]">
@@ -137,7 +147,7 @@ export default function Declarations({
             </div>
           )}
           <p className="mt-4 text-sm text-[var(--ink-2)]">
-            {t.irpf}: <span className="mono text-[var(--ink)]">{money(totals.irpf)}</span>
+            {t.irpf}: <span className="mono text-[var(--ink)]">{amount(totals.irpf, "irpf")}</span>
           </p>
 
           {/* Inmuebles */}
@@ -195,14 +205,14 @@ export default function Declarations({
                     <tr key={`d${i}`} className="border-t border-[var(--line)]">
                       <th scope="row" className={`${cell} text-left font-normal`}>{d.description}</th>
                       <td className={`${cell} text-[var(--ink-3)]`}>{t.deposits}</td>
-                      <td className={num}>{money(d.amount)}</td>
+                      <td className={num}>{amount(d.amount, `deposits[${i}].amount`)}</td>
                     </tr>
                   ))}
                   {declaration.otherAssets.map((a, i) => (
                     <tr key={`a${i}`} className="border-t border-[var(--line)]">
                       <th scope="row" className={`${cell} text-left font-normal`}>{a.description}</th>
                       <td className={`${cell} text-[var(--ink-3)]`}>{t.assetKinds[a.kind]}</td>
-                      <td className={num}>{money(a.amount)}</td>
+                      <td className={num}>{amount(a.amount, `otherAssets[${i}].amount`)}</td>
                     </tr>
                   ))}
                   <tr className="border-t border-[var(--ink)]">
@@ -257,8 +267,8 @@ export default function Declarations({
                       <tr key={i} className="border-t border-[var(--line)]">
                         <th scope="row" className={`${cell} text-left font-normal`}>{l.description}</th>
                         <td className={`${cell} mono`}>{l.granted ?? "—"}</td>
-                        <td className={num}>{money(l.amount)}</td>
-                        <td className={num}>{money(l.pending)}</td>
+                        <td className={num}>{amount(l.amount, `loans[${i}].amount`)}</td>
+                        <td className={num}>{amount(l.pending, `loans[${i}].pending`)}</td>
                       </tr>
                     ))}
                     <tr className="border-t border-[var(--ink)]">

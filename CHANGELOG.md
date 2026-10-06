@@ -9,7 +9,7 @@ figures name their source; corrections and gaps are recorded alongside the work,
 
 Every sitting deputy now has a profile, and each profile carries what the deputy declared to the
 Congreso de los Diputados: the *Declaración de Intereses Económicos* for all 350, and the
-*Declaración de Bienes y Rentas* for the 17 whose transcription has passed its check so far. The
+*Declaración de Bienes y Rentas* for the 18 whose transcription has passed its check so far. The
 declarations sit directly above the deputy's recorded votes, with a line saying the two are shown
 together so they can be looked up and that neither explains the other. There is no net-worth
 figure, no ranking by anything declared, and no tally of how the owners of anything voted.
@@ -53,14 +53,19 @@ filings, or when all four totals, IRPF included, equal an independent second rea
 else is left out, and the profile links the official PDF with a stated gap.
 `npm run check:declarations` re-runs both checks on every published entry.
 
-- **17 published**, all matching RTVE to the cent.
+- **18 published**, all matching RTVE to the cent.
 - **The pilot.** 24 declarations were read. Of the 21 that RTVE also covers, 17 matched on the first
-  reading. Four did not, and stay out until a second reading settles them: Santiago Abascal Conde
-  (income), Mertxe Aizpurua Arzallus (financial assets), Carlos Rojas García (debts) and Gabriel
-  Rufián Romero (debts). In Rufián's declaration one pending balance is written "71,000", which in
-  the form's Spanish number format is 71 euros; RTVE read it as 71,000 euros. Three deputies who took
-  their seats after RTVE's snapshot, Cristina López Zamora, Ainhoa Molina León and Irene Jódar Pérez,
-  can only be checked by a second reading and await one.
+  reading. Three did not, and stay out until a second reading settles them: Santiago Abascal Conde
+  (income), Mertxe Aizpurua Arzallus (financial assets) and Carlos Rojas García (debts). Three
+  deputies who took their seats after RTVE's snapshot, Cristina López Zamora, Ainhoa Molina León and
+  Irene Jódar Pérez, can only be checked by a second reading and await one.
+- **One cell, one new rule.** Gabriel Rufián Romero's declaration writes the pending balance of an
+  80.000 € loan as "71,000". The rules then read that in Spanish format, as 71 euros, where RTVE
+  read 71,000. Euro amounts never carry three decimals, so the rules now read a comma followed by
+  exactly three digits as a thousands separator, and an apostrophe as a decimal mark. With that, the
+  reading matches RTVE on every total and is published. The rule was written after this mismatch
+  exposed the case, so for that one cell the check is not independent: the figure was checked by
+  eye against the scan, and the page shows the cell as written beneath it.
 - **RTVE is a check, never a source.** Its figures are cached locally, never published and never
   committed. It has its own errors: it records a Toledo house of Agustín Conde Bajén as bought
   ("compraventa") where the scan says inherited ("Herencia"). The page credits RTVE with a link.
@@ -71,10 +76,11 @@ else is left out, and the profile links the official PDF with a stated gap.
   asks deputies not to give; the build replaces any plate in a vehicle row with "[matrícula omitida]"
   and prints each replacement, and the page says plates are left out. The deposits block asks for a
   single balance across all accounts, so a figure can sit beside one account with the others empty;
-  the page says that too. A reader's note on an ambiguous cell is kept with the entry and makes the
-  page ask readers to check the PDF; none of the 17 has one.
+  the page says that too. An amount written other than in Spanish format is shown beneath the
+  figure exactly as the scan has it, with a line asking readers to check the PDF, and the `/datos`
+  table carries it in a `cifra_tal_como_figura` column. Rufián's "71,000" is the one case so far.
 - **Cost.** Reading the scans cost two to three times the estimate per declaration, mostly because
-  readers zoomed into single cells. The remaining 325 filings, the seven second readings and the 71
+  readers zoomed into single cells. The remaining 325 filings, the six second readings and the 71
   deputies' later filings are planned in `NEXT-STEPS.md` as smaller batches, each its own change.
 
 The scans (`data/_declaraciones/`) and the raw readings (`data/_transcriptions/`) stay local and are
@@ -89,8 +95,9 @@ PDF and the check used on every row, and `intereses_economicos`, the open-data r
 Congreso-only, with "—" for pay and the gap stated, her votes and her declaration, on her profile, in
 `/politicos` and in search; Isabel Belén Iniesta Egido's votes; Óscar Puente Santiago's later
 filings listed; Cristina López Zamora's "not transcribed yet" with the PDF link; Laura Vergara
-Román's empty-interests gap; the plate left out; the IRPF caveat; both CSVs. No horizontal overflow
-at 375px, and no console errors.
+Román's empty-interests gap; Gabriel Rufián Romero's pending balance, 71.000 € with
+"escrito «71,000»" beneath it, and the same in the CSV; the plate left out; the IRPF caveat; both
+CSVs. No horizontal overflow at 375px, and no console errors.
 
 ---
 

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-06T01:27:42.984Z",
+  "generatedAt": "2026-10-06T14:23:17.592Z",
   "source": {
     "name": "Congreso de los Diputados — Declaraciones de Bienes y Rentas, XV Legislatura (transcripción propia)",
     "url": "https://www.congreso.es/es/busqueda-de-diputados"
@@ -8,7 +8,7 @@
     "name": "RTVE",
     "url": "https://www.rtve.es/noticias/2023/declaracion-bienes-diputados-congreso/"
   },
-  "count": 17,
+  "count": 18,
   "declarations": [
     {
       "deputy": "Abades Martínez, Cristina",
@@ -1275,6 +1275,69 @@
       "otherDebts": null,
       "observations": null,
       "notes": [],
+      "verified": {
+        "method": "rtve",
+        "checkedAt": "2026-10-06"
+      }
+    },
+    {
+      "deputy": "Rufián Romero, Gabriel",
+      "cod": 312,
+      "filed": "2023-08-16",
+      "url": "https://www.congreso.es/docbienes/leg15/000299/000299_000_e_0001249_20230816.pdf",
+      "reason": "toma",
+      "income": [
+        {
+          "group": "salary",
+          "concept": "SALARIO CONGRESO DE LOS DIPUTADOS",
+          "amount": 99148
+        }
+      ],
+      "irpf": 29450,
+      "realEstate": [
+        {
+          "kind": "urban",
+          "description": "VIVIENDA FAMILIAR",
+          "location": "PLENODOMINO",
+          "acquired": "2018",
+          "title": "PLENODOMINIO 50% COMPRAVENTA"
+        }
+      ],
+      "deposits": [
+        {
+          "description": "Cuenta Corriente Caixa d'Enginyers",
+          "amount": 22000
+        },
+        {
+          "description": "Cuenta Corriente Caixa d'Enginyers",
+          "amount": 0
+        }
+      ],
+      "otherAssets": [],
+      "holdingsOver5pct": null,
+      "vehicles": [],
+      "loans": [
+        {
+          "description": "Hipoteca Caixa d'Enginyers",
+          "granted": "07/09/2018",
+          "amount": 200000,
+          "pending": 171000
+        },
+        {
+          "description": "Préstamo Caixa d'Enginyers",
+          "granted": "02/01/2019",
+          "amount": 80000,
+          "pending": 71000
+        }
+      ],
+      "otherDebts": null,
+      "observations": null,
+      "notes": [
+        {
+          "path": "loans[1].pending",
+          "written": "71,000"
+        }
+      ],
       "verified": {
         "method": "rtve",
         "checkedAt": "2026-10-06"
@@ -2878,11 +2941,6 @@
       "deputy": "Rueda Perelló, Patricia",
       "cod": 293,
       "reason": "not-transcribed"
-    },
-    {
-      "deputy": "Rufián Romero, Gabriel",
-      "cod": 312,
-      "reason": "awaiting-second-reading"
     },
     {
       "deputy": "Ruiz Boix, Juan Carlos",

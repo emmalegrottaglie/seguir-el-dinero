@@ -202,7 +202,7 @@ sourced proceedings, with status and outcome stated, are the defensible form.
 transcribed and checked, so each profile shows what the deputy declared rather than only a link to
 the scan.
 
-**Where it stands (2026-10-06).** 17 of the 349 filings are published, all checked against RTVE.
+**Where it stands (2026-10-06).** 18 of the 349 filings are published, all checked against RTVE.
 The method, the checks and what they do not cover are in `AGENTS.md` ("The deputies' declarations
 are transcribed, and nothing is published unchecked"); the reader instructions are in
 `scripts/declaration-transcription.md`. Remaining:
@@ -210,9 +210,9 @@ are transcribed, and nothing is published unchecked"); the reader instructions a
 - 325 filings not yet read. `npm run build:declarations` lists them as `not-transcribed`, and
   `data/_declaraciones/<cod>.pdf` holds each scan (`npm run build:deputies` downloads them again if
   the cache is gone).
-- 7 awaiting a second reading:
-  - four whose first reading differed from RTVE: 317 (Abascal Conde, income), 300 (Aizpurua
-    Arzallus, financial assets), 12 (Rojas García, debts) and 312 (Rufián Romero, debts);
+- 6 awaiting a second reading:
+  - three whose first reading differed from RTVE: 317 (Abascal Conde, income), 300 (Aizpurua
+    Arzallus, financial assets) and 12 (Rojas García, debts);
   - three who took their seats after RTVE's August 2023 snapshot, so only a second reading can
     check them: 365 (López Zamora), 391 (Molina León) and 405 (Jódar Pérez).
 
@@ -229,14 +229,13 @@ zooming into single cells. Run the rest in small batches, each its own pull requ
 4. Record in the batch's CHANGELOG entry how many were published, by which check, and which were
    left out and why.
 
-**Decisions still open.**
+**Settled, and still open.**
 
-- **Cells written ambiguously.** Rufián's declaration writes one pending balance as "71,000". The
-  rules transcribe it as 71 euros with a note; RTVE read 71,000 euros. Two readings that both follow
-  the rules will agree on 71 and pass the second-reading check, yet the deputy may well have meant
-  71,000. Decide, before publishing it, whether a noted cell blocks publication or appears with the
-  flag the page already shows. A stated gap is the safer default.
-- **IRPF.** RTVE's listing has no IRPF figure, so an RTVE-checked declaration's IRPF rests on one
+- **Amounts not in Spanish format** (settled 2026-10-06). A comma followed by exactly three digits
+  is a thousands separator, since euro amounts never carry three decimals, and an apostrophe is a
+  decimal mark. Each such cell is noted and shown as written beneath its figure. A figure the rules
+  still do not settle is illegible, so its declaration waits.
+- **IRPF** (open). RTVE's listing has no IRPF figure, so an RTVE-checked declaration's IRPF rests on one
   reading. A second reading of the IRPF box alone, which is quick, would close that gap.
 
 **Later.**

@@ -225,9 +225,11 @@ The page's caveat says both.
 **What the build changes, and what it flags.** A published reading is never edited by hand. The
 build makes one change in code: a licence plate typed into a vehicle row becomes "[matrícula
 omitida]", since the form itself asks for none, and `build:declarations` prints every replacement so
-a false match is caught on review. A reader's `notes` on cells the rules do not settle (a "71,000",
-an apostrophe as the decimal mark) travel with the entry, and the page asks readers to check that
-declaration against the PDF. The deposits block asks for one balance across all accounts, so a
+a false match is caught on review. An amount written other than in Spanish format is read by a
+fixed rule (a comma followed by exactly three digits is a thousands separator, since euro amounts
+never carry three decimals; an apostrophe is a decimal mark) and recorded in `notes` with the cell
+exactly as written; the page shows that written form beneath the figure, and `/datos` carries it.
+The deposits block asks for one balance across all accounts, so a
 figure may sit beside one account line with null on the rest, and the page says so. A deputy with
 no rows in the interests file gets a stated gap rather than a missing section.
 

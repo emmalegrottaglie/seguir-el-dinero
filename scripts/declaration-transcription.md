@@ -107,6 +107,9 @@ The form is identical for every deputy.
   - Spanish format uses "." for thousands and "," for decimals: "62.000,96" is 62000.96, "20.000"
     is 20000, "177.963" is 177963, "853,17" is 853.17, and "1.234.567" is 1234567.
   - Drop "€" or "euros".
+  - Euro amounts never carry more than two decimals, so a comma followed by exactly three digits
+    is a thousands separator, not a decimal mark: "71,000" is 71000, and "1,234,567" is 1234567.
+  - An apostrophe is a decimal mark: "52.964'81" is 52964.81.
   - Read every digit carefully: a misplaced separator changes a value a thousandfold.
 - **Empty amounts.** An empty amount cell is null. A written "0" is 0.
 - **Rows and blocks.**
@@ -118,14 +121,14 @@ The form is identical for every deputy.
   - If a cell is genuinely illegible, write null and add its path (for example `loans[0].pending`)
     to `illegible`.
   - Never guess a digit.
-- **Unusual cells.** Some cells are written in a way the rules above do not settle: a comma where a
-  thousands separator seems meant ("71,000"), an apostrophe as the decimal mark ("52.964'81"), or
-  one figure printed level with one of several rows.
-  - Transcribe the cell by the rules anyway: "71,000" is 71.
-  - Add a note to `notes` in the form `<path>: written «…»; transcribed as …`, for example
-    `loans[1].pending: written «71,000»; transcribed as 71`.
-  - Notes are kept with the published declaration, and its page tells readers to check the
-    official PDF, so write them plainly.
+- **Note every amount not written in Spanish format**, such as a comma used for thousands or an
+  apostrophe used for decimals. Transcribe it by the rules above, and add a note to `notes` that
+  copies the cell exactly as written: `{ "path": "loans[1].pending", "written": "71,000" }`.
+  - `path` names the amount, counting rows from 0: `irpf`, `income[i].amount`,
+    `deposits[i].amount`, `otherAssets[i].amount`, `loans[i].amount` or `loans[i].pending`.
+  - The page shows the written form beneath the figure, so copy it character for character.
+  - If the rules above do not settle what a figure is, it is illegible: write null and list its
+    path in `illegible`.
 - **SALDO is one total.** The deposits block asks for a single balance covering every account
   (footnote 11 on the form). When several account lines share one figure, give the figure to the
   line it is printed beside and null to the others, without a note.

@@ -90,8 +90,11 @@ export interface AssetDeclaration {
   loans: Loan[];
   otherDebts: string | null;
   observations: string | null;
-  /** The reader's notes on cells written in a way the transcription rules do not settle. */
-  notes: string[];
+  /**
+   * Amounts written other than in the form's Spanish format (a comma for thousands, an apostrophe
+   * for decimals), as they appear on the scan. `path` names the amount, e.g. "loans[1].pending".
+   */
+  notes: { path: string; written: string }[];
   verified: Verification;
 }
 

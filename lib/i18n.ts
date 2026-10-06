@@ -121,7 +121,8 @@ const es = {
     depositsNote:
       "El formulario pide un único saldo para el conjunto de las cuentas, así que puede aparecer junto a sólo una de ellas.",
     notesFlag:
-      "Alguna cifra de esta declaración está escrita de forma poco habitual y se ha transcrito según las reglas del formulario: conviene comprobarla en el PDF oficial.",
+      "Alguna cifra de esta declaración no está escrita en el formato numérico español: debajo de ella figura tal como aparece en el escaneo, y conviene comprobarla en el PDF oficial.",
+    writtenAs: "escrito «{text}»",
     noInterests: "El fichero de datos abiertos del Congreso no recoge ninguna fila con este nombre.",
     assetKinds: { securities: "Valores y participaciones", other: "Otros bienes y derechos" },
     holdings: "Sociedades participadas en más de un 5 %",
@@ -1092,7 +1093,8 @@ const en: Dict = {
     depositsNote:
       "The form asks for a single balance covering all accounts, so it may appear beside only one of them.",
     notesFlag:
-      "Some figure in this declaration is written in an unusual way and was transcribed by the form's rules: worth checking against the official PDF.",
+      "Some figures in this declaration are not written in Spanish number format: each is shown beneath as it appears in the scan, and is worth checking against the official PDF.",
+    writtenAs: "written “{text}”",
     noInterests: "Congreso's open-data file has no rows under this name.",
     assetKinds: { securities: "Securities and holdings", other: "Other goods and rights" },
     holdings: "Companies more than 5 % owned",
@@ -2061,7 +2063,8 @@ const ca: Dict = {
     depositsNote:
       "El formulari demana un únic saldo per al conjunt dels comptes, així que pot aparèixer al costat només d’un d’ells.",
     notesFlag:
-      "Alguna xifra d’aquesta declaració està escrita d’una manera poc habitual i s’ha transcrit segons les regles del formulari: convé comprovar-la al PDF oficial.",
+      "Alguna xifra d’aquesta declaració no està escrita en el format numèric espanyol: a sota hi figura tal com apareix a l’escaneig, i convé comprovar-la al PDF oficial.",
+    writtenAs: "escrit «{text}»",
     noInterests: "El fitxer de dades obertes del Congrés no recull cap fila amb aquest nom.",
     assetKinds: { securities: "Valors i participacions", other: "Altres béns i drets" },
     holdings: "Societats participades en més d’un 5 %",

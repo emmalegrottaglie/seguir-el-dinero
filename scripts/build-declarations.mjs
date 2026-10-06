@@ -114,8 +114,20 @@ function invalid(t) {
   need(isAmount(t.irpf), "irpf");
   for (const k of ["holdingsOver5pct", "otherDebts", "observations"]) need(isText(t[k]), k);
   need(REASONS.has(t.reason ?? null), "reason");
-  need(t.notes === undefined || (Array.isArray(t.notes) && t.notes.every((n) => typeof n === "string")), "notes");
+  need(t.notes === undefined || Array.isArray(t.notes), "notes");
+  (t.notes ?? []).forEach((n, i) =>
+    need(typeof n?.written === "string" && amountAt(t, n?.path) !== undefined, `notes[${i}]`),
+  );
   return errors;
+}
+
+/** The amount a note's path names ("irpf", "income[0].amount", "loans[1].pending"…), or undefined. */
+function amountAt(t, path) {
+  const m = /^(?:irpf|(income|deposits|otherAssets)\[(\d+)\]\.amount|loans\[(\d+)\]\.(amount|pending))$/.exec(path ?? "");
+  if (!m) return undefined;
+  if (path === "irpf") return t.irpf;
+  const row = m[1] ? t[m[1]][Number(m[2])] : t.loans[Number(m[3])];
+  return row ? row[m[4] ?? "amount"] : undefined;
 }
 
 // The form asks for no licence plate (footnote 13), and a few deputies typed one anyway. A plate
